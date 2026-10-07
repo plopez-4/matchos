@@ -122,7 +122,13 @@ npm.cmd run dev
 
 Open the address Vite prints, normally [MatchOS](http://127.0.0.1:5173). If that port is occupied it may choose another. Keep this terminal running too.
 
-### 3. Simulator terminal
+### 3. Play from the website
+
+Use **Start replay**, **Pause / Resume**, **Speed** (0.5ז4�), and **Reset** in the match page. Normal speed sends one highlight every three seconds. Keep the page open while playback runs. Reset opens a new match at 0�0 and clears its Catch Me Up cursor and evidence selection; earlier matches remain available at their own URLs. Opening an existing match offers **Start new replay**.
+
+The browser requests the same versioned synthetic fixture used by the CLI and submits events through the normal validated ingestion API. Playback stops when the page closes or reloads. A request already sent at pause may still be accepted; retrying that event is safe. The displayed match data follows polling and can lag the replay progress briefly.
+
+### Optional simulator terminal
 
 Open a third terminal in the repository root:
 
@@ -170,7 +176,7 @@ npm test
 npm run build
 ```
 
-Latest local validation: **18 backend tests, 12 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
+Latest local validation: **20 backend tests, 16 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
 
 ## What we're working on next
 

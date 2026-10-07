@@ -10,13 +10,28 @@ import { ShotComparison } from './components/ShotComparison';
 import { StoryCard } from './components/StoryCard';
 import { EventTimeline } from './components/EventTimeline';
 import { EvidenceGraph } from './components/EvidenceGraph';
-import { SimulatorGuide } from './components/SimulatorGuide';
+import { ReplayControls } from './components/ReplayControls';
 
 export function App() {
-  const [matchId] = useState(() => {
+  const [matchId, setMatchId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('match');
     return requested && /^[a-zA-Z0-9_-]{1,80}$/.test(requested) ? requested : 'demo-match';
   });
+  const [autoStart, setAutoStart] = useState(false);
+  const newMatch = (play) => {
+    const id = `replay-${crypto.randomUUID()}`;
+    const url = new URL(window.location.href);
+    url.searchParams.set('match', id);
+    window.history.replaceState(null, '', url);
+    setAutoStart(play);
+    setMatchId(id);
+  };
+  return (
+    <MatchDashboard key={matchId} matchId={matchId} autoStart={autoStart} onNewMatch={newMatch} />
+  );
+}
+
+function MatchDashboard({ matchId, autoStart, onNewMatch }) {
   const [{ summary, busy, error: catchUpError }, dispatch] = useReducer(
     catchUpReducer,
     initialCatchUpState,
@@ -110,7 +125,13 @@ export function App() {
         <div className="main-column">
           <Scoreboard analytics={data.analytics} events={data.events} />
 
-          {!hasEvents && status !== 'loading' && <SimulatorGuide matchId={matchId} />}
+          <ReplayControls
+            matchId={matchId}
+            hasEvents={hasEvents}
+            loading={status === 'loading'}
+            autoStart={autoStart}
+            onNewMatch={onNewMatch}
+          />
 
           <CatchUpPanel
             summary={summary}

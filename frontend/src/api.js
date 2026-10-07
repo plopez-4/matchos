@@ -23,6 +23,19 @@ export async function fetchHealth() {
   return request('/health');
 }
 
+export function fetchReplayScenario(matchId, options = {}) {
+  return request(`/replay/scenario?match_id=${encodeURIComponent(matchId)}`, options);
+}
+
+export function ingestReplayEvent(event, options = {}) {
+  return request('/events', {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(event),
+  });
+}
+
 export async function fetchMatchData(matchId = 'demo-match', options = {}) {
   const [events, stories, analytics] = await Promise.all([
     request(`/matches/${matchId}/events`, options),

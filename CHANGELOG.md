@@ -6,6 +6,8 @@ Published for review on `feature/match-page-polish`; not a tagged release on `ma
 
 ### Added
 
+- Website replay controls: start, pause/resume, 0.5ז4� speed, progress and fresh-session reset. Browser and CLI share the same scenario; normal event validation remains in force.
+
 - Pinned Prettier formatter, shared repository style configuration, formatting commands and an automated CI formatting check.
 
 - Modular responsive match dashboard, recorded-stat strip, timeline filters and evidence inspection.
