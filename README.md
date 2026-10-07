@@ -48,7 +48,7 @@ This comparison describes recorded shooting activity. It does not establish poss
 | --- | --- |
 | `main` / `develop` | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up. |
 | [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1) | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
-| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [Draft PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Local tests pass; live Azure verification is pending. |
+| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [Draft PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Local tests pass; live Azure calls verified for casual and advanced summaries. |
 
 The AI adapter is off by default. It uses a Microsoft Foundry Azure OpenAI-compatible model endpoint. The model selects supported story IDs; trusted text is rendered by the app. Free-form AI narration and hosted Foundry Agent Service deployment are future work.
 
@@ -148,7 +148,7 @@ cd frontend
 npm run build
 ```
 
-The evidence-story feature has seven backend checks. The draft AI feature has fifteen, including tool-flow and failure tests. Mock tests do not require Azure credentials.
+The evidence-story feature has seven backend checks. The draft AI feature has eighteen, including tool-flow and failure tests. Mock tests do not require Azure credentials.
 
 ## What we're working on next
 

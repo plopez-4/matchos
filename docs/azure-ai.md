@@ -1,13 +1,13 @@
 # Azure-backed grounded story selection
 
-Status: adapter and mocked integration tests implemented; live Azure call not yet verified. AI is off by default. This uses Microsoft Foundry's Azure OpenAI-compatible model endpoint, not the hosted Foundry Agent Service.
+Status: adapter and mocked integration tests implemented; live Azure calls verified for casual and advanced summaries. AI is off by default. This uses Microsoft Foundry's Azure OpenAI-compatible model endpoint, not the hosted Foundry Agent Service.
 
 ## Behavior
 1. Deterministic analytics/graph produces trusted story candidates for the catch-up window.
 2. A configured model is instructed to call get_match_evidence; the app returns up to eight verified candidates with evidence IDs.
-3. The model calls select_stories to order relevant candidate IDs for the audience. All candidate goals must remain included.
+3. The model calls select_stories to order relevant candidate IDs for the audience. All candidate goals must remain included; the strongest verified shooting-activity change is added if the model omits it.
 4. The app rejects unknown/duplicate IDs, missing goals, malformed calls and unexpected arguments.
-5. Trusted story text is rendered in the selected order. AI does not generate free-form factual prose, so it cannot add unsupported claims to the displayed explanation.
+5. Trusted facts are rendered into What happened and What changed sections, with simpler casual wording and detailed advanced counts. AI does not generate free-form factual prose, so it cannot add unsupported claims to the displayed explanation.
 
 This is a bounded tool-using agent flow, not multiple autonomous agents. Casual/advanced preferences influence selection/order; count wording remains deterministic. Model-generated phrasing is a future feature requiring stronger claim verification. Evidence validity currently follows the deterministic story generator and is not an independent LLM fact-checker.
 
@@ -28,9 +28,9 @@ The .env.example is a reference template; no file is automatically loaded. API k
 
 Replay the scenario and click Catch Me Up. On successful tool calls, the UI says stories were selected by Azure AI and shows an execution trace. If configuration/provider/output validation fails, it displays the rule-based summary. A fallback proves the app is available, not that live AI is working. Check explanation.mode in the API response; it must be azure to claim a successful integration.
 
-Turn AI off with `$env:MATCHOS_AI_MODE = 'off'` and restart the backend. No model requests occur for an empty story window. Nonempty windows use two requests, each with an eight-second HTTP client timeout; connection and read timeouts are per operation. This is not a hard end-to-end deadline. Redirects are disabled, and keys are sent only to an HTTPS *.openai.azure.com /openai/v1 endpoint.
+Turn AI off with `$env:MATCHOS_AI_MODE = 'off'` and restart the backend. No model requests occur for an empty story window. Nonempty windows use two requests, each with an eight-second HTTP client timeout; connection and read timeouts are per operation. This is not a hard end-to-end deadline. Redirects are disabled, and keys are sent only to an HTTPS *.openai.azure.com or *.services.ai.azure.com /openai/v1 endpoint. The project-management URL ending in /api/projects/{name} is not the model API base URL used by this adapter.
 
 ## Verification and limits
-Mock tests cover the complete tool flow, unsupported/missing/duplicate selection, timeout, configuration rejection and disabled/empty behavior. They incur no Azure usage. Live testing requires user configuration and is outstanding. The current synchronous handler occupies a worker thread during model calls; deployed service needs concurrency limits, budgeting, tracing and authenticated access before public exposure. This adapter is not deployment-ready.
+Mock tests cover the complete tool flow, unsupported/missing/duplicate selection, timeout, configuration rejection and disabled/empty behavior. They incur no Azure usage. Live testing with the configured deployment succeeded for both audiences, returning azure mode and both What happened / What changed sections. The current synchronous handler occupies a worker thread during model calls; deployed service needs concurrency limits, budgeting, tracing and authenticated access before public exposure. This adapter is not deployment-ready.
 
 Official reference: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/function-calling
