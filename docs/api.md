@@ -21,3 +21,5 @@ Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports cas
 Invalid input: 422. Changed duplicate ID, reused sequence or late new event: 409. Identical duplicate returns accepted false even after newer events arrive. Unknown matches return empty data/zero counts. No updates/deletes.
 
 Graph is computed from current events on reads, with no durable history or causal edges. The current shot pattern compares only the latest completed intervals; previous pattern snapshots are not persisted. Planned: pagination, stream transport, durable graph history, ingestion cursor for late arrivals and persisted viewer preferences. Agree contracts across owners before implementation.
+
+Catch-up responses also include explanation: mode (azure/deterministic), selected_story_ids, text, prompt_version, latency_ms, trace and fallback_reason. Azure mode selects valid candidate IDs through two tool calls, then renders trusted story text. It does not generate free-form factual prose. Candidate context evidence may be a superset of selected evidence. See azure-ai.md for setup and the outstanding live test.
