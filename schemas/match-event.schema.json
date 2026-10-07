@@ -1,0 +1,99 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "event_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "match_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Match Id",
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 1,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "period": {
+      "default": 1,
+      "enum": [
+        1,
+        2
+      ],
+      "title": "Period",
+      "type": "integer"
+    },
+    "match_second": {
+      "maximum": 9000,
+      "minimum": 0,
+      "title": "Match Second",
+      "type": "integer"
+    },
+    "team_id": {
+      "enum": [
+        "home",
+        "away"
+      ],
+      "title": "Team Id",
+      "type": "string"
+    },
+    "player_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Player Id",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "pass",
+        "shot",
+        "goal",
+        "recovery"
+      ],
+      "title": "Type",
+      "type": "string"
+    },
+    "x": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "X",
+      "type": "number"
+    },
+    "y": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Y",
+      "type": "number"
+    },
+    "source": {
+      "const": "synthetic",
+      "default": "synthetic",
+      "title": "Source",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "match_id",
+    "sequence",
+    "match_second",
+    "team_id",
+    "player_id",
+    "type",
+    "x",
+    "y"
+  ],
+  "title": "MatchEvent",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

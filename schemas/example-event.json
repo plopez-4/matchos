@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "event_id": "sim-7-1",
+  "match_id": "demo-match",
+  "sequence": 1,
+  "period": 1,
+  "match_second": 15,
+  "team_id": "home",
+  "player_id": "player-3",
+  "type": "pass",
+  "x": 34.5,
+  "y": 61.2,
+  "source": "synthetic"
+}

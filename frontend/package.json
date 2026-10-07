@@ -1,0 +1,9 @@
+{
+  "name": "matchos-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {"dev": "vite --configLoader native --host 127.0.0.1", "build": "vite build --configLoader native", "preview": "vite preview --configLoader native"},
+  "dependencies": {"react": "^19.2.0", "react-dom": "^19.2.0"},
+  "devDependencies": {"vite": "^7.1.0"}
+}

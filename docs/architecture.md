@@ -1,0 +1,20 @@
+# Architecture
+
+## Flow
+Synthetic simulator → FastAPI validation → event repository → deterministic analytics → story graph → evidence verifier/explanation service → React.
+
+Today: in-memory repository, count analytics, goal story nodes, deterministic Catch Me Up and two-second frontend polling. These are replaceable foundations, not a complete tactical engine.
+
+## Target responsibilities
+- Ingestion: version/source validation, event ID deduplication and sequence conflicts. Ordered append is currently required; reject new events below the match cursor.
+- Repository: PostgreSQL with unique (match_id,event_id) and (match_id,sequence), migrations and durable graph storage. Add a repository interface before persistence.
+- Analytics: pure functions over ordered events, explicit windows/units/sample thresholds and versioned rules. Possession requires control/time data; progressive passes require end coordinates and attack direction. Current schema cannot support those metrics.
+- Match Story Graph: typed event, metric-window and story nodes; supports and preceded-by edges. Store evidence IDs and rule versions. Temporal association is not causation.
+- AI: supplied facts → evidence verification → audience-aware phrasing → structured output validation. Reject unknown IDs/unsupported claims and fall back to deterministic text on failure. Store model/prompt version and latency.
+- Viewer: per-match cursor and preferences; starter cursor lives only in React memory and resets on reload.
+
+## Event semantics
+sequence is unique ordering within a match, not an arrival timestamp. match_second is elapsed match clock including stoppage; period distinguishes halves. x/y are 0..100 stadium coordinates, without attack direction. Goals are separate events; shot counts count only shot events. If future provider feeds allow late arrivals, replace sequence catch-up with an ingestion cursor before accepting them.
+
+## Deployment limits
+Data resets on restart. Use one process/worker; no shared storage, auth, pagination, rate limits or public deployment hardening yet. Keep provider/AI credentials on the server. Production adds durable storage, authenticated ingestion and bounded queries before exposure.
