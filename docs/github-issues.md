@@ -45,10 +45,10 @@ Acceptance: repeat summary contains only new events; empty/error/loading states;
 Owner: Teammate 3; reviewer Lead. Labels: intelligence. Depends: 5, 6.
 - Provider-independent interface, structured output, fact/ID verification.
 - Server-side keys, prompt/model versions and latency; deterministic fallback.
-Acceptance: fabricated evidence/unsupported claims rejected; timeout yields useful fallback. Optional for M1.
+Acceptance: fabricated evidence/unsupported claims rejected; timeout yields useful fallback. Required for the AI-powered submission; deterministic text remains a fallback.
 
 ## 8. Rehearse and release v0.1.0
 Owner: All; coordinator Lead. Labels: integration, priority:p0. Depends: 2–6.
 - Clean setup, CI, repeated replay, evidence inspection and responsive UI.
-- Capture three-minute demo; reviewed develop → main PR and release tag.
+- Capture a functioning demo under two minutes; reviewed develop → main PR and release tag.
 Acceptance: milestone gate satisfied and all owners sign off.
