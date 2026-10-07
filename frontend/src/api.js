@@ -23,8 +23,19 @@ export async function fetchHealth() {
   return request('/health');
 }
 
-export function fetchReplayScenario(matchId, options = {}) {
-  return request(`/replay/scenario?match_id=${encodeURIComponent(matchId)}`, options);
+export function fetchReplayScenarios(options = {}) {
+  return request('/replay/scenarios', options);
+}
+
+export function fetchReplayScenario(matchId, scenarioId = 'legacy-default', options = {}) {
+  let scId = scenarioId;
+  let opt = options;
+  if (typeof scenarioId === 'object' && scenarioId !== null) {
+    opt = scenarioId;
+    scId = 'legacy-default';
+  }
+  const query = `match_id=${encodeURIComponent(matchId)}&scenario_id=${encodeURIComponent(scId)}`;
+  return request(`/replay/scenario?${query}`, opt);
 }
 
 export function ingestReplayEvent(event, options = {}) {

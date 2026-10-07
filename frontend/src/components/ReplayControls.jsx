@@ -1,8 +1,47 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { fetchReplayScenario, ingestReplayEvent } from '../api';
+import { fetchReplayScenario, fetchReplayScenarios, ingestReplayEvent } from '../api';
 import { playReplay } from '../utils/replay';
 
-export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMatch }) {
+const DEFAULT_CATALOG = [
+  {
+    id: 'pressure-builds',
+    name: 'Pressure Builds',
+    description:
+      'Repeated attacking sequences, progressive passing, and high defensive recoveries culminating in a breakthrough.',
+    event_count: 33,
+  },
+  {
+    id: 'comeback',
+    name: 'The Comeback',
+    description:
+      'An early opening goal followed by sustained second-phase attacking momentum and an equalizer.',
+    event_count: 34,
+  },
+  {
+    id: 'quiet-match',
+    name: 'Quiet Match',
+    description:
+      'Disciplined midfield circulation and defensive restraint with limited attacking openings.',
+    event_count: 30,
+  },
+  {
+    id: 'legacy-default',
+    name: 'Legacy Fixture',
+    description: 'Fictional ten-minute highlight reel with balanced phases and a decisive finish.',
+    event_count: 30,
+  },
+];
+
+export function ReplayControls({
+  matchId,
+  scenarioId = 'pressure-builds',
+  hasEvents,
+  loading,
+  autoStart,
+  onNewMatch,
+  onScenarioChange,
+}) {
+  const [catalog, setCatalog] = useState(DEFAULT_CATALOG);
   const [events, setEvents] = useState(null);
   const [running, setRunning] = useState(autoStart);
   const [speed, setSpeed] = useState(1);
@@ -13,7 +52,19 @@ export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMa
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchReplayScenario(matchId, { signal: controller.signal })
+    fetchReplayScenarios({ signal: controller.signal })
+      .then((data) => {
+        if (!controller.signal.aborted && Array.isArray(data) && data.length > 0) {
+          setCatalog(data);
+        }
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchReplayScenario(matchId, scenarioId, { signal: controller.signal })
       .then((result) => {
         if (!controller.signal.aborted) setEvents(result);
       })
@@ -24,7 +75,7 @@ export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMa
         }
       });
     return () => controller.abort();
-  }, [matchId, attempt]);
+  }, [matchId, scenarioId, attempt]);
 
   useEffect(() => {
     if (!running || !events) return;
@@ -52,13 +103,29 @@ export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMa
     return () => controller.abort();
   }, [running, events, speed]);
 
+  const currentScenario =
+    catalog.find((item) => item.id === scenarioId) || catalog[0] || DEFAULT_CATALOG[0];
+  const maxEvents = events?.length || currentScenario.event_count || 30;
   const finished = events && progress === events.length;
+
   const start = () => {
-    if ((hasEvents && progress === 0) || finished) return onNewMatch(true);
+    if ((hasEvents && progress === 0) || finished) return onNewMatch(true, scenarioId);
     setError('');
     if (!events) setAttempt((value) => value + 1);
     setRunning(true);
   };
+
+  const handleSelectScenario = (e) => {
+    const newId = e.target.value;
+    if (newId === scenarioId) return;
+    setRunning(false);
+    if (onScenarioChange) {
+      onScenarioChange(newId);
+    } else {
+      onNewMatch(false, newId);
+    }
+  };
+
   const state = finished ? 'Finished' : running ? 'Playing' : progress ? 'Paused' : 'Ready';
 
   return (
@@ -66,13 +133,30 @@ export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMa
       <div className="card-header">
         <div className="header-text-group">
           <h2 className="card-title">Play the match</h2>
-          <p className="card-subtitle">
-            A fictional ten-minute highlight reel. You control the pace.
+          <p className="card-subtitle scenario-description">
+            {currentScenario.description ||
+              'A fictional ten-minute highlight reel. You control the pace.'}
           </p>
         </div>
         <span className="feature-pill">{state}</span>
       </div>
       <div className="replay-actions">
+        <label className="replay-scenario-picker" htmlFor="replay-scenario-select">
+          <span className="picker-label">Scenario</span>
+          <select
+            id="replay-scenario-select"
+            value={scenarioId}
+            onChange={handleSelectScenario}
+            disabled={running}
+            aria-label="Select match scenario"
+          >
+            {catalog.map((sc) => (
+              <option key={sc.id} value={sc.id}>
+                {sc.name} ({sc.event_count} events)
+              </option>
+            ))}
+          </select>
+        </label>
         <button
           type="button"
           className="btn-primary"
@@ -87,12 +171,20 @@ export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMa
                 ? 'Resume'
                 : 'Start replay'}
         </button>
-        <button type="button" className="replay-reset" onClick={() => onNewMatch(false)}>
+        <button
+          type="button"
+          className="replay-reset"
+          onClick={() => onNewMatch(false, scenarioId)}
+        >
           Reset
         </button>
         <label className="replay-speed">
           Speed
-          <select value={speed} onChange={(event) => setSpeed(Number(event.target.value))}>
+          <select
+            value={speed}
+            onChange={(event) => setSpeed(Number(event.target.value))}
+            aria-label="Replay speed"
+          >
             <option value={0.5}>0.5× · Slow</option>
             <option value={1}>1× · Normal</option>
             <option value={2}>2× · Fast</option>
@@ -101,9 +193,9 @@ export function ReplayControls({ matchId, hasEvents, loading, autoStart, onNewMa
         </label>
       </div>
       <div className="replay-progress">
-        <progress value={progress} max={events?.length || 30} aria-label="Replay progress" />
+        <progress value={progress} max={maxEvents} aria-label="Replay progress" />
         <span>
-          {progress} / {events?.length || 30} highlights
+          {progress} / {maxEvents} highlights
         </span>
       </div>
       <p className="card-subtitle">

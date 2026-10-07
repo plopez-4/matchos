@@ -12,26 +12,49 @@ import { EventTimeline } from './components/EventTimeline';
 import { EvidenceGraph } from './components/EvidenceGraph';
 import { ReplayControls } from './components/ReplayControls';
 
+const VALID_SCENARIOS = ['pressure-builds', 'comeback', 'quiet-match', 'legacy-default'];
+const DEFAULT_SCENARIO = 'pressure-builds';
+
 export function App() {
   const [matchId, setMatchId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('match');
     return requested && /^[a-zA-Z0-9_-]{1,80}$/.test(requested) ? requested : 'demo-match';
   });
+  const [scenarioId, setScenarioId] = useState(() => {
+    const requested = new URLSearchParams(window.location.search).get('scenario');
+    return requested && VALID_SCENARIOS.includes(requested) ? requested : DEFAULT_SCENARIO;
+  });
   const [autoStart, setAutoStart] = useState(false);
-  const newMatch = (play) => {
+
+  const newMatch = (play, targetScenario = scenarioId) => {
     const id = `replay-${crypto.randomUUID()}`;
     const url = new URL(window.location.href);
     url.searchParams.set('match', id);
+    url.searchParams.set('scenario', targetScenario);
     window.history.replaceState(null, '', url);
     setAutoStart(play);
+    setScenarioId(targetScenario);
     setMatchId(id);
   };
+
+  const handleScenarioChange = (newScenario) => {
+    const target = VALID_SCENARIOS.includes(newScenario) ? newScenario : DEFAULT_SCENARIO;
+    newMatch(false, target);
+  };
+
   return (
-    <MatchDashboard key={matchId} matchId={matchId} autoStart={autoStart} onNewMatch={newMatch} />
+    <MatchDashboard
+      key={`${matchId}:${scenarioId}`}
+      matchId={matchId}
+      scenarioId={scenarioId}
+      autoStart={autoStart}
+      onNewMatch={newMatch}
+      onScenarioChange={handleScenarioChange}
+    />
   );
 }
 
-function MatchDashboard({ matchId, autoStart, onNewMatch }) {
+function MatchDashboard({ matchId, scenarioId, autoStart, onNewMatch, onScenarioChange }) {
   const [{ summary, busy, error: catchUpError }, dispatch] = useReducer(
     catchUpReducer,
     initialCatchUpState,
@@ -127,10 +150,12 @@ function MatchDashboard({ matchId, autoStart, onNewMatch }) {
 
           <ReplayControls
             matchId={matchId}
+            scenarioId={scenarioId}
             hasEvents={hasEvents}
             loading={status === 'loading'}
             autoStart={autoStart}
             onNewMatch={onNewMatch}
+            onScenarioChange={onScenarioChange}
           />
 
           <CatchUpPanel

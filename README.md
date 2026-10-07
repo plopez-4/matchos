@@ -35,32 +35,40 @@ MatchOS brings those answers together:
 
 Our first audience is football fans. The longer-term goal is to make the same intelligence useful to broadcasters, studios and streaming experiences.
 
-## See the first match story
+## See the match stories
 
-The current feature replays a fictional ten-minute highlights scenario: a quiet opening, increased Home shooting activity, a goal, and an Away response.
+MatchOS includes a catalog of selectable synthetic scenarios to demonstrate distinct match flows:
 
-At the end, MatchOS can explain:
+- **Pressure Builds (`pressure-builds`)**: Sustained Home attacking pressure with high defensive recoveries, progressive passes, mounting shots, and a late breakthrough (Home 1–0, 33 events).
+- **Comeback (`comeback`)**: An early Home goal followed by Away resilience, rapid transitions from high recoveries into shots, and a late equalizer (1–1, 34 events).
+- **Quiet Match (`quiet-match`)**: A tense midfield tactical battle with careful passing and restrained shooting; demonstrates that Catch Me Up exercises restraint and does not hallucinate false patterns (0–0, 30 events).
+- **Legacy Default (`legacy-default`)**: The original 10-minute highlights scenario preserved for backward compatibility (Home 1–0, 30 events).
+
+At the end of a scenario, MatchOS can explain:
 
 > Home recorded 4 shots in minutes 5–10, compared with 1 in the previous five minutes.
+> Home won 3 recoveries in the attacking third in minutes 5–10.
+> Away completed a rapid transition: shot recorded 17 seconds after winning possession.
 
-Open **Inspect supporting events** to see the shots behind that statement. Then select **Catch Me Up**:
+Open **Inspect supporting events** to examine the exact event sequence behind any statement. Then select **Catch Me Up**:
 
-> Recorded events since your last check: 30. Goals: 1. Home scored at 9:31. Home recorded 4 shots in minutes 5–10, compared with 1 in the previous five minutes.
+> Recorded events since your last check: 33. Goals: 1. Home scored at 9:31. Home recorded 4 shots in minutes 5–10, compared with 1 in the previous five minutes. Home won 3 recoveries in the attacking third in minutes 5–10.
 
 Request it again without new events and the summary reports zero new events. The viewer cursor advances only after a successful response.
 
-This comparison describes recorded shooting activity. It does not establish possession, tactical pressure or why the goal happened.
+All comparisons describe recorded event facts according to deterministic, versioned rules. They do not claim tactical omniscience or subjective intent.
 
 ## Development status
 
 **This is an actively developed hackathon prototype.** Features are being reviewed in pull requests before integration.
 
-| Location                                                                                                                                                              | What's available                                                                                                                                                          |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` / `develop`                                                                                                                                                    | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up.                                                                            |
-| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1)   | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
-| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Live Azure calls verified for casual and advanced summaries. |
-| [`feature/match-page-polish`](https://github.com/plopez-4/matchos/tree/feature/match-page-polish)                                                                     | Latest broadcast dashboard, kit colors, goal takeovers, fresh replay sessions, evidence navigation and request-state fixes. Stacked on the Azure branch for review.       |
+| Location                                                                                                                                                              | What's available                                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` / `develop`                                                                                                                                                    | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up.                                                                                                 |
+| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1)   | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed.                      |
+| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Live Azure calls verified for casual and advanced summaries.                      |
+| [`feature/match-page-polish`](https://github.com/plopez-4/matchos/tree/feature/match-page-polish) · [PR #3](https://github.com/plopez-4/matchos/pull/3)               | Latest broadcast dashboard, kit colors, goal takeovers, fresh replay sessions, evidence navigation and request-state fixes.                                                                    |
+| `feature/richer-scenarios-and-stories`                                                                                                                                | Selectable scenarios (`pressure-builds`, `comeback`, `quiet-match`), browser scenario selector, CLI `--scenario` flag, and 3 new rules (`high-recovery`, `progressive-pass`, `recovery-shot`). |
 
 The AI adapter is off by default. It uses a Microsoft Foundry Azure OpenAI-compatible model endpoint. The model selects supported story IDs; trusted text is rendered by the app. Free-form AI narration and hosted Foundry Agent Service deployment are future work.
 
@@ -122,30 +130,42 @@ npm.cmd run dev
 
 Open the address Vite prints, normally [MatchOS](http://127.0.0.1:5173). If that port is occupied it may choose another. Keep this terminal running too.
 
-### 3. Play from the website
+#### 3. Play from the website
 
-Use **Start replay**, **Pause / Resume**, **Speed** (0.5ז4�), and **Reset** in the match page. Normal speed sends one highlight every three seconds. Keep the page open while playback runs. Reset opens a new match at 0�0 and clears its Catch Me Up cursor and evidence selection; earlier matches remain available at their own URLs. Opening an existing match offers **Start new replay**.
+Use the **Scenario** selector to choose between `pressure-builds`, `comeback`, `quiet-match`, or `legacy-default`.
 
-The browser requests the same versioned synthetic fixture used by the CLI and submits events through the normal validated ingestion API. Playback stops when the page closes or reloads. A request already sent at pause may still be accepted; retrying that event is safe. The displayed match data follows polling and can lag the replay progress briefly.
+Use **Start replay**, **Pause / Resume**, **Speed** (0.5×–4×), and **Reset** in the match page. Normal speed sends one highlight every three seconds. Keep the page open while playback runs. Reset opens a new match at 0–0 and clears its Catch Me Up cursor and evidence selection; earlier matches remain available at their own URLs. The scenario choice can also be set directly in the URL query string (e.g. `?scenario=comeback`). Opening an existing match offers **Start new replay**.
+
+The browser requests the versioned synthetic fixture from `GET /api/replay/scenario?scenario_id=<id>` and submits events through the normal validated ingestion API. Playback stops when the page closes or reloads. A request already sent at pause may still be accepted; retrying that event is safe. The displayed match data follows polling and can lag the replay progress briefly.
 
 ### Optional simulator terminal
 
 Open a third terminal in the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe simulator/run.py --seed 7 --count 30 --interval 3
+.\.venv\Scripts\python.exe simulator/run.py --scenario pressure-builds --interval 3
 ```
 
-Keep the page open at 0–0 before starting. Events arrive every three seconds; the replay lasts about 90 seconds and Home scores about a minute into it. Watch the GOAL takeover, **1–0 score**, and shooting-activity story appear. Inspect evidence and try Catch Me Up twice. Use `--interval 0.5` for a faster run.
+You can choose any available scenario (`pressure-builds`, `comeback`, `quiet-match`, `legacy-default`):
+
+```powershell
+# Replay the Away comeback scenario
+.\.venv\Scripts\python.exe simulator/run.py --scenario comeback --interval 2
+
+# Replay the restrained tactical midfield battle
+.\.venv\Scripts\python.exe simulator/run.py --scenario quiet-match --interval 1
+```
+
+Keep the page open at 0–0 before starting. Events arrive at the specified interval. Watch the GOAL takeover, score updates, and newly unlocked story badges appear (such as High Recovery, Progressive Pass, or Rapid Transition). Inspect evidence and try Catch Me Up. Use `--interval 0.5` for a faster run.
 
 On macOS/Linux, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`, use `python3 -m venv .venv`, and use `npm` instead of `npm.cmd`.
 
-**Replay notes:** the scenario contains 30 recorded highlights, five Home shots and two Away shots. It is a sparse fixture, not a complete match feed. Replaying the same seed/count does not duplicate events. Restarting the backend clears all matches.
+**Replay notes:** all scenarios are strictly synthetic highlights fixtures with fictional teams and players, not real match feeds. Replaying the same match ID does not duplicate events. Restarting the backend clears all matches.
 
-For a fresh replay without interrupting the Azure connection, open `http://127.0.0.1:5173/?match=replay-02` before running:
+For a fresh replay without interrupting the Azure connection, open `http://127.0.0.1:5173/?match=replay-02&scenario=comeback` before running:
 
 ```powershell
-.\.venv\Scripts\python.exe simulator/run.py --seed 7 --count 30 --interval 3 --match-id replay-02
+.\.venv\Scripts\python.exe simulator/run.py --scenario comeback --interval 3 --match-id replay-02
 ```
 
 Use a new ID each time and the actual frontend port. Match IDs in the UI accept letters, numbers, underscores and hyphens, up to 80 characters. Without a valid query, the UI displays `demo-match`. Reload resets the viewer cursor, not backend events.
@@ -158,7 +178,7 @@ For Azure story selection, follow the [Azure configuration guide](docs/azure-ai.
 | --------------------- | ----------------------------------------------------------------------------------------- |
 | Backend               | Python, FastAPI, Pydantic · `backend/app/`                                                |
 | Frontend              | React, Vite · `frontend/src/`                                                             |
-| Synthetic data        | Seeded Python scenario · `simulator/`                                                     |
+| Synthetic data        | Seeded Python scenario catalog · `simulator/`, `backend/app/simulation.py`                |
 | Shared contract       | Versioned JSON Schema · `schemas/`                                                        |
 | Verification          | pytest, mocked provider tests, frontend builds, GitHub Actions                            |
 | Microsoft integration | Working Azure OpenAI-compatible Foundry model endpoint; optional verified story selection |
@@ -176,7 +196,7 @@ npm test
 npm run build
 ```
 
-Latest local validation: **20 backend tests, 16 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
+Latest local validation: **30 backend tests, 19 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
 
 ## What we're working on next
 

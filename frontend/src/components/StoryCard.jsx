@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { EvidenceList } from './EvidenceList';
+import { getStoryKindMeta } from '../utils/stories';
 
 export function StoryCard({ stories = [], events = [], onSelectEvent }) {
   const [openEvidence, setOpenEvidence] = useState({});
@@ -10,29 +11,6 @@ export function StoryCard({ stories = [], events = [], onSelectEvent }) {
       ...prev,
       [storyId]: !prev[storyId],
     }));
-  };
-
-  const getStoryKindMeta = (kind) => {
-    switch (kind) {
-      case 'goal':
-        return {
-          label: 'Goal Story',
-          badgeClass: 'badge-goal',
-          icon: '⚽',
-        };
-      case 'shot_activity':
-        return {
-          label: 'Attacking Shift',
-          badgeClass: 'badge-activity',
-          icon: '📈',
-        };
-      default:
-        return {
-          label: 'Match Story',
-          badgeClass: 'badge-default',
-          icon: '📋',
-        };
-    }
   };
 
   return (
@@ -60,7 +38,10 @@ export function StoryCard({ stories = [], events = [], onSelectEvent }) {
 
       {stories.length === 0 ? (
         <div className="empty-stories-box">
-          <p>Run the scenario to see a goal story and a five-minute activity comparison.</p>
+          <p>
+            Run the replay to see verified goal stories, attacking shifts, defensive recoveries, and
+            transition sequences.
+          </p>
         </div>
       ) : (
         <div className="stories-list">

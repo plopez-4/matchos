@@ -1,10 +1,30 @@
 # Patch notes
 
-## Unreleased — 7 October 2026
+## Unreleased — Richer scenarios and evidence-backed stories
 
-Published for review on `feature/match-page-polish`; not a tagged release on `main`.
+Published for review on `feature/richer-scenarios-and-stories`; stacked on `feature/match-page-polish`.
 
 ### Added
+
+- Three selectable synthetic match scenarios (`pressure-builds`, `comeback`, `quiet-match`) and retained `legacy-default` fixture.
+- Public scenario catalog endpoint `GET /api/replay/scenarios` returning stable ID, name, spoiler-free description, event count, duration in match seconds, and scenario version.
+- Replay scenario endpoint parameter `scenario_id` on `GET /api/replay/scenario` with input validation and 404 handling.
+- Three deterministic story rules backed by inspectable evidence:
+  - `high-recovery-v1`: counts recoveries in completed 5-minute windows in the attacking third (Home `x >= 70`, Away `x <= 30`, threshold $\ge 3$).
+  - `progressive-pass-v1`: counts completed forward passes gaining $\ge 15$ normalized pitch units in completed 5-minute windows (threshold $\ge 3$).
+  - `recovery-shot-v1`: identifies same-possession recoveries leading to a shot within 30 seconds without opposing interventions.
+- Additive analytics structure in `GET /api/matches/{match_id}/analytics` exposing `high_recoveries`, `progressive_passes`, and `recovery_shots`.
+- Accessible browser scenario selector beside replay controls with live URL state persistence (`?scenario=<id>`) and clean reset lifecycle.
+- Visual story badges, borders, and icons for all story kinds: `badge-recovery`, `badge-pass`, `badge-transition`.
+- Evidence graph nodes for metric windows and support edges for all new story kinds with unique IDs and verified edge endpoints.
+- Expanded Casual and Advanced Catch Me Up deterministic rendering and candidate-bounded Azure story selection.
+- Simulator CLI `--scenario` flag supporting all catalog fixtures with automatic count defaults.
+
+### Improved
+
+- Restraint in quiet matches: displays clear explanation when no qualifying patterns or goals occur, without inventing drama.
+- Candidate selection bounding: protects goal stories and strongest verified activity changes up to an 8-story candidate window.
+- Test coverage expanded to 30 backend tests and 19 frontend tests covering boundary conditions, directions, and edge cases.
 
 - Website replay controls: start, pause/resume, 0.5ז4� speed, progress and fresh-session reset. Browser and CLI share the same scenario; normal event validation remains in force.
 

@@ -29,7 +29,7 @@ export function CatchUpPanel({
       case 'verify_selection':
         return `Checked selected stories against available match evidence`;
       case 'complete_coverage':
-        return `Included strongest verified shooting-activity change`;
+        return `Included strongest verified activity change`;
       case 'fallback':
         return `Used deterministic rule-based selection`;
       default:
