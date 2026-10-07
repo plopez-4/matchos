@@ -44,6 +44,7 @@ def generate_full_match(scenario_id, seed=7, match_id="full-match"):
     active = {team: list(range(2, 12)) for team in ("home", "away")}
     possession = 0
     score = {"home": 0, "away": 0}
+    last_goal_second = -600
     subs_done = set()
 
     def emit(second, period, team, kind, player, x, y, **fields):
@@ -82,8 +83,8 @@ def generate_full_match(scenario_id, seed=7, match_id="full-match"):
                     break
                 t += rng.randint(3, 6)
                 recipient = rng.choice([p for p in active[team] if p != holder])
-                forward = rng.uniform(20, 35) if style == "deep-block" else rng.uniform(15, 28) if style == "counter" else rng.uniform(4, 12)
-                if style == "possession" and rng.random() < .35:
+                forward = rng.uniform(20, 35) if style == "deep-block" else rng.uniform(15, 28) if style == "counter" else rng.uniform(6, 15)
+                if style == "possession" and rng.random() < .22:
                     forward = -rng.uniform(3, 12)
                 direction = 1 if team == "home" else -1
                 end_x = round(max(5, min(95, x + direction * forward)), 2)
@@ -101,10 +102,13 @@ def generate_full_match(scenario_id, seed=7, match_id="full-match"):
             next_team = "away" if team == "home" else "home"
             restart = "recovery"
             next_holder = rng.choice(active[next_team])
-            if not failure and attacking_x >= 76 and t + 8 < stop and rng.random() < .42:
+            shot_chance = {"possession": .42, "counter": .20, "deep-block": .10}[style]
+            if not failure and attacking_x >= 76 and t + 8 < stop and rng.random() < shot_chance:
                 t += 3
-                outcome = rng.choices(["saved", "blocked", "missed", "goal"], [50, 23, 24, 3])[0]
-                if score[team] >= 3 and outcome == "goal":
+                outcome = rng.choices(["saved", "blocked", "missed", "goal"], [45, 23, 24, 8])[0]
+                # Authoring restraint avoids implausibly clustered demo goals.
+                # This is not an empirical probability or football prediction.
+                if (score[team] >= 3 or t-last_goal_second < 480) and outcome == "goal":
                     outcome = "saved"
                 goal_x = 100 if team == "home" else 0
                 # Blocked shots stay at the block location. Saved shots finish
@@ -118,6 +122,7 @@ def generate_full_match(scenario_id, seed=7, match_id="full-match"):
                     emit(t, period, team, "goal", holder, x, y, outcome="goal",
                          related_event_id=shot["event_id"])
                     score[team] += 1
+                    last_goal_second = t
                     restart, x, y = "kickoff", 50.0, 50.0
                 elif outcome in ("saved", "missed"):
                     next_holder = 1
