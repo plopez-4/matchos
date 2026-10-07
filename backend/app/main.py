@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
+from app.simulation import generate
 from app.models import MatchEvent, CatchUpRequest
 from app.intelligence import match_stories, shot_windows, story_graph
 from app.explanations import explain
@@ -10,6 +11,11 @@ store: dict[str, dict[str, MatchEvent]] = {}
 @app.get("/api/health")
 def health():
     return {"status": "ok", "storage": "in-memory"}
+
+@app.get("/api/replay/scenario", response_model=list[MatchEvent])
+def replay_scenario(match_id: str = Query(pattern=r"^[a-zA-Z0-9_-]{1,80}$")):
+    # Read-only fixture: events still pass through the normal ingestion validator.
+    return list(generate(seed=7, count=30, match_id=match_id))
 
 def events_for(match_id):
     return sorted(store.get(match_id, {}).values(), key=lambda e: e.sequence)

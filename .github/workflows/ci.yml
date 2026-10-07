@@ -1,9 +1,8 @@
 name: CI
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, feature/match-page-polish]
   pull_request:
-    branches: [main, develop]
 permissions:
   contents: read
 jobs:
@@ -26,6 +25,11 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci
+        working-directory: frontend
+      - name: Check shared formatting
+        run: npm run format:check
+        working-directory: frontend
+      - run: npm test
         working-directory: frontend
       - run: npm run build
         working-directory: frontend

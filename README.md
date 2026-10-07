@@ -1,11 +1,22 @@
 # MatchOS
+
 ### The AI Operating System for Live Football
 
 MatchOS turns a stream of football events into a match story fans can understand and verify. It connects recorded actions to emerging patterns, explains what changed, and helps returning viewers catch up without watching every missed minute.
 
 Built for **Inside the Game: Developer Hackathon**, with synthetic football data, a React match experience, and an evidence-first path to Microsoft-powered AI.
 
-[Explore the code](https://github.com/plopez-4/matchos) · [Working demo feature](https://github.com/plopez-4/matchos/pull/1) · [Azure AI development](https://github.com/plopez-4/matchos/pull/2)
+[Explore the code](https://github.com/plopez-4/matchos) · [Latest dashboard](https://github.com/plopez-4/matchos/tree/feature/match-page-polish) · [Patch notes](CHANGELOG.md) · [Visual credits](docs/visual-assets.md)
+
+![MatchOS broadcast dashboard](docs/premier-theme-preview.png)
+
+## The broadcast experience
+
+The current dashboard combines a purple-and-white Premier League-inspired theme, league artwork, a credited Goodison Park photograph and a Microsoft Azure technology label. Manrope and Bebas Neue fonts load locally.
+
+Home FC wears white; Away FC wears red. Scores, recorded statistics, shot bars and timeline labels share those kit colors. A new score increase covers the scoreboard with **GOAL** in the scorer's color for six seconds, then returns to the score. First load and repeated unchanged polls do not replay old goals. Reduced-motion mode keeps the announcement without the wipe/zoom.
+
+Catch Me Up displays **What happened** and **What changed**, with readable supporting events, actual response audience and actual AI mode. Evidence links reveal older or filtered-out timeline entries. Independent connection and Catch Me Up errors preserve a usable last result.
 
 ## What we're building
 
@@ -13,13 +24,13 @@ A fan joins a match late. The score tells them who is winning, but they still ne
 
 MatchOS brings those answers together:
 
-| Feature | What it gives the fan |
-| --- | --- |
-| **Live match view** | A score, event timeline and recorded match statistics that update during replay. |
-| **Match intelligence** | Reproducible comparisons that reveal changes in recorded activity. |
-| **Match Story Graph** | Connections from events to calculated patterns to explanations, with inspectable evidence. |
-| **Catch Me Up** | A summary of events and stories since the viewer's last check. |
-| **Personalization** | Casual or advanced explanations built from the same underlying facts. |
+| Feature                | What it gives the fan                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Live match view**    | A score, event timeline and recorded match statistics that update during replay.                                   |
+| **Match intelligence** | Reproducible comparisons that reveal changes in recorded activity.                                                 |
+| **Match Story Graph**  | Connections from events to calculated patterns to explanations, with inspectable evidence.                         |
+| **Catch Me Up**        | A summary of events and stories since the viewer's last check.                                                     |
+| **Personalization**    | Casual or advanced explanations built from the same underlying facts.                                              |
 | **Evidence-backed AI** | An agent retrieves trusted stories and chooses what to explain; the app checks the selection before displaying it. |
 
 Our first audience is football fans. The longer-term goal is to make the same intelligence useful to broadcasters, studios and streaming experiences.
@@ -44,11 +55,12 @@ This comparison describes recorded shooting activity. It does not establish poss
 
 **This is an actively developed hackathon prototype.** Features are being reviewed in pull requests before integration.
 
-| Location | What's available |
-| --- | --- |
-| `main` / `develop` | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up. |
-| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1) | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
-| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [Draft PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Local tests pass; live Azure calls verified for casual and advanced summaries. |
+| Location                                                                                                                                                              | What's available                                                                                                                                                          |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` / `develop`                                                                                                                                                    | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up.                                                                            |
+| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1)   | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
+| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Live Azure calls verified for casual and advanced summaries. |
+| [`feature/match-page-polish`](https://github.com/plopez-4/matchos/tree/feature/match-page-polish)                                                                     | Latest broadcast dashboard, kit colors, goal takeovers, fresh replay sessions, evidence navigation and request-state fixes. Stacked on the Azure branch for review.       |
 
 The AI adapter is off by default. It uses a Microsoft Foundry Azure OpenAI-compatible model endpoint. The model selects supported story IDs; trusted text is rendered by the app. Free-form AI narration and hosted Foundry Agent Service deployment are future work.
 
@@ -79,10 +91,10 @@ The intelligence layer calculates the facts. Story nodes retain supporting event
 
 **Requirements:** Python 3.11+, Node.js 22.12+, npm and Git. If Windows cannot find `python`, try the Python launcher `py` after installing Python.
 
-Clone the working demo branch while PR #1 is under review:
+Clone the latest working dashboard branch while the stacked changes are under review:
 
 ```powershell
-git clone --branch feature/evidence-backed-stories https://github.com/plopez-4/matchos.git
+git clone --branch feature/match-page-polish https://github.com/plopez-4/matchos.git
 cd matchos
 ```
 
@@ -91,7 +103,7 @@ cd matchos
 From the repository root:
 
 ```powershell
-python -m venv .venv
+py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e "./backend[dev]"
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --reload
 ```
@@ -104,39 +116,53 @@ Open a second terminal in the repository root:
 
 ```powershell
 cd frontend
-npm ci
-npm run dev
+npm.cmd ci
+npm.cmd run dev
 ```
 
-Open [MatchOS](http://localhost:5173). Keep this terminal running too.
+Open the address Vite prints, normally [MatchOS](http://127.0.0.1:5173). If that port is occupied it may choose another. Keep this terminal running too.
 
-### 3. Simulator terminal
+### 3. Play from the website
+
+Use **Start replay**, **Pause / Resume**, **Speed** (0.5ז4�), and **Reset** in the match page. Normal speed sends one highlight every three seconds. Keep the page open while playback runs. Reset opens a new match at 0�0 and clears its Catch Me Up cursor and evidence selection; earlier matches remain available at their own URLs. Opening an existing match offers **Start new replay**.
+
+The browser requests the same versioned synthetic fixture used by the CLI and submits events through the normal validated ingestion API. Playback stops when the page closes or reloads. A request already sent at pause may still be accepted; retrying that event is safe. The displayed match data follows polling and can lag the replay progress briefly.
+
+### Optional simulator terminal
 
 Open a third terminal in the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe simulator/run.py --seed 7 --count 30 --interval 0.5
+.\.venv\Scripts\python.exe simulator/run.py --seed 7 --count 30 --interval 3
 ```
 
-Watch the timeline, a **1–0 score**, and the shooting-activity story appear. Inspect its evidence and try Catch Me Up twice.
+Keep the page open at 0–0 before starting. Events arrive every three seconds; the replay lasts about 90 seconds and Home scores about a minute into it. Watch the GOAL takeover, **1–0 score**, and shooting-activity story appear. Inspect evidence and try Catch Me Up twice. Use `--interval 0.5` for a faster run.
 
-On macOS/Linux, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`. Use `python3` to create the environment if needed.
+On macOS/Linux, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`, use `python3 -m venv .venv`, and use `npm` instead of `npm.cmd`.
 
-**Replay notes:** the scenario contains 30 recorded highlights, five Home shots and two Away shots. It is a sparse fixture, not a complete match feed. Replaying the same seed/count does not duplicate events. Restart the backend for a fresh match or before replacing the older random replay. The UI currently displays `demo-match` only.
+**Replay notes:** the scenario contains 30 recorded highlights, five Home shots and two Away shots. It is a sparse fixture, not a complete match feed. Replaying the same seed/count does not duplicate events. Restarting the backend clears all matches.
 
-For the draft Azure feature, use its branch and follow the [Azure configuration guide](https://github.com/plopez-4/matchos/blob/feature/grounded-ai-explanations/docs/azure-ai.md). Credentials stay on the backend; never commit keys.
+For a fresh replay without interrupting the Azure connection, open `http://127.0.0.1:5173/?match=replay-02` before running:
+
+```powershell
+.\.venv\Scripts\python.exe simulator/run.py --seed 7 --count 30 --interval 3 --match-id replay-02
+```
+
+Use a new ID each time and the actual frontend port. Match IDs in the UI accept letters, numbers, underscores and hyphens, up to 80 characters. Without a valid query, the UI displays `demo-match`. Reload resets the viewer cursor, not backend events.
+
+For Azure story selection, follow the [Azure configuration guide](docs/azure-ai.md). The working deployment is `matchos-explainer`, using Azure-hosted `gpt-4.1-mini`. Credentials stay on the backend; never commit keys or place them in React/VITE variables. An unconfigured clone remains usable with deterministic summaries.
 
 ## Technology and repository
 
-| Area | Technology / location |
-| --- | --- |
-| Backend | Python, FastAPI, Pydantic · `backend/app/` |
-| Frontend | React, Vite · `frontend/src/` |
-| Synthetic data | Seeded Python scenario · `simulator/` |
-| Shared contract | Versioned JSON Schema · `schemas/` |
-| Verification | pytest, mocked provider tests, frontend builds, GitHub Actions |
-| Microsoft integration | Azure OpenAI-compatible Foundry model endpoint, under development |
-| Documentation | Product, architecture, API, milestone and submission plans · `docs/` |
+| Area                  | Technology / location                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------- |
+| Backend               | Python, FastAPI, Pydantic · `backend/app/`                                                |
+| Frontend              | React, Vite · `frontend/src/`                                                             |
+| Synthetic data        | Seeded Python scenario · `simulator/`                                                     |
+| Shared contract       | Versioned JSON Schema · `schemas/`                                                        |
+| Verification          | pytest, mocked provider tests, frontend builds, GitHub Actions                            |
+| Microsoft integration | Working Azure OpenAI-compatible Foundry model endpoint; optional verified story selection |
+| Documentation         | Product, architecture, API, milestone and submission plans · `docs/`                      |
 
 ### Run checks
 
@@ -145,17 +171,19 @@ From the repository root, with backend dependencies installed:
 ```powershell
 .\.venv\Scripts\python.exe -m pytest backend/tests
 cd frontend
+npm run format:check
+npm test
 npm run build
 ```
 
-The evidence-story feature has seven backend checks. The draft AI feature has eighteen, including tool-flow and failure tests. Mock tests do not require Azure credentials.
+Latest local validation: **20 backend tests, 16 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
 
 ## What we're working on next
 
-- Verify the Azure tool flow against a real model deployment.
+- Integrate the stacked pull requests and verify clean-clone setup.
 - Expand synthetic match realism and support more evidence-backed patterns.
 - Persist events, story history and viewer preferences.
-- Polish the fan experience and prepare a functioning demo under two minutes.
+- Rehearse the polished fan experience and prepare a functioning demo under two minutes.
 - Confirm category-specific hero technologies and remaining submission requirements.
 
 Current storage is in memory and resets on restart. The backend supports one process, and the graph is computed from current events rather than persisted history. Authentication, bounded queries and deployment controls remain future work.
@@ -166,6 +194,8 @@ Use `develop` for integration and `main` for tested releases. Create feature bra
 
 See [CONTRIBUTING](CONTRIBUTING.md), the [milestone plan](docs/milestone-1.md), and the [initial task drafts](docs/github-issues.md).
 
+Shared code style is enforced in CI with [Prettier](https://prettier.io/docs/install). Run `npm.cmd --prefix frontend run format` from the repository root to apply it, or `npm.cmd --prefix frontend run format:check` to check it. See CONTRIBUTING for the supported files and editor setup.
+
 ## License
 
-[MIT](LICENSE). All demo teams, players and match events are fictional. No real Premier League match data is included.
+[MIT](LICENSE) for application code. Third-party artwork, photography and fonts have separate terms in [visual-assets.md](docs/visual-assets.md); photograph attribution is visible in the UI. League/Microsoft marks remain their owners' property; no endorsement is claimed. All demo teams, players and match events are fictional. No real Premier League match data is included.

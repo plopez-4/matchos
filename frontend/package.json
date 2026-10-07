@@ -3,7 +3,20 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "scripts": {"dev": "vite --configLoader native --host 127.0.0.1", "build": "vite build --configLoader native", "preview": "vite preview --configLoader native"},
-  "dependencies": {"react": "^19.2.0", "react-dom": "^19.2.0"},
-  "devDependencies": {"vite": "^7.1.0"}
+  "scripts": {
+    "dev": "vite --configLoader native --host 127.0.0.1",
+    "build": "vite build --configLoader native",
+    "preview": "vite preview --configLoader native",
+    "test": "node --test",
+    "format": "prettier \"../*.{md,json,yml,yaml}\" \"../.github/**/*.{yml,yaml}\" \"../docs/**/*.md\" \"../schemas/example-event.json\" \"*.{js,json,html}\" \"src/**/*.{js,jsx,css}\" \"test/**/*.js\" --write --ignore-path ../.prettierignore",
+    "format:check": "prettier \"../*.{md,json,yml,yaml}\" \"../.github/**/*.{yml,yaml}\" \"../docs/**/*.md\" \"../schemas/example-event.json\" \"*.{js,json,html}\" \"src/**/*.{js,jsx,css}\" \"test/**/*.js\" --check --ignore-path ../.prettierignore"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "prettier": "3.9.9",
+    "vite": "^7.1.0"
+  }
 }
