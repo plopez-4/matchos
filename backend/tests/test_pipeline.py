@@ -32,7 +32,8 @@ def test_replay_and_evidence(client):
     assert counts['teams']['home']['shot'] == 5
     assert counts['teams']['away']['shot'] == 2
     stories = client.get("/api/matches/demo-match/stories").json()
-    assert len(stories) == 2
+    # Original facts remain; new deterministic rules add supported stories.
+    assert {s['kind'] for s in stories} == {'goal', 'shot_activity', 'progressive_pass', 'recovery_shot'}
     activity = next(s for s in stories if s['kind'] == 'shot_activity')
     assert activity['metric']['previous']['shot_count'] == 1
     assert activity['metric']['current']['shot_count'] == 4
@@ -47,7 +48,9 @@ def test_replay_and_evidence(client):
     node_ids = {n['id'] for n in graph['nodes']}
     assert len(node_ids) == len(graph['nodes'])
     assert all(e['source'] in node_ids and e['target'] in node_ids for e in graph['edges'])
-    assert len([n for n in graph['nodes'] if n['type'] == 'metric_window']) == 2
+    windows = [n for n in graph['nodes'] if n['type'] == 'metric_window']
+    assert sum(n['rule_version'] == 'shot-frequency-v1' for n in windows) == 2
+    assert sum(n['rule_version'] == 'progressive-pass-v1' for n in windows) == 1
     empty = client.post('/api/matches/demo-match/catch-up', json={'since_sequence': 30}).json()
     assert empty['stories'] == []
     assert empty['explanation']['sections'] == []

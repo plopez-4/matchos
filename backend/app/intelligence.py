@@ -84,7 +84,7 @@ def progressive_pass_windows(events: list[MatchEvent]):
                     e for e in events
                     if e.team_id == team and e.type == 'pass'
                     and e.outcome == 'complete'
-                    and e.end_x is not None and e.x is not None
+                    and e.end_x is not None and e.end_y is not None
                     and start <= e.match_second < end
                     and ((e.end_x - e.x >= PROGRESSIVE_PASS_MIN_GAIN)
                          if team == 'home' else (e.x - e.end_x >= PROGRESSIVE_PASS_MIN_GAIN))

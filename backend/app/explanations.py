@@ -30,12 +30,18 @@ def strongest_change(stories):
 
 
 def select_candidates(stories, limit=8):
+    if limit < 1:
+        raise ValueError('Candidate limit must be positive')
+    ids = [s['story_id'] for s in stories]
+    if len(ids) != len(set(ids)):
+        raise ValueError('Duplicate candidate story IDs')
+    goals = [s for s in stories if s['kind'] == 'goal']
+    change = strongest_change(stories)
+    if len(goals) + int(change is not None) > limit:
+        raise ValueError('Protected stories exceed candidate budget')
     if len(stories) <= limit:
         return list(stories)
-    goals = [s for s in stories if s['kind'] == 'goal']
     non_goals = [s for s in stories if s['kind'] != 'goal']
-    if len(goals) >= limit:
-        return sorted(goals[-limit:], key=lambda s: s['sequence'])
     slots_left = limit - len(goals)
     chosen_non_goals = []
     change = strongest_change(non_goals)
@@ -99,7 +105,7 @@ def render(stories, audience):
                 team = metric.get('team_id', 'home').title()
                 possession = metric.get('possession_id', '')
                 if audience == 'casual':
-                    texts.append(f"{team} turned a recovery directly into a shot within {elapsed} seconds.")
+                    texts.append(f"{team} recorded a shot {elapsed} seconds after recovering the ball in the same possession.")
                 else:
                     texts.append(f"{team} recorded a shot {elapsed}s after a recovery in the same possession ({possession}, threshold: <= 30s).")
             else:
@@ -164,7 +170,13 @@ def explain(stories, audience, client=None):
         return finish()
 
     # Bound model input and retain goal stories within documented candidate limits.
-    candidates = select_candidates(stories, limit=8)
+    try:
+        candidates = select_candidates(stories, limit=8)
+    except ValueError:
+        # Keep the full deterministic briefing rather than silently losing a goal.
+        result['fallback_reason'] = 'candidate_budget_or_identity_failure'
+        trace.append({'step': 'fallback', 'status': 'used'})
+        return finish()
     known = {s['story_id']: s for s in candidates}
     fetch_tool = function('get_match_evidence', 'Retrieve verified match story candidates and their supporting event IDs.', {}, [])
     select_tool = function(

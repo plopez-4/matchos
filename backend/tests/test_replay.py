@@ -21,7 +21,8 @@ def test_browser_fixture_is_read_only_and_ingests_with_evidence():
         analytics = client.get('/api/matches/browser-test/analytics').json()
         assert analytics['event_count'] == 30
         assert analytics['teams']['home']['goal'] == 1
-        assert len(client.get('/api/matches/browser-test/stories').json()) == 2
+        stories = client.get('/api/matches/browser-test/stories').json()
+        assert {s['kind'] for s in stories} == {'goal', 'shot_activity', 'progressive_pass', 'recovery_shot'}
 
 
 def test_browser_fixture_rejects_invalid_match_ids():

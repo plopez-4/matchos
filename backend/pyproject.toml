@@ -13,3 +13,7 @@ dev = ["pytest>=8,<10", "httpx>=0.27,<1", "jsonschema>=4,<5"]
 
 [tool.setuptools.packages.find]
 include = ["app*"]
+
+[tool.pytest.ini_options]
+# Test this checkout even when reusing an environment installed from another one.
+pythonpath = ["."]

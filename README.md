@@ -48,7 +48,7 @@ At the end of a scenario, MatchOS can explain:
 
 > Home recorded 4 shots in minutes 5–10, compared with 1 in the previous five minutes.
 > Home won 3 recoveries in the attacking third in minutes 5–10.
-> Away completed a rapid transition: shot recorded 17 seconds after winning possession.
+> Away completed a rapid transition: shot recorded 23 seconds after winning possession.
 
 Open **Inspect supporting events** to examine the exact event sequence behind any statement. Then select **Catch Me Up**:
 
@@ -196,7 +196,7 @@ npm test
 npm run build
 ```
 
-Latest local validation: **30 backend tests, 19 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
+Latest local validation: **39 backend tests, 19 frontend tests, and a successful production build**. Frontend regression tests use production state/scorer/timeline logic. Browser checks verified live Azure Casual/Advanced summaries, hidden evidence navigation, mobile layout, asset loading, kit colors and a red-team goal takeover in an isolated synthetic test. Mock tests do not require Azure credentials. Check the current GitHub Actions run before claiming hosted CI passed.
 
 ## What we're working on next
 

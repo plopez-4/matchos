@@ -195,7 +195,7 @@ export function CatchUpPanel({
               </div>
             ) : (
               <>
-                {summary.intro && (
+                {summary.intro && sections.length > 0 && (
                   <div className="summary-intro-box">
                     <p className="summary-intro-text">{summary.intro}</p>
                   </div>

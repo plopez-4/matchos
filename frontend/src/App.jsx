@@ -11,9 +11,7 @@ import { StoryCard } from './components/StoryCard';
 import { EventTimeline } from './components/EventTimeline';
 import { EvidenceGraph } from './components/EvidenceGraph';
 import { ReplayControls } from './components/ReplayControls';
-
-const VALID_SCENARIOS = ['pressure-builds', 'comeback', 'quiet-match', 'legacy-default'];
-const DEFAULT_SCENARIO = 'pressure-builds';
+import { resolveScenario } from './utils/scenarios';
 
 export function App() {
   const [matchId, setMatchId] = useState(() => {
@@ -22,7 +20,7 @@ export function App() {
   });
   const [scenarioId, setScenarioId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('scenario');
-    return requested && VALID_SCENARIOS.includes(requested) ? requested : DEFAULT_SCENARIO;
+    return resolveScenario(requested);
   });
   const [autoStart, setAutoStart] = useState(false);
 
@@ -38,7 +36,7 @@ export function App() {
   };
 
   const handleScenarioChange = (newScenario) => {
-    const target = VALID_SCENARIOS.includes(newScenario) ? newScenario : DEFAULT_SCENARIO;
+    const target = resolveScenario(newScenario);
     newMatch(false, target);
   };
 

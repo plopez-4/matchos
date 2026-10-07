@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getStoryKindMeta } from '../src/utils/stories.js';
 import { fetchReplayScenario } from '../src/api.js';
+import { resolveScenario } from '../src/utils/scenarios.js';
 
 test('getStoryKindMeta resolves all distinct story kinds with badges and icons', () => {
   const goal = getStoryKindMeta('goal');
@@ -59,12 +60,6 @@ test('fetchReplayScenario constructs correct query params for both new and legac
 });
 
 test('scenario selection fallback handles invalid and valid URLs', () => {
-  const VALID_SCENARIOS = ['pressure-builds', 'comeback', 'quiet-match', 'legacy-default'];
-  const DEFAULT_SCENARIO = 'pressure-builds';
-
-  const resolveScenario = (param) =>
-    param && VALID_SCENARIOS.includes(param) ? param : DEFAULT_SCENARIO;
-
   assert.equal(resolveScenario('comeback'), 'comeback');
   assert.equal(resolveScenario('quiet-match'), 'quiet-match');
   assert.equal(resolveScenario('pressure-builds'), 'pressure-builds');

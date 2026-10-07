@@ -6,15 +6,13 @@ const DEFAULT_CATALOG = [
   {
     id: 'pressure-builds',
     name: 'Pressure Builds',
-    description:
-      'Repeated attacking sequences, progressive passing, and high defensive recoveries culminating in a breakthrough.',
+    description: 'Follow repeated attacks, forward passing, and recoveries high up the pitch.',
     event_count: 33,
   },
   {
     id: 'comeback',
     name: 'The Comeback',
-    description:
-      'An early opening goal followed by sustained second-phase attacking momentum and an equalizer.',
+    description: 'Follow how both sides respond as the match develops.',
     event_count: 34,
   },
   {
@@ -147,7 +145,6 @@ export function ReplayControls({
             id="replay-scenario-select"
             value={scenarioId}
             onChange={handleSelectScenario}
-            disabled={running}
             aria-label="Select match scenario"
           >
             {catalog.map((sc) => (

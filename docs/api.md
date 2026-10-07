@@ -49,3 +49,7 @@ Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports `ca
   - `scenario_version`: `scenario-v1`.
 - `GET /api/replay/scenario?match_id=<id>&scenario_id=<scenario_id>`: Returns the read-only event array without writing to storage. Omitted `scenario_id` defaults to `legacy-default` for backward compatibility. Events pass through normal `POST /events` validation during browser or CLI playback.
 - Playback is browser-driven and sequential. Cancellation and speed changes are safe and idempotent. Reset creates a fresh match ID and URL while preserving the chosen scenario.
+
+## Review compatibility corrections
+
+Legacy event content and IDs are unchanged from the original fixture. New rules can add supported stories (four for the full legacy fixture); consumers must not assume exactly two. Progressive passes require both destination coordinates. If goals plus the strongest activity change exceed the eight-candidate Azure budget, the full deterministic briefing is returned with `candidate_budget_or_identity_failure`, with no provider call.

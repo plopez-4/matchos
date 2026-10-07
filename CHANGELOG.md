@@ -50,6 +50,8 @@ Published for review on `feature/richer-scenarios-and-stories`; stacked on `feat
 
 ### Fixed
 
+- Restored exact legacy replay evidence/IDs, required both pass destination coordinates, enabled scenario switching during playback, and preserved all goals through deterministic fallback when Azure candidate limits overflow. Added review regressions and corrected delivery claims.
+
 - Catch Me Up stuck loading after a detected backend reset; aborts and generation checks isolate stale requests.
 - Valid summaries disappearing when newer than the latest polling snapshot.
 - Catch-up failures losing the prior cursor/result or being erased by successful polling.
