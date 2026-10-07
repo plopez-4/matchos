@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from app.models import MatchEvent, CatchUpRequest
 from app.intelligence import match_stories, shot_windows, story_graph
+from app.explanations import explain
 
 app = FastAPI(title="MatchOS", version="0.1.0")
 # Single-process demo store. Replace before using multiple workers.
@@ -65,9 +66,11 @@ def catch_up(match_id: str, request: CatchUpRequest):
     if request.audience == "advanced":
         text += f" Shots: {sum(e.type == 'shot' for e in items)}; recoveries: {sum(e.type == 'recovery' for e in items)}."
     new_stories = [s for s in match_stories(events_for(match_id)) if s['sequence'] > request.since_sequence]
-    if new_stories:
-        text += ' ' + ' '.join(s['text'] for s in new_stories)
+    explanation = explain(new_stories, request.audience)
+    if explanation['text']:
+        text += ' ' + explanation['text']
     return {"summary": text, "evidence_event_ids": [e.event_id for e in items],
             "through_sequence": max([request.since_sequence] + [e.sequence for e in items]),
             "audience": request.audience, "rule_version": "catch-up-v2", "stories": new_stories,
-            "context_evidence_event_ids": sorted({eid for s in new_stories for eid in s['evidence_event_ids']})}
+            "context_evidence_event_ids": sorted({eid for s in new_stories for eid in s['evidence_event_ids']}),
+            "explanation": explanation}

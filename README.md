@@ -11,7 +11,7 @@ Live event ingestion → deterministic analytics → Match Story Graph → evide
 - Python simulator: seeded fictional ten-minute highlights scenario, no provider credentials needed.
 - Shared JSON schema, integration tests, GitHub CI and PR template.
 
-The first derived graph includes event → metric-window → story support edges. LLM adapters, persistent preferences and PostgreSQL are planned tasks. This single-process demo stores events in memory and resets on restart. Counts do not establish possession, pressure or tactical causation. It is not ready for public deployment.
+The first derived graph includes event → metric-window → story support edges. An optional [Azure AI adapter](docs/azure-ai.md) selects evidence-backed story IDs using tools, with deterministic rendering/fallback; live Azure verification is pending. AI is off by default. Persistent preferences and PostgreSQL are planned tasks. This single-process demo stores events in memory and resets on restart. Counts do not establish possession, pressure or tactical causation. It is not ready for public deployment.
 
 ## Run locally
 Prerequisites: Python 3.11+; Node 22.12+ with npm. Start from this repository directory.
