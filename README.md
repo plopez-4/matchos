@@ -70,7 +70,7 @@ git remote add origin https://github.com/YOUR-OWNER/matchos.git
 git push -u origin main
 git push -u origin develop
 ```
-Invite both teammates, protect branches, and create [these initial issues](docs/github-issues.md). Remote creation, collaborators, protection settings and issues are not yet published.
+Invite both teammates, protect branches, and create [these initial issues](docs/github-issues.md). Published repository: https://github.com/plopez-4/matchos (main and develop). Collaborator invitations, branch protections and live issues still need setup.
 
 ## References and license
 Scaffold follows the official [FastAPI](https://fastapi.tiangolo.com/tutorial/first-steps/), [React](https://react.dev/learn/build-a-react-app-from-scratch) and [Vite](https://vite.dev/guide/) guides. MIT licensed; keep credentials and licensed provider data out of Git.
