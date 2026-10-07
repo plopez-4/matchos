@@ -20,3 +20,9 @@ The simulator is a sparse, plausible highlights fixture rather than a full touch
 
 ## Deployment limits
 Data resets on restart. Use one process/worker; no shared storage, auth, pagination, rate limits or public deployment hardening yet. Keep provider/AI credentials on the server. Production adds durable storage, authenticated ingestion and bounded queries before exposure.
+
+## Implemented frontend and AI path
+
+The Azure model retrieves trusted story candidates, selects IDs, and the backend validates the selection before rendering factual audience wording. This is not free-form narration or hosted Agent Service orchestration. The UI separates story sections, evidence, actual audience/mode and trace. A generation-aware catch-up reducer and abortable requests preserve failure/reset behavior.
+
+All reads and Catch Me Up use demo-match or a validated ?match=<id> query. Fresh simulator IDs allow replay without restarting the Azure-enabled process. Viewer cursors remain in React memory. Goal takeovers compare analytics snapshots and use shared kit colors; first-load baselines, unchanged polls and rollback do not create new goals. Current graph edges are supports only; preceded-by remains a future idea. Coordinates are normalized 0..100, not measured metres.

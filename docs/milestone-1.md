@@ -22,4 +22,4 @@ Lead runs demo and publishes repo/issues. Frontend owner claims task 3. Intellig
 ## Demo timing
 Target 1:45 total: 0:00 problem; 0:12 replay; 0:37 story/evidence and agent tools; 1:02 Catch Me Up; 1:27 Microsoft integration and impact.
 
-This scaffold starts M1. Window patterns, full graph and evidence-verified LLM integration are not implemented yet. For submission, implement an AI-powered explanation path; deterministic explanations remain the fallback. Verify required Microsoft hero technologies against the full challenge brief.
+The working slice now includes window patterns, an event/metric/story support graph, verified Azure story selection and a polished broadcast dashboard. Remaining gates include integrating stacked PRs, clean-clone verification and demo/deployment readiness. For submission, implement an AI-powered explanation path; deterministic explanations remain the fallback. Verify required Microsoft hero technologies against the full challenge brief.

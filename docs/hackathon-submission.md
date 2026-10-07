@@ -23,7 +23,7 @@ Proposed Microsoft integration: Microsoft Foundry for a tool-using explanation a
 
 Reference: https://learn.microsoft.com/en-us/azure/ai-foundry/agents/overview
 
-Deployment service and model choice follow category verification and available Azure access. Do not claim any Azure integration is implemented yet.
+Deployment service and model choice follow category verification and available Azure access. Azure OpenAI-compatible tool-based selection is implemented and live Casual/Advanced calls have been verified. Hosted Foundry Agent Service deployment remains future work; describe only the actual implementation.
 
 ## Rubric mapping (20% each)
 | Criterion | Demonstrable proof |
@@ -42,4 +42,8 @@ Deployment service and model choice follow category verification and available A
 - 1:27–1:45: Microsoft technology actually used, working deployment and impact.
 
 ## Outstanding inputs
-Full challenge/category text, required hero technologies, submission deadline and Azure account/model access. Team participation is pending; build the vertical slice solo while ownership roles remain available.
+Full challenge/category text, required hero technologies, submission deadline, artwork authorization for the demo video and public deployment details. Azure account/model access is available. Team participation is pending; build the vertical slice solo while ownership roles remain available.
+
+## Current demo and assets
+
+Run the latest dashboard branch, open a fresh replay URL at 0–0 and start its simulator match ID. Show the goal takeover, recorded shot comparison and both Catch Me Up sections. Inspect the Azure trace before an empty check replaces it. Reload for a fresh viewer cursor before demonstrating the other audience over the same events. Keep the video under two minutes. Credit the stadium photo and confirm league/Microsoft artwork authorization against event guidance before video submission; sources/terms are in visual-assets.md. No public video or hosted deployment is claimed by these code changes.

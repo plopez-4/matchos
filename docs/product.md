@@ -19,3 +19,7 @@ No duplicate events after replay; reproducible counts; every story resolves to e
 
 ## Deferred
 Real providers, multiple simultaneous matches, notifications, multilingual output, authentication, deep tactical inference and persisted preferences. The first feature has goal/activity stories, metric support edges and deterministic text; durable graph history and AI are upcoming work.
+
+## Current playable slice
+
+The 30-event fictional replay, goal/shot stories, support graph, Casual/Advanced Catch Me Up and optional verified Azure selection are implemented. The broadcast dashboard adds kit colors, goal takeovers, timeline evidence navigation and fresh replay-session URLs. Favorite-team/language personalization remains planned. See ../CHANGELOG.md and the delivery report for validation and limits.
