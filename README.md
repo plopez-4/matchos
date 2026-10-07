@@ -6,12 +6,12 @@ Turn live football events into understandable, personalized stories with evidenc
 Live event ingestion → deterministic analytics → Match Story Graph → evidence-backed explanations → Catch Me Up. Personalization adapts the same facts to casual and advanced fans. See [product](docs/product.md), [architecture](docs/architecture.md), [API](docs/api.md) and [M1 plan](docs/milestone-1.md).
 
 ## Included in this scaffold
-- FastAPI: validated ingestion, duplicate protection, ordered replay, count analytics, goal story nodes and deterministic Catch Me Up.
-- React/Vite: match score, recent timeline, story evidence IDs, audience selector and polling.
-- Python simulator: reproducible fictional events, no provider credentials needed.
+- FastAPI: validated ingestion, duplicate protection, ordered replay, count/window analytics, evidence graph and deterministic Catch Me Up.
+- React/Vite: match score, shot comparisons, timeline, readable story evidence, audience selector and polling.
+- Python simulator: seeded fictional ten-minute highlights scenario, no provider credentials needed.
 - Shared JSON schema, integration tests, GitHub CI and PR template.
 
-Full graph edges, window analytics, LLM adapters, persistent preferences and PostgreSQL are planned tasks. This single-process demo stores events in memory and resets on restart. Counts do not establish possession, pressure or tactical causation. It is not ready for public deployment.
+The first derived graph includes event → metric-window → story support edges. LLM adapters, persistent preferences and PostgreSQL are planned tasks. This single-process demo stores events in memory and resets on restart. Counts do not establish possession, pressure or tactical causation. It is not ready for public deployment.
 
 ## Run locally
 Prerequisites: Python 3.11+; Node 22.12+ with npm. Start from this repository directory.
@@ -37,7 +37,9 @@ Terminal 3 — synthetic replay:
 ```powershell
 python simulator/run.py --seed 7 --count 30 --interval 0.5
 ```
-Use `--dry-run` to print JSON without the backend. Replay the same seed/count twice to check deduplication. Restart the backend for a new demo; use a new match ID when changing seeds. The starter UI reads `demo-match` only.
+Use `--dry-run` to print JSON without the backend. This is a sparse highlights feed, not every match touch: quiet opening → increased Home shooting → goal → Away response. The complete scenario contains 30 events, a 1–0 score, five Home shots and two Away shots. At ten match minutes, the activity story compares four Home shots in minutes 5–10 with one in minutes 0–5. Seeds vary player identities while retaining the known storyline.
+
+Replay the same seed/count twice to check deduplication. Restart the backend before using this scenario on a match containing the old random replay; event IDs have changed. Use a new match ID when changing seeds. The UI reads `demo-match` only. If the backend restarts and the event cursor moves backwards, the UI clears the previous Catch Me Up cursor.
 
 ## Checks
 ```powershell

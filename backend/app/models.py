@@ -3,7 +3,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class MatchEvent(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    schema_version: Literal["1.0"] = "1.0"
+    schema_version: Literal["1.0", "1.1"] = "1.1"
     event_id: str = Field(min_length=1, max_length=100)
     match_id: str = Field(min_length=1, max_length=100)
     sequence: int = Field(ge=1)
@@ -11,10 +11,15 @@ class MatchEvent(BaseModel):
     match_second: int = Field(ge=0, le=9000)
     team_id: Literal["home", "away"]
     player_id: str = Field(min_length=1, max_length=100)
-    type: Literal["pass", "shot", "goal", "recovery"]
+    type: Literal["kickoff", "pass", "shot", "goal", "recovery"]
     x: float = Field(ge=0, le=100)
     y: float = Field(ge=0, le=100)
     source: Literal["synthetic"] = "synthetic"
+    possession_id: str | None = Field(default=None, min_length=1, max_length=100)
+    end_x: float | None = Field(default=None, ge=0, le=100)
+    end_y: float | None = Field(default=None, ge=0, le=100)
+    outcome: Literal["complete", "saved", "blocked", "missed", "goal"] | None = None
+    related_event_id: str | None = Field(default=None, min_length=1, max_length=100)
 
 class CatchUpRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")

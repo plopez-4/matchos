@@ -17,9 +17,9 @@ Lead runs demo and publishes repo/issues. Frontend owner claims task 3. Intellig
 - One documented window pattern becomes a graph story with resolvable evidence and versioned rule.
 - Catch Me Up covers the agreed cursor window with empty/error/loading states.
 - Casual and advanced views share underlying facts; unsupported tactical claims suppressed.
-- Three-minute demo rehearsed; limitations documented; all three owners sign off.
+- Demo under two minutes rehearsed; limitations documented; all three owners sign off.
 
 ## Demo timing
-0:00 problem; 0:30 replay; 1:00 timeline/stats; 1:30 story/evidence; 2:00 Catch Me Up in both styles; 2:30 graph and next steps.
+Target 1:45 total: 0:00 problem; 0:12 replay; 0:37 story/evidence and agent tools; 1:02 Catch Me Up; 1:27 Microsoft integration and impact.
 
-This scaffold starts M1. Window patterns, full graph and evidence-verified LLM integration are not implemented yet. LLM adapter is optional if deadline is short; deterministic explanations remain usable.
+This scaffold starts M1. Window patterns, full graph and evidence-verified LLM integration are not implemented yet. For submission, implement an AI-powered explanation path; deterministic explanations remain the fallback. Verify required Microsoft hero technologies against the full challenge brief.
