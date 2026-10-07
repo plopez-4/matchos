@@ -56,7 +56,7 @@ export function EvidenceGraph({ graph, stories = [] }) {
             <div className="step-content">
               <h4>Synthetic Ingestion</h4>
               <p>
-                Replay highlights validated against schema 1.1 for strict sequence ordering and
+                Synthetic events validated against the event schema for strict sequence ordering and
                 match clock consistency.
               </p>
               <span className="step-tag">FastAPI · Pydantic</span>

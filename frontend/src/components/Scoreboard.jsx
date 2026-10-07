@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { formatMatchSecond } from '../utils/formatters';
 import { teams, newScoringTeams } from '../utils/teams';
 
-export function Scoreboard({ analytics, events = [] }) {
+export function Scoreboard({ analytics, events = [], fixtureTeams = teams }) {
+  const presentation = fixtureTeams;
   const homeGoals = analytics?.teams?.home?.goal ?? 0;
   const awayGoals = analytics?.teams?.away?.goal ?? 0;
   const previousScore = useRef(null);
@@ -56,17 +57,20 @@ export function Scoreboard({ analytics, events = [] }) {
         <span>FICTIONAL FIXTURE · SYNTHETIC REPLAY</span>
       </div>
       <div className="goal-announcement" role="status" aria-live="polite" aria-atomic="true">
-        {goal ? `${teams[goal.team].name} goal. Score ${goal.score}.` : ''}
+        {goal ? `${presentation[goal.team].name} goal. Score ${goal.score}.` : ''}
       </div>
       {goal && (
         <div
           key={goal.key}
           className={`goal-takeover goal-${goal.team}`}
           aria-hidden="true"
-          style={{ '--goal-color': teams[goal.team].color, '--goal-ink': teams[goal.team].ink }}
+          style={{
+            '--goal-color': presentation[goal.team].color,
+            '--goal-ink': presentation[goal.team].ink,
+          }}
         >
           <div className="goal-stripes" />
-          <span className="goal-team">{teams[goal.team].name}</span>
+          <span className="goal-team">{presentation[goal.team].name}</span>
           <strong className="goal-word">GOAL</strong>
           <span className="goal-score">{goal.score}</span>
           <span className="goal-caption">THE MOMENT THAT CHANGES THE MATCH.</span>
@@ -74,11 +78,11 @@ export function Scoreboard({ analytics, events = [] }) {
       )}
       <div className="scoreboard-main">
         <div className="team-cell team-home">
-          <div className="team-avatar home-avatar">HFC</div>
+          <div className="team-avatar home-avatar">{presentation.home.short || 'HFC'}</div>
           <div className="team-info">
-            <h2 className="team-name">Home FC</h2>
+            <h2 className="team-name">{presentation.home.name}</h2>
             <span className="team-role">
-              <span className="kit-dot kit-home" /> White kit · Attacking Right →
+              <span className="kit-dot kit-home" /> {presentation.home.kit} kit · Attack frame →
             </span>
           </div>
         </div>
@@ -103,18 +107,18 @@ export function Scoreboard({ analytics, events = [] }) {
 
         <div className="team-cell team-away">
           <div className="team-info text-right">
-            <h2 className="team-name">Away FC</h2>
+            <h2 className="team-name">{presentation.away.name}</h2>
             <span className="team-role">
-              <span className="kit-dot kit-away" /> Red kit · ← Attacking Left
+              <span className="kit-dot kit-away" /> {presentation.away.kit} kit · ← Attack frame
             </span>
           </div>
-          <div className="team-avatar away-avatar">AFC</div>
+          <div className="team-avatar away-avatar">{presentation.away.short || 'AFC'}</div>
         </div>
       </div>
 
       <div className="stats-strip" aria-label="Recorded highlights metrics">
         <div className="stat-item">
-          <span className="stat-label">Highlights</span>
+          <span className="stat-label">Events</span>
           <span className="stat-value">{events.length}</span>
           <span className="stat-sub">recorded</span>
         </div>

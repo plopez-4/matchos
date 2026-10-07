@@ -1,5 +1,9 @@
 # MatchOS
 
+## Full-match synthetic feeds
+
+Try **United vs City** and **United vs Hull** in the scenario picker. Each covers two 45-minute halves plus three added minutes, using fictional players, connected possessions, sender/recipient passes, substitutions and a readable Catch Me Up briefing. Choose **80× Fast preview** for a short run. These are authored scenarios, not reconstructions of real games, and no model training is performed. See [full-match data and provenance](docs/full-match-data.md).
+
 ### The AI Operating System for Live Football
 
 MatchOS turns a stream of football events into a match story fans can understand and verify. It connects recorded actions to emerging patterns, explains what changed, and helps returning viewers catch up without watching every missed minute.

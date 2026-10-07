@@ -1,5 +1,6 @@
 """Shared deterministic synthetic scenarios for browser and CLI replays."""
 import random
+from app.full_match import FULL_MATCHES, generate_full_match, full_match_catalog
 
 # second, team, action, start x, end x, outcome, possession number
 # Home attacks toward x=100; Away attacks toward x=0. Gaps omit routine play.
@@ -190,10 +191,16 @@ SCENARIO_CATALOG = [
 ]
 
 def get_catalog():
-    return SCENARIO_CATALOG
+    return SCENARIO_CATALOG + full_match_catalog()
 
 def generate(seed=7, count=None, match_id="demo-match", scenario_id="legacy-default"):
     scenario_id = scenario_id or "legacy-default"
+    if scenario_id in FULL_MATCHES:
+        fixture = generate_full_match(scenario_id, seed, match_id)
+        if count is not None and not 1 <= count <= len(fixture):
+            raise ValueError(f"Scenario supports 1..{len(fixture)} events")
+        yield from fixture if count is None else fixture[:count]
+        return
     if scenario_id not in SCENARIOS:
         valid_ids = list(SCENARIOS.keys())
         raise ValueError(f"Unknown scenario '{scenario_id}'. Available scenarios: {valid_ids}")

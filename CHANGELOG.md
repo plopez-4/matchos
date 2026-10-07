@@ -1,8 +1,17 @@
 # Patch notes
 
+## Unreleased — Full-match synthetic scenarios
+
+- Added United vs City and United vs Hull authored feeds: two halves, 90 minutes plus three added minutes, fictional rosters and over 1,200 modeled events per match.
+- Added schema 1.2 with player names, intended pass recipients, intercepted passes, substitutions and halftime/full-time markers. Original fixtures remain compatible.
+- Added reproducible JSONL exports and provenance manifest under `data/synthetic/`.
+- Added readable, evidence-linked rule-based match briefings, including named scorers and substitutions; no model training is performed.
+- Added full-match replay speeds and scenario team names/kit colors. Timeline shows sender and recipient.
+- Added continuity, roster, ingestion, schema and narrative regression coverage. See [data documentation](docs/full-match-data.md) for scope and realism limits.
+
 ## Unreleased — Richer scenarios and evidence-backed stories
 
-Published for review on `feature/richer-scenarios-and-stories`; stacked on `feature/match-page-polish`.
+Implemented on `feature/richer-scenarios-and-stories`, with reviewed fixes on `fix/scenario-review`; GitHub publication has not been verified.
 
 ### Added
 

@@ -1,4 +1,4 @@
-"""Replay a fictional, sparse ten-minute highlights scenario (not a full feed)."""
+"""Replay fictional highlights or a seeded full-match synthetic event feed."""
 import argparse
 import json
 import time

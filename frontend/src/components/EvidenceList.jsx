@@ -27,7 +27,7 @@ export function EvidenceList({ evidenceIds = [], events = [], onSelectEvent }) {
         }
 
         const time = formatMatchSecond(event.match_second);
-        const team = formatTeamName(event.team_id);
+        const team = event.team_name || formatTeamName(event.team_id);
         const type = formatEventType(event.type);
         const outcome = formatOutcome(event.outcome);
 
@@ -42,7 +42,7 @@ export function EvidenceList({ evidenceIds = [], events = [], onSelectEvent }) {
               )}
               {typeof event.x === 'number' && (
                 <span className="evidence-coords" title={`Pitch coordinate x: ${event.x}`}>
-                  pitch: {Math.round(event.x)}m
+                  pitch x: {Math.round(event.x)}/100
                 </span>
               )}
             </div>

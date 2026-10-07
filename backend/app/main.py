@@ -10,6 +10,7 @@ from app.intelligence import (
     recovery_shot_chains,
 )
 from app.explanations import explain
+from app.briefing import full_feed_briefing
 
 app = FastAPI(title="MatchOS", version="0.1.0")
 # Single-process demo store. Replace before using multiple workers.
@@ -137,7 +138,9 @@ def catch_up(match_id: str, request: CatchUpRequest):
     else:
         text = intro + (" " + explanation["text"] if explanation["text"] else "")
     selected = [s for s in new_stories if s["story_id"] in explanation["selected_story_ids"]]
+    briefing = full_feed_briefing(events_for(match_id), items, request.audience)
     return {
+        "match_briefing": briefing,
         "summary": text,
         "intro": intro,
         "evidence_event_ids": [e.event_id for e in items],

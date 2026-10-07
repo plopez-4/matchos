@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useReducer, useEffect } from 'react';
 import { catchUpReducer, initialCatchUpState } from './utils/catchUpState';
-import { teamVariables } from './utils/teams';
+import { teamsForScenario, variablesForTeams } from './utils/teams';
 import { useMatchData } from './hooks/useMatchData';
 import { postCatchUp } from './api';
 import { MatchHeader } from './components/MatchHeader';
@@ -136,15 +136,16 @@ function MatchDashboard({ matchId, scenarioId, autoStart, onNewMatch, onScenario
   };
 
   const hasEvents = data.events.length > 0;
+  const fixtureTeams = teamsForScenario(scenarioId);
 
   return (
-    <div className="matchos-app" style={teamVariables}>
+    <div className="matchos-app" style={variablesForTeams(fixtureTeams)}>
       <MatchHeader status={status} error={pollingError} lastUpdated={lastUpdated} />
 
       <main className="dashboard-grid">
         {/* Left Primary Column: Overview, Catch Up, Analytics, Stories, Graph */}
         <div className="main-column">
-          <Scoreboard analytics={data.analytics} events={data.events} />
+          <Scoreboard analytics={data.analytics} events={data.events} fixtureTeams={fixtureTeams} />
 
           <ReplayControls
             matchId={matchId}

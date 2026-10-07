@@ -195,6 +195,26 @@ export function CatchUpPanel({
               </div>
             ) : (
               <>
+                {summary.match_briefing && (
+                  <article className="catchup-section-card">
+                    <h3 className="section-card-title">Your match briefing</h3>
+                    <p className="section-card-text">{summary.match_briefing.text}</p>
+                    <p className="card-subtitle">
+                      Verified from synthetic events · rule-based narrative
+                    </p>
+                    <details>
+                      <summary>
+                        Inspect briefing evidence (
+                        {summary.match_briefing.evidence_event_ids.length} events)
+                      </summary>
+                      <EvidenceList
+                        evidenceIds={summary.match_briefing.evidence_event_ids}
+                        events={events}
+                        onSelectEvent={onSelectEvent}
+                      />
+                    </details>
+                  </article>
+                )}
                 {summary.intro && sections.length > 0 && (
                   <div className="summary-intro-box">
                     <p className="summary-intro-text">{summary.intro}</p>

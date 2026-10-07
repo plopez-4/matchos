@@ -1,5 +1,7 @@
 # API v0.1
 
+Full-match scenarios `united-city-90` and `united-hull-90` use schema 1.2. Catalog entries include fictional rosters and scenario style settings. Events add `team_name`, `player_name`, `recipient_player_id` and `recipient_player_name`. Full-feed passes require both destination coordinates, a different same-team intended recipient, and `complete`/`intercepted` outcome. New types are `substitution`, `half_end`, `match_end`; existing 1.0/1.1 fixtures remain supported. Catch-up adds optional `match_briefing` with readable rule-based text, evidence IDs and `full-feed-briefing-v1` rule version. Clock and coordinate conventions are documented in [full-match data](full-match-data.md).
+
 Base: `http://localhost:8000/api`. Interactive OpenAPI: `/docs`. Event schema: [match-event.schema.json](../schemas/match-event.schema.json). Pydantic model is authoritative; export script regenerates the shared contract.
 
 | Method | Path                    | Behavior                                                                       |

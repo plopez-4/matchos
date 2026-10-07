@@ -126,7 +126,7 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
           {displayEvents.map((event) => {
             const isHighlighted = highlightedEventId === event.event_id;
             const time = formatMatchSecond(event.match_second);
-            const team = formatTeamName(event.team_id);
+            const team = event.team_name || formatTeamName(event.team_id);
             const type = formatEventType(event.type);
             const outcome = formatOutcome(event.outcome);
             const badgeClass = getEventBadgeClass(event.type);
@@ -154,7 +154,12 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
                   </div>
 
                   <div className="timeline-item-details">
-                    <span className="player-tag">{event.player_id}</span>
+                    <span className="player-tag">
+                      {event.player_name || event.player_id}
+                      {event.recipient_player_id
+                        ? ` → ${event.recipient_player_name || event.recipient_player_id}`
+                        : ''}
+                    </span>
                     {typeof event.x === 'number' && (
                       <span className="coord-tag">
                         x: {Math.round(event.x)}

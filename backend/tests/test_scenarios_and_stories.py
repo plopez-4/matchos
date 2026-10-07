@@ -29,9 +29,9 @@ def client():
 
 def test_scenario_catalog_metadata_and_validation(client):
     catalog = get_catalog()
-    assert len(catalog) == 4
+    assert len(catalog) == 6
     scenario_ids = {s["id"] for s in catalog}
-    assert scenario_ids == {"legacy-default", "pressure-builds", "comeback", "quiet-match"}
+    assert scenario_ids == {"legacy-default", "pressure-builds", "comeback", "quiet-match", "united-city-90", "united-hull-90"}
 
     res = client.get("/api/replay/scenarios")
     assert res.status_code == 200
@@ -39,7 +39,7 @@ def test_scenario_catalog_metadata_and_validation(client):
     assert api_catalog == catalog
 
     for item in catalog:
-        assert item["scenario_version"] == "scenario-v1"
+        assert item["scenario_version"] in ("scenario-v1", "full-match-v1")
         assert item["duration_seconds"] >= 600
         # Event count matches actual fixture length
         events = list(generate(scenario_id=item["id"]))

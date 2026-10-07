@@ -186,18 +186,20 @@ export function ReplayControls({
             <option value={1}>1× · Normal</option>
             <option value={2}>2× · Fast</option>
             <option value={4}>4× · Quick</option>
+            <option value={20}>20× · Full match</option>
+            <option value={80}>80× · Fast preview</option>
           </select>
         </label>
       </div>
       <div className="replay-progress">
         <progress value={progress} max={maxEvents} aria-label="Replay progress" />
         <span>
-          {progress} / {maxEvents} highlights
+          {progress} / {maxEvents} events
         </span>
       </div>
       <p className="card-subtitle">
-        Normal speed delivers one event every three seconds. Keep this page open while playing.
-        Reset opens a fresh match.
+        Normal speed delivers one event every three seconds. Speed controls event delivery, not the
+        match clock. Keep this page open while playing. Reset opens a fresh match.
       </p>
       {error && (
         <p className="replay-error" role="alert">

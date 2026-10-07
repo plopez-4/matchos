@@ -5,7 +5,8 @@
       "default": "1.1",
       "enum": [
         "1.0",
-        "1.1"
+        "1.1",
+        "1.2"
       ],
       "title": "Schema Version",
       "type": "string"
@@ -62,7 +63,10 @@
         "pass",
         "shot",
         "goal",
-        "recovery"
+        "recovery",
+        "substitution",
+        "half_end",
+        "match_end"
       ],
       "title": "Type",
       "type": "string"
@@ -132,6 +136,7 @@
         {
           "enum": [
             "complete",
+            "intercepted",
             "saved",
             "blocked",
             "missed",
@@ -159,6 +164,62 @@
       ],
       "default": null,
       "title": "Related Event Id"
+    },
+    "team_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Team Name"
+    },
+    "player_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Player Name"
+    },
+    "recipient_player_id": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Id"
+    },
+    "recipient_player_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Name"
     }
   },
   "required": [
