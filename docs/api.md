@@ -2,15 +2,15 @@
 
 Base: `http://localhost:8000/api`. Interactive OpenAPI: `/docs`. Event schema: [match-event.schema.json](../schemas/match-event.schema.json). Pydantic model is authoritative; export script regenerates the shared contract.
 
-| Method | Path | Behavior |
-| --- | --- | --- |
-| GET | /health | Process/storage status |
-| POST | /events | Single event; 201 with accepted true, false for identical replay |
-| GET | /matches/{id}/events | Events ordered by sequence |
-| GET | /matches/{id}/analytics | Team counts and counts-v1 rule |
-| GET | /matches/{id}/stories | Goal story nodes with evidence_event_ids and goal-v1 |
-| GET | /matches/{id}/graph | Derived event/metric/story nodes and supports edges |
-| POST | /matches/{id}/catch-up | Summary, evidence IDs, through_sequence, audience and rule version |
+| Method | Path                    | Behavior                                                           |
+| ------ | ----------------------- | ------------------------------------------------------------------ |
+| GET    | /health                 | Process/storage status                                             |
+| POST   | /events                 | Single event; 201 with accepted true, false for identical replay   |
+| GET    | /matches/{id}/events    | Events ordered by sequence                                         |
+| GET    | /matches/{id}/analytics | Team counts and counts-v1 rule                                     |
+| GET    | /matches/{id}/stories   | Goal story nodes with evidence_event_ids and goal-v1               |
+| GET    | /matches/{id}/graph     | Derived event/metric/story nodes and supports edges                |
+| POST   | /matches/{id}/catch-up  | Summary, evidence IDs, through_sequence, audience and rule version |
 
 Event fields: event_id, match_id, sequence, match_second, team_id, player_id, type, x, y. Defaults: schema_version 1.1, period 1, source synthetic; explicit version 1.0 remains accepted. Version 1.1 adds kickoff events and optional possession_id, end_x/end_y, outcome and related_event_id. Goals with a related_event_id must resolve to the same scorer/team's stored goal-producing shot; references cannot be reused. Unknown fields rejected. See [legacy-compatible example](../schemas/example-event.json).
 

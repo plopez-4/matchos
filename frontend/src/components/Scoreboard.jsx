@@ -17,15 +17,21 @@ export function Scoreboard({ analytics, events = [] }) {
       setCelebrations([]);
     } else {
       const scored = newScoringTeams(previous, current);
-      if (scored.length) setCelebrations(queue => [...queue, ...scored.map(team => ({
-        team, key: ++serial.current, score: `${homeGoals} – ${awayGoals}`,
-      }))]);
+      if (scored.length)
+        setCelebrations((queue) => [
+          ...queue,
+          ...scored.map((team) => ({
+            team,
+            key: ++serial.current,
+            score: `${homeGoals} – ${awayGoals}`,
+          })),
+        ]);
     }
     previousScore.current = current;
   }, [analytics, homeGoals, awayGoals]);
   useEffect(() => {
     if (!goal) return;
-    const timer = setTimeout(() => setCelebrations(queue => queue.slice(1)), 6000);
+    const timer = setTimeout(() => setCelebrations((queue) => queue.slice(1)), 6000);
     return () => clearTimeout(timer);
   }, [goal?.key]);
 
@@ -45,13 +51,20 @@ export function Scoreboard({ analytics, events = [] }) {
 
   return (
     <section className="dashboard-card scoreboard-card" aria-label="Match Scoreboard">
-      <div className="fixture-label"><span>THE MATCH CENTRE</span><span>FICTIONAL FIXTURE · SYNTHETIC REPLAY</span></div>
+      <div className="fixture-label">
+        <span>THE MATCH CENTRE</span>
+        <span>FICTIONAL FIXTURE · SYNTHETIC REPLAY</span>
+      </div>
       <div className="goal-announcement" role="status" aria-live="polite" aria-atomic="true">
         {goal ? `${teams[goal.team].name} goal. Score ${goal.score}.` : ''}
       </div>
       {goal && (
-        <div key={goal.key} className={`goal-takeover goal-${goal.team}`} aria-hidden="true"
-          style={{ '--goal-color': teams[goal.team].color, '--goal-ink': teams[goal.team].ink }}>
+        <div
+          key={goal.key}
+          className={`goal-takeover goal-${goal.team}`}
+          aria-hidden="true"
+          style={{ '--goal-color': teams[goal.team].color, '--goal-ink': teams[goal.team].ink }}
+        >
           <div className="goal-stripes" />
           <span className="goal-team">{teams[goal.team].name}</span>
           <strong className="goal-word">GOAL</strong>
@@ -64,7 +77,9 @@ export function Scoreboard({ analytics, events = [] }) {
           <div className="team-avatar home-avatar">HFC</div>
           <div className="team-info">
             <h2 className="team-name">Home FC</h2>
-            <span className="team-role"><span className="kit-dot kit-home" /> White kit · Attacking Right →</span>
+            <span className="team-role">
+              <span className="kit-dot kit-home" /> White kit · Attacking Right →
+            </span>
           </div>
         </div>
 
@@ -89,7 +104,9 @@ export function Scoreboard({ analytics, events = [] }) {
         <div className="team-cell team-away">
           <div className="team-info text-right">
             <h2 className="team-name">Away FC</h2>
-            <span className="team-role"><span className="kit-dot kit-away" /> Red kit · ← Attacking Left</span>
+            <span className="team-role">
+              <span className="kit-dot kit-away" /> Red kit · ← Attacking Left
+            </span>
           </div>
           <div className="team-avatar away-avatar">AFC</div>
         </div>

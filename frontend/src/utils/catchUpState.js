@@ -6,9 +6,13 @@ export function catchUpReducer(state, action) {
   }
   if (action.generation !== state.generation) return state;
   switch (action.type) {
-    case 'start': return { ...state, busy: true, error: '' };
-    case 'success': return { ...state, summary: action.result, busy: false, error: '' };
-    case 'failure': return { ...state, busy: false, error: action.error };
-    default: return state;
+    case 'start':
+      return { ...state, busy: true, error: '' };
+    case 'success':
+      return { ...state, summary: action.result, busy: false, error: '' };
+    case 'failure':
+      return { ...state, busy: false, error: action.error };
+    default:
+      return state;
   }
 }

@@ -1,16 +1,23 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { visibleTimelineEvents } from '../utils/timeline';
-import { formatMatchSecond, formatTeamName, formatEventType, formatOutcome } from '../utils/formatters';
+import {
+  formatMatchSecond,
+  formatTeamName,
+  formatEventType,
+  formatOutcome,
+} from '../utils/formatters';
 
 export function EventTimeline({ events = [], highlightedEventId = null, onClearHighlight }) {
   const [filter, setFilter] = useState('all'); // 'all' | 'key' | 'pass' | 'recovery'
   const [showAll, setShowAll] = useState(false);
   const highlightedElement = useRef(null);
-  const targetPresent = events.some(e => e.event_id === highlightedEventId);
+  const targetPresent = events.some((e) => e.event_id === highlightedEventId);
   useEffect(() => {
     if (!highlightedEventId) return;
     highlightedElement.current?.scrollIntoView({
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'instant'
+        : 'smooth',
       block: 'center',
     });
   }, [highlightedEventId, targetPresent]);
@@ -23,11 +30,11 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
   const filteredEvents = useMemo(() => {
     switch (filter) {
       case 'key':
-        return sortedEvents.filter(e => e.type === 'goal' || e.type === 'shot');
+        return sortedEvents.filter((e) => e.type === 'goal' || e.type === 'shot');
       case 'pass':
-        return sortedEvents.filter(e => e.type === 'pass');
+        return sortedEvents.filter((e) => e.type === 'pass');
       case 'recovery':
-        return sortedEvents.filter(e => e.type === 'recovery');
+        return sortedEvents.filter((e) => e.type === 'recovery');
       case 'all':
       default:
         return sortedEvents;
@@ -38,12 +45,18 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
 
   const getEventBadgeClass = (type) => {
     switch (type) {
-      case 'goal': return 'badge-goal';
-      case 'shot': return 'badge-shot';
-      case 'recovery': return 'badge-recovery';
-      case 'pass': return 'badge-pass';
-      case 'kickoff': return 'badge-kickoff';
-      default: return 'badge-default';
+      case 'goal':
+        return 'badge-goal';
+      case 'shot':
+        return 'badge-shot';
+      case 'recovery':
+        return 'badge-recovery';
+      case 'pass':
+        return 'badge-pass';
+      case 'kickoff':
+        return 'badge-kickoff';
+      default:
+        return 'badge-default';
     }
   };
 
@@ -65,7 +78,9 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
         <div className="highlight-banner">
           <div className="highlight-info">
             <span className="highlight-pin">📍</span>
-            <span>Showing all events to reveal evidence: <code>{highlightedEventId}</code></span>
+            <span>
+              Showing all events to reveal evidence: <code>{highlightedEventId}</code>
+            </span>
           </div>
           <button type="button" className="btn-clear-highlight" onClick={onClearHighlight}>
             Clear Highlight ✕
@@ -86,21 +101,21 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
           className={`filter-chip ${filter === 'key' ? 'active' : ''}`}
           onClick={() => setFilter('key')}
         >
-          Goals & Shots ({events.filter(e => e.type === 'goal' || e.type === 'shot').length})
+          Goals & Shots ({events.filter((e) => e.type === 'goal' || e.type === 'shot').length})
         </button>
         <button
           type="button"
           className={`filter-chip ${filter === 'pass' ? 'active' : ''}`}
           onClick={() => setFilter('pass')}
         >
-          Passes ({events.filter(e => e.type === 'pass').length})
+          Passes ({events.filter((e) => e.type === 'pass').length})
         </button>
         <button
           type="button"
           className={`filter-chip ${filter === 'recovery' ? 'active' : ''}`}
           onClick={() => setFilter('recovery')}
         >
-          Recoveries ({events.filter(e => e.type === 'recovery').length})
+          Recoveries ({events.filter((e) => e.type === 'recovery').length})
         </button>
       </div>
 
@@ -108,7 +123,7 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
         <p className="timeline-empty">No events match the selected filter.</p>
       ) : (
         <ol className="timeline-list">
-          {displayEvents.map(event => {
+          {displayEvents.map((event) => {
             const isHighlighted = highlightedEventId === event.event_id;
             const time = formatMatchSecond(event.match_second);
             const team = formatTeamName(event.team_id);
@@ -142,7 +157,8 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
                     <span className="player-tag">{event.player_id}</span>
                     {typeof event.x === 'number' && (
                       <span className="coord-tag">
-                        x: {Math.round(event.x)}{typeof event.end_x === 'number' ? ` → ${Math.round(event.end_x)}` : ''}
+                        x: {Math.round(event.x)}
+                        {typeof event.end_x === 'number' ? ` → ${Math.round(event.end_x)}` : ''}
                       </span>
                     )}
                     <code className="event-id-tag">{event.event_id}</code>

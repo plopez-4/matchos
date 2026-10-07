@@ -51,14 +51,21 @@ export function CatchUpPanel({
         </div>
 
         {summary && (
-          <div className="cursor-pill" title="Cursor position: events up to this sequence have been summarized">
+          <div
+            className="cursor-pill"
+            title="Cursor position: events up to this sequence have been summarized"
+          >
             Sequence cursor: #{summary.through_sequence}
           </div>
         )}
       </div>
 
       <div className="audience-toolbar" role="group" aria-label="Select explanation audience style">
-        <div className="segmented-control" role="radiogroup" aria-label="Explanation audience style">
+        <div
+          className="segmented-control"
+          role="radiogroup"
+          aria-label="Explanation audience style"
+        >
           <button
             type="button"
             role="radio"
@@ -103,9 +110,15 @@ export function CatchUpPanel({
 
       <div className="audience-help-text">
         {selectedAudience === 'casual' ? (
-          <span><strong>Casual:</strong> Clear overview of score changes, goal stories, and high-level activity.</span>
+          <span>
+            <strong>Casual:</strong> Clear overview of score changes, goal stories, and high-level
+            activity.
+          </span>
         ) : (
-          <span><strong>Advanced:</strong> Detailed metric comparisons with recorded shot windows and defensive recoveries.</span>
+          <span>
+            <strong>Advanced:</strong> Detailed metric comparisons with recorded shot windows and
+            defensive recoveries.
+          </span>
         )}
       </div>
 
@@ -128,7 +141,8 @@ export function CatchUpPanel({
             <div className="prompt-icon">⚽</div>
             <h3>Join the match in progress?</h3>
             <p>
-              Click <strong>Catch Me Up</strong> above to analyze all events recorded so far, with verified goal stories and shooting activity shifts.
+              Click <strong>Catch Me Up</strong> above to analyze all events recorded so far, with
+              verified goal stories and shooting activity shifts.
             </p>
           </div>
         )}
@@ -138,14 +152,20 @@ export function CatchUpPanel({
             <div className="result-header-bar">
               <div className="result-mode-badges">
                 {isAzure ? (
-                  <span className="mode-badge mode-azure" title="Story candidates selected via Azure OpenAI tool calling and verified by backend rules">
+                  <span
+                    className="mode-badge mode-azure"
+                    title="Story candidates selected via Azure OpenAI tool calling and verified by backend rules"
+                  >
                     <span className="azure-sparkle">✦</span>
                     Selected with Azure AI
                     {modelName && <span className="badge-sub">{modelName}</span>}
                     {typeof latency === 'number' && <span className="badge-sub">{latency}ms</span>}
                   </span>
                 ) : (
-                  <span className="mode-badge mode-deterministic" title="Story candidates selected deterministically by backend rules">
+                  <span
+                    className="mode-badge mode-deterministic"
+                    title="Story candidates selected deterministically by backend rules"
+                  >
                     Evidence-backed rule summary
                     {fallbackReason && fallbackReason !== 'ai_disabled' && (
                       <span className="badge-sub">fallback: {fallbackReason}</span>
@@ -167,7 +187,10 @@ export function CatchUpPanel({
                 <span className="checkmark-icon">✓</span>
                 <div>
                   <strong>You're completely up to date.</strong>
-                  <p>No new recorded events have arrived since your last check (sequence #{summary.through_sequence}).</p>
+                  <p>
+                    No new recorded events have arrived since your last check (sequence #
+                    {summary.through_sequence}).
+                  </p>
                 </div>
               </div>
             ) : (
@@ -180,7 +203,7 @@ export function CatchUpPanel({
 
                 {sections.length > 0 ? (
                   <div className="sections-grid">
-                    {sections.map(section => (
+                    {sections.map((section) => (
                       <article key={section.title} className="catchup-section-card">
                         <header className="section-card-header">
                           <h3 className="section-card-title">{section.title}</h3>
@@ -226,7 +249,10 @@ export function CatchUpPanel({
                     onClick={() => setShowTrace(!showTrace)}
                     aria-expanded={showTrace}
                   >
-                    <span>{showTrace ? '▼' : '▶'} AI Selection & Verification Trace ({trace.length} steps)</span>
+                    <span>
+                      {showTrace ? '▼' : '▶'} AI Selection & Verification Trace ({trace.length}{' '}
+                      steps)
+                    </span>
                     <span className="toggle-hint">{showTrace ? 'Hide' : 'Inspect'}</span>
                   </button>
 
@@ -239,7 +265,9 @@ export function CatchUpPanel({
                             <span className="trace-label">{getTraceStepLabel(step)}</span>
                             <span className="trace-code">status: {step.status}</span>
                             {step.story_ids && (
-                              <span className="trace-meta">stories: {step.story_ids.join(', ')}</span>
+                              <span className="trace-meta">
+                                stories: {step.story_ids.join(', ')}
+                              </span>
                             )}
                           </div>
                         </li>
@@ -256,7 +284,11 @@ export function CatchUpPanel({
                   onClick={() => setShowRawIds(!showRawIds)}
                   aria-expanded={showRawIds}
                 >
-                  <span>{showRawIds ? '▼' : '▶'} Supporting Event IDs ({summary.evidence_event_ids?.length || 0} new, {summary.context_evidence_event_ids?.length || 0} context)</span>
+                  <span>
+                    {showRawIds ? '▼' : '▶'} Supporting Event IDs (
+                    {summary.evidence_event_ids?.length || 0} new,{' '}
+                    {summary.context_evidence_event_ids?.length || 0} context)
+                  </span>
                   <span className="toggle-hint">{showRawIds ? 'Hide' : 'Inspect'}</span>
                 </button>
 

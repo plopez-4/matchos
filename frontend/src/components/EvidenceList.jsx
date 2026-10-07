@@ -1,5 +1,10 @@
 import React from 'react';
-import { formatMatchSecond, formatTeamName, formatEventType, formatOutcome } from '../utils/formatters';
+import {
+  formatMatchSecond,
+  formatTeamName,
+  formatEventType,
+  formatOutcome,
+} from '../utils/formatters';
 
 export function EvidenceList({ evidenceIds = [], events = [], onSelectEvent }) {
   if (!evidenceIds || evidenceIds.length === 0) {
@@ -8,8 +13,8 @@ export function EvidenceList({ evidenceIds = [], events = [], onSelectEvent }) {
 
   return (
     <ul className="evidence-list" aria-label="Supporting events list">
-      {evidenceIds.map(id => {
-        const event = events.find(e => e.event_id === id);
+      {evidenceIds.map((id) => {
+        const event = events.find((e) => e.event_id === id);
 
         if (!event) {
           return (
@@ -32,7 +37,9 @@ export function EvidenceList({ evidenceIds = [], events = [], onSelectEvent }) {
               <span className="evidence-time">{time}</span>
               <span className={`evidence-team team-${event.team_id}`}>{team}</span>
               <span className={`evidence-type type-${event.type}`}>{type}</span>
-              {outcome && <span className={`evidence-outcome outcome-${event.outcome}`}>{outcome}</span>}
+              {outcome && (
+                <span className={`evidence-outcome outcome-${event.outcome}`}>{outcome}</span>
+              )}
               {typeof event.x === 'number' && (
                 <span className="evidence-coords" title={`Pitch coordinate x: ${event.x}`}>
                   pitch: {Math.round(event.x)}m

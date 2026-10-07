@@ -6,7 +6,7 @@ export function StoryCard({ stories = [], events = [], onSelectEvent }) {
   const [showTechnical, setShowTechnical] = useState(false);
 
   const toggleEvidence = (storyId) => {
-    setOpenEvidence(prev => ({
+    setOpenEvidence((prev) => ({
       ...prev,
       [storyId]: !prev[storyId],
     }));
@@ -64,7 +64,7 @@ export function StoryCard({ stories = [], events = [], onSelectEvent }) {
         </div>
       ) : (
         <div className="stories-list">
-          {stories.map(story => {
+          {stories.map((story) => {
             const meta = getStoryKindMeta(story.kind);
             const isOpen = !!openEvidence[story.story_id];
             const evidenceCount = story.evidence_event_ids?.length || 0;
@@ -95,7 +95,11 @@ export function StoryCard({ stories = [], events = [], onSelectEvent }) {
                     onClick={() => toggleEvidence(story.story_id)}
                     aria-expanded={isOpen}
                   >
-                    <span>{isOpen ? '▲ Hide supporting events' : `▼ Inspect supporting events (${evidenceCount})`}</span>
+                    <span>
+                      {isOpen
+                        ? '▲ Hide supporting events'
+                        : `▼ Inspect supporting events (${evidenceCount})`}
+                    </span>
                   </button>
                 </div>
 

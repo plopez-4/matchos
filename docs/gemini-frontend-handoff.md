@@ -49,14 +49,14 @@ Create `feature/match-page-polish` for this frontend work. If working in the own
 
 ### Current stack
 
-| Area | Existing implementation |
-| --- | --- |
-| Backend | Python 3.11+, FastAPI, Pydantic |
-| Storage | In-memory, one backend process |
-| Frontend | React 19, Vite 7, JSX, plain CSS |
-| Simulator | Seeded Python synthetic scenario |
-| AI | Azure-hosted `gpt-4.1-mini`, deployment `matchos-explainer` |
-| Transport | HTTP APIs, frontend polling about every two seconds |
+| Area      | Existing implementation                                     |
+| --------- | ----------------------------------------------------------- |
+| Backend   | Python 3.11+, FastAPI, Pydantic                             |
+| Storage   | In-memory, one backend process                              |
+| Frontend  | React 19, Vite 7, JSX, plain CSS                            |
+| Simulator | Seeded Python synthetic scenario                            |
+| AI        | Azure-hosted `gpt-4.1-mini`, deployment `matchos-explainer` |
+| Transport | HTTP APIs, frontend polling about every two seconds         |
 
 Keep this stack. A framework migration, database, authentication, hosted agents, or new deployment infrastructure is outside this assignment.
 
@@ -102,17 +102,17 @@ At the last validation, all 18 backend tests passed, the frontend production bui
 
 ### Known replay, seed 7
 
-| Fact | Expected result after all 30 events |
-| --- | --- |
-| Match ID | `demo-match` |
-| Latest recorded clock | `10:00`, period 1 |
-| Score | Home 1–0 Away |
-| Recorded shots, whole replay | Home 5, Away 2 |
-| Goal | Home at `9:31`, sequence 22 |
-| Supporting shot | Home at `9:30`, sequence 21 |
-| Home shots in minutes 0–5 | 1 |
-| Home shots in minutes 5–10 | 4 |
-| Stories | Goal and increased home shot activity |
+| Fact                         | Expected result after all 30 events   |
+| ---------------------------- | ------------------------------------- |
+| Match ID                     | `demo-match`                          |
+| Latest recorded clock        | `10:00`, period 1                     |
+| Score                        | Home 1–0 Away                         |
+| Recorded shots, whole replay | Home 5, Away 2                        |
+| Goal                         | Home at `9:31`, sequence 22           |
+| Supporting shot              | Home at `9:30`, sequence 21           |
+| Home shots in minutes 0–5    | 1                                     |
+| Home shots in minutes 5–10   | 4                                     |
+| Stories                      | Goal and increased home shot activity |
 
 Seed changes fictional player identities, not this storyline. This is a sparse highlights feed: counts refer to **recorded events**, not exhaustive real-match statistics. Increased shots do not prove possession, pressure, dominance, or causation. Do not add fake possession percentages, win probabilities, xG, heatmaps or momentum meters.
 
@@ -177,15 +177,15 @@ Frontend development does not require an Azure account or a key. A fresh clone c
 
 All routes below start with `/api`. Use the existing development proxy and relative URLs. Backend source and `/docs` are authoritative if this brief and code differ. Inspect successful responses before introducing assumptions.
 
-| Method | Route | Use |
-| --- | --- | --- |
-| GET | `/health` | Process status; reports in-memory storage |
-| GET | `/matches/demo-match/events` | Ordered event array |
-| GET | `/matches/demo-match/analytics` | Recorded team counts and shot windows |
-| GET | `/matches/demo-match/stories` | Evidence-backed story array |
-| GET | `/matches/demo-match/graph` | Derived graph, optional UI enhancement |
-| POST | `/matches/demo-match/catch-up` | Viewer summary since a sequence cursor |
-| POST | `/events` | Simulator ingestion; frontend does not need to create events |
+| Method | Route                           | Use                                                          |
+| ------ | ------------------------------- | ------------------------------------------------------------ |
+| GET    | `/health`                       | Process status; reports in-memory storage                    |
+| GET    | `/matches/demo-match/events`    | Ordered event array                                          |
+| GET    | `/matches/demo-match/analytics` | Recorded team counts and shot windows                        |
+| GET    | `/matches/demo-match/stories`   | Evidence-backed story array                                  |
+| GET    | `/matches/demo-match/graph`     | Derived graph, optional UI enhancement                       |
+| POST   | `/matches/demo-match/catch-up`  | Viewer summary since a sequence cursor                       |
+| POST   | `/events`                       | Simulator ingestion; frontend does not need to create events |
 
 ### Event
 
@@ -206,8 +206,8 @@ Required fields include `event_id`, `match_id`, `sequence`, `match_second`, `tea
   "match_id": "demo-match",
   "event_count": 30,
   "teams": {
-    "home": {"pass": 8, "shot": 5, "goal": 1, "recovery": 5},
-    "away": {"pass": 6, "shot": 2, "goal": 0, "recovery": 1}
+    "home": { "pass": 8, "shot": 5, "goal": 1, "recovery": 5 },
+    "away": { "pass": 6, "shot": 2, "goal": 0, "recovery": 1 }
   },
   "rule_version": "counts-v1",
   "shot_windows": []
@@ -233,7 +233,7 @@ A story contains `story_id`, `kind`, `text`, `evidence_event_ids`, `rule_version
 Request:
 
 ```json
-{"since_sequence": 0, "audience": "casual"}
+{ "since_sequence": 0, "audience": "casual" }
 ```
 
 Audience is `casual` or `advanced`. The request includes events whose sequence is greater than `since_sequence`.
@@ -461,11 +461,11 @@ Suggested task order for one frontend contributor:
 
 ## 10. How this fits the rest of the team
 
-| Owner | Responsibility |
-| --- | --- |
-| Project owner / backend lead | Event ingestion, schema, deterministic rules, graph contracts, integration and Azure configuration |
-| Gemini acting as frontend teammate | The complete frontend assignment in this document |
-| Future AI contributor | Improving grounded selection, orchestration and evaluation with agreed backend contracts |
+| Owner                              | Responsibility                                                                                     |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Project owner / backend lead       | Event ingestion, schema, deterministic rules, graph contracts, integration and Azure configuration |
+| Gemini acting as frontend teammate | The complete frontend assignment in this document                                                  |
+| Future AI contributor              | Improving grounded selection, orchestration and evaluation with agreed backend contracts           |
 
 The owner has already built the backend/AI slice. Do not redo it simply because the original plan expected three people. Frontend work should expose that functioning slice clearly.
 

@@ -1,4 +1,5 @@
 # MatchOS
+
 ### The AI Operating System for Live Football
 
 MatchOS turns a stream of football events into a match story fans can understand and verify. It connects recorded actions to emerging patterns, explains what changed, and helps returning viewers catch up without watching every missed minute.
@@ -23,13 +24,13 @@ A fan joins a match late. The score tells them who is winning, but they still ne
 
 MatchOS brings those answers together:
 
-| Feature | What it gives the fan |
-| --- | --- |
-| **Live match view** | A score, event timeline and recorded match statistics that update during replay. |
-| **Match intelligence** | Reproducible comparisons that reveal changes in recorded activity. |
-| **Match Story Graph** | Connections from events to calculated patterns to explanations, with inspectable evidence. |
-| **Catch Me Up** | A summary of events and stories since the viewer's last check. |
-| **Personalization** | Casual or advanced explanations built from the same underlying facts. |
+| Feature                | What it gives the fan                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Live match view**    | A score, event timeline and recorded match statistics that update during replay.                                   |
+| **Match intelligence** | Reproducible comparisons that reveal changes in recorded activity.                                                 |
+| **Match Story Graph**  | Connections from events to calculated patterns to explanations, with inspectable evidence.                         |
+| **Catch Me Up**        | A summary of events and stories since the viewer's last check.                                                     |
+| **Personalization**    | Casual or advanced explanations built from the same underlying facts.                                              |
 | **Evidence-backed AI** | An agent retrieves trusted stories and chooses what to explain; the app checks the selection before displaying it. |
 
 Our first audience is football fans. The longer-term goal is to make the same intelligence useful to broadcasters, studios and streaming experiences.
@@ -54,12 +55,12 @@ This comparison describes recorded shooting activity. It does not establish poss
 
 **This is an actively developed hackathon prototype.** Features are being reviewed in pull requests before integration.
 
-| Location | What's available |
-| --- | --- |
-| `main` / `develop` | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up. |
-| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1) | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
+| Location                                                                                                                                                              | What's available                                                                                                                                                          |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` / `develop`                                                                                                                                                    | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up.                                                                            |
+| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1)   | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
 | [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Live Azure calls verified for casual and advanced summaries. |
-| [`feature/match-page-polish`](https://github.com/plopez-4/matchos/tree/feature/match-page-polish) | Latest broadcast dashboard, kit colors, goal takeovers, fresh replay sessions, evidence navigation and request-state fixes. Stacked on the Azure branch for review. |
+| [`feature/match-page-polish`](https://github.com/plopez-4/matchos/tree/feature/match-page-polish)                                                                     | Latest broadcast dashboard, kit colors, goal takeovers, fresh replay sessions, evidence navigation and request-state fixes. Stacked on the Azure branch for review.       |
 
 The AI adapter is off by default. It uses a Microsoft Foundry Azure OpenAI-compatible model endpoint. The model selects supported story IDs; trusted text is rendered by the app. Free-form AI narration and hosted Foundry Agent Service deployment are future work.
 
@@ -147,15 +148,15 @@ For Azure story selection, follow the [Azure configuration guide](docs/azure-ai.
 
 ## Technology and repository
 
-| Area | Technology / location |
-| --- | --- |
-| Backend | Python, FastAPI, Pydantic · `backend/app/` |
-| Frontend | React, Vite · `frontend/src/` |
-| Synthetic data | Seeded Python scenario · `simulator/` |
-| Shared contract | Versioned JSON Schema · `schemas/` |
-| Verification | pytest, mocked provider tests, frontend builds, GitHub Actions |
+| Area                  | Technology / location                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------- |
+| Backend               | Python, FastAPI, Pydantic · `backend/app/`                                                |
+| Frontend              | React, Vite · `frontend/src/`                                                             |
+| Synthetic data        | Seeded Python scenario · `simulator/`                                                     |
+| Shared contract       | Versioned JSON Schema · `schemas/`                                                        |
+| Verification          | pytest, mocked provider tests, frontend builds, GitHub Actions                            |
 | Microsoft integration | Working Azure OpenAI-compatible Foundry model endpoint; optional verified story selection |
-| Documentation | Product, architecture, API, milestone and submission plans · `docs/` |
+| Documentation         | Product, architecture, API, milestone and submission plans · `docs/`                      |
 
 ### Run checks
 
@@ -164,6 +165,7 @@ From the repository root, with backend dependencies installed:
 ```powershell
 .\.venv\Scripts\python.exe -m pytest backend/tests
 cd frontend
+npm run format:check
 npm test
 npm run build
 ```
@@ -185,6 +187,8 @@ Current storage is in memory and resets on restart. The backend supports one pro
 Use `develop` for integration and `main` for tested releases. Create feature branches, keep changes focused, and submit pull requests with demo steps and verification. Backend/integration, frontend, and intelligence/AI are the main ownership areas.
 
 See [CONTRIBUTING](CONTRIBUTING.md), the [milestone plan](docs/milestone-1.md), and the [initial task drafts](docs/github-issues.md).
+
+Shared code style is enforced in CI with [Prettier](https://prettier.io/docs/install). Run `npm.cmd --prefix frontend run format` from the repository root to apply it, or `npm.cmd --prefix frontend run format:check` to check it. See CONTRIBUTING for the supported files and editor setup.
 
 ## License
 

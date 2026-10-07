@@ -6,6 +6,8 @@ Published for review on `feature/match-page-polish`; not a tagged release on `ma
 
 ### Added
 
+- Pinned Prettier formatter, shared repository style configuration, formatting commands and an automated CI formatting check.
+
 - Modular responsive match dashboard, recorded-stat strip, timeline filters and evidence inspection.
 - Premier League-inspired purple/white theme, league artwork, credited Goodison Park photo and Microsoft Azure technology attribution.
 - Optimized the stadium photograph to a 960px WebP (about 172 KB) for faster delivery.

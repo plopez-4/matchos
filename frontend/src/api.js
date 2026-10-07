@@ -36,7 +36,11 @@ export async function fetchMatchGraph(matchId = 'demo-match', options = {}) {
   return request(`/matches/${matchId}/graph`, options);
 }
 
-export async function postCatchUp(matchId = 'demo-match', { since_sequence = 0, audience = 'casual' }, options = {}) {
+export async function postCatchUp(
+  matchId = 'demo-match',
+  { since_sequence = 0, audience = 'casual' },
+  options = {},
+) {
   return request(`/matches/${matchId}/catch-up`, {
     ...options,
     method: 'POST',

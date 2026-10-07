@@ -13,23 +13,35 @@ export function formatTeamName(teamId) {
 
 export function formatEventType(type) {
   switch (type) {
-    case 'kickoff': return 'Kickoff';
-    case 'pass': return 'Pass';
-    case 'shot': return 'Shot';
-    case 'goal': return 'Goal';
-    case 'recovery': return 'Recovery';
-    default: return type ? type.charAt(0).toUpperCase() + type.slice(1) : '';
+    case 'kickoff':
+      return 'Kickoff';
+    case 'pass':
+      return 'Pass';
+    case 'shot':
+      return 'Shot';
+    case 'goal':
+      return 'Goal';
+    case 'recovery':
+      return 'Recovery';
+    default:
+      return type ? type.charAt(0).toUpperCase() + type.slice(1) : '';
   }
 }
 
 export function formatOutcome(outcome) {
   if (!outcome) return null;
   switch (outcome) {
-    case 'complete': return 'Complete';
-    case 'saved': return 'Saved';
-    case 'blocked': return 'Blocked';
-    case 'missed': return 'Missed';
-    case 'goal': return 'Goal';
-    default: return outcome;
+    case 'complete':
+      return 'Complete';
+    case 'saved':
+      return 'Saved';
+    case 'blocked':
+      return 'Blocked';
+    case 'missed':
+      return 'Missed';
+    case 'goal':
+      return 'Goal';
+    default:
+      return outcome;
   }
 }

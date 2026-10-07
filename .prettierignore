@@ -1,0 +1,18 @@
+# Dependencies, local environments, caches and build outputs
+**/node_modules/
+**/dist/
+**/coverage/
+.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/*.egg-info/
+.npm-cache/
+.env
+.env.*
+
+# Generated schema and npm-managed lockfile
+schemas/match-event.schema.json
+frontend/package-lock.json
+
+# Third-party assets and licenses remain unchanged
+frontend/public/assets/

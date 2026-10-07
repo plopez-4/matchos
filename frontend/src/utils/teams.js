@@ -4,13 +4,18 @@ export const teams = {
   away: { name: 'Away FC', kit: 'Red', color: '#ef3340', ink: '#ffffff' },
 };
 
-export const teamVariables = Object.fromEntries(Object.entries(teams).flatMap(([id, team]) => [
-  [`--team-${id}`, team.color], [`--team-${id}-ink`, team.ink],
-]));
+export const teamVariables = Object.fromEntries(
+  Object.entries(teams).flatMap(([id, team]) => [
+    [`--team-${id}`, team.color],
+    [`--team-${id}-ink`, team.ink],
+  ]),
+);
 
 export function newScoringTeams(previous, current) {
   if (!previous || !current) return [];
   // A lower score is a reset/correction, never a new goal.
   if (current.home < previous.home || current.away < previous.away) return [];
-  return ['home', 'away'].flatMap(id => Array.from({ length: Math.max(0, current[id] - previous[id]) }, () => id));
+  return ['home', 'away'].flatMap((id) =>
+    Array.from({ length: Math.max(0, current[id] - previous[id]) }, () => id),
+  );
 }

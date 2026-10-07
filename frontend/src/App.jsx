@@ -17,18 +17,24 @@ export function App() {
     const requested = new URLSearchParams(window.location.search).get('match');
     return requested && /^[a-zA-Z0-9_-]{1,80}$/.test(requested) ? requested : 'demo-match';
   });
-  const [{ summary, busy, error: catchUpError }, dispatch] = useReducer(catchUpReducer, initialCatchUpState);
+  const [{ summary, busy, error: catchUpError }, dispatch] = useReducer(
+    catchUpReducer,
+    initialCatchUpState,
+  );
   const [selectedAudience, setSelectedAudience] = useState('casual');
   const [highlightedEventId, setHighlightedEventId] = useState(null);
 
   const generationIdRef = useRef(0);
   const requestRef = useRef(null);
 
-  useEffect(() => () => {
-    generationIdRef.current += 1;
-    requestRef.current?.abort();
-    requestRef.current = null;
-  }, []);
+  useEffect(
+    () => () => {
+      generationIdRef.current += 1;
+      requestRef.current?.abort();
+      requestRef.current = null;
+    },
+    [],
+  );
 
   // Called when latest sequence drops (e.g. backend restart or simulator re-run)
   const handleReset = useCallback((_newSequence) => {
@@ -39,7 +45,12 @@ export function App() {
     setHighlightedEventId(null);
   }, []);
 
-  const { data, status, error: pollingError, lastUpdated } = useMatchData(matchId, {
+  const {
+    data,
+    status,
+    error: pollingError,
+    lastUpdated,
+  } = useMatchData(matchId, {
     pollInterval: 2000,
     onReset: handleReset,
   });
@@ -53,10 +64,14 @@ export function App() {
     dispatch({ type: 'start', generation: currentGen });
 
     try {
-      const result = await postCatchUp(matchId, {
-        since_sequence: currentCursor,
-        audience: selectedAudience,
-      }, { signal: controller.signal });
+      const result = await postCatchUp(
+        matchId,
+        {
+          since_sequence: currentCursor,
+          audience: selectedAudience,
+        },
+        { signal: controller.signal },
+      );
 
       // Discard stale in-flight response if a backend reset occurred while request was in-flight
       if (currentGen === generationIdRef.current) {
@@ -65,8 +80,11 @@ export function App() {
     } catch (err) {
       if (currentGen === generationIdRef.current) {
         // Keep prior summary and cursor intact on failure so retrying doesn't skip events
-        dispatch({ type: 'failure', generation: currentGen,
-          error: err.message || 'Catch Me Up request failed. Backend may be busy.' });
+        dispatch({
+          type: 'failure',
+          generation: currentGen,
+          error: err.message || 'Catch Me Up request failed. Backend may be busy.',
+        });
       }
     } finally {
       if (requestRef.current === controller) requestRef.current = null;
@@ -85,23 +103,14 @@ export function App() {
 
   return (
     <div className="matchos-app" style={teamVariables}>
-      <MatchHeader
-        status={status}
-        error={pollingError}
-        lastUpdated={lastUpdated}
-      />
+      <MatchHeader status={status} error={pollingError} lastUpdated={lastUpdated} />
 
       <main className="dashboard-grid">
         {/* Left Primary Column: Overview, Catch Up, Analytics, Stories, Graph */}
         <div className="main-column">
-          <Scoreboard
-            analytics={data.analytics}
-            events={data.events}
-          />
+          <Scoreboard analytics={data.analytics} events={data.events} />
 
-          {!hasEvents && status !== 'loading' && (
-            <SimulatorGuide matchId={matchId} />
-          )}
+          {!hasEvents && status !== 'loading' && <SimulatorGuide matchId={matchId} />}
 
           <CatchUpPanel
             summary={summary}
@@ -126,10 +135,7 @@ export function App() {
             onSelectEvent={handleSelectEvent}
           />
 
-          <EvidenceGraph
-            graph={data.graph}
-            stories={data.stories}
-          />
+          <EvidenceGraph graph={data.graph} stories={data.stories} />
         </div>
 
         {/* Right Secondary Column: Live Timeline of Events */}
@@ -145,12 +151,17 @@ export function App() {
       <footer className="dashboard-footer">
         <div className="footer-content">
           <p className="footer-primary">
-            MatchOS — Fictional synthetic replay with deterministic analytics and evidence-linked stories.
+            MatchOS — Fictional synthetic replay with deterministic analytics and evidence-linked
+            stories.
           </p>
           <p className="footer-secondary">
-            AI story selection is powered by Azure OpenAI (<code>matchos-explainer</code>) with verified grounding fallback. Displayed metrics and stories come strictly from deterministic rules. No real Premier League data used.
+            AI story selection is powered by Azure OpenAI (<code>matchos-explainer</code>) with
+            verified grounding fallback. Displayed metrics and stories come strictly from
+            deterministic rules. No real Premier League data used.
           </p>
-          <p className="photo-credit">Premier League mark: © Copyright The Football Association Premier League Limited, 2016.</p>
+          <p className="photo-credit">
+            Premier League mark: © Copyright The Football Association Premier League Limited, 2016.
+          </p>
         </div>
       </footer>
     </div>

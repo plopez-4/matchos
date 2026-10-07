@@ -6,12 +6,15 @@ export function EvidenceGraph({ graph, stories = [] }) {
   const nodes = graph?.nodes || [];
   const edges = graph?.edges || [];
 
-  const eventNodes = nodes.filter(n => n.type === 'event');
-  const metricNodes = nodes.filter(n => n.type === 'metric_window');
-  const storyNodes = nodes.filter(n => n.type === 'story');
+  const eventNodes = nodes.filter((n) => n.type === 'event');
+  const metricNodes = nodes.filter((n) => n.type === 'metric_window');
+  const storyNodes = nodes.filter((n) => n.type === 'story');
 
   return (
-    <section className="dashboard-card graph-card" aria-label="Match Story Graph and Evidence Architecture">
+    <section
+      className="dashboard-card graph-card"
+      aria-label="Match Story Graph and Evidence Architecture"
+    >
       <div className="card-header">
         <div className="header-text-group">
           <div className="title-with-pill">
@@ -19,7 +22,8 @@ export function EvidenceGraph({ graph, stories = [] }) {
             <span className="feature-pill">Rule: graph-v1</span>
           </div>
           <p className="card-subtitle">
-            How MatchOS turns raw events into deterministic graph nodes and verified Azure AI briefings.
+            How MatchOS turns raw events into deterministic graph nodes and verified Azure AI
+            briefings.
           </p>
         </div>
 
@@ -51,7 +55,10 @@ export function EvidenceGraph({ graph, stories = [] }) {
             <div className="step-number">1</div>
             <div className="step-content">
               <h4>Synthetic Ingestion</h4>
-              <p>Replay highlights validated against schema 1.1 for strict sequence ordering and match clock consistency.</p>
+              <p>
+                Replay highlights validated against schema 1.1 for strict sequence ordering and
+                match clock consistency.
+              </p>
               <span className="step-tag">FastAPI · Pydantic</span>
             </div>
           </div>
@@ -65,8 +72,13 @@ export function EvidenceGraph({ graph, stories = [] }) {
             <div className="step-number">2</div>
             <div className="step-content">
               <h4>Deterministic Graph</h4>
-              <p>Rules aggregate 5-min shot windows and goals. Connects nodes via explicit <code>supports</code> edges.</p>
-              <span className="step-tag">{metricNodes.length} windows · {edges.length} edges</span>
+              <p>
+                Rules aggregate 5-min shot windows and goals. Connects nodes via explicit{' '}
+                <code>supports</code> edges.
+              </p>
+              <span className="step-tag">
+                {metricNodes.length} windows · {edges.length} edges
+              </span>
             </div>
           </div>
 
@@ -79,7 +91,10 @@ export function EvidenceGraph({ graph, stories = [] }) {
             <div className="step-number">3</div>
             <div className="step-content">
               <h4>Azure AI Selection</h4>
-              <p>Azure <code>gpt-4.1-mini</code> calls <code>get_match_evidence</code> and selects candidate story IDs.</p>
+              <p>
+                Azure <code>gpt-4.1-mini</code> calls <code>get_match_evidence</code> and selects
+                candidate story IDs.
+              </p>
               <span className="step-tag">Tool calls · Bound candidates</span>
             </div>
           </div>
@@ -93,7 +108,10 @@ export function EvidenceGraph({ graph, stories = [] }) {
             <div className="step-number">4</div>
             <div className="step-content">
               <h4>Grounded Fan Catch-Up</h4>
-              <p>Backend verifies AI selection against deterministic evidence and renders trusted audience wording.</p>
+              <p>
+                Backend verifies AI selection against deterministic evidence and renders trusted
+                audience wording.
+              </p>
               <span className="step-tag">Casual & Advanced</span>
             </div>
           </div>
@@ -120,8 +138,8 @@ export function EvidenceGraph({ graph, stories = [] }) {
           </div>
 
           <div className="graph-stories-inspection">
-            {stories.map(story => {
-              const incomingEdges = edges.filter(e => e.target === story.story_id);
+            {stories.map((story) => {
+              const incomingEdges = edges.filter((e) => e.target === story.story_id);
               return (
                 <div key={story.story_id} className="graph-story-chain">
                   <div className="chain-header">
@@ -149,7 +167,8 @@ export function EvidenceGraph({ graph, stories = [] }) {
       <div className="disclaimer-footnote">
         <span className="disclaimer-icon">ℹ</span>
         <span>
-          Graph edges use <code>type: "supports"</code> to link evidence. They denote mathematical support, not tactical causation.
+          Graph edges use <code>type: "supports"</code> to link evidence. They denote mathematical
+          support, not tactical causation.
         </span>
       </div>
     </section>
