@@ -1,5 +1,9 @@
 # Patch notes
 
+## 2026-10-11 — Fix GitHub dependency audit
+
+- Upgrade GitHub's preinstalled setuptools to 83.0.0 and require at least that version for isolated backend builds. The failed dependency audit identified vulnerable setuptools 79.0.1 on the runner; application tests and the frontend job passed. The vulnerability audit stays enabled.
+
 ## 2026-10-11 — Matchday, Match Radar and briefing improvements
 
 - Fixed partial matchday cleanup and aligned early-window metadata with inclusion of events at second zero.
