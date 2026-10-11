@@ -1,5 +1,19 @@
 # API v0.1
 
+Matchday routes: `POST /matchdays/start`, `GET /matchdays/{id}`, `POST /matchdays/{id}/tick`, and owner-only `DELETE /matchdays/{id}`. They advance three server-owned synthetic feeds on one shared clock and return an observed-event Radar snapshot. See [Match Radar API, rules and limits](match-radar.md).
+
+## Security contract
+
+All writes require JSON and `X-MatchOS-Client: replay` (or a trusted ingestion credential). The marker is CSRF protection, not a password. Origin/Host checks and request limits apply. Public reads expose only synthetic match data.
+
+- `POST /api/session` with `{}` establishes a private HttpOnly cookie; browsers use same-origin credentials.
+- `POST /api/replay/start` with `{ "match_id": "fresh-id", "scenario_id": "comeback" }` reserves a replay for that session and returns its canonical fixture. The same owner/scenario can retry; another owner receives 403.
+- `POST /api/matches/{id}/advance` with `{ "sequence": 1 }` appends only the corresponding server-owned event. Other fields are rejected. Ordered retries are idempotent.
+- `POST /api/events` requires `X-MatchOS-Ingest-Token` matching a private server token of at least 32 characters. Disabled by default. Trusted ingestion cannot overwrite browser-owned replays.
+- Catch Me Up rejects a cursor ahead of the match, caches identical revision/cursor/audience/mode requests, and rejects busy/excess requests with 429. Provider limits produce a deterministic explanation instead of unlimited Azure work.
+
+Expired sessions require reloading and starting a fresh replay. Capacity failures use 429/503; oversized bodies use 413. See [security setup](security.md) for exact quotas and production configuration.
+
 Full-match scenarios `united-city-90` and `united-hull-90` use schema 1.2. Catalog entries include fictional rosters and scenario style settings. Events add `team_name`, `player_name`, `recipient_player_id` and `recipient_player_name`. Full-feed passes require both destination coordinates, a different same-team intended recipient, and `complete`/`intercepted` outcome. New types are `substitution`, `half_end`, `match_end`; existing 1.0/1.1 fixtures remain supported. Catch-up adds optional `match_briefing` with readable rule-based text, evidence IDs and `full-feed-briefing-v1` rule version. Clock and coordinate conventions are documented in [full-match data](full-match-data.md).
 
 Base: `http://localhost:8000/api`. Interactive OpenAPI: `/docs`. Event schema: [match-event.schema.json](../schemas/match-event.schema.json). Pydantic model is authoritative; export script regenerates the shared contract.

@@ -1,5 +1,13 @@
 # MatchOS
 
+## Matchday & Radar
+
+Open **Matchday & Radar** to play three simultaneous synthetic fixtures on one shared clock. Radar can flag a developing match elsewhere, show its supporting shot/score evidence, stay quiet when activity fades, and open Catch Me Up in one click. This first version uses transparent rules; it does not predict excitement or claim measured engagement uplift. See [the milestone and scoring rules](docs/match-radar.md) and [Gemini review handoff](docs/gemini-match-radar-review.md).
+
+## Security baseline
+
+Browser replay advances server-owned synthetic events using a private HttpOnly session cookie. Arbitrary event ingestion is disabled unless a private backend token is configured. Requests and stored matches are bounded; Catch Me Up is cached, and optional Azure calls have an application budget with deterministic fallback. Production mode serves the built frontend, requires HTTPS, sets security headers and hides API documentation. Run one API worker. See [security setup and limits](docs/security.md).
+
 ## Full-match synthetic feeds
 
 Try **United vs City** and **United vs Hull** in the scenario picker. Each covers two 45-minute halves plus three added minutes, using fictional players, connected possessions, sender/recipient passes, substitutions and a readable Catch Me Up briefing. Choose **80× Fast preview** for a short run. These are authored scenarios, not reconstructions of real games, and no model training is performed. See [full-match data and provenance](docs/full-match-data.md).
@@ -116,7 +124,8 @@ From the repository root:
 
 ```powershell
 py -3 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e "./backend[dev]"
+.\.venv\Scripts\python.exe -m pip install --upgrade pip==26.2.1
+.\.venv\Scripts\python.exe -m pip install -c backend/constraints.txt -e "./backend[dev]"
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --reload
 ```
 
@@ -140,27 +149,27 @@ Use the **Scenario** selector to choose between `pressure-builds`, `comeback`, `
 
 Use **Start replay**, **Pause / Resume**, **Speed** (0.5×–4×), and **Reset** in the match page. Normal speed sends one highlight every three seconds. Keep the page open while playback runs. Reset opens a new match at 0–0 and clears its Catch Me Up cursor and evidence selection; earlier matches remain available at their own URLs. The scenario choice can also be set directly in the URL query string (e.g. `?scenario=comeback`). Opening an existing match offers **Start new replay**.
 
-The browser requests the versioned synthetic fixture from `GET /api/replay/scenario?scenario_id=<id>` and submits events through the normal validated ingestion API. Playback stops when the page closes or reloads. A request already sent at pause may still be accepted; retrying that event is safe. The displayed match data follows polling and can lag the replay progress briefly.
+The browser reserves a server-owned fixture through `POST /api/replay/start` and advances it by sequence with a private session cookie. It cannot submit fabricated event facts. Playback stops when the page closes or reloads. A request already sent at pause may still be accepted; retrying that event is safe. The displayed match data follows polling and can lag the replay progress briefly. Earlier matches expire after four hours.
 
 ### Optional simulator terminal
 
 Open a third terminal in the repository root:
 
 ```powershell
-.\.venv\Scripts\python.exe simulator/run.py --scenario pressure-builds --interval 3
+.\.venv\Scripts\python.exe simulator/run.py --scenario pressure-builds --interval 3 --match-id cli-pressure-1
 ```
 
 You can choose any available scenario (`pressure-builds`, `comeback`, `quiet-match`, `legacy-default`):
 
 ```powershell
 # Replay the Away comeback scenario
-.\.venv\Scripts\python.exe simulator/run.py --scenario comeback --interval 2
+.\.venv\Scripts\python.exe simulator/run.py --scenario comeback --interval 2 --match-id cli-comeback-1
 
 # Replay the restrained tactical midfield battle
-.\.venv\Scripts\python.exe simulator/run.py --scenario quiet-match --interval 1
+.\.venv\Scripts\python.exe simulator/run.py --scenario quiet-match --interval 1 --match-id cli-quiet-1
 ```
 
-Keep the page open at 0–0 before starting. Events arrive at the specified interval. Watch the GOAL takeover, score updates, and newly unlocked story badges appear (such as High Recovery, Progressive Pass, or Rapid Transition). Inspect evidence and try Catch Me Up. Use `--interval 0.5` for a faster run.
+Use a fresh CLI match ID for each run. Open the frontend with `?match=cli-pressure-1&scenario=pressure-builds` (or your chosen ID/scenario) to watch; the simulator owns advancement of that replay. Events arrive at the specified interval. Watch the GOAL takeover, score updates and story badges. Inspect evidence and try Catch Me Up. Use `--interval 0.5` for a faster run.
 
 On macOS/Linux, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`, use `python3 -m venv .venv`, and use `npm` instead of `npm.cmd`.
 

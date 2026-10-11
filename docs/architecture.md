@@ -27,7 +27,7 @@ The simulator provides sparse, plausible highlights fixtures across multiple sel
 
 ## Deployment limits
 
-Data resets on restart. Use one process/worker; no shared storage, auth, pagination, rate limits or public deployment hardening yet. Keep provider/AI credentials on the server. Production adds durable storage, authenticated ingestion and bounded queries before exposure.
+Data resets on restart. Use one process/worker. Replay writes have session ownership, arbitrary ingestion requires a backend token, and requests/storage/provider use are bounded. Production mode requires HTTPS, serves the built frontend and sets security headers. There is no shared durable storage or account system. See [security setup](security.md) for limits and deployment verification.
 
 ## Implemented frontend and AI path
 
@@ -44,4 +44,4 @@ The scenario catalog lives in `backend/app/simulation.py`; `simulator/run.py` re
 - `quiet-match`: Midfield restraint demonstrating that Catch Me Up reports no false momentum when thresholds are unmet (30 events, 0–0).
 - `legacy-default`: Preserved baseline 10-minute fixture for backward compatibility (30 events, 1–0).
 
-A read-only FastAPI endpoint (`GET /api/replay/scenarios` and `GET /api/replay/scenario?scenario_id=<id>`) supplies fixture events to the browser. A cancellable sequential playback loop submits each event to the existing ingestion endpoint, retaining the last acknowledged cursor for retries. React remounts match-specific state on a fresh-session reset, clearing summaries, timeline highlights and score celebrations while preserving the chosen scenario. Playback requires an open page and stores no background job.
+The read-only catalog/fixture endpoints remain available. Browser playback establishes an HttpOnly cookie session and uses `POST /api/replay/start` to allocate a bounded replay. The cancellable playback loop sends only a sequence to `POST /api/matches/{id}/advance`; the backend ingests its own canonical event after verifying ownership and order. The client retains the last acknowledged cursor for retries. React remounts match-specific state on reset, clearing summaries, timeline highlights and score celebrations while preserving the chosen scenario. Playback requires an open page and stores no background job. Read access to synthetic matches remains public by design.

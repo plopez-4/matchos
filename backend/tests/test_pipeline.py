@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 from jsonschema import validate
 from fastapi.testclient import TestClient
+from conftest import TRUSTED_HEADERS
 root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root))
 sys.path.insert(0, str(root / "backend"))
@@ -14,7 +15,7 @@ from app.models import MatchEvent
 @pytest.fixture
 def client():
     store.clear()
-    with TestClient(app) as client:
+    with TestClient(app, headers=TRUSTED_HEADERS) as client:
         yield client
 
 def test_replay_and_evidence(client):

@@ -12,17 +12,30 @@ import { EventTimeline } from './components/EventTimeline';
 import { EvidenceGraph } from './components/EvidenceGraph';
 import { ReplayControls } from './components/ReplayControls';
 import { resolveScenario } from './utils/scenarios';
+import { Matchday } from './components/Matchday';
+import './matchday.css';
 
 export function App() {
+  const [experience, setExperience] = useState(() =>
+    new URLSearchParams(window.location.search).get('view') === 'matchday' ? 'matchday' : 'single',
+  );
   const [matchId, setMatchId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('match');
-    return requested && /^[a-zA-Z0-9_-]{1,80}$/.test(requested) ? requested : 'demo-match';
+    return requested && /^[a-zA-Z0-9_-]{1,80}$/.test(requested)
+      ? requested
+      : `replay-${crypto.randomUUID()}`;
   });
   const [scenarioId, setScenarioId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('scenario');
     return resolveScenario(requested);
   });
   const [autoStart, setAutoStart] = useState(false);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('match', matchId);
+    window.history.replaceState(null, '', url);
+  }, [matchId]);
 
   const newMatch = (play, targetScenario = scenarioId) => {
     const id = `replay-${crypto.randomUUID()}`;
@@ -40,15 +53,43 @@ export function App() {
     newMatch(false, target);
   };
 
+  const chooseExperience = (next) => {
+    const url = new URL(window.location.href);
+    if (next === 'matchday') url.searchParams.set('view', 'matchday');
+    else url.searchParams.delete('view');
+    window.history.replaceState(null, '', url);
+    setExperience(next);
+  };
+
   return (
-    <MatchDashboard
-      key={`${matchId}:${scenarioId}`}
-      matchId={matchId}
-      scenarioId={scenarioId}
-      autoStart={autoStart}
-      onNewMatch={newMatch}
-      onScenarioChange={handleScenarioChange}
-    />
+    <>
+      <nav className="experience-nav" aria-label="MatchOS experience">
+        <button
+          className={experience === 'single' ? 'active' : ''}
+          onClick={() => chooseExperience('single')}
+        >
+          Match view
+        </button>
+        <button
+          className={experience === 'matchday' ? 'active' : ''}
+          onClick={() => chooseExperience('matchday')}
+        >
+          Matchday & Radar
+        </button>
+      </nav>
+      {experience === 'matchday' ? (
+        <Matchday />
+      ) : (
+        <MatchDashboard
+          key={`${matchId}:${scenarioId}`}
+          matchId={matchId}
+          scenarioId={scenarioId}
+          autoStart={autoStart}
+          onNewMatch={newMatch}
+          onScenarioChange={handleScenarioChange}
+        />
+      )}
+    </>
   );
 }
 

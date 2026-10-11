@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getStoryKindMeta } from '../src/utils/stories.js';
-import { fetchReplayScenario } from '../src/api.js';
+import { fetchReplayScenario, ingestReplayEvent } from '../src/api.js';
 import { resolveScenario } from '../src/utils/scenarios.js';
 
 test('getStoryKindMeta resolves all distinct story kinds with badges and icons', () => {
@@ -36,10 +36,15 @@ test('getStoryKindMeta resolves all distinct story kinds with badges and icons',
   assert.equal(fallback.icon, '📋');
 });
 
-test('fetchReplayScenario constructs correct query params for both new and legacy calls', async () => {
+test('replay uses a single private cookie session and sends only sequence advancement', async () => {
   let requestedUrl = '';
-  globalThis.fetch = async (url) => {
+  let requestedOptions;
+  let sessions = 0;
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    if (url === '/api/session') sessions++;
     requestedUrl = url;
+    requestedOptions = options;
     return {
       ok: true,
       json: async () => [{ sequence: 1 }],
@@ -48,15 +53,37 @@ test('fetchReplayScenario constructs correct query params for both new and legac
 
   // Explicit scenario ID
   await fetchReplayScenario('match-1', 'pressure-builds');
-  assert.equal(requestedUrl, '/api/replay/scenario?match_id=match-1&scenario_id=pressure-builds');
+  assert.equal(requestedUrl, '/api/replay/start');
+  assert.deepEqual(JSON.parse(requestedOptions.body), {
+    match_id: 'match-1',
+    scenario_id: 'pressure-builds',
+  });
 
   // Legacy call passing options as second argument
   await fetchReplayScenario('match-2', { signal: new AbortController().signal });
-  assert.equal(requestedUrl, '/api/replay/scenario?match_id=match-2&scenario_id=legacy-default');
+  assert.deepEqual(JSON.parse(requestedOptions.body), {
+    match_id: 'match-2',
+    scenario_id: 'legacy-default',
+  });
 
   // Default scenario parameter omitted
   await fetchReplayScenario('match-3');
-  assert.equal(requestedUrl, '/api/replay/scenario?match_id=match-3&scenario_id=legacy-default');
+  assert.deepEqual(JSON.parse(requestedOptions.body), {
+    match_id: 'match-3',
+    scenario_id: 'legacy-default',
+  });
+  await ingestReplayEvent({
+    match_id: 'match-3',
+    sequence: 1,
+    type: 'goal',
+    player_name: 'fabricated',
+  });
+  assert.equal(requestedUrl, '/api/matches/match-3/advance');
+  assert.deepEqual(JSON.parse(requestedOptions.body), { sequence: 1 });
+  assert.equal(requestedOptions.credentials, 'same-origin');
+  assert.equal(requestedOptions.headers['X-MatchOS-Client'], 'replay');
+  assert.equal(sessions, 1);
+  globalThis.fetch = originalFetch;
 });
 
 test('scenario selection fallback handles invalid and valid URLs', () => {

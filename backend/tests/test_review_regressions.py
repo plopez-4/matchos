@@ -4,6 +4,7 @@ from pathlib import Path
 import httpx
 import pytest
 from fastapi.testclient import TestClient
+from conftest import TRUSTED_HEADERS
 from app.main import app, store
 from app.models import MatchEvent
 from app.simulation import generate
@@ -15,7 +16,7 @@ def test_legacy_matches_original_evidence_and_retries_without_conflicts():
     original = json.loads((Path(__file__).parent / 'fixtures/legacy-seed7.json').read_text())
     assert list(generate()) == original
     store.clear()
-    with TestClient(app) as client:
+    with TestClient(app, headers=TRUSTED_HEADERS) as client:
         for event in original:
             assert client.post('/api/events', json=event).json()['accepted']
         for event in generate():

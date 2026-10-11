@@ -1,6 +1,33 @@
+let sessionReady;
+
+async function ensureSession() {
+  if (!sessionReady) {
+    sessionReady = fetch('/api/session', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-MatchOS-Client': 'replay' },
+      body: '{}',
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('Could not establish replay session. Please reload.');
+      })
+      .catch((error) => {
+        sessionReady = undefined;
+        throw error;
+      });
+  }
+  return sessionReady;
+}
+
 async function request(path, options = {}) {
+  if (options.method === 'POST' || options.method === 'DELETE') await ensureSession();
   const url = '/api' + path;
-  const response = await fetch(url, options);
+  const response = await fetch(url, {
+    ...options,
+    credentials: 'same-origin',
+    headers: { ...options.headers, 'X-MatchOS-Client': 'replay' },
+  });
+  if (response.status === 401) sessionReady = undefined;
   if (!response.ok) {
     let errorDetail = '';
     try {
@@ -34,16 +61,20 @@ export function fetchReplayScenario(matchId, scenarioId = 'legacy-default', opti
     opt = scenarioId;
     scId = 'legacy-default';
   }
-  const query = `match_id=${encodeURIComponent(matchId)}&scenario_id=${encodeURIComponent(scId)}`;
-  return request(`/replay/scenario?${query}`, opt);
+  return request('/replay/start', {
+    ...opt,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ match_id: matchId, scenario_id: scId }),
+  });
 }
 
 export function ingestReplayEvent(event, options = {}) {
-  return request('/events', {
+  return request(`/matches/${encodeURIComponent(event.match_id)}/advance`, {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(event),
+    body: JSON.stringify({ sequence: event.sequence }),
   });
 }
 
@@ -70,5 +101,36 @@ export async function postCatchUp(
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ since_sequence, audience }),
+  });
+}
+
+export function startMatchday(matchdayId, options = {}) {
+  return request('/matchdays/start', {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ matchday_id: matchdayId }),
+  });
+}
+
+export function fetchMatchday(id, options = {}) {
+  return request(`/matchdays/${encodeURIComponent(id)}`, options);
+}
+
+export function tickMatchday(id, tick, options = {}) {
+  return request(`/matchdays/${encodeURIComponent(id)}/tick`, {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tick }),
+  });
+}
+
+export function releaseMatchday(id, options = {}) {
+  return request(`/matchdays/${encodeURIComponent(id)}`, {
+    ...options,
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{}',
   });
 }

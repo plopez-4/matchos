@@ -1,5 +1,26 @@
 # Patch notes
 
+## 2026-10-11 — Matchday, Match Radar and briefing improvements
+
+- Fixed partial matchday cleanup and aligned early-window metadata with inclusion of events at second zero.
+- Reset now clears the local view after a failed release, displays a warning, and retries pending cleanup before creating another replay. Cleanup requests have a ten-second deadline.
+- Compacted repeated progressive-pass windows and recovery-to-shot sequences while preserving all selected story/event IDs and every goal; separated time ranges stay explicit.
+- Added three concurrent 93-minute authored synthetic highlight feeds on one server-owned clock, with prominent, overlooked and quiet test fixtures.
+- Added observed-event-only Radar scoring, qualification, deterministic ranking, inspectable shot/goal evidence and a simple shots comparator for evaluation.
+- Added transition-based in-page Heating Up notices with idempotent IDs/cooldowns, quiet/cooling/full-time suppression and one-click selected-match Catch Me Up.
+- Added Matchday & Radar navigation, shared start/pause/resume/speed/reset controls and owner-only capacity release. Existing security limits remain enforced and individual clocks cannot bypass the matchday clock.
+- Added regression tests and a Gemini/Antigravity review handoff. Antigravity's findings were reviewed against the code, with cleanup, metadata, reset recovery and briefing compaction follow-ups applied. No engagement uplift or real-video viewing claims are made.
+- Validation: 78 backend tests and 25 frontend tests passed, along with the production build, Prettier check, whitespace check and heuristic secret scan.
+
+## 2026-10-11 — Security baseline
+
+- Replaced browser-submitted event facts with server-owned replay start/advance operations and private session cookies. Replay writes require ownership; arbitrary ingestion requires a private backend credential and is disabled by default.
+- Added request/body limits, fixed session/match expiry, bounded storage, event caps, and ordered/idempotent replay advancement.
+- Added bounded catch-up caching, busy-request rejection, an Azure request budget, provider payload/output limits, and deterministic fallback when limits are reached.
+- Added production HTTPS/host/origin checks, secure cookies, security headers, hidden API docs, and serving of the built frontend from the API origin.
+- Updated pip, pinned resolved backend dependencies, and added CI secret-pattern/dependency checks with scheduled checks. Added security regressions alongside existing replay tests.
+- Public synthetic match reads remain intentional. This is a single-worker bounded demo; deployment and cloud account settings still require verification before public launch.
+
 ## Unreleased — Full-match synthetic scenarios
 
 - Added United vs City and United vs Hull authored feeds: two halves, 90 minutes plus three added minutes, fictional rosters and over 1,200 modeled events per match.

@@ -2,6 +2,9 @@
 import argparse
 import json
 import time
+import os
+from http.cookiejar import CookieJar
+from urllib.request import build_opener, HTTPCookieProcessor
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 
@@ -33,13 +36,34 @@ def main():
         events = list(generate(seed=args.seed, count=args.count, match_id=args.match_id, scenario_id=args.scenario))
     except ValueError as err:
         parser.error(str(err))
+    opener = build_opener(HTTPCookieProcessor(CookieJar()))
+    token = os.getenv("MATCHOS_INGEST_TOKEN", "")
+    headers = {"Content-Type": "application/json", "X-MatchOS-Client": "replay"}
+    if not args.dry_run and not token:
+        if args.seed != 7:
+            parser.error("Custom seeds require a server-side MATCHOS_INGEST_TOKEN; default replay uses seed 7")
+        for path, payload in [("/api/session", {}), ("/api/replay/start", {"match_id": args.match_id, "scenario_id": args.scenario})]:
+            try:
+                with opener.open(Request(args.api.rstrip("/")+path, data=json.dumps(payload).encode(), headers=headers), timeout=10) as response:
+                    response.read()
+            except URLError as exc:
+                raise SystemExit(f"Replay setup failed: {exc}. Use a fresh --match-id for a new session.") from exc
     for event in events:
         if args.dry_run:
             print(json.dumps(event))
             continue
-        request = Request(args.api.rstrip("/") + "/api/events", data=json.dumps(event).encode(), headers={"Content-Type": "application/json"})
+        if token:
+            endpoint = "/api/events"
+            payload = event
+            event_headers = {**headers, "X-MatchOS-Ingest-Token": token}
+        else:
+            from urllib.parse import quote
+            endpoint = "/api/matches/" + quote(args.match_id, safe="") + "/advance"
+            payload = {"sequence":event["sequence"]}
+            event_headers = headers
+        request = Request(args.api.rstrip("/") + endpoint, data=json.dumps(payload).encode(), headers=event_headers)
         try:
-            with urlopen(request, timeout=5) as response:
+            with opener.open(request, timeout=10) as response:
                 print(response.read().decode())
         except URLError as exc:
             raise SystemExit(f"Ingestion failed: {exc}. Start the API or check --api.") from exc

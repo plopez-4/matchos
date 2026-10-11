@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 from jsonschema import validate
 from fastapi.testclient import TestClient
+from conftest import TRUSTED_HEADERS
 
 from app.main import app, store
 from app.models import MatchEvent
@@ -23,7 +24,7 @@ SCHEMA = json.loads((ROOT / "schemas/match-event.schema.json").read_text())
 @pytest.fixture
 def client():
     store.clear()
-    with TestClient(app) as test_client:
+    with TestClient(app, headers=TRUSTED_HEADERS) as test_client:
         yield test_client
 
 

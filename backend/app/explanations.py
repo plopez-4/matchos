@@ -4,6 +4,7 @@ import os
 import time
 from urllib.parse import urlparse
 import httpx
+from app.security import take_ai_budget, release_ai
 
 PROMPT_VERSION = 'story-selector-v2'
 
@@ -58,6 +59,30 @@ def select_candidates(stories, limit=8):
     return sorted(selected, key=lambda s: s['sequence'])
 
 
+def grouped_change_text(group, audience):
+    """Compress wording, preserving every selected story/evidence in the section."""
+    metric = group[0]['metric']
+    team = metric['team_id'].title()
+    if group[0]['kind'] == 'recovery_shot':
+        times = [s['metric']['elapsed_seconds'] for s in group]
+        duration = str(min(times)) if min(times) == max(times) else f'{min(times)}–{max(times)}'
+        return (f'{team} recorded {len(group)} recovery-to-shot sequences; each shot followed '
+                f'a recovery in the same possession by {duration} seconds.')
+    intervals = sorted({(s['metric']['start_second'], s['metric']['end_second']) for s in group})
+    spans = []
+    for start, end in intervals:
+        if spans and start == spans[-1][1]:
+            spans[-1] = (spans[-1][0], end)
+        else:
+            spans.append((start, end))
+    ranges = ', '.join(f'{start//60}–{end//60}' for start, end in spans)
+    # The rule attaches only qualifying passes to these non-overlapping windows.
+    count = len({eid for s in group for eid in s['evidence_event_ids']})
+    detail = ' (each gaining at least 15 pitch units)' if audience == 'advanced' else ''
+    return (f'{team} completed {count} progressive passes{detail} across {len(intervals)} '
+            f'qualifying windows, covering minutes {ranges}.')
+
+
 def render(stories, audience):
     sections = []
     goal_stories = [s for s in stories if s['kind'] == 'goal']
@@ -72,9 +97,21 @@ def render(stories, audience):
     change_stories = [s for s in stories if s['kind'] != 'goal']
     if change_stories:
         texts = []
+        grouped = set()
         for s in change_stories:
             kind = s['kind']
             metric = s.get('metric', {})
+            if kind in ('progressive_pass', 'recovery_shot') and metric.get('team_id'):
+                key = (kind, metric['team_id'])
+                if key in grouped:
+                    continue
+                group = [item for item in change_stories if item['kind'] == kind
+                         and item.get('metric', {}).get('team_id') == metric['team_id']]
+                required = ('start_second', 'end_second') if kind == 'progressive_pass' else ('elapsed_seconds',)
+                if len(group) > 1 and all(all(field in item['metric'] for field in required) for item in group):
+                    texts.append(grouped_change_text(group, audience))
+                    grouped.add(key)
+                    continue
             if kind == 'shot_activity' and metric:
                 curr, prev = metric['current'], metric['previous']
                 if audience == 'casual':
@@ -178,6 +215,13 @@ def explain(stories, audience, client=None):
         trace.append({'step': 'fallback', 'status': 'used'})
         return finish()
     known = {s['story_id']: s for s in candidates}
+    evidence = [{k: s[k] for k in ('story_id', 'text', 'kind', 'evidence_event_ids', 'rule_version')} for s in candidates]
+    if len(json.dumps(evidence).encode()) > 32768:
+        result['fallback_reason'] = 'evidence_payload_limit'
+        return finish()
+    if not take_ai_budget():
+        result['fallback_reason'] = 'ai_budget_or_concurrency_limit'
+        return finish()
     fetch_tool = function('get_match_evidence', 'Retrieve verified match story candidates and their supporting event IDs.', {}, [])
     select_tool = function(
         'select_stories',
@@ -199,8 +243,10 @@ def explain(stories, audience, client=None):
         response = client.post(endpoint + '/chat/completions', headers={'api-key': key},
                                json={'model': deployment, 'messages': messages, 'tools': [tool],
                                      'tool_choice': {'type': 'function', 'function': {'name': tool['function']['name']}},
-                                     'parallel_tool_calls': False})
+                                     'parallel_tool_calls': False, 'max_completion_tokens': 512})
         response.raise_for_status()
+        if len(response.content) > 65536:
+            raise ValueError('Provider response exceeds limit')
         return response.json()['choices'][0]['message']
 
     try:
@@ -235,6 +281,7 @@ def explain(stories, audience, client=None):
         trace.append({'step': 'fallback', 'status': 'used'})
         result['fallback_reason'] = 'provider_or_validation_failure'
     finally:
+        release_ai()
         if owned:
             client.close()
     return finish()

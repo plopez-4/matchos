@@ -68,7 +68,11 @@ export function ReplayControls({
       })
       .catch((err) => {
         if (!controller.signal.aborted) {
-          setError(`Could not load replay: ${err.message}`);
+          setError(
+            err.status === 403
+              ? 'This replay is controlled by another session. You can watch it here or Reset to start your own.'
+              : `Could not load replay: ${err.message}`,
+          );
           setRunning(false);
         }
       });

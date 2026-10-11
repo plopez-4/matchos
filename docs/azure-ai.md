@@ -34,6 +34,6 @@ Turn AI off with `$env:MATCHOS_AI_MODE = 'off'` and restart the backend. No mode
 
 ## Verification and limits
 
-Mock tests cover the complete tool flow, unsupported/missing/duplicate selection, timeout, configuration rejection and disabled/empty behavior. They incur no Azure usage. Live testing with the configured deployment succeeded for both audiences, returning azure mode and both What happened / What changed sections. The current synchronous handler occupies a worker thread during model calls; deployed service needs concurrency limits, budgeting, tracing and authenticated access before public exposure. This adapter is not deployment-ready.
+Mock tests cover the complete tool flow, unsupported/missing/duplicate selection, timeout, configuration rejection and disabled/empty behavior. They incur no Azure usage. Earlier live testing with the configured deployment succeeded for both audiences, returning azure mode and both What happened / What changed sections. The current adapter has a process-lifetime request budget, concurrency/input/output limits and deterministic fallback; identical catch-up requests are cached. Production hosting and Azure account settings still need verification before public exposure. See [security setup](security.md).
 
 Official reference: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/function-calling

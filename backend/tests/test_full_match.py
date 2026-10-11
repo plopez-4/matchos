@@ -1,6 +1,7 @@
 from collections import Counter
 import pytest
 from fastapi.testclient import TestClient
+from conftest import TRUSTED_HEADERS
 from pydantic import ValidationError
 from app.full_match import FULL_MATCHES, generate_full_match
 from app.main import app, store
@@ -52,7 +53,7 @@ def test_full_feed_identity_clock_and_ball_continuity(scenario, seed):
 def test_full_match_api_and_readable_briefing(scenario, monkeypatch):
     monkeypatch.setenv("MATCHOS_AI_MODE", "off")
     store.clear()
-    with TestClient(app) as client:
+    with TestClient(app, headers=TRUSTED_HEADERS) as client:
         response = client.get("/api/replay/scenario", params={"match_id": scenario, "scenario_id": scenario})
         assert response.status_code == 200
         assert store == {}

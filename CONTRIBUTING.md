@@ -1,5 +1,9 @@
 # Contributing
 
+## Security baseline
+
+Read [security setup and limits](docs/security.md) before changing replay or AI paths. Preserve session ownership, trusted ingestion, quotas and deterministic fallback. Run `python scripts/check_secrets.py` and the security regression tests before review. Never place Azure keys or ingestion credentials in frontend code, examples or AI handoff files. Install backend dependencies using `backend/constraints.txt`; update those resolved pins deliberately.
+
 ## Shared formatting
 
 Use the pinned Prettier version installed by `npm ci` in `frontend`. The root `.prettierrc.json` defines two-space indentation, single JavaScript quotes, semicolons, trailing commas, a 100-character target width and LF line endings. Prettier formats JavaScript/JSX, CSS, HTML, JSON, YAML and Markdown throughout this repository. Python is outside Prettier's supported scope and is skipped.
