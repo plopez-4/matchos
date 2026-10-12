@@ -15,7 +15,7 @@ Evidence-backed AI and personalization remain central. Start with casual/advance
 Open match → start replay → inspect timeline/score → open a story's evidence → return after missing events → Catch Me Up → compare explanation styles using the same facts.
 
 ## Success
-No duplicate events after replay; reproducible counts; every story resolves to evidence; useful empty/new-cursor summaries; visible loading/error/empty states; three-minute clean-setup demo.
+No duplicate events after replay; reproducible counts; every story resolves to evidence; useful empty/new-cursor summaries; visible loading/error/empty states; working demo under two minutes.
 
 ## Deferred
-Real providers, multiple simultaneous matches, notifications, multilingual output, authentication, deep tactical inference and persisted preferences. The starter has goal story nodes and deterministic text; full graph and AI are upcoming work.
+Real providers, multiple simultaneous matches, notifications, multilingual output, authentication, deep tactical inference and persisted preferences. The first feature has goal/activity stories, metric support edges and deterministic text; durable graph history and AI are upcoming work.
