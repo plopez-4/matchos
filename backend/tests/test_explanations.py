@@ -1,7 +1,43 @@
 import json
 import httpx
 import pytest
-from app.explanations import explain
+from app.explanations import explain, render
+
+
+@pytest.mark.parametrize('audience', ['casual', 'advanced'])
+def test_compact_changes_keep_goals_evidence_and_noncontiguous_intervals(audience):
+    stories = [dict(STORIES[0])]
+    for index, start in enumerate((0, 300, 1200)):
+        stories.append({'story_id':f'passes-{index}', 'kind':'progressive_pass',
+                        'text':'original', 'evidence_event_ids':[f'pass-{index}-{n}' for n in range(3)],
+                        'metric':{'team_id':'home','start_second':start,'end_second':start+300,'pass_count':3}})
+    for index, elapsed in enumerate((10, 20)):
+        stories.append({'story_id':f'chain-{index}', 'kind':'recovery_shot','text':'original',
+                        'evidence_event_ids':[f'recovery-{index}', f'shot-{index}'],
+                        'metric':{'team_id':'away','elapsed_seconds':elapsed}})
+    sections = render(stories, audience)
+    assert sections[0]['text'] == STORIES[0]['text']
+    changed = sections[1]
+    assert '9 progressive passes' in changed['text']
+    assert 'minutes 0–10, 20–25' in changed['text']
+    assert '2 recovery-to-shot sequences' in changed['text']
+    assert '10–20 seconds' in changed['text']
+    assert set(changed['story_ids']) == {s['story_id'] for s in stories[1:]}
+    assert set(changed['evidence_event_ids']) == {eid for s in stories[1:] for eid in s['evidence_event_ids']}
+
+
+def test_full_match_compaction_preserves_every_story_goal_and_evidence():
+    from app.matchday import fixture, PROFILES
+    from app.models import MatchEvent
+    from app.intelligence import match_stories
+    stories = match_stories([MatchEvent(**e) for e in fixture(PROFILES[1], 'compact-day')])
+    sections = render(stories, 'casual')
+    goals = [s for s in stories if s['kind'] == 'goal']
+    assert len(goals) == 4
+    assert sections[0]['text'] == ' '.join(s['text'] for s in goals)
+    assert {sid for section in sections for sid in section['story_ids']} == {s['story_id'] for s in stories}
+    assert {eid for section in sections for eid in section['evidence_event_ids']} == {eid for s in stories for eid in s['evidence_event_ids']}
+    assert sum(len(section['text']) for section in sections) < sum(len(s['text']) for s in stories) / 2
 
 STORIES = [
     {'story_id': 'goal:1', 'kind': 'goal', 'text': 'Home scored.', 'evidence_event_ids': ['shot-1', 'goal-1'], 'rule_version': 'goal-v1'},

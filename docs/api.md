@@ -1,27 +1,75 @@
 # API v0.1
 
+The `fan_briefing` field now uses `fan-briefing-v2`: three sections (score story, recent action, clock), exact current/previous shot-window boundaries, comparison availability, and an observed-goal `trajectory`. Its ordered transitions distinguish `lead_acquisition`, `equalization`, `lead_extension`, `deficit_reduction` and `lead_reversal`; acquisitions count a reversal as taking the lead as well. `rapid_response` is present only when the preceding goal is by the opponent and the interval is at most 600 match seconds. Matchday entries return the same `briefing` and `briefing_events` for the shared Radar card. Catch-up returns `null` for no new events, retaining the existing cursor contract. Early shot windows include second zero using an exclusive start of -1; no previous-window metadata is returned before 300 seconds. A comparison's clock-span requirement does not establish that a real source has complete coverage.
+
+Catch-up responses add `fan_briefing` (or `null` when no new events): a headline, scoreline, match clock, three fan-facing sections and supporting event IDs. Existing `match_briefing`, `explanation`, stories and evidence fields remain available for the analytical view. This additive field uses deterministic wording from observed facts and adds no provider calls.
+
+Matchday routes: `POST /matchdays/start`, `GET /matchdays/{id}`, `POST /matchdays/{id}/tick`, and owner-only `DELETE /matchdays/{id}`. They advance three server-owned synthetic feeds on one shared clock and return an observed-event Radar snapshot. See [Match Radar API, rules and limits](match-radar.md).
+
+## Security contract
+
+All writes require JSON and `X-MatchOS-Client: replay` (or a trusted ingestion credential). The marker is CSRF protection, not a password. Origin/Host checks and request limits apply. Public reads expose only synthetic match data.
+
+- `POST /api/session` with `{}` establishes a private HttpOnly cookie; browsers use same-origin credentials.
+- `POST /api/replay/start` with `{ "match_id": "fresh-id", "scenario_id": "comeback" }` reserves a replay for that session and returns its canonical fixture. The same owner/scenario can retry; another owner receives 403.
+- `POST /api/matches/{id}/advance` with `{ "sequence": 1 }` appends only the corresponding server-owned event. Other fields are rejected. Ordered retries are idempotent.
+- `POST /api/events` requires `X-MatchOS-Ingest-Token` matching a private server token of at least 32 characters. Disabled by default. Trusted ingestion cannot overwrite browser-owned replays.
+- Catch Me Up rejects a cursor ahead of the match, caches identical revision/cursor/audience/mode requests, and rejects busy/excess requests with 429. Provider limits produce a deterministic explanation instead of unlimited Azure work.
+
+Expired sessions require reloading and starting a fresh replay. Capacity failures use 429/503; oversized bodies use 413. See [security setup](security.md) for exact quotas and production configuration.
+
+Full-match scenarios `united-city-90` and `united-hull-90` use schema 1.2. Catalog entries include fictional rosters and scenario style settings. Events add `team_name`, `player_name`, `recipient_player_id` and `recipient_player_name`. Full-feed passes require both destination coordinates, a different same-team intended recipient, and `complete`/`intercepted` outcome. New types are `substitution`, `half_end`, `match_end`; existing 1.0/1.1 fixtures remain supported. Catch-up adds optional `match_briefing` with readable rule-based text, evidence IDs and `full-feed-briefing-v1` rule version. Clock and coordinate conventions are documented in [full-match data](full-match-data.md).
+
 Base: `http://localhost:8000/api`. Interactive OpenAPI: `/docs`. Event schema: [match-event.schema.json](../schemas/match-event.schema.json). Pydantic model is authoritative; export script regenerates the shared contract.
 
-| Method | Path | Behavior |
-| --- | --- | --- |
-| GET | /health | Process/storage status |
-| POST | /events | Single event; 201 with accepted true, false for identical replay |
-| GET | /matches/{id}/events | Events ordered by sequence |
-| GET | /matches/{id}/analytics | Team counts and counts-v1 rule |
-| GET | /matches/{id}/stories | Goal story nodes with evidence_event_ids and goal-v1 |
-| GET | /matches/{id}/graph | Derived event/metric/story nodes and supports edges |
-| POST | /matches/{id}/catch-up | Summary, evidence IDs, through_sequence, audience and rule version |
+| Method | Path                    | Behavior                                                                       |
+| ------ | ----------------------- | ------------------------------------------------------------------------------ |
+| GET    | /health                 | Process/storage status                                                         |
+| GET    | /replay/scenarios       | Catalog of selectable synthetic scenarios with spoiler-free metadata           |
+| GET    | /replay/scenario        | Read-only event list for a scenario (`match_id` and optional `scenario_id`)    |
+| POST   | /events                 | Single event; 201 with accepted true, false for identical replay               |
+| GET    | /matches/{id}/events    | Events ordered by sequence                                                     |
+| GET    | /matches/{id}/analytics | Team counts, shot windows, high recoveries, progressive passes, recovery shots |
+| GET    | /matches/{id}/stories   | Verified narrative stories with evidence_event_ids and rule versions           |
+| GET    | /matches/{id}/graph     | Derived event, metric_window, and story nodes with supports edges              |
+| POST   | /matches/{id}/catch-up  | Summary, evidence IDs, through_sequence, audience and rule version             |
 
 Event fields: event_id, match_id, sequence, match_second, team_id, player_id, type, x, y. Defaults: schema_version 1.1, period 1, source synthetic; explicit version 1.0 remains accepted. Version 1.1 adds kickoff events and optional possession_id, end_x/end_y, outcome and related_event_id. Goals with a related_event_id must resolve to the same scorer/team's stored goal-producing shot; references cannot be reused. Unknown fields rejected. See [legacy-compatible example](../schemas/example-event.json).
 
-Analytics includes shot_windows for the most recent completed five-minute interval and its predecessor. Windows use [start,end), require ten elapsed minutes and an event covering the baseline start. An activity story needs at least three current-window shots and an increase of at least two. Counts describe recorded attempts, including goal-producing shots; goal events are not counted as extra attempts. In a sparse feed these are recorded counts, not exhaustive match statistics.
+## Analytics and deterministic story rules
 
-Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports casual/advanced. Window is sequence > since_sequence; client advances only after successful response. All counted new events are listed in evidence_event_ids. New stories are included with context_evidence_event_ids, which can refer to earlier events needed for comparisons. Style changes wording, not facts. UI tracks only demo-match and resets cursor on reload or when the observed match sequence moves backwards.
+All analytics and narrative stories are strictly derived from synthetic match events using deterministic rules:
 
-Invalid input: 422. Changed duplicate ID, reused sequence or late new event: 409. Identical duplicate returns accepted false even after newer events arrive. Unknown matches return empty data/zero counts. No updates/deletes.
+1. **Team Counts (`counts-v1`)**: Pass, shot, goal, and recovery tallies per team (`home`, `away`).
+2. **Shot Frequency Comparison (`shot-frequency-v1`)**: Evaluates completed five-minute windows $[start, end)$ where $end = 300, 600, \dots$. Requires feed coverage of the baseline ($min(match\_second) \le end - 2 \times 300$). Emits a story when a team records $\ge 3$ shots in the current window and an increase of $\ge 2$ over the prior window.
+3. **High Recovery Activity (`high-recovery-v1`)**: Counts recoveries in completed five-minute windows in the opponent's defensive third (Home qualifies at $x \ge 70$; Away qualifies at $x \le 30$). Emits a story when a team reaches $\ge 3$ qualifying recoveries in a completed window. Trigger sequence is the first observed event at or after the window boundary.
+4. **Progressive Passing (`progressive-pass-v1`)**: Evaluates completed passes ($type = pass$, $outcome = complete$, non-null endpoints). Measures forward gain ($end\_x - x$ for Home; $x - end\_x$ for Away). Qualifies when forward gain $\ge 15.0$ normalized pitch units. Emits a story when a team reaches $\ge 3$ progressive passes in a completed five-minute window.
+5. **Recovery-to-Shot Sequences (`recovery-shot-v1`)**: Identifies a recovery followed by a shot by the same team, within the same non-null possession and period, within $\le 30$ recorded match seconds. All intermediate events must belong to the same team and possession. Uses the nearest valid preceding recovery. Trigger sequence is the shot's sequence.
+6. **Goal Stories (`goal-v1`)**: Emitted for each goal event, citing its verified goal-producing shot.
+7. **Support Graph (`graph-v1`)**: Nodes represent events, metric windows, and stories. Edges denote mathematical evidentiary support (`type: "supports"`), not causal or tactical assertions.
 
-Graph is computed from current events on reads, with no durable history or causal edges. The current shot pattern compares only the latest completed intervals; previous pattern snapshots are not persisted. Planned: pagination, stream transport, durable graph history, ingestion cursor for late arrivals and persisted viewer preferences. Agree contracts across owners before implementation.
+## Catch Me Up fan briefings
 
-Catch-up responses also include explanation: mode (azure/deterministic), selected_story_ids, text, prompt_version, latency_ms, trace and fallback_reason. Azure mode selects valid candidate IDs through two tool calls, then renders trusted story text. It does not generate free-form factual prose. Candidate context evidence may be a superset of selected evidence. See azure-ai.md for setup and live verification details.
+Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports `casual` and `advanced`. Window evaluates events where $sequence > since\_sequence$; client advances cursor only after successful response.
 
-Catch-up v3 adds intro and explanation.sections. Each section has title, text, story_ids and evidence_event_ids. What happened covers goals; What changed covers recorded shot activity. Casual wording is simpler; advanced summaries include window-event counts. Both audiences retain the same evidence. The strongest eligible change is added if the model omits it, with a complete_coverage trace entry. Context evidence now corresponds to the selected stories. Empty windows contain no story sections and report that the viewer is up to date. Live Azure calls have been verified for both audiences.
+- **What happened**: Synthesizes verified score changes and goal events.
+- **What changed**: Plainly explains observed shifts in shooting volume, high recoveries, progressive passes, and rapid transitions.
+- **Casual vs. Advanced**: Casual provides plain English narrative overviews; Advanced includes exact threshold rules, window boundaries, pitch coordinates, and event IDs. Both share the exact same supporting event IDs.
+- **Restraint**: If events arrive but no patterns qualify (e.g. in a quiet match), Catch Me Up explicitly reports that no qualifying patterns were observed, without hallucinating momentum or tactics.
+- **Candidate Bounding**: Up to 8 candidates are presented to Azure OpenAI or deterministic fallback. Goals and the strongest eligible activity change are preserved.
+
+## Replay and scenario catalog
+
+- `GET /api/replay/scenarios`: Returns an array of scenario metadata:
+  - `id`: Stable identifier (`pressure-builds`, `comeback`, `quiet-match`, `legacy-default`).
+  - `name`: Human-readable title.
+  - `description`: Spoiler-free preview (final scores are never revealed).
+  - `event_count`: Total events in the fixture.
+  - `duration_seconds`: Match duration (typically 600 seconds / 10 minutes).
+  - `scenario_version`: `scenario-v1`.
+- `GET /api/replay/scenario?match_id=<id>&scenario_id=<scenario_id>`: Returns the read-only event array without writing to storage. Omitted `scenario_id` defaults to `legacy-default` for backward compatibility. Events pass through normal `POST /events` validation during browser or CLI playback.
+- Playback is browser-driven and sequential. Cancellation and speed changes are safe and idempotent. Reset creates a fresh match ID and URL while preserving the chosen scenario.
+
+## Review compatibility corrections
+
+Legacy event content and IDs are unchanged from the original fixture. New rules can add supported stories (four for the full legacy fixture); consumers must not assume exactly two. Progressive passes require both destination coordinates. If goals plus the strongest activity change exceed the eight-candidate Azure budget, the full deterministic briefing is returned with `candidate_budget_or_identity_failure`, with no provider call.

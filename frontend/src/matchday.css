@@ -1,0 +1,117 @@
+.experience-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #18001e;
+  border-bottom: 1px solid #54265c;
+}
+.experience-nav button {
+  padding: 0.65rem 1.1rem;
+  border: 1px solid #85598d;
+  border-radius: 2rem;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.experience-nav button.active {
+  background: #fff;
+  color: #37003c;
+}
+.matchday-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  gap: 1.25rem;
+}
+.matchday-intro h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin: 1rem 0;
+}
+.matchday-intro p,
+.radar-card p,
+.matchday-game p {
+  margin: 0.7rem 0;
+  line-height: 1.6;
+}
+.matchday-clock {
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+.matchday-games {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.matchday-game h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+.matchday-game h3 span {
+  font-size: 1.8rem;
+}
+.matchday-game.is-heating {
+  border-color: #00ff85;
+}
+.radar-card {
+  border-top: 3px solid #00ff85;
+}
+.radar-card h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+.radar-card details {
+  margin-top: 1.25rem;
+}
+.radar-card summary {
+  cursor: pointer;
+  color: #00ff85;
+}
+.radar-card ul {
+  padding-left: 1.4rem;
+  line-height: 1.8;
+}
+.radar-evidence {
+  max-height: 250px;
+  overflow: auto;
+}
+.radar-evidence small {
+  display: block;
+  overflow-wrap: anywhere;
+  opacity: 0.7;
+}
+.radar-notice {
+  background: #00ff85;
+  color: #18001e;
+  border-radius: 1rem;
+  padding: 1.2rem;
+}
+.radar-notice p {
+  margin: 0.5rem 0 1rem;
+}
+.radar-notice .btn-primary {
+  background: #37003c;
+  color: #fff;
+}
+.matchday-follow {
+  display: grid;
+  gap: 1rem;
+}
+@media (max-width: 800px) {
+  .matchday-games {
+    grid-template-columns: 1fr;
+  }
+  .matchday-layout {
+    padding: 0.8rem;
+  }
+  .matchday-clock {
+    width: 100%;
+    margin: 0;
+  }
+}
