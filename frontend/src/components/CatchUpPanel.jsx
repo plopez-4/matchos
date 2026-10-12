@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { EvidenceList } from './EvidenceList';
+import { MatchStoryBriefing } from './MatchStoryBriefing';
 
 export function CatchUpPanel({
   summary,
@@ -21,6 +22,7 @@ export function CatchUpPanel({
   const latency = summary?.explanation?.latency_ms;
   const fallbackReason = summary?.explanation?.fallback_reason;
   const trace = summary?.explanation?.trace || [];
+  const fanBriefing = summary?.fan_briefing;
 
   const getTraceStepLabel = (step) => {
     switch (step.step) {
@@ -157,7 +159,7 @@ export function CatchUpPanel({
                     title="Story candidates selected via Azure OpenAI tool calling and verified by backend rules"
                   >
                     <span className="azure-sparkle">✦</span>
-                    Selected with Azure AI
+                    Match stories selected with Azure AI
                     {modelName && <span className="badge-sub">{modelName}</span>}
                     {typeof latency === 'number' && <span className="badge-sub">{latency}ms</span>}
                   </span>
@@ -195,67 +197,77 @@ export function CatchUpPanel({
               </div>
             ) : (
               <>
-                {summary.match_briefing && (
-                  <article className="catchup-section-card">
-                    <h3 className="section-card-title">Your match briefing</h3>
-                    <p className="section-card-text">{summary.match_briefing.text}</p>
-                    <p className="card-subtitle">
-                      Verified from synthetic events · rule-based narrative
-                    </p>
-                    <details>
-                      <summary>
-                        Inspect briefing evidence (
-                        {summary.match_briefing.evidence_event_ids.length} events)
-                      </summary>
-                      <EvidenceList
-                        evidenceIds={summary.match_briefing.evidence_event_ids}
-                        events={events}
-                        onSelectEvent={onSelectEvent}
-                      />
-                    </details>
-                  </article>
+                {fanBriefing && (
+                  <MatchStoryBriefing
+                    briefing={fanBriefing}
+                    events={events}
+                    onSelectEvent={onSelectEvent}
+                  />
                 )}
-                {summary.intro && sections.length > 0 && (
-                  <div className="summary-intro-box">
-                    <p className="summary-intro-text">{summary.intro}</p>
-                  </div>
-                )}
+                <details open={!fanBriefing || summary.audience === 'advanced'}>
+                  <summary>See the evidence and match detail</summary>
+                  {summary.match_briefing && (
+                    <article className="catchup-section-card">
+                      <h3 className="section-card-title">Your match briefing</h3>
+                      <p className="section-card-text">{summary.match_briefing.text}</p>
+                      <p className="card-subtitle">
+                        Verified from synthetic events · rule-based narrative
+                      </p>
+                      <details>
+                        <summary>
+                          Inspect briefing evidence (
+                          {summary.match_briefing.evidence_event_ids.length} events)
+                        </summary>
+                        <EvidenceList
+                          evidenceIds={summary.match_briefing.evidence_event_ids}
+                          events={events}
+                          onSelectEvent={onSelectEvent}
+                        />
+                      </details>
+                    </article>
+                  )}
+                  {summary.intro && sections.length > 0 && (
+                    <div className="summary-intro-box">
+                      <p className="summary-intro-text">{summary.intro}</p>
+                    </div>
+                  )}
 
-                {sections.length > 0 ? (
-                  <div className="sections-grid">
-                    {sections.map((section) => (
-                      <article key={section.title} className="catchup-section-card">
-                        <header className="section-card-header">
-                          <h3 className="section-card-title">{section.title}</h3>
-                          <span className="evidence-count-pill">
-                            {section.evidence_event_ids?.length || 0} events
-                          </span>
-                        </header>
+                  {sections.length > 0 ? (
+                    <div className="sections-grid">
+                      {sections.map((section) => (
+                        <article key={section.title} className="catchup-section-card">
+                          <header className="section-card-header">
+                            <h3 className="section-card-title">{section.title}</h3>
+                            <span className="evidence-count-pill">
+                              {section.evidence_event_ids?.length || 0} events
+                            </span>
+                          </header>
 
-                        <p className="section-card-text">{section.text}</p>
+                          <p className="section-card-text">{section.text}</p>
 
-                        {section.evidence_event_ids?.length > 0 && (
-                          <details className="evidence-details">
-                            <summary className="evidence-summary-btn">
-                              View supporting events ({section.evidence_event_ids.length})
-                            </summary>
-                            <div className="evidence-content-box">
-                              <EvidenceList
-                                evidenceIds={section.evidence_event_ids}
-                                events={events}
-                                onSelectEvent={onSelectEvent}
-                              />
-                            </div>
-                          </details>
-                        )}
-                      </article>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="fallback-summary-text">
-                    <p>{summary.summary}</p>
-                  </div>
-                )}
+                          {section.evidence_event_ids?.length > 0 && (
+                            <details className="evidence-details">
+                              <summary className="evidence-summary-btn">
+                                View supporting events ({section.evidence_event_ids.length})
+                              </summary>
+                              <div className="evidence-content-box">
+                                <EvidenceList
+                                  evidenceIds={section.evidence_event_ids}
+                                  events={events}
+                                  onSelectEvent={onSelectEvent}
+                                />
+                              </div>
+                            </details>
+                          )}
+                        </article>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="fallback-summary-text">
+                      <p>{summary.summary}</p>
+                    </div>
+                  )}
+                </details>
               </>
             )}
 

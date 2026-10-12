@@ -834,6 +834,18 @@ body {
   gap: 14px;
 }
 
+.match-story-points {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.match-story-briefing > .section-card-title {
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
 .catchup-section-card {
   background: var(--bg-card-subtle);
   border: 1px solid var(--border-subtle);

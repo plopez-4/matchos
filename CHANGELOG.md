@@ -1,5 +1,21 @@
 # Patch notes
 
+## 2026-10-11 — Score trajectory and shared match story
+
+- Added observed-goal score transitions: lead acquisition, equalization, extension, deficit reduction and genuine reversal. Rapid responses require an opponent's preceding goal within ten match minutes.
+- Replaced generic questions with a shared Radar/Catch Me Up card: score trajectory, recent shot totals compared on matching windows, and exact regular time remaining. Repeated equalizers can produce "Newcastle United led twice. Crystal Palace have answered twice."
+- Added expandable score paths and supporting events, with timeline navigation. Detailed goal recaps, audience modes and incremental catch-up cursors remain available. Radar eligibility and notification cooldowns are unchanged.
+- Validation: 91 backend and 27 frontend tests passed; production build passed. Browser checks verified the shared 75:30 card and observed score path. No engagement uplift is claimed; the formative fan test remains pending.
+
+## 2026-10-11 — Fan-briefing foundation
+
+The initial briefing foundation below is superseded in the final interface by the shared trajectory card above.
+
+- Added an evidence-backed fan briefing: score-aware headline, missed goals, why the recorded action is interesting, and a question or invitation about what to follow.
+- Casual mode leads with the story and collapses the analytical report; advanced mode opens the match detail. Every goal and existing evidence inspector remains available.
+- Shooting comparisons require two recorded windows. Quiet, incomplete and finished feeds receive restrained wording; shots alone do not imply domination, chance quality or tactical causality. No extra paid AI calls are added.
+- Validation: 85 backend tests and 25 frontend tests passed; production build passed. Browser checks confirmed the equalizer story, supporting events and advanced detail.
+
 ## 2026-10-11 — Fix GitHub dependency audit
 
 - Upgrade GitHub's preinstalled setuptools to 83.0.0 and require at least that version for isolated backend builds. The failed dependency audit identified vulnerable setuptools 79.0.1 on the runner; application tests and the frontend job passed. The vulnerability audit stays enabled.

@@ -17,6 +17,47 @@ PROGRESSIVE_PASS_THRESHOLD_COUNT = 3
 TRANSITION_MAX_SECONDS = 30
 
 
+def score_trajectory(events: list[MatchEvent]):
+    """Lead reversals change the last leading team; ties alone are not reversals."""
+    score = {'home': 0, 'away': 0}
+    acquisitions = {'home': 0, 'away': 0}
+    equalizers = {'home': 0, 'away': 0}
+    transitions = []
+    last_leader = None
+    previous_goal = None
+    for goal in sorted((e for e in events if e.type == 'goal'), key=lambda e: e.sequence):
+        before = dict(score)
+        team = goal.team_id
+        other = 'away' if team == 'home' else 'home'
+        gap = score[team] - score[other]
+        score[team] += 1
+        if gap == 0:
+            kind = 'lead_reversal' if last_leader and last_leader != team else 'lead_acquisition'
+            acquisitions[team] += 1
+            last_leader = team
+        elif gap == -1:
+            kind = 'equalization'
+            equalizers[team] += 1
+        elif gap < -1:
+            kind = 'deficit_reduction'
+        else:
+            kind = 'lead_extension'
+        response = None
+        if previous_goal and previous_goal.team_id != team:
+            elapsed = goal.match_second - previous_goal.match_second
+            if 0 <= elapsed <= 600:
+                response = {'elapsed_seconds': elapsed,
+                            'evidence_event_ids': [previous_goal.event_id, goal.event_id]}
+        transitions.append({'type': kind, 'team_id': team, 'player_id': goal.player_id,
+                            'match_second': goal.match_second, 'sequence': goal.sequence,
+                            'before': before, 'after': dict(score), 'rapid_response': response,
+                            'evidence_event_ids': [goal.event_id]})
+        previous_goal = goal
+    return {'score': score, 'transitions': transitions, 'lead_acquisitions': acquisitions,
+            'equalizers': equalizers, 'evidence_event_ids': [e for t in transitions for e in t['evidence_event_ids']],
+            'rule_version': 'score-trajectory-v1'}
+
+
 def shot_windows(events: list[MatchEvent]):
     if not events:
         return []

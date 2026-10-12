@@ -11,6 +11,7 @@ import { playMatchday, createReleaseRecovery } from '../utils/matchday';
 import { MatchHeader } from './MatchHeader';
 import { CatchUpPanel } from './CatchUpPanel';
 import { EventTimeline } from './EventTimeline';
+import { MatchStoryBriefing } from './MatchStoryBriefing';
 
 const clock = (seconds) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 const freshId = () => `day-${crypto.randomUUID()}`;
@@ -268,7 +269,7 @@ export function Matchday() {
             <strong>{notice.title}</strong>
             <p>{notice.reason}</p>
             <button className="btn-primary" onClick={() => follow(notice.match_id)}>
-              Follow & catch me up
+              Follow this match
             </button>
           </aside>
         )}
@@ -285,19 +286,22 @@ export function Matchday() {
           </div>
           {recommended ? (
             <>
-              <h3>
-                Heating up: {recommended.home} vs {recommended.away}
-              </h3>
-              <p>{recommended.pulse.reason}</p>
-              <p>
-                {recommended.pulse.score.home}–{recommended.pulse.score.away} · Radar signal{' '}
-                {recommended.pulse.rating}/100
-              </p>
+              <MatchStoryBriefing
+                briefing={recommended.briefing}
+                events={recommended.briefing_events}
+                onSelectEvent={(id) => {
+                  follow(recommended.match_id);
+                  setHighlight(id);
+                }}
+              />
               <button className="btn-primary" onClick={() => follow(recommended.match_id)}>
-                Follow & catch me up
+                Follow this match
               </button>
               <details>
                 <summary>Why this match?</summary>
+                <p>
+                  Radar signal: {recommended.pulse.rating}/100 · {recommended.pulse.reason}
+                </p>
                 <p>
                   The signal combines a close score, shots from both teams, increased shot activity,
                   late-match timing and recent goals. It is not a probability of excitement.

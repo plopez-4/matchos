@@ -1,5 +1,9 @@
 # API v0.1
 
+The `fan_briefing` field now uses `fan-briefing-v2`: three sections (score story, recent action, clock), exact current/previous shot-window boundaries, comparison availability, and an observed-goal `trajectory`. Its ordered transitions distinguish `lead_acquisition`, `equalization`, `lead_extension`, `deficit_reduction` and `lead_reversal`; acquisitions count a reversal as taking the lead as well. `rapid_response` is present only when the preceding goal is by the opponent and the interval is at most 600 match seconds. Matchday entries return the same `briefing` and `briefing_events` for the shared Radar card. Catch-up returns `null` for no new events, retaining the existing cursor contract. Early shot windows include second zero using an exclusive start of -1; no previous-window metadata is returned before 300 seconds. A comparison's clock-span requirement does not establish that a real source has complete coverage.
+
+Catch-up responses add `fan_briefing` (or `null` when no new events): a headline, scoreline, match clock, three fan-facing sections and supporting event IDs. Existing `match_briefing`, `explanation`, stories and evidence fields remain available for the analytical view. This additive field uses deterministic wording from observed facts and adds no provider calls.
+
 Matchday routes: `POST /matchdays/start`, `GET /matchdays/{id}`, `POST /matchdays/{id}/tick`, and owner-only `DELETE /matchdays/{id}`. They advance three server-owned synthetic feeds on one shared clock and return an observed-event Radar snapshot. See [Match Radar API, rules and limits](match-radar.md).
 
 ## Security contract

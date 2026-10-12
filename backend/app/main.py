@@ -20,6 +20,7 @@ from app.intelligence import (
 )
 from app.explanations import explain
 from app.briefing import full_feed_briefing
+from app.fan_briefing import fan_briefing
 
 app = FastAPI(title="MatchOS", version="0.1.0",
               docs_url=None if security.production() else "/docs",
@@ -68,9 +69,13 @@ def matchday_view(day_id, members):
     entries = []
     for mid, profile in zip(members, matchday.PROFILES):
         events = events_for(mid)
+        briefing = fan_briefing(events, events, now=now)
+        brief_ids = set(briefing['evidence_event_ids']) if briefing else set()
         entries.append({"match_id":mid, "role":profile["role"], "home":profile["home"],
                         "away":profile["away"], "event_count":len(events),
-                        "pulse":matchday.pulse(events, now)})
+                        "pulse":matchday.pulse(events, now),
+                        "briefing":briefing,
+                        "briefing_events":[e.model_dump() for e in events if e.event_id in brief_ids]})
     ranked = matchday.rank(entries)
     # Evaluation comparator: activity count alone, with no personalization/AI.
     baseline = sorted(entries, key=lambda e:(-sum(e["pulse"]["shots_last_five"].values()), e["match_id"]))
@@ -165,8 +170,8 @@ def tick_matchday(day_id: str, payload: MatchdayTick, request: Request):
             state["last_notified"][leader_id] = now
             state["notification"] = {"id":f'{state["generation"]}:{payload.tick}:{leader_id}',
                                      "match_id":leader_id, "clock_second":now,
-                                     "title":f'Heating up: {leader["home"]} vs {leader["away"]}',
-                                     "reason":leader["pulse"]["reason"]}
+                                     "title":leader['briefing']['headline'],
+                                     "reason":leader['briefing']['scoreline'] + '. ' + leader['briefing']['sections'][1]['text']}
         state["previous_leader"] = leader_id
         view["notification"] = state["notification"]
         return view
@@ -384,6 +389,7 @@ def build_catch_up(all_items, request):
     selected = [s for s in new_stories if s["story_id"] in explanation["selected_story_ids"]]
     briefing = full_feed_briefing(all_items, items, request.audience)
     return {
+        "fan_briefing": fan_briefing(all_items, items),
         "match_briefing": briefing,
         "summary": text,
         "intro": intro,

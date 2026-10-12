@@ -183,3 +183,4 @@ def test_window_boundary_no_future_inputs_and_briefing(monkeypatch):
     briefing = c.post(f'/api/matches/{mid}/catch-up',json={})
     assert briefing.status_code == 200
     assert 'Crystal Palace' in briefing.json()['match_briefing']['text']
+    assert briefing.json()['fan_briefing']['headline'] == 'Newcastle United led twice. Crystal Palace have answered twice.'
