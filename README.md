@@ -72,15 +72,14 @@ All comparisons describe recorded event facts according to deterministic, versio
 
 ## Development status
 
-**This is an actively developed hackathon prototype.** Features are being reviewed in pull requests before integration.
+**This is an actively developed hackathon prototype.** Use `develop` for the integrated demo; `main` remains the release branch. Feature work is reviewed before integration.
 
-| Location                                                                                                                                                              | What's available                                                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` / `develop`                                                                                                                                                    | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up.                                                                                                 |
-| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1)   | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed.                      |
-| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Live Azure calls verified for casual and advanced summaries.                      |
-| [`feature/match-page-polish`](https://github.com/plopez-4/matchos/tree/feature/match-page-polish) · [PR #3](https://github.com/plopez-4/matchos/pull/3)               | Latest broadcast dashboard, kit colors, goal takeovers, fresh replay sessions, evidence navigation and request-state fixes.                                                                    |
-| `feature/richer-scenarios-and-stories`                                                                                                                                | Selectable scenarios (`pressure-builds`, `comeback`, `quiet-match`), browser scenario selector, CLI `--scenario` flag, and 3 new rules (`high-recovery`, `progressive-pass`, `recovery-shot`). |
+| Location  | What's available                                                                                                                                                                              |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `develop` | Integrated event analytics, optional Azure story selection, full-match synthetic scenarios, Matchday & Radar, shared score-trajectory stories, evidence navigation and bounded demo security. |
+| `main`    | Earlier released foundation. New integration changes reach main only through a tested release.                                                                                                |
+
+Implementation history: [PR #1 — match stories](https://github.com/plopez-4/matchos/pull/1), [PR #2 — Azure selection](https://github.com/plopez-4/matchos/pull/2), and [PR #3 — integrated fan experience](https://github.com/plopez-4/matchos/pull/3).
 
 The AI adapter is off by default. It uses a Microsoft Foundry Azure OpenAI-compatible model endpoint. The model selects supported story IDs; trusted text is rendered by the app. Free-form AI narration and hosted Foundry Agent Service deployment are future work.
 
@@ -111,10 +110,10 @@ The intelligence layer calculates the facts. Story nodes retain supporting event
 
 **Requirements:** Python 3.11+, Node.js 22.12+, npm and Git. If Windows cannot find `python`, try the Python launcher `py` after installing Python.
 
-Clone the latest working dashboard branch while the stacked changes are under review:
+Clone the integrated development version:
 
 ```powershell
-git clone --branch feature/match-page-polish https://github.com/plopez-4/matchos.git
+git clone --branch develop https://github.com/plopez-4/matchos.git
 cd matchos
 ```
 
@@ -219,7 +218,7 @@ Latest local validation: **39 backend tests, 19 frontend tests, and a successful
 - Rehearse the polished fan experience and prepare a functioning demo under two minutes.
 - Confirm category-specific hero technologies and remaining submission requirements.
 
-Current storage is in memory and resets on restart. The backend supports one process, and the graph is computed from current events rather than persisted history. Authentication, bounded queries and deployment controls remain future work.
+Current storage is in memory and resets on restart. The backend supports one process, and the graph is computed from current events rather than persisted history. Anonymous replay ownership, bounded storage/requests and production security controls are implemented. Public hosting, identity accounts and cloud configuration still require deployment-specific verification. See [security limits](docs/security.md).
 
 ## Team workflow
 
@@ -232,3 +231,7 @@ Shared code style is enforced in CI with [Prettier](https://prettier.io/docs/ins
 ## License
 
 [MIT](LICENSE) for application code. Third-party artwork, photography and fonts have separate terms in [visual-assets.md](docs/visual-assets.md); photograph attribution is visible in the UI. League/Microsoft marks remain their owners' property; no endorsement is claimed. All demo teams, players and match events are fictional. No real Premier League match data is included.
+
+## Testing the fan experience
+
+The shared story card explains score trajectory, recent action and the match clock, with all supporting goals and events inspectable. Fan engagement is an untested hypothesis. Use the [formative fan-test guide](docs/fan-test-guide.md) to collect anonymous observations before making engagement claims.
