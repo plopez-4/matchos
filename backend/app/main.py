@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from app.models import MatchEvent, CatchUpRequest
 from app.intelligence import match_stories, shot_windows, story_graph
+from app.explanations import explain
 
 app = FastAPI(title="MatchOS", version="0.1.0")
 # Single-process demo store. Replace before using multiple workers.
@@ -61,13 +62,15 @@ def graph(match_id: str):
 def catch_up(match_id: str, request: CatchUpRequest):
     items = [e for e in events_for(match_id) if e.sequence > request.since_sequence]
     goals = sum(e.type == "goal" for e in items)
-    text = f"Recorded events since your last check: {len(items)}. Goals: {goals}."
+    intro = f"{len(items)} new recorded events. {goals} {'goal' if goals == 1 else 'goals'}." if items else 'You’re up to date. No new recorded events.'
     if request.audience == "advanced":
-        text += f" Shots: {sum(e.type == 'shot' for e in items)}; recoveries: {sum(e.type == 'recovery' for e in items)}."
+        intro += f" Shots: {sum(e.type == 'shot' for e in items)}; recoveries: {sum(e.type == 'recovery' for e in items)}."
     new_stories = [s for s in match_stories(events_for(match_id)) if s['sequence'] > request.since_sequence]
-    if new_stories:
-        text += ' ' + ' '.join(s['text'] for s in new_stories)
-    return {"summary": text, "evidence_event_ids": [e.event_id for e in items],
+    explanation = explain(new_stories, request.audience)
+    text = intro + (' ' + explanation['text'] if explanation['text'] else '')
+    selected = [s for s in new_stories if s['story_id'] in explanation['selected_story_ids']]
+    return {"summary": text, "intro": intro, "evidence_event_ids": [e.event_id for e in items],
             "through_sequence": max([request.since_sequence] + [e.sequence for e in items]),
-            "audience": request.audience, "rule_version": "catch-up-v2", "stories": new_stories,
-            "context_evidence_event_ids": sorted({eid for s in new_stories for eid in s['evidence_event_ids']})}
+            "audience": request.audience, "rule_version": "catch-up-v3", "stories": new_stories,
+            "context_evidence_event_ids": sorted({eid for s in selected for eid in s['evidence_event_ids']}),
+            "explanation": explanation}

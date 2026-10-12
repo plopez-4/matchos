@@ -41,14 +41,17 @@ def test_replay_and_evidence(client):
     result = client.post("/api/matches/demo-match/catch-up", json={"since_sequence": 20, "audience": "advanced"}).json()
     assert len(result["evidence_event_ids"]) == 10
     assert result["through_sequence"] == 30
-    assert "Goals: 1." in result["summary"]
+    assert "1 goal." in result["summary"]
     assert 'recorded 4 shots' in result['summary']
     graph = client.get('/api/matches/demo-match/graph').json()
     node_ids = {n['id'] for n in graph['nodes']}
     assert len(node_ids) == len(graph['nodes'])
     assert all(e['source'] in node_ids and e['target'] in node_ids for e in graph['edges'])
     assert len([n for n in graph['nodes'] if n['type'] == 'metric_window']) == 2
-    assert client.post('/api/matches/demo-match/catch-up', json={'since_sequence': 30}).json()['stories'] == []
+    empty = client.post('/api/matches/demo-match/catch-up', json={'since_sequence': 30}).json()
+    assert empty['stories'] == []
+    assert empty['explanation']['sections'] == []
+    assert 'up to date' in empty['summary']
 
 def test_validation_conflicts_and_order(client):
     events = list(generate(7, 3))
