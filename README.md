@@ -17,7 +17,7 @@ Built for Inside the Game: Developer Hackathon. Independent prototype; no sponso
 - Optional Azure AI selects verified stories and writes the complete bilingual paragraph from structured observations. Local checks and a separate fallible model review can reject it in favor of a labeled factual fallback.
 - Optional Azure Speech reads the displayed recap. Device speech remains available separately. Pronunciation hints address reported names and club-name joins; human listening acceptance is still needed.
 
-The latest two-audience live AI spot check used factual fallback for both requests. **Consistent AI prose quality remains unresolved.** See [the linked-sequence report](docs/linked-scoring-sequence.md). No five-person human study has been completed.
+The latest focused live check returned two AI recaps, one content fallback and one Azure rate-limit fallback across four requests. **Consistent AI prose quality remains unresolved.** The [editorial quality review](docs/recap-quality-v13-review.md) preserves the failed twenty-request run and subsequent corrections separately. No five-person human study has been completed.
 
 ## Core architecture
 
@@ -78,7 +78,7 @@ npm.cmd --prefix frontend test
 npm.cmd --prefix frontend run build
 ```
 
-Latest local checks: **351 backend tests, 61 frontend tests and production build passed**. Provider unit calls are mocked; live spot checks and failures are recorded separately. Check GitHub Actions for hosted CI results. The [five-fan test](docs/fan-evaluation.md) is prepared, with no participant results claimed.
+Latest local backend checks: **368 tests passed**, with formatting and credential scan passing too. The unchanged frontend previously passed 61 tests and production build. Provider unit calls are mocked; live checks and failures are recorded separately. Check GitHub Actions for hosted CI results. The [five-fan test](docs/fan-evaluation.md) is prepared, with no participant results claimed.
 
 ## Scope and limitations
 
