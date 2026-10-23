@@ -1,0 +1,6 @@
+participant,perspective_first,language,prompt_hash,score_and_scorer_correct,contribution_correct,chronology_correct,next_action_found,time_seconds,wording_issue,observation,status
+P1,casual,,,,,,,,,,not_run
+P2,advanced,,,,,,,,,,not_run
+P3,casual,,,,,,,,,,not_run
+P4,advanced,,,,,,,,,,not_run
+P5,casual,,,,,,,,,,not_run

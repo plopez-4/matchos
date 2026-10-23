@@ -1,0 +1,557 @@
+{
+  "data_origin": "synthetic",
+  "seed": 7,
+  "generator": "backend/app/full_match.py",
+  "version": "match-radar-v3-player-spells",
+  "purpose": "Match analytics and grounded narrative evaluation; no model training performed",
+  "real_fixture_reconstruction": false,
+  "fictional_players": false,
+  "reference_player_identities": true,
+  "coordinate_convention": "0..100 fixed attack frame, Home ->100 and Away ->0 across both halves",
+  "clock_convention": "Cumulative playing seconds, 45-minute halves, zero-duration halftime, 3 added minutes in second half",
+  "scenarios": [
+    {
+      "id": "united-city-90",
+      "name": "Manchester United vs Manchester City",
+      "description": "An authored derby with a repeated player combination. Reference player identities; fictional match action.",
+      "event_count": 593,
+      "duration_seconds": 5580,
+      "scenario_version": "match-radar-v3-player-spells",
+      "data_origin": "synthetic",
+      "teams": {
+        "home": {
+          "name": "Manchester United",
+          "players": [
+            {
+              "id": "sennelammens",
+              "number": 1,
+              "name": "Senne Lammens",
+              "position": "GK"
+            },
+            {
+              "id": "diogodalot",
+              "number": 2,
+              "name": "Diogo Dalot",
+              "position": "DEF"
+            },
+            {
+              "id": "noussairmazraoui",
+              "number": 3,
+              "name": "Noussair Mazraoui",
+              "position": "DEF"
+            },
+            {
+              "id": "matthijsdeligt",
+              "number": 4,
+              "name": "Matthijs de Ligt",
+              "position": "DEF"
+            },
+            {
+              "id": "harrymaguire",
+              "number": 5,
+              "name": "Harry Maguire",
+              "position": "DEF"
+            },
+            {
+              "id": "lisandromartinez",
+              "number": 6,
+              "name": "Lisandro Martinez",
+              "position": "DEF"
+            },
+            {
+              "id": "masonmount",
+              "number": 7,
+              "name": "Mason Mount",
+              "position": "MID"
+            },
+            {
+              "id": "brunofernandes",
+              "number": 8,
+              "name": "Bruno Fernandes",
+              "position": "MID"
+            },
+            {
+              "id": "marcusrashford",
+              "number": 9,
+              "name": "Marcus Rashford",
+              "position": "FWD"
+            },
+            {
+              "id": "matheuscunha",
+              "number": 10,
+              "name": "Matheus Cunha",
+              "position": "FWD"
+            },
+            {
+              "id": "joshuazirkzee",
+              "number": 11,
+              "name": "Joshua Zirkzee",
+              "position": "FWD"
+            },
+            {
+              "id": "karldarlow",
+              "number": 12,
+              "name": "Karl Darlow",
+              "position": "GK"
+            },
+            {
+              "id": "patrickdorgu",
+              "number": 13,
+              "name": "Patrick Dorgu",
+              "position": "DEF"
+            },
+            {
+              "id": "lenyyoro",
+              "number": 15,
+              "name": "Leny Yoro",
+              "position": "DEF"
+            },
+            {
+              "id": "amaddiallo",
+              "number": 16,
+              "name": "Amad Diallo",
+              "position": "FWD"
+            },
+            {
+              "id": "andreysantos",
+              "number": 17,
+              "name": "Andrey Santos",
+              "position": "MID"
+            },
+            {
+              "id": "youritielemans",
+              "number": 18,
+              "name": "Youri Tielemans",
+              "position": "MID"
+            },
+            {
+              "id": "bryanmbeumo",
+              "number": 19,
+              "name": "Bryan Mbeumo",
+              "position": "FWD"
+            },
+            {
+              "id": "carlosbaleba",
+              "number": 20,
+              "name": "Carlos Baleba",
+              "position": "MID"
+            },
+            {
+              "id": "tomheaton",
+              "number": 22,
+              "name": "Tom Heaton",
+              "position": "GK"
+            },
+            {
+              "id": "lukeshaw",
+              "number": 23,
+              "name": "Luke Shaw",
+              "position": "DEF"
+            },
+            {
+              "id": "manuelugarte",
+              "number": 25,
+              "name": "Manuel Ugarte",
+              "position": "MID"
+            },
+            {
+              "id": "aydenheaven",
+              "number": 26,
+              "name": "Ayden Heaven",
+              "position": "DEF"
+            },
+            {
+              "id": "benjaminsesko",
+              "number": 30,
+              "name": "Benjamin Sesko",
+              "position": "FWD"
+            },
+            {
+              "id": "shealacey",
+              "number": 31,
+              "name": "Shea Lacey",
+              "position": "FWD"
+            },
+            {
+              "id": "kobbiemainoo",
+              "number": 37,
+              "name": "Kobbie Mainoo",
+              "position": "MID"
+            },
+            {
+              "id": "jackfletcher",
+              "number": 38,
+              "name": "Jack Fletcher",
+              "position": "MID"
+            },
+            {
+              "id": "tylerfletcher",
+              "number": 39,
+              "name": "Tyler Fletcher",
+              "position": "MID"
+            },
+            {
+              "id": "harryamass",
+              "number": 41,
+              "name": "Harry Amass",
+              "position": "DEF"
+            },
+            {
+              "id": "dermotmee",
+              "number": 45,
+              "name": "Dermot Mee",
+              "position": "GK"
+            }
+          ]
+        },
+        "away": {
+          "name": "Manchester City",
+          "players": [
+            {
+              "id": "gianluigidonnarumma",
+              "number": 1,
+              "name": "Gianluigi Donnarumma",
+              "position": "GK"
+            },
+            {
+              "id": "rubendias",
+              "number": 3,
+              "name": "Ruben Dias",
+              "position": "DEF"
+            },
+            {
+              "id": "elliotanderson",
+              "number": 5,
+              "name": "Elliot Anderson",
+              "position": "MID"
+            },
+            {
+              "id": "marcguehi",
+              "number": 6,
+              "name": "Marc Guehi",
+              "position": "DEF"
+            },
+            {
+              "id": "ilimanndiaye",
+              "number": 7,
+              "name": "Iliman Ndiaye",
+              "position": "FWD"
+            },
+            {
+              "id": "mateokovacic",
+              "number": 8,
+              "name": "Mateo Kovacic",
+              "position": "MID"
+            },
+            {
+              "id": "erlinghaaland",
+              "number": 9,
+              "name": "Erling Haaland",
+              "position": "FWD"
+            },
+            {
+              "id": "rayancherki",
+              "number": 10,
+              "name": "Rayan Cherki",
+              "position": "MID"
+            },
+            {
+              "id": "jeremydoku",
+              "number": 11,
+              "name": "Jeremy Doku",
+              "position": "FWD"
+            },
+            {
+              "id": "marcusbettinelli",
+              "number": 13,
+              "name": "Marcus Bettinelli",
+              "position": "GK"
+            },
+            {
+              "id": "enzofernandez",
+              "number": 17,
+              "name": "Enzo Fernandez",
+              "position": "MID"
+            },
+            {
+              "id": "rayanaitnouri",
+              "number": 21,
+              "name": "Rayan Ait-Nouri",
+              "position": "DEF"
+            },
+            {
+              "id": "vitorreis",
+              "number": 22,
+              "name": "Vitor Reis",
+              "position": "DEF"
+            },
+            {
+              "id": "joskogvardiol",
+              "number": 24,
+              "name": "Josko Gvardiol",
+              "position": "DEF"
+            },
+            {
+              "id": "matheusnunes",
+              "number": 27,
+              "name": "Matheus Nunes",
+              "position": "MID"
+            },
+            {
+              "id": "geronimorulli",
+              "number": 28,
+              "name": "Geronimo Rulli",
+              "position": "GK"
+            },
+            {
+              "id": "claudioecheverri",
+              "number": 30,
+              "name": "Claudio Echeverri",
+              "position": "MID"
+            },
+            {
+              "id": "ayyoubbouaddi",
+              "number": 32,
+              "name": "Ayyoub Bouaddi",
+              "position": "MID"
+            },
+            {
+              "id": "nicooreilly",
+              "number": 33,
+              "name": "Nico O'Reilly",
+              "position": "MID"
+            },
+            {
+              "id": "allan",
+              "number": 37,
+              "name": "Allan",
+              "position": "FWD"
+            },
+            {
+              "id": "antoinesemenyo",
+              "number": 42,
+              "name": "Antoine Semenyo",
+              "position": "FWD"
+            },
+            {
+              "id": "abdukodirkhusanov",
+              "number": 45,
+              "name": "Abdukodir Khusanov",
+              "position": "DEF"
+            },
+            {
+              "id": "philfoden",
+              "number": 47,
+              "name": "Phil Foden",
+              "position": "MID"
+            },
+            {
+              "id": "ryanmcaidoo",
+              "number": 56,
+              "name": "Ryan McAidoo",
+              "position": "FWD"
+            },
+            {
+              "id": "kadenbraithwaite",
+              "number": 61,
+              "name": "Kaden Braithwaite",
+              "position": "DEF"
+            },
+            {
+              "id": "ricolewis",
+              "number": 82,
+              "name": "Rico Lewis",
+              "position": "DEF"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "palace-newcastle-90",
+      "name": "Crystal Palace vs Newcastle United",
+      "description": "An authored match with changing score situations. Reference player identities; fictional match action.",
+      "event_count": 594,
+      "duration_seconds": 5580,
+      "scenario_version": "match-radar-v3-player-spells",
+      "data_origin": "synthetic",
+      "teams": {
+        "home": {
+          "name": "Crystal Palace",
+          "players": [
+            {
+              "id": "deanhenderson",
+              "number": 1,
+              "name": "Dean Henderson",
+              "position": "GK"
+            },
+            {
+              "id": "ismailasarr",
+              "number": 7,
+              "name": "Ismaila Sarr",
+              "position": "FWD"
+            },
+            {
+              "id": "dwightmcneil",
+              "number": 11,
+              "name": "Dwight McNeil",
+              "position": "MID"
+            },
+            {
+              "id": "jeanphilippemateta",
+              "number": 14,
+              "name": "Jean-Philippe Mateta",
+              "position": "FWD"
+            },
+            {
+              "id": "takehirotomiyasu",
+              "number": 17,
+              "name": "Takehiro Tomiyasu",
+              "position": "DEF"
+            },
+            {
+              "id": "daichikamada",
+              "number": 18,
+              "name": "Daichi Kamada",
+              "position": "MID"
+            },
+            {
+              "id": "adamwharton",
+              "number": 20,
+              "name": "Adam Wharton",
+              "position": "MID"
+            },
+            {
+              "id": "quintentimber",
+              "number": 23,
+              "name": "Quinten Timber",
+              "position": "MID"
+            }
+          ]
+        },
+        "away": {
+          "name": "Newcastle United",
+          "players": [
+            {
+              "id": "tinolivramento",
+              "number": 2,
+              "name": "Tino Livramento",
+              "position": "DEF"
+            },
+            {
+              "id": "lewishall",
+              "number": 3,
+              "name": "Lewis Hall",
+              "position": "DEF"
+            },
+            {
+              "id": "nicogonzalez",
+              "number": 6,
+              "name": "Nico Gonzalez",
+              "position": "MID"
+            },
+            {
+              "id": "joelinton",
+              "number": 7,
+              "name": "Joelinton",
+              "position": "MID"
+            },
+            {
+              "id": "yoanewissa",
+              "number": 9,
+              "name": "Yoane Wissa",
+              "position": "FWD"
+            },
+            {
+              "id": "williamosula",
+              "number": 10,
+              "name": "William Osula",
+              "position": "FWD"
+            },
+            {
+              "id": "harveybarnes",
+              "number": 11,
+              "name": "Harvey Barnes",
+              "position": "FWD"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "brighton-fulham-90",
+      "name": "Brighton vs Fulham",
+      "description": "An authored quieter match with limited attacking activity. Reference player identities; fictional match action.",
+      "event_count": 564,
+      "duration_seconds": 5580,
+      "scenario_version": "match-radar-v3-player-spells",
+      "data_origin": "synthetic",
+      "teams": {
+        "home": {
+          "name": "Brighton",
+          "players": [
+            {
+              "id": "lewisdunk",
+              "number": 5,
+              "name": "Lewis Dunk",
+              "position": "DEF"
+            },
+            {
+              "id": "kaorumitoma",
+              "number": 7,
+              "name": "Kaoru Mitoma",
+              "position": "FWD"
+            },
+            {
+              "id": "jackhinshelwood",
+              "number": 8,
+              "name": "Jack Hinshelwood",
+              "position": "MID"
+            },
+            {
+              "id": "georginiorutter",
+              "number": 10,
+              "name": "Georginio Rutter",
+              "position": "FWD"
+            }
+          ]
+        },
+        "away": {
+          "name": "Fulham",
+          "players": [
+            {
+              "id": "rodrigomuniz",
+              "number": 9,
+              "name": "Rodrigo Muniz",
+              "position": "FWD"
+            },
+            {
+              "id": "sanderberge",
+              "number": 16,
+              "name": "Sander Berge",
+              "position": "MID"
+            },
+            {
+              "id": "alexiwobi",
+              "number": 17,
+              "name": "Alex Iwobi",
+              "position": "MID"
+            },
+            {
+              "id": "emilesmithrowe",
+              "number": 32,
+              "name": "Emile Smith Rowe",
+              "position": "MID"
+            },
+            {
+              "id": "antoneerobinson",
+              "number": 33,
+              "name": "Antonee Robinson",
+              "position": "DEF"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

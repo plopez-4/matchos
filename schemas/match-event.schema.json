@@ -2,8 +2,12 @@
   "additionalProperties": false,
   "properties": {
     "schema_version": {
-      "const": "1.0",
-      "default": "1.0",
+      "default": "1.1",
+      "enum": [
+        "1.0",
+        "1.1",
+        "1.2"
+      ],
       "title": "Schema Version",
       "type": "string"
     },
@@ -55,10 +59,14 @@
     },
     "type": {
       "enum": [
+        "kickoff",
         "pass",
         "shot",
         "goal",
-        "recovery"
+        "recovery",
+        "substitution",
+        "half_end",
+        "match_end"
       ],
       "title": "Type",
       "type": "string"
@@ -80,6 +88,216 @@
       "default": "synthetic",
       "title": "Source",
       "type": "string"
+    },
+    "possession_id": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Possession Id"
+    },
+    "end_x": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End X"
+    },
+    "end_y": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End Y"
+    },
+    "outcome": {
+      "anyOf": [
+        {
+          "enum": [
+            "complete",
+            "intercepted",
+            "saved",
+            "blocked",
+            "missed",
+            "goal"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Outcome"
+    },
+    "related_event_id": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Related Event Id"
+    },
+    "team_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Team Name"
+    },
+    "player_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Player Name"
+    },
+    "recipient_player_id": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Id"
+    },
+    "recipient_player_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Name"
+    },
+    "player_shirt_number": {
+      "anyOf": [
+        {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Player Shirt Number"
+    },
+    "recipient_player_shirt_number": {
+      "anyOf": [
+        {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Shirt Number"
+    },
+    "player_position": {
+      "anyOf": [
+        {
+          "enum": [
+            "GK",
+            "DEF",
+            "MID",
+            "FWD"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Player Position"
+    },
+    "recipient_player_position": {
+      "anyOf": [
+        {
+          "enum": [
+            "GK",
+            "DEF",
+            "MID",
+            "FWD"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Position"
+    },
+    "roster_version": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Roster Version"
     }
   },
   "required": [

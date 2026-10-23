@@ -1,171 +1,93 @@
 # MatchOS
-### The AI Operating System for Live Football
 
-MatchOS turns a stream of football events into a match story fans can understand and verify. It connects recorded actions to emerging patterns, explains what changed, and helps returning viewers catch up without watching every missed minute.
+**Missed the action? See how it happened and understand what changed.**
 
-Built for **Inside the Game: Developer Hackathon**, with synthetic football data, a React match experience, and an evidence-first path to Microsoft-powered AI.
+MatchOS turns synthetic football events into a returning fan's recap, recorded pitch replay and inspectable evidence. The main page focuses on one match; `/?view=development` opens the separate analytics inspector.
 
-[Explore the code](https://github.com/plopez-4/matchos) · [Working demo feature](https://github.com/plopez-4/matchos/pull/1) · [Azure AI development](https://github.com/plopez-4/matchos/pull/2)
+Built for Inside the Game: Developer Hackathon. Independent prototype; no sponsorship or endorsement claimed. Real club and reference player names identify actors in fictional action, not real performances.
 
-## What we're building
+## Current version
 
-A fan joins a match late. The score tells them who is winning, but they still need context: what happened, how the game changed, and which developments deserve attention.
+`main` is the canonical version to clone and submit after release integration. Older commits and evaluation reports are development history, not alternate applications. Start with [current documentation](docs/README.md), [submission notes](docs/hackathon-submission.md) and [patch notes](CHANGELOG.md).
 
-MatchOS brings those answers together:
+- One fan page: score, important moment, recorded build-up and one Catch Me Up paragraph.
+- Connected explanations: verified recovery, team passes, goal-producing shot and equalizer form one move. A nearby goal is never linked by proximity alone.
+- Named replay actions, such as “Watch Ismaila Sarr's equalizer.”
+- Casual and Analyst perspectives, English and Spanish, using the same source facts.
+- Optional Azure AI selects verified stories and writes the complete bilingual paragraph from structured observations. Local checks and a separate fallible model review can reject it in favor of a labeled factual fallback.
+- Optional Azure Speech reads the displayed recap. Device speech remains available separately. Pronunciation hints address reported names and club-name joins; human listening acceptance is still needed.
 
-| Feature | What it gives the fan |
-| --- | --- |
-| **Live match view** | A score, event timeline and recorded match statistics that update during replay. |
-| **Match intelligence** | Reproducible comparisons that reveal changes in recorded activity. |
-| **Match Story Graph** | Connections from events to calculated patterns to explanations, with inspectable evidence. |
-| **Catch Me Up** | A summary of events and stories since the viewer's last check. |
-| **Personalization** | Casual or advanced explanations built from the same underlying facts. |
-| **Evidence-backed AI** | An agent retrieves trusted stories and chooses what to explain; the app checks the selection before displaying it. |
+The latest two-audience live AI spot check used factual fallback for both requests. **Consistent AI prose quality remains unresolved.** See [the linked-sequence report](docs/linked-scoring-sequence.md). No five-person human study has been completed.
 
-Our first audience is football fans. The longer-term goal is to make the same intelligence useful to broadcasters, studios and streaming experiences.
-
-## See the first match story
-
-The current feature replays a fictional ten-minute highlights scenario: a quiet opening, increased Home shooting activity, a goal, and an Away response.
-
-At the end, MatchOS can explain:
-
-> Home recorded 4 shots in minutes 5–10, compared with 1 in the previous five minutes.
-
-Open **Inspect supporting events** to see the shots behind that statement. Then select **Catch Me Up**:
-
-> Recorded events since your last check: 30. Goals: 1. Home scored at 9:31. Home recorded 4 shots in minutes 5–10, compared with 1 in the previous five minutes.
-
-Request it again without new events and the summary reports zero new events. The viewer cursor advances only after a successful response.
-
-This comparison describes recorded shooting activity. It does not establish possession, tactical pressure or why the goal happened.
-
-## Development status
-
-**This is an actively developed hackathon prototype.** Features are being reviewed in pull requests before integration.
-
-| Location | What's available |
-| --- | --- |
-| `main` / `develop` | Initial FastAPI and React foundation, synthetic replay, count analytics and basic Catch Me Up. |
-| [`feature/evidence-backed-stories`](https://github.com/plopez-4/matchos/tree/feature/evidence-backed-stories) · [PR #1](https://github.com/plopez-4/matchos/pull/1) | Scripted highlights, five-minute shot comparisons, event/metric/story support graph, readable evidence and richer Catch Me Up. Backend and frontend GitHub checks passed. |
-| [`feature/grounded-ai-explanations`](https://github.com/plopez-4/matchos/tree/feature/grounded-ai-explanations) · [Draft PR #2](https://github.com/plopez-4/matchos/pull/2) | Optional Azure-backed tool flow for story selection, validation, execution trace and deterministic fallback. Local tests pass; live Azure verification is pending. |
-
-The AI adapter is off by default. It uses a Microsoft Foundry Azure OpenAI-compatible model endpoint. The model selects supported story IDs; trusted text is rendered by the app. Free-form AI narration and hosted Foundry Agent Service deployment are future work.
-
-## How MatchOS works
+## Core architecture
 
 ```text
-Synthetic football events
-          |
-          v
-Validated ingestion and ordered event storage
-          |
-          v
-Deterministic counts and time-window analytics
-          |
-          v
-Match Story Graph: events -> metrics -> stories
-          |
-          v
-Evidence retrieval and validated AI story selection
-          |
-          v
-Live match cards + personalized Catch Me Up
+Synthetic events: passes, shots, recoveries, coordinates
+  -> deterministic analytics over observed windows and possessions
+  -> Match Story Graph: events -> metrics -> stories
+  -> grounded AI selection, whole-paragraph writing and validation
+  -> fan recap, recorded replay and inspectable evidence
 ```
 
-The intelligence layer calculates the facts. Story nodes retain supporting event IDs and versioned rules. The optional AI layer retrieves these candidates and selects their order for the audience. Invalid selections or provider failures fall back to the deterministic summary.
+Metrics retain rule versions and source event IDs. AI receives observations and relationships, not prewritten commentary sentences. Rejected output is replaced as a whole; the server does not patch model prose. Pitch replay is schematic interpolation between recorded locations, not continuous player tracking.
 
-## Try the working demo
+The shared catalog contains United–City, Palace–Newcastle and Brighton–Fulham. Both views use `backend/app/data/demo_fixtures.json`; the Hull feed is retired. Earlier small scenarios survive only as isolated analytics test fixtures. See [data provenance](docs/full-match-data.md).
 
-**Requirements:** Python 3.11+, Node.js 22.12+, npm and Git. If Windows cannot find `python`, try the Python launcher `py` after installing Python.
+## Run locally
 
-Clone the working demo branch while PR #1 is under review:
+Requirements: Python 3.11+, Node.js 22.12+, npm and Git. In Windows Command Prompt:
 
-```powershell
-git clone --branch feature/evidence-backed-stories https://github.com/plopez-4/matchos.git
+```bat
+git clone https://github.com/plopez-4/matchos.git
 cd matchos
+py -3 -m venv .venv
+.venv\Scripts\python.exe -m pip install --upgrade pip==26.2.1
+.venv\Scripts\python.exe -m pip install -c backend/constraints.txt -e ".\backend[dev]"
+.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
 ```
 
-### 1. Backend terminal
+Keep it running. Open a second Command Prompt in `matchos`:
 
-From the repository root:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e "./backend[dev]"
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --reload
-```
-
-Open the [API explorer](http://localhost:8000/docs). Keep this terminal running.
-
-### 2. Frontend terminal
-
-Open a second terminal in the repository root:
-
-```powershell
+```bat
 cd frontend
-npm ci
-npm run dev
+npm.cmd ci
+npm.cmd run dev
 ```
 
-Open [MatchOS](http://localhost:5173). Keep this terminal running too.
+Open [the fan page](http://127.0.0.1:5173), or the actual port Vite prints. Choose a fixture and start replay. Demo settings contain speed (0.5×–80×) and reset. Catch Me Up pauses replay and drains the in-flight request before taking its snapshot. Backend restart clears in-memory matches.
 
-### 3. Simulator terminal
+On macOS/Linux use `python3 -m venv .venv`, `.venv/bin/python` and `npm`.
 
-Open a third terminal in the repository root:
+### Private Azure connections
 
-```powershell
-.\.venv\Scripts\python.exe simulator/run.py --seed 7 --count 30 --interval 0.5
+Instead of the plain backend command above, this Windows launcher prompts for keys without displaying or saving them:
+
+```bat
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\start_backend.ps1 -AI -Speech
 ```
 
-Watch the timeline, a **1–0 score**, and the shooting-activity story appear. Inspect its evidence and try Catch Me Up twice.
+Supply your own endpoint, deployment and region if they differ from the launcher's defaults. See [model setup](docs/azure-ai.md) and [Speech setup](docs/azure-narration.md). Keys belong only on the backend, never in React or GitHub. An unconfigured clone uses deterministic summaries.
 
-On macOS/Linux, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`. Use `python3` to create the environment if needed.
+## Verification
 
-**Replay notes:** the scenario contains 30 recorded highlights, five Home shots and two Away shots. It is a sparse fixture, not a complete match feed. Replaying the same seed/count does not duplicate events. Restart the backend for a fresh match or before replacing the older random replay. The UI currently displays `demo-match` only.
-
-For the draft Azure feature, use its branch and follow the [Azure configuration guide](https://github.com/plopez-4/matchos/blob/feature/grounded-ai-explanations/docs/azure-ai.md). Credentials stay on the backend; never commit keys.
-
-## Technology and repository
-
-| Area | Technology / location |
-| --- | --- |
-| Backend | Python, FastAPI, Pydantic · `backend/app/` |
-| Frontend | React, Vite · `frontend/src/` |
-| Synthetic data | Seeded Python scenario · `simulator/` |
-| Shared contract | Versioned JSON Schema · `schemas/` |
-| Verification | pytest, mocked provider tests, frontend builds, GitHub Actions |
-| Microsoft integration | Azure OpenAI-compatible Foundry model endpoint, under development |
-| Documentation | Product, architecture, API, milestone and submission plans · `docs/` |
-
-### Run checks
-
-From the repository root, with backend dependencies installed:
-
-```powershell
-.\.venv\Scripts\python.exe -m pytest backend/tests
-cd frontend
-npm run build
+```bat
+.venv\Scripts\python.exe -m pytest backend/tests
+.venv\Scripts\python.exe scripts/check_secrets.py
+npm.cmd --prefix frontend run format:check
+npm.cmd --prefix frontend test
+npm.cmd --prefix frontend run build
 ```
 
-The evidence-story feature has seven backend checks. The draft AI feature has fifteen, including tool-flow and failure tests. Mock tests do not require Azure credentials.
+Latest local checks: **351 backend tests, 61 frontend tests and production build passed**. Provider unit calls are mocked; live spot checks and failures are recorded separately. Check GitHub Actions for hosted CI results. The [five-fan test](docs/fan-evaluation.md) is prepared, with no participant results claimed.
 
-## What we're working on next
+## Scope and limitations
 
-- Verify the Azure tool flow against a real model deployment.
-- Expand synthetic match realism and support more evidence-backed patterns.
-- Persist events, story history and viewer preferences.
-- Polish the fan experience and prepare a functioning demo under two minutes.
-- Confirm category-specific hero technologies and remaining submission requirements.
+FastAPI and React/Vite run locally with optional Azure model and Speech services. There is no deployed Foundry Agent Service hierarchy, real match feed, full player tracking, production cloud persistence or confirmed hosted judging URL. Use one backend worker. See [security controls and limits](docs/security.md).
 
-Current storage is in memory and resets on restart. The backend supports one process, and the graph is computed from current events rather than persisted history. Authentication, bounded queries and deployment controls remain future work.
+Next: improve AI acceptance without relaxing evidence requirements, then conduct the real fan test. A public video and judging access remain separate submission work.
 
-## Team workflow
+## Code and license
 
-Use `develop` for integration and `main` for tested releases. Create feature branches, keep changes focused, and submit pull requests with demo steps and verification. Backend/integration, frontend, and intelligence/AI are the main ownership areas.
+Backend: `backend/app/` · frontend: `frontend/src/` · fixtures: `data/synthetic/` · contracts: `schemas/` · tools: `scripts/` · [contributing](CONTRIBUTING.md).
 
-See [CONTRIBUTING](CONTRIBUTING.md), the [milestone plan](docs/milestone-1.md), and the [initial task drafts](docs/github-issues.md).
-
-## License
-
-[MIT](LICENSE). All demo teams, players and match events are fictional. No real Premier League match data is included.
+[MIT](LICENSE) covers application code. Artwork, photography and fonts have separate terms in [visual assets](docs/visual-assets.md). Confirm permissions before including third-party marks in submitted footage. Player references and historical aggregates have separate provenance. All match actions are fictional.

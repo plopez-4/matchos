@@ -1,0 +1,20 @@
+{
+  "clock": "62:30",
+  "text": "Crystal Palace y Newcastle United están empatados 1 a 1. Harvey Barnes marcó para Newcastle United a los 15:11. Ismaila Sarr marcó para Crystal Palace a los 60:11. A los 60:10, Crystal Palace registró un remate 10 segundos después de recuperar el balón en la misma posesión. En los últimos cinco minutos se registró 1 remate, frente a 0 en los cinco anteriores. Faltan 27 minutos y 30 segundos para los noventa, más el añadido.",
+  "lexicon_version": "spanish-name-hints-v3-reported-names",
+  "clips": {
+    "matchday": {
+      "file": "spanish-palace-voice-matchday.mp3",
+      "bytes": 126288,
+      "voice": "es-MX-JorgeNeural",
+      "ssml_sha256": "db207af351a7406f5cf06ccb5f0f3cfe7d9567b103a9cc9cf1a4a6db964855c8"
+    },
+    "warm": {
+      "file": "spanish-palace-voice-warm.mp3",
+      "bytes": 134352,
+      "voice": "es-MX-DaliaNeural",
+      "ssml_sha256": "779d4eb7b1dfadbb7ff20c4d9bda2f731a194f8a64992908d5ace38f8878564a"
+    }
+  },
+  "listening_status": "awaiting_user_comparison"
+}

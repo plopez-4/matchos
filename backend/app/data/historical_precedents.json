@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "description": "Open-domain historical aggregates calibrated for synthetic match context.",
+  "entries": [
+    {
+      "id": "epl-2016-17-halftime-one-goal",
+      "phase": "halftime",
+      "absolute_goal_margin": 1,
+      "season": "2016–17",
+      "matches_reviewed": 380,
+      "sample_size": 156,
+      "wins": 113,
+      "draws": 32,
+      "losses": 11,
+      "win_percentage": 72.4,
+      "source": "https://raw.githubusercontent.com/openfootball/england/4dffd3b1ad3b04ba6f885eb7fca3b1c2318a6c7d/2016-17/1-premierleague.txt",
+      "source_name": "OpenFootball · Premier League 2016–17",
+      "source_license": "Public domain, as declared by OpenFootball",
+      "verified_on": "2026-10-11",
+      "source_sha256": "6d66020cb09c03c15abdc005e8832c83ca89697ae0dfa3b44859369fdf2883af",
+      "text": {
+        "en": "In the 2016–17 Premier League season, teams leading by one goal at halftime won 113 of 156 matches (72.4%).",
+        "es": "En la Premier League 2016–17, los equipos con un gol de ventaja al descanso ganaron 113 de 156 partidos (72,4 %)."
+      },
+      "caveat": {
+        "en": "Historical benchmark, not a prediction for this synthetic match.",
+        "es": "Referencia histórica; no es una predicción para este partido sintético."
+      }
+    }
+  ]
+}

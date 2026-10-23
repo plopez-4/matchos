@@ -1,0 +1,17 @@
+{
+  "writer_version": "fan-narrative-v12-ordered-scoring-actions",
+  "match_id": "linked-goal-4f7fdd111b",
+  "cases": [
+    {
+      "audience": "casual",
+      "mode": "azure",
+      "review": "model_review_passed",
+      "fallback_reason": null,
+      "text": {
+        "en": "At 15:11, Harvey Barnes put Newcastle United ahead 1-0, setting the tone early. The match clock now reads 62:30 with the score tied 1-1 after Ismaila Sarr equalized for Crystal Palace at 60:11. Sarr's goal came from a quick sequence starting with Takehiro Tomiyasu's recovery at 60:00, followed by three completed passes involving Adam Wharton and Jean-Philippe Mateta before Sarr's shot 10 seconds later. This chain of play shows Crystal Palace's sharp build-up and response after falling behind.",
+        "es": "A los 15:11, Harvey Barnes adelantó a Newcastle United 1-0, marcando el ritmo temprano. El reloj marca 62:30 y el marcador está empatado 1-1 tras el gol de Ismaila Sarr para Crystal Palace a los 60:11. El gol de Sarr surgió de una rápida secuencia iniciada con la recuperación de Takehiro Tomiyasu a los 60:00, seguida de tres pases completados entre Adam Wharton y Jean-Philippe Mateta antes del disparo de Sarr 10 segundos después. Esta jugada muestra la rápida construcción y respuesta de Crystal Palace tras ir abajo."
+      }
+    }
+  ],
+  "scope": "Live integration spot checks, not a fan study or general accuracy benchmark."
+}

@@ -1,0 +1,196 @@
+{
+  "expected_writer_version": "fan-narrative-v6-player-impact",
+  "live_cases": [
+    {
+      "case": "busy",
+      "audience": "casual",
+      "seconds": 6.83,
+      "selector_mode": "azure",
+      "writer_mode": "azure",
+      "review": "model_review_passed",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "change_detected",
+      "plan_story_ids": [
+        "goal:quality-check-5bcf7e8d66-featured-e100",
+        "player:player_shot_creation:quality-check-5bcf7e8d66-featured:home-7:1500:snapshot"
+      ],
+      "player_contribution": {
+        "match_id": "quality-check-5bcf7e8d66-featured",
+        "team_id": "home",
+        "team_name": "Manchester United",
+        "period": 1,
+        "player_id": "home-7",
+        "player_name": "Bruno Fernandes",
+        "start_second": 900,
+        "end_second": 1500,
+        "count": 3,
+        "team_total": 3,
+        "min_gain": 15.0,
+        "max_link_seconds": 10,
+        "evidence_event_ids": [
+          "quality-check-5bcf7e8d66-featured-e98",
+          "quality-check-5bcf7e8d66-featured-e99",
+          "quality-check-5bcf7e8d66-featured-e112",
+          "quality-check-5bcf7e8d66-featured-e113",
+          "quality-check-5bcf7e8d66-featured-e128",
+          "quality-check-5bcf7e8d66-featured-e129"
+        ],
+        "rule_version": "player-shot-creation-v1",
+        "coverage": "recorded_events_only",
+        "window_mode": "snapshot",
+        "start_inclusive": false,
+        "end_inclusive": true,
+        "links": [
+          {
+            "pass_event_id": "quality-check-5bcf7e8d66-featured-e98",
+            "shot_event_id": "quality-check-5bcf7e8d66-featured-e99",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          },
+          {
+            "pass_event_id": "quality-check-5bcf7e8d66-featured-e112",
+            "shot_event_id": "quality-check-5bcf7e8d66-featured-e113",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          },
+          {
+            "pass_event_id": "quality-check-5bcf7e8d66-featured-e128",
+            "shot_event_id": "quality-check-5bcf7e8d66-featured-e129",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          }
+        ],
+        "goal_shot_count": 1
+      },
+      "text": {
+        "en": "The score remains 1-0 at 25 minutes played. Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00.",
+        "es": "El marcador sigue 1-0 a falta de 25 minutos. Bruno Fernandes encontró repetidamente a Bryan Mbeumo: sus pases completados precedieron directamente 3 de los 3 remates de Manchester United en 15:00–25:00."
+      },
+      "ai_writing_required": true,
+      "case_passed": true
+    },
+    {
+      "case": "busy",
+      "audience": "advanced",
+      "seconds": 6.2,
+      "selector_mode": "azure",
+      "writer_mode": "azure",
+      "review": "model_review_passed",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "change_detected",
+      "plan_story_ids": [
+        "goal:quality-check-5bcf7e8d66-featured-e100",
+        "player:player_shot_creation:quality-check-5bcf7e8d66-featured:home-7:1500:snapshot"
+      ],
+      "player_contribution": {
+        "match_id": "quality-check-5bcf7e8d66-featured",
+        "team_id": "home",
+        "team_name": "Manchester United",
+        "period": 1,
+        "player_id": "home-7",
+        "player_name": "Bruno Fernandes",
+        "start_second": 900,
+        "end_second": 1500,
+        "count": 3,
+        "team_total": 3,
+        "min_gain": 15.0,
+        "max_link_seconds": 10,
+        "evidence_event_ids": [
+          "quality-check-5bcf7e8d66-featured-e98",
+          "quality-check-5bcf7e8d66-featured-e99",
+          "quality-check-5bcf7e8d66-featured-e112",
+          "quality-check-5bcf7e8d66-featured-e113",
+          "quality-check-5bcf7e8d66-featured-e128",
+          "quality-check-5bcf7e8d66-featured-e129"
+        ],
+        "rule_version": "player-shot-creation-v1",
+        "coverage": "recorded_events_only",
+        "window_mode": "snapshot",
+        "start_inclusive": false,
+        "end_inclusive": true,
+        "links": [
+          {
+            "pass_event_id": "quality-check-5bcf7e8d66-featured-e98",
+            "shot_event_id": "quality-check-5bcf7e8d66-featured-e99",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          },
+          {
+            "pass_event_id": "quality-check-5bcf7e8d66-featured-e112",
+            "shot_event_id": "quality-check-5bcf7e8d66-featured-e113",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          },
+          {
+            "pass_event_id": "quality-check-5bcf7e8d66-featured-e128",
+            "shot_event_id": "quality-check-5bcf7e8d66-featured-e129",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          }
+        ],
+        "goal_shot_count": 1
+      },
+      "text": {
+        "en": "The score remains 1-0 with 25 minutes played. Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00. Each recipient shot on the next recorded action, in the same possession and within ten seconds; this is not a chance-quality rating.",
+        "es": "El marcador sigue 1-0 con 25 minutos de juego. Bruno Fernandes encontró repetidamente a Bryan Mbeumo: sus pases completados precedieron directamente 3 de los 3 remates de Manchester United en 15:00–25:00. El receptor remató en la siguiente acción registrada, en la misma posesión y en un máximo de diez segundos; no es una valoración de la ocasión."
+      },
+      "ai_writing_required": true,
+      "case_passed": true
+    },
+    {
+      "case": "quiet",
+      "audience": "casual",
+      "seconds": 0.02,
+      "selector_mode": "deterministic",
+      "writer_mode": "deterministic",
+      "review": null,
+      "fallback_reason": "no_selected_story",
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "no_qualifying_change",
+      "plan_story_ids": [],
+      "player_contribution": null,
+      "text": {
+        "en": "Brighton and Fulham are level at 0 all. Still goalless. No qualifying change was detected in the recorded interval you missed. No shots recorded in the last five minutes. There are 50 minutes until ninety, plus added time.",
+        "es": "Brighton y Fulham están empatados 0 a 0. Sigue sin goles. No se detectó un cambio que cumpla las reglas en el tramo registrado de tu ausencia. Sin remates registrados en los últimos cinco minutos. Faltan 50 minutos para los noventa, más el añadido."
+      },
+      "ai_writing_required": false,
+      "case_passed": true
+    },
+    {
+      "case": "quiet",
+      "audience": "advanced",
+      "seconds": 0.01,
+      "selector_mode": "deterministic",
+      "writer_mode": "deterministic",
+      "review": null,
+      "fallback_reason": "no_selected_story",
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "no_qualifying_change",
+      "plan_story_ids": [],
+      "player_contribution": null,
+      "text": {
+        "en": "Brighton and Fulham are level at 0 all. Still goalless. No qualifying change was detected in the recorded interval you missed. No shots recorded in the last five minutes. There are 50 minutes until ninety, plus added time.",
+        "es": "Brighton y Fulham están empatados 0 a 0. Sigue sin goles. No se detectó un cambio que cumpla las reglas en el tramo registrado de tu ausencia. Sin remates registrados en los últimos cinco minutos. Faltan 50 minutos para los noventa, más el añadido."
+      },
+      "ai_writing_required": false,
+      "case_passed": true
+    }
+  ],
+  "failure_test": {
+    "type": "simulated_provider_503",
+    "passed": true
+  },
+  "temporary_demo_released": true
+}

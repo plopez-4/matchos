@@ -1,0 +1,28 @@
+{
+  "writer_version": "fan-narrative-v11-linked-scoring-sequence",
+  "match_id": "linked-goal-1ec97782c7",
+  "cases": [
+    {
+      "audience": "casual",
+      "mode": "deterministic",
+      "review": null,
+      "fallback_reason": "ambiguous_statistic_window",
+      "text": {
+        "en": "Crystal Palace and Newcastle United are level at 1 all. Harvey Barnes scored for Newcastle United at 15:11. Takehiro Tomiyasu recovered the ball and, 10 seconds later, Ismaila Sarr shot at 60:10: that shot produced the equalizer recorded at 60:11. There are 27 minutes and 30 seconds until ninety, plus added time.",
+        "es": "Crystal Palace y Newcastle United están empatados 1 a 1. Harvey Barnes marcó para Newcastle United a los 15:11. Takehiro Tomiyasu recuperó el balón y, 10 segundos después, Ismaila Sarr remató a los 60:10: ese remate terminó en el empate registrado a los 60:11. Faltan 27 minutos y 30 segundos para los noventa, más el añadido."
+      }
+    },
+    {
+      "audience": "advanced",
+      "mode": "azure",
+      "review": "model_review_passed",
+      "fallback_reason": null,
+      "text": {
+        "en": "At 62:30, Crystal Palace and Newcastle United are tied 1-1. Harvey Barnes scored for Newcastle United at 15:11, giving them the lead. Then at 60:10, Takehiro Tomiyasu recovered possession and completed three passes within 10 seconds before Ismaila Sarr scored the equalizer for Crystal Palace at 60:11. This recovery-shot pattern shows Tomiyasu's involvement in quickly setting up Sarr's goal to level the match.",
+        "es": "Al minuto 62:30, Crystal Palace va por delante 1-1 contra Newcastle United. Harvey Barnes anotó para Newcastle al 15:11, adelantando a su equipo. Luego, al 60:10, Takehiro Tomiyasu recuperó el balón y completó tres pases en 10 segundos antes de que Ismaila Sarr marcara el empate para Crystal Palace al 60:11. Este patrón de recuperación y disparo muestra la participación de Tomiyasu en la rápida preparación del gol de Sarr para igualar el partido."
+      }
+    }
+  ],
+  "scope": "Live integration spot checks, not a fan study or general accuracy benchmark.",
+  "audit_result": "Initial v11 accepted Analyst prose failed source audit: wrong recovery clock, individual pass credit, and Spanish lead at tied score. Not an accepted quality sample."
+}

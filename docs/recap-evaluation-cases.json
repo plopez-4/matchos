@@ -1,0 +1,12 @@
+[
+  {"case":"opening-limited-coverage","role":"featured","second":60,"cursor_second":0},
+  {"case":"goal-before-repeated-pattern","role":"featured","second":960,"cursor_second":0},
+  {"case":"goal-and-later-combinations","role":"featured","second":1200,"cursor_second":900},
+  {"case":"opposition-player-contribution","role":"featured","second":1590,"cursor_second":900},
+  {"case":"quiet-absence","role":"quiet","second":2400,"cursor_second":1800},
+  {"case":"halftime","role":"featured","second":2700,"cursor_second":2400},
+  {"case":"second-half-quiet","role":"quiet","second":2790,"cursor_second":2700},
+  {"case":"equalizer-and-earlier-goal","role":"comeback","second":4530,"cursor_second":3900},
+  {"case":"historical-pattern-after-equalizer","role":"comeback","second":4800,"cursor_second":4530},
+  {"case":"fulltime","role":"featured","second":5580,"cursor_second":4800}
+]

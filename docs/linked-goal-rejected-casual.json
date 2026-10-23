@@ -1,0 +1,18 @@
+{
+  "code": "missing_recovery_goal_connection",
+  "details": {
+    "fact_id": "story:recovery-shot:linked-goal-f70eca1438-e369"
+  },
+  "draft": {
+    "en": "At 62:30, Crystal Palace and Newcastle United are tied 1-1. Harvey Barnes scored for Newcastle at 15:11 to take the lead. Later, Takehiro Tomiyasu recovered the ball at 60:00 and completed a pass to Adam Wharton, who passed to Jean-Philippe Mateta, then to Ismaila Sarr, who scored the equalizer at 60:11 after three completed passes in the 60:00-60:10 window.",
+    "es": "A los 62:30, Crystal Palace y Newcastle United empatan 1-1. Harvey Barnes marcó para Newcastle al 15:11 para tomar la delantera. Más tarde, Takehiro Tomiyasu recuperó el balón al 60:00 y completó un pase a Adam Wharton, quien pasó a Jean-Philippe Mateta, y luego a Ismaila Sarr, que anotó el empate al 60:11 tras tres pases completados entre el 60:00 y 60:10.",
+    "fact_ids": [
+      "score",
+      "trajectory",
+      "phase",
+      "story:goal:linked-goal-f70eca1438-e96",
+      "story:goal:linked-goal-f70eca1438-e370",
+      "story:recovery-shot:linked-goal-f70eca1438-e369"
+    ]
+  }
+}

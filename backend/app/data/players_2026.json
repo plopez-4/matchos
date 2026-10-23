@@ -1,0 +1,1002 @@
+{
+  "version": "2026-27-manchester-squads-v2",
+  "competition": "English Premier League",
+  "season": "2026–27",
+  "scope": "Manchester squads expanded to published squad-number entries; other clubs remain curated subsets",
+  "checked_on": "2026-10-11",
+  "source_published_on": "2026-09-22",
+  "source": "https://www.premierleague.com/en/news/4725682/all-20-premier-league-clubs-squad-numbers-for-202627-season",
+  "source_sha256": "2a1f845b2b2fe62855b2164733a36e6c94152694b2d0828a8d8244d0ae0c9e81",
+  "verification_fields": ["name", "club", "number"],
+  "position_note": "Positions are authored demo roles, not verified by the squad-number source.",
+  "match_note": "Real-name reference metadata; every match action is synthetic.",
+  "clubs": {
+    "arsenal": {
+      "name": "Arsenal",
+      "short": "ARS",
+      "players": [
+        {
+          "id": "williamsaliba",
+          "number": 2,
+          "name": "William Saliba",
+          "position": "DEF"
+        },
+        {
+          "id": "bukayosaka",
+          "number": 7,
+          "name": "Bukayo Saka",
+          "position": "FWD"
+        },
+        {
+          "id": "eberechieze",
+          "number": 10,
+          "name": "Eberechi Eze",
+          "position": "MID"
+        },
+        {
+          "id": "kaihavertz",
+          "number": 29,
+          "name": "Kai Havertz",
+          "position": "FWD"
+        },
+        {
+          "id": "illanmeslier",
+          "number": 30,
+          "name": "Illan Meslier",
+          "position": "GK"
+        },
+        {
+          "id": "brunoguimaraes",
+          "number": 39,
+          "name": "Bruno Guimaraes",
+          "position": "MID"
+        },
+        {
+          "id": "declanrice",
+          "number": 41,
+          "name": "Declan Rice",
+          "position": "MID"
+        }
+      ]
+    },
+    "aston-villa": {
+      "name": "Aston Villa",
+      "short": "AVL",
+      "players": [
+        {
+          "id": "johnmcginn",
+          "number": 7,
+          "name": "John McGinn",
+          "position": "MID"
+        },
+        {
+          "id": "nicolasjackson",
+          "number": 11,
+          "name": "Nicolas Jackson",
+          "position": "FWD"
+        },
+        {
+          "id": "alejandrogarnacho",
+          "number": 17,
+          "name": "Alejandro Garnacho",
+          "position": "FWD"
+        }
+      ]
+    },
+    "bournemouth": {
+      "name": "AFC Bournemouth",
+      "short": "BOU",
+      "players": [
+        {
+          "id": "lewiscook",
+          "number": 4,
+          "name": "Lewis Cook",
+          "position": "MID"
+        },
+        {
+          "id": "evanilson",
+          "number": 9,
+          "name": "Evanilson",
+          "position": "FWD"
+        },
+        {
+          "id": "marcustavernier",
+          "number": 16,
+          "name": "Marcus Tavernier",
+          "position": "MID"
+        }
+      ]
+    },
+    "brentford": {
+      "name": "Brentford",
+      "short": "BRE",
+      "players": [
+        {
+          "id": "mathiasjensen",
+          "number": 8,
+          "name": "Mathias Jensen",
+          "position": "MID"
+        }
+      ]
+    },
+    "brighton": {
+      "name": "Brighton & Hove Albion",
+      "short": "BHA",
+      "players": [
+        {
+          "id": "lewisdunk",
+          "number": 5,
+          "name": "Lewis Dunk",
+          "position": "DEF"
+        },
+        {
+          "id": "kaorumitoma",
+          "number": 7,
+          "name": "Kaoru Mitoma",
+          "position": "FWD"
+        },
+        {
+          "id": "jackhinshelwood",
+          "number": 8,
+          "name": "Jack Hinshelwood",
+          "position": "MID"
+        },
+        {
+          "id": "georginiorutter",
+          "number": 10,
+          "name": "Georginio Rutter",
+          "position": "FWD"
+        }
+      ],
+      "aliases": ["Brighton"],
+      "demo_slots": {
+        "2": "lewisdunk",
+        "7": "jackhinshelwood",
+        "9": "kaorumitoma",
+        "10": "georginiorutter"
+      }
+    },
+    "chelsea": {
+      "name": "Chelsea",
+      "short": "CHE",
+      "players": [
+        {
+          "id": "pedroneto",
+          "number": 7,
+          "name": "Pedro Neto",
+          "position": "FWD"
+        },
+        {
+          "id": "colepalmer",
+          "number": 10,
+          "name": "Cole Palmer",
+          "position": "MID"
+        },
+        {
+          "id": "morganrogers",
+          "number": 17,
+          "name": "Morgan Rogers",
+          "position": "MID"
+        },
+        {
+          "id": "dannywelbeck",
+          "number": 18,
+          "name": "Danny Welbeck",
+          "position": "FWD"
+        },
+        {
+          "id": "moisescaicedo",
+          "number": 25,
+          "name": "Moises Caicedo",
+          "position": "MID"
+        },
+        {
+          "id": "romeolavia",
+          "number": 45,
+          "name": "Romeo Lavia",
+          "position": "MID"
+        }
+      ]
+    },
+    "coventry": {
+      "name": "Coventry City",
+      "short": "COV",
+      "players": [
+        {
+          "id": "ethanpinnock",
+          "number": 2,
+          "name": "Ethan Pinnock",
+          "position": "DEF"
+        },
+        {
+          "id": "bobbythomas",
+          "number": 4,
+          "name": "Bobby Thomas",
+          "position": "DEF"
+        },
+        {
+          "id": "ellissimms",
+          "number": 9,
+          "name": "Ellis Simms",
+          "position": "FWD"
+        },
+        {
+          "id": "hajiwright",
+          "number": 11,
+          "name": "Haji Wright",
+          "position": "FWD"
+        },
+        {
+          "id": "josheccles",
+          "number": 28,
+          "name": "Josh Eccles",
+          "position": "MID"
+        }
+      ]
+    },
+    "crystal-palace": {
+      "name": "Crystal Palace",
+      "short": "CRY",
+      "players": [
+        {
+          "id": "deanhenderson",
+          "number": 1,
+          "name": "Dean Henderson",
+          "position": "GK"
+        },
+        {
+          "id": "ismailasarr",
+          "number": 7,
+          "name": "Ismaila Sarr",
+          "position": "FWD"
+        },
+        {
+          "id": "dwightmcneil",
+          "number": 11,
+          "name": "Dwight McNeil",
+          "position": "MID"
+        },
+        {
+          "id": "jeanphilippemateta",
+          "number": 14,
+          "name": "Jean-Philippe Mateta",
+          "position": "FWD"
+        },
+        {
+          "id": "takehirotomiyasu",
+          "number": 17,
+          "name": "Takehiro Tomiyasu",
+          "position": "DEF"
+        },
+        {
+          "id": "daichikamada",
+          "number": 18,
+          "name": "Daichi Kamada",
+          "position": "MID"
+        },
+        {
+          "id": "adamwharton",
+          "number": 20,
+          "name": "Adam Wharton",
+          "position": "MID"
+        },
+        {
+          "id": "quintentimber",
+          "number": 23,
+          "name": "Quinten Timber",
+          "position": "MID"
+        }
+      ],
+      "demo_slots": {
+        "2": "takehirotomiyasu",
+        "7": "adamwharton",
+        "9": "ismailasarr",
+        "10": "jeanphilippemateta"
+      }
+    },
+    "everton": {
+      "name": "Everton",
+      "short": "EVE",
+      "players": [
+        {
+          "id": "jordanpickford",
+          "number": 1,
+          "name": "Jordan Pickford",
+          "position": "GK"
+        },
+        {
+          "id": "jamestarkowski",
+          "number": 6,
+          "name": "James Tarkowski",
+          "position": "DEF"
+        },
+        {
+          "id": "brennanjohnson",
+          "number": 22,
+          "name": "Brennan Johnson",
+          "position": "FWD"
+        }
+      ]
+    },
+    "fulham": {
+      "name": "Fulham",
+      "short": "FUL",
+      "players": [
+        {
+          "id": "rodrigomuniz",
+          "number": 9,
+          "name": "Rodrigo Muniz",
+          "position": "FWD"
+        },
+        {
+          "id": "sanderberge",
+          "number": 16,
+          "name": "Sander Berge",
+          "position": "MID"
+        },
+        {
+          "id": "alexiwobi",
+          "number": 17,
+          "name": "Alex Iwobi",
+          "position": "MID"
+        },
+        {
+          "id": "emilesmithrowe",
+          "number": 32,
+          "name": "Emile Smith Rowe",
+          "position": "MID"
+        },
+        {
+          "id": "antoneerobinson",
+          "number": 33,
+          "name": "Antonee Robinson",
+          "position": "DEF"
+        }
+      ],
+      "demo_slots": {
+        "2": "antoneerobinson",
+        "7": "sanderberge",
+        "9": "alexiwobi",
+        "10": "rodrigomuniz"
+      }
+    },
+    "hull": {
+      "name": "Hull City",
+      "short": "HUL",
+      "players": [
+        {
+          "id": "mohamedbelloumi",
+          "number": 10,
+          "name": "Mohamed Belloumi",
+          "position": "FWD"
+        },
+        {
+          "id": "reganslater",
+          "number": 27,
+          "name": "Regan Slater",
+          "position": "MID"
+        }
+      ]
+    },
+    "ipswich": {
+      "name": "Ipswich Town",
+      "short": "IPS",
+      "players": [
+        {
+          "id": "leifdavis",
+          "number": 3,
+          "name": "Leif Davis",
+          "position": "DEF"
+        }
+      ]
+    },
+    "leeds": {
+      "name": "Leeds United",
+      "short": "LEE",
+      "players": [
+        {
+          "id": "ethanampadu",
+          "number": 4,
+          "name": "Ethan Ampadu",
+          "position": "MID"
+        },
+        {
+          "id": "joerodon",
+          "number": 6,
+          "name": "Joe Rodon",
+          "position": "DEF"
+        },
+        {
+          "id": "dominiccalvertlewin",
+          "number": 9,
+          "name": "Dominic Calvert-Lewin",
+          "position": "FWD"
+        }
+      ]
+    },
+    "liverpool": {
+      "name": "Liverpool",
+      "short": "LIV",
+      "players": [
+        {
+          "id": "virgilvandijk",
+          "number": 4,
+          "name": "Virgil van Dijk",
+          "position": "DEF"
+        },
+        {
+          "id": "miloskerkez",
+          "number": 6,
+          "name": "Milos Kerkez",
+          "position": "DEF"
+        },
+        {
+          "id": "dominikszoboszlai",
+          "number": 8,
+          "name": "Dominik Szoboszlai",
+          "position": "MID"
+        },
+        {
+          "id": "alexanderisak",
+          "number": 9,
+          "name": "Alexander Isak",
+          "position": "FWD"
+        },
+        {
+          "id": "alexismacallister",
+          "number": 10,
+          "name": "Alexis Mac Allister",
+          "position": "MID"
+        },
+        {
+          "id": "codygakpo",
+          "number": 18,
+          "name": "Cody Gakpo",
+          "position": "FWD"
+        },
+        {
+          "id": "ryangravenberch",
+          "number": 38,
+          "name": "Ryan Gravenberch",
+          "position": "MID"
+        }
+      ]
+    },
+    "manchester-city": {
+      "name": "Manchester City",
+      "short": "MCI",
+      "players": [
+        {
+          "id": "gianluigidonnarumma",
+          "number": 1,
+          "name": "Gianluigi Donnarumma",
+          "position": "GK"
+        },
+        {
+          "id": "rubendias",
+          "number": 3,
+          "name": "Ruben Dias",
+          "position": "DEF"
+        },
+        {
+          "id": "elliotanderson",
+          "number": 5,
+          "name": "Elliot Anderson",
+          "position": "MID"
+        },
+        {
+          "id": "marcguehi",
+          "number": 6,
+          "name": "Marc Guehi",
+          "position": "DEF"
+        },
+        {
+          "id": "ilimanndiaye",
+          "number": 7,
+          "name": "Iliman Ndiaye",
+          "position": "FWD"
+        },
+        {
+          "id": "mateokovacic",
+          "number": 8,
+          "name": "Mateo Kovacic",
+          "position": "MID"
+        },
+        {
+          "id": "erlinghaaland",
+          "number": 9,
+          "name": "Erling Haaland",
+          "position": "FWD"
+        },
+        {
+          "id": "rayancherki",
+          "number": 10,
+          "name": "Rayan Cherki",
+          "position": "MID"
+        },
+        {
+          "id": "jeremydoku",
+          "number": 11,
+          "name": "Jeremy Doku",
+          "position": "FWD"
+        },
+        {
+          "id": "marcusbettinelli",
+          "number": 13,
+          "name": "Marcus Bettinelli",
+          "position": "GK"
+        },
+        {
+          "id": "enzofernandez",
+          "number": 17,
+          "name": "Enzo Fernandez",
+          "position": "MID"
+        },
+        {
+          "id": "rayanaitnouri",
+          "number": 21,
+          "name": "Rayan Ait-Nouri",
+          "position": "DEF"
+        },
+        {
+          "id": "vitorreis",
+          "number": 22,
+          "name": "Vitor Reis",
+          "position": "DEF"
+        },
+        {
+          "id": "joskogvardiol",
+          "number": 24,
+          "name": "Josko Gvardiol",
+          "position": "DEF"
+        },
+        {
+          "id": "matheusnunes",
+          "number": 27,
+          "name": "Matheus Nunes",
+          "position": "MID"
+        },
+        {
+          "id": "geronimorulli",
+          "number": 28,
+          "name": "Geronimo Rulli",
+          "position": "GK"
+        },
+        {
+          "id": "claudioecheverri",
+          "number": 30,
+          "name": "Claudio Echeverri",
+          "position": "MID"
+        },
+        {
+          "id": "ayyoubbouaddi",
+          "number": 32,
+          "name": "Ayyoub Bouaddi",
+          "position": "MID"
+        },
+        {
+          "id": "nicooreilly",
+          "number": 33,
+          "name": "Nico O'Reilly",
+          "position": "MID"
+        },
+        {
+          "id": "allan",
+          "number": 37,
+          "name": "Allan",
+          "position": "FWD"
+        },
+        {
+          "id": "antoinesemenyo",
+          "number": 42,
+          "name": "Antoine Semenyo",
+          "position": "FWD"
+        },
+        {
+          "id": "abdukodirkhusanov",
+          "number": 45,
+          "name": "Abdukodir Khusanov",
+          "position": "DEF"
+        },
+        {
+          "id": "philfoden",
+          "number": 47,
+          "name": "Phil Foden",
+          "position": "MID"
+        },
+        {
+          "id": "ryanmcaidoo",
+          "number": 56,
+          "name": "Ryan McAidoo",
+          "position": "FWD"
+        },
+        {
+          "id": "kadenbraithwaite",
+          "number": 61,
+          "name": "Kaden Braithwaite",
+          "position": "DEF"
+        },
+        {
+          "id": "ricolewis",
+          "number": 82,
+          "name": "Rico Lewis",
+          "position": "DEF"
+        }
+      ],
+      "demo_slots": {
+        "1": "gianluigidonnarumma",
+        "2": "joskogvardiol",
+        "3": "rubendias",
+        "4": "marcguehi",
+        "5": "ricolewis",
+        "6": "elliotanderson",
+        "7": "enzofernandez",
+        "8": "mateokovacic",
+        "9": "philfoden",
+        "10": "erlinghaaland",
+        "11": "jeremydoku",
+        "12": "rayancherki",
+        "13": "antoinesemenyo",
+        "14": "rayanaitnouri",
+        "15": "matheusnunes",
+        "16": "ayyoubbouaddi"
+      },
+      "demo_lineup": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "demo_bench": [12, 13, 14, 15, 16],
+      "reference_scope": "Complete published 2026-27 squad-number entry; not a confirmed match lineup",
+      "checked_on": "2026-10-22"
+    },
+    "manchester-united": {
+      "name": "Manchester United",
+      "short": "MUN",
+      "players": [
+        {
+          "id": "sennelammens",
+          "number": 1,
+          "name": "Senne Lammens",
+          "position": "GK"
+        },
+        {
+          "id": "diogodalot",
+          "number": 2,
+          "name": "Diogo Dalot",
+          "position": "DEF"
+        },
+        {
+          "id": "noussairmazraoui",
+          "number": 3,
+          "name": "Noussair Mazraoui",
+          "position": "DEF"
+        },
+        {
+          "id": "matthijsdeligt",
+          "number": 4,
+          "name": "Matthijs de Ligt",
+          "position": "DEF"
+        },
+        {
+          "id": "harrymaguire",
+          "number": 5,
+          "name": "Harry Maguire",
+          "position": "DEF"
+        },
+        {
+          "id": "lisandromartinez",
+          "number": 6,
+          "name": "Lisandro Martinez",
+          "position": "DEF"
+        },
+        {
+          "id": "masonmount",
+          "number": 7,
+          "name": "Mason Mount",
+          "position": "MID"
+        },
+        {
+          "id": "brunofernandes",
+          "number": 8,
+          "name": "Bruno Fernandes",
+          "position": "MID"
+        },
+        {
+          "id": "marcusrashford",
+          "number": 9,
+          "name": "Marcus Rashford",
+          "position": "FWD"
+        },
+        {
+          "id": "matheuscunha",
+          "number": 10,
+          "name": "Matheus Cunha",
+          "position": "FWD"
+        },
+        {
+          "id": "joshuazirkzee",
+          "number": 11,
+          "name": "Joshua Zirkzee",
+          "position": "FWD"
+        },
+        {
+          "id": "karldarlow",
+          "number": 12,
+          "name": "Karl Darlow",
+          "position": "GK"
+        },
+        {
+          "id": "patrickdorgu",
+          "number": 13,
+          "name": "Patrick Dorgu",
+          "position": "DEF"
+        },
+        {
+          "id": "lenyyoro",
+          "number": 15,
+          "name": "Leny Yoro",
+          "position": "DEF"
+        },
+        {
+          "id": "amaddiallo",
+          "number": 16,
+          "name": "Amad Diallo",
+          "position": "FWD"
+        },
+        {
+          "id": "andreysantos",
+          "number": 17,
+          "name": "Andrey Santos",
+          "position": "MID"
+        },
+        {
+          "id": "youritielemans",
+          "number": 18,
+          "name": "Youri Tielemans",
+          "position": "MID"
+        },
+        {
+          "id": "bryanmbeumo",
+          "number": 19,
+          "name": "Bryan Mbeumo",
+          "position": "FWD"
+        },
+        {
+          "id": "carlosbaleba",
+          "number": 20,
+          "name": "Carlos Baleba",
+          "position": "MID"
+        },
+        {
+          "id": "tomheaton",
+          "number": 22,
+          "name": "Tom Heaton",
+          "position": "GK"
+        },
+        {
+          "id": "lukeshaw",
+          "number": 23,
+          "name": "Luke Shaw",
+          "position": "DEF"
+        },
+        {
+          "id": "manuelugarte",
+          "number": 25,
+          "name": "Manuel Ugarte",
+          "position": "MID"
+        },
+        {
+          "id": "aydenheaven",
+          "number": 26,
+          "name": "Ayden Heaven",
+          "position": "DEF"
+        },
+        {
+          "id": "benjaminsesko",
+          "number": 30,
+          "name": "Benjamin Sesko",
+          "position": "FWD"
+        },
+        {
+          "id": "shealacey",
+          "number": 31,
+          "name": "Shea Lacey",
+          "position": "FWD"
+        },
+        {
+          "id": "kobbiemainoo",
+          "number": 37,
+          "name": "Kobbie Mainoo",
+          "position": "MID"
+        },
+        {
+          "id": "jackfletcher",
+          "number": 38,
+          "name": "Jack Fletcher",
+          "position": "MID"
+        },
+        {
+          "id": "tylerfletcher",
+          "number": 39,
+          "name": "Tyler Fletcher",
+          "position": "MID"
+        },
+        {
+          "id": "harryamass",
+          "number": 41,
+          "name": "Harry Amass",
+          "position": "DEF"
+        },
+        {
+          "id": "dermotmee",
+          "number": 45,
+          "name": "Dermot Mee",
+          "position": "GK"
+        }
+      ],
+      "demo_slots": {
+        "1": "sennelammens",
+        "2": "diogodalot",
+        "3": "noussairmazraoui",
+        "4": "matthijsdeligt",
+        "5": "lisandromartinez",
+        "6": "kobbiemainoo",
+        "7": "brunofernandes",
+        "8": "carlosbaleba",
+        "9": "bryanmbeumo",
+        "10": "matheuscunha",
+        "11": "amaddiallo",
+        "12": "benjaminsesko",
+        "13": "masonmount",
+        "14": "lenyyoro",
+        "15": "manuelugarte",
+        "16": "youritielemans"
+      },
+      "demo_lineup": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "demo_bench": [12, 13, 14, 15, 16],
+      "reference_scope": "Complete published 2026-27 squad-number entry; not a confirmed match lineup",
+      "checked_on": "2026-10-22"
+    },
+    "newcastle": {
+      "name": "Newcastle United",
+      "short": "NEW",
+      "players": [
+        {
+          "id": "tinolivramento",
+          "number": 2,
+          "name": "Tino Livramento",
+          "position": "DEF"
+        },
+        {
+          "id": "lewishall",
+          "number": 3,
+          "name": "Lewis Hall",
+          "position": "DEF"
+        },
+        {
+          "id": "nicogonzalez",
+          "number": 6,
+          "name": "Nico Gonzalez",
+          "position": "MID"
+        },
+        {
+          "id": "joelinton",
+          "number": 7,
+          "name": "Joelinton",
+          "position": "MID"
+        },
+        {
+          "id": "yoanewissa",
+          "number": 9,
+          "name": "Yoane Wissa",
+          "position": "FWD"
+        },
+        {
+          "id": "williamosula",
+          "number": 10,
+          "name": "William Osula",
+          "position": "FWD"
+        },
+        {
+          "id": "harveybarnes",
+          "number": 11,
+          "name": "Harvey Barnes",
+          "position": "FWD"
+        }
+      ],
+      "demo_slots": {
+        "2": "tinolivramento",
+        "7": "joelinton",
+        "9": "harveybarnes",
+        "10": "yoanewissa"
+      }
+    },
+    "nottingham-forest": {
+      "name": "Nottingham Forest",
+      "short": "NFO",
+      "players": [
+        {
+          "id": "murillo",
+          "number": 5,
+          "name": "Murillo",
+          "position": "DEF"
+        },
+        {
+          "id": "callumhudsonodoi",
+          "number": 7,
+          "name": "Callum Hudson-Odoi",
+          "position": "FWD"
+        },
+        {
+          "id": "chriswood",
+          "number": 9,
+          "name": "Chris Wood",
+          "position": "FWD"
+        },
+        {
+          "id": "morgangibbswhite",
+          "number": 10,
+          "name": "Morgan Gibbs-White",
+          "position": "MID"
+        },
+        {
+          "id": "liamdelap",
+          "number": 19,
+          "name": "Liam Delap",
+          "position": "FWD"
+        },
+        {
+          "id": "danielmunoz",
+          "number": 27,
+          "name": "Daniel Munoz",
+          "position": "DEF"
+        }
+      ]
+    },
+    "sunderland": {
+      "name": "Sunderland",
+      "short": "SUN",
+      "players": [
+        {
+          "id": "chrisrigg",
+          "number": 11,
+          "name": "Chris Rigg",
+          "position": "MID"
+        },
+        {
+          "id": "lukeonien",
+          "number": 13,
+          "name": "Luke O'Nien",
+          "position": "DEF"
+        }
+      ]
+    },
+    "tottenham": {
+      "name": "Tottenham Hotspur",
+      "short": "TOT",
+      "players": [
+        {
+          "id": "jamesmaddison",
+          "number": 10,
+          "name": "James Maddison",
+          "position": "MID"
+        },
+        {
+          "id": "sandrotonali",
+          "number": 16,
+          "name": "Sandro Tonali",
+          "position": "MID"
+        },
+        {
+          "id": "dominicsolanke",
+          "number": 19,
+          "name": "Dominic Solanke",
+          "position": "FWD"
+        },
+        {
+          "id": "dejankulusevski",
+          "number": 21,
+          "name": "Dejan Kulusevski",
+          "position": "MID"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "expected_writer_version": "fan-narrative-v5.1",
+  "live_cases": [
+    {
+      "case": "busy",
+      "audience": "casual",
+      "seconds": 7.2,
+      "selector_mode": "azure",
+      "writer_mode": "azure",
+      "review": "model_review_passed",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "change_detected",
+      "plan_story_ids": [
+        "goal:quality-check-a2034bbfb5-featured-e100",
+        "shots:home:1200"
+      ],
+      "text": {
+        "en": "Manchester United took the lead at 15:11 with a goal by Bryan Mbeumo. In 15:00–20:00, Manchester United recorded 3 shots, compared with 0 in 10:00–15:00. The game is currently 1-0 in favor of Manchester United, 25 minutes in.",
+        "es": "Manchester United se adelantó en el marcador a los 15:11 con un gol de Bryan Mbeumo. En 15:00–20:00, Manchester United registró 3 remates, frente a 0 en 10:00–15:00. El partido sigue 1-0 para Manchester United, a los 25 minutos."
+      },
+      "ai_writing_required": true,
+      "case_passed": true
+    },
+    {
+      "case": "busy",
+      "audience": "advanced",
+      "seconds": 5.97,
+      "selector_mode": "azure",
+      "writer_mode": "azure",
+      "review": "model_review_passed",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "change_detected",
+      "plan_story_ids": [
+        "goal:quality-check-a2034bbfb5-featured-e100",
+        "shots:home:1200"
+      ],
+      "text": {
+        "en": "Manchester United took the lead with a goal by Bryan Mbeumo at 15:11, making it 1-0. In 15:00–20:00, Manchester United recorded 3 shots, compared with 0 in 10:00–15:00. These counts do not establish possession, control or chance quality. The game continues with no further goals as the clock reaches 25:00.",
+        "es": "Manchester United abrió el marcador con un gol de Bryan Mbeumo a los 15:11, poniendo el 1-0. En 15:00–20:00, Manchester United registró 3 remates, frente a 0 en 10:00–15:00. Estos datos no establecen posesión, control ni calidad de las ocasiones. El partido sigue con ese resultado al llegar al minuto 25:00."
+      },
+      "ai_writing_required": true,
+      "case_passed": true
+    },
+    {
+      "case": "quiet",
+      "audience": "casual",
+      "seconds": 0.0,
+      "selector_mode": "deterministic",
+      "writer_mode": "deterministic",
+      "review": null,
+      "fallback_reason": "no_selected_story",
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "no_qualifying_change",
+      "plan_story_ids": [],
+      "text": {
+        "en": "Brighton and Fulham are level at 0 all. Still goalless. No qualifying change was detected in the recorded interval you missed. No shots recorded in the last five minutes. There are 50 minutes until ninety, plus added time.",
+        "es": "Brighton y Fulham están empatados 0 a 0. Sigue sin goles. No se detectó un cambio que cumpla las reglas en el tramo registrado de tu ausencia. Sin remates registrados en los últimos cinco minutos. Faltan 50 minutos para los noventa, más el añadido."
+      },
+      "ai_writing_required": false,
+      "case_passed": true
+    },
+    {
+      "case": "quiet",
+      "audience": "advanced",
+      "seconds": 0.02,
+      "selector_mode": "deterministic",
+      "writer_mode": "deterministic",
+      "review": null,
+      "fallback_reason": "no_selected_story",
+      "validation_stage": null,
+      "validation_details": null,
+      "plan_status": "no_qualifying_change",
+      "plan_story_ids": [],
+      "text": {
+        "en": "Brighton and Fulham are level at 0 all. Still goalless. No qualifying change was detected in the recorded interval you missed. No shots recorded in the last five minutes. There are 50 minutes until ninety, plus added time.",
+        "es": "Brighton y Fulham están empatados 0 a 0. Sigue sin goles. No se detectó un cambio que cumpla las reglas en el tramo registrado de tu ausencia. Sin remates registrados en los últimos cinco minutos. Faltan 50 minutos para los noventa, más el añadido."
+      },
+      "ai_writing_required": false,
+      "case_passed": true
+    }
+  ],
+  "failure_test": {
+    "type": "simulated_provider_503",
+    "passed": true
+  },
+  "temporary_demo_released": true
+}

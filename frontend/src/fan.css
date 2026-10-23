@@ -1,0 +1,192 @@
+.fan-main.matchos-app {
+  max-width: 1040px;
+}
+.fan-main .competition-strip {
+  padding: 12px 0;
+}
+.fan-main .match-header {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+}
+.fan-main .photo-credit {
+  margin: 6px 0;
+}
+.fan-main .clock-disclaimer {
+  display: none;
+}
+.fan-match-flow {
+  display: grid;
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.match-header-compact .stadium-hero {
+  height: 150px;
+}
+.match-header-compact .hero-editorial {
+  padding: 20px 28px;
+}
+.match-header-compact .hero-editorial h2 {
+  font-size: 44px;
+}
+.match-header-compact .hero-editorial > span,
+.match-header-compact .hero-editorial p,
+.match-header-compact .eyebrow,
+.match-header-compact .last-sync-time,
+.match-header-compact .synthetic-badge {
+  display: none;
+}
+.match-header-compact .header-top-row {
+  padding: 12px 0;
+  margin: 0;
+}
+.match-header-compact .brand-title {
+  font-size: 40px;
+}
+.match-header-compact .product-summary {
+  margin: 4px 0;
+  font-size: 14px;
+}
+.fan-main .team-role {
+  display: none;
+}
+.fan-main .scoreboard-card {
+  padding: 1rem 1.2rem;
+}
+.fan-main .scoreboard-main {
+  padding: 0.6rem 0;
+}
+.fan-main .team-name {
+  font-size: clamp(16px, 2.2vw, 24px);
+}
+.fan-main .score-number {
+  font-size: 46px;
+}
+.fan-main .replay-card-compact {
+  padding: 0.8rem 1.2rem;
+}
+.fan-main .replay-card-compact .card-header {
+  margin-bottom: 0.6rem;
+}
+.fan-main .scenario-description {
+  display: none;
+}
+.fan-demo-settings {
+  font-size: 0.8rem;
+  color: #d7c2dd;
+}
+.fan-demo-settings summary {
+  cursor: pointer;
+  padding: 0.4rem;
+}
+.fan-demo-settings > div {
+  display: flex;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.fan-review-state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #8affb54a;
+  border-radius: 10px;
+  background: #17302555;
+}
+.fan-review-state small {
+  display: block;
+  margin-top: 0.3rem;
+  color: #d7c2dd;
+}
+.fan-important-moment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.fan-important-moment h2 {
+  margin: 0.35rem 0;
+  font-size: 1.1rem;
+}
+.fan-main .match-pitch {
+  max-height: 380px;
+}
+.fan-main .focus-recap {
+  padding: 1.2rem;
+  border: 1px solid #ffffff20;
+  border-radius: 16px;
+  background: #ffffff06;
+}
+.fan-main .dashboard-footer {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  font-size: 0.75rem;
+}
+.recap-action-replays {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+.recap-action-replays > span {
+  flex-basis: 100%;
+  font-size: 0.8rem;
+  color: #d7c2dd;
+}
+.recap-action-replays button {
+  border: 1px solid #8affb555;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2rem;
+  background: #8affb510;
+  color: #c3ffd6;
+  cursor: pointer;
+}
+.development-inspector {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #ffffff30;
+}
+.development-inspector code {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 650px) {
+  .match-header-compact .stadium-hero {
+    height: 130px;
+  }
+  .match-header-compact .hero-editorial h2 {
+    font-size: 34px;
+  }
+  .match-header-compact .header-meta {
+    display: none;
+  }
+  .fan-review-state,
+  .fan-important-moment {
+    flex-wrap: wrap;
+  }
+  .fan-main .team-avatar {
+    display: none;
+  }
+  .fan-main .match-pitch {
+    max-height: 260px;
+  }
+  .fan-main .replay-actions {
+    flex-wrap: wrap;
+  }
+  .fan-main .replay-scenario-picker {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+  .fan-main .replay-scenario-picker select {
+    max-width: 100%;
+  }
+}
+
+.fan-main .dashboard-footer a {
+  color: #c3ffd6;
+  text-underline-offset: 3px;
+}

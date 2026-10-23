@@ -1,0 +1,114 @@
+{
+  "version": "fan-narrative-v7.2-ai-commentary",
+  "audience": "casual",
+  "narrative": {
+    "mode": "azure",
+    "text": {
+      "en": "At 15:11, Bryan Mbeumo put Manchester United ahead with a fine goal, making it 1-0 against Manchester City this 25th minute of play. Behind that goal, Bruno Fernandes repeatedly set up shots with three completed passes leading directly to attempts by Mbeumo in the 15:00–25:00 window, showing a strong partnership. Fernandes's vision and Mbeumo's finishing combined seamlessly—each pass from Fernandes swiftly turned into a shot by Mbeumo within just a couple of seconds. Manchester United is holding this slim lead so far.",
+      "es": "A las 15:11, Bryan Mbeumo adelantó al Manchester United con un gol, poniendo el marcador 1-0 contra el Manchester City en este minuto 25 del partido. Detrás de ese gol, Bruno Fernandes generó tres ocasiones con pases completados que inmediatamente llevaron a tiros de Mbeumo en el intervalo 15:00–25:00, evidenciando una gran sociedad. La visión de Fernandes y la definición de Mbeumo se combinaron perfectamente: cada pase de Fernandes se convirtió en un disparo de Mbeumo en solo segundos. Manchester United mantiene esta ventaja ajustada hasta ahora."
+    },
+    "id": "60dc342ea5a2932c888922d128c00f7f2185402d37fe4224503e5e32016cdc01",
+    "fact_ids": [
+      "score",
+      "trajectory",
+      "phase",
+      "story:goal:authorship-check-6d9f98a7-featured-e100",
+      "story:player:player_shot_creation:authorship-check-6d9f98a7-featured:home-7:1500:snapshot"
+    ],
+    "evidence_event_ids": [
+      "authorship-check-6d9f98a7-featured-e100",
+      "authorship-check-6d9f98a7-featured-e168",
+      "authorship-check-6d9f98a7-featured-e99",
+      "authorship-check-6d9f98a7-featured-e98",
+      "authorship-check-6d9f98a7-featured-e112",
+      "authorship-check-6d9f98a7-featured-e113",
+      "authorship-check-6d9f98a7-featured-e128",
+      "authorship-check-6d9f98a7-featured-e129"
+    ],
+    "version": "fan-narrative-v7.2-ai-commentary",
+    "model": "matchos-explainer",
+    "review": "model_review_passed",
+    "metric_rendering": "model_reviewed",
+    "fallback_reason": null
+  },
+  "selected_stories": [
+    {
+      "story_id": "goal:authorship-check-6d9f98a7-featured-e100",
+      "kind": "goal",
+      "text": "Home scored at 15:11.",
+      "evidence_event_ids": [
+        "authorship-check-6d9f98a7-featured-e99",
+        "authorship-check-6d9f98a7-featured-e100"
+      ],
+      "rule_version": "goal-v1",
+      "sequence": 100
+    },
+    {
+      "story_id": "player:player_shot_creation:authorship-check-6d9f98a7-featured:home-7:1500:snapshot",
+      "kind": "player_shot_creation",
+      "metric": {
+        "match_id": "authorship-check-6d9f98a7-featured",
+        "team_id": "home",
+        "team_name": "Manchester United",
+        "period": 1,
+        "player_id": "home-7",
+        "player_name": "Bruno Fernandes",
+        "start_second": 900,
+        "end_second": 1500,
+        "count": 3,
+        "team_total": 3,
+        "min_gain": 15.0,
+        "max_link_seconds": 10,
+        "evidence_event_ids": [
+          "authorship-check-6d9f98a7-featured-e98",
+          "authorship-check-6d9f98a7-featured-e99",
+          "authorship-check-6d9f98a7-featured-e112",
+          "authorship-check-6d9f98a7-featured-e113",
+          "authorship-check-6d9f98a7-featured-e128",
+          "authorship-check-6d9f98a7-featured-e129"
+        ],
+        "rule_version": "player-shot-creation-v1",
+        "coverage": "recorded_events_only",
+        "window_mode": "snapshot",
+        "start_inclusive": false,
+        "end_inclusive": true,
+        "links": [
+          {
+            "pass_event_id": "authorship-check-6d9f98a7-featured-e98",
+            "shot_event_id": "authorship-check-6d9f98a7-featured-e99",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          },
+          {
+            "pass_event_id": "authorship-check-6d9f98a7-featured-e112",
+            "shot_event_id": "authorship-check-6d9f98a7-featured-e113",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          },
+          {
+            "pass_event_id": "authorship-check-6d9f98a7-featured-e128",
+            "shot_event_id": "authorship-check-6d9f98a7-featured-e129",
+            "recipient_player_id": "home-9",
+            "recipient_player_name": "Bryan Mbeumo",
+            "elapsed_seconds": 2
+          }
+        ],
+        "goal_shot_count": 1
+      },
+      "evidence_event_ids": [
+        "authorship-check-6d9f98a7-featured-e98",
+        "authorship-check-6d9f98a7-featured-e99",
+        "authorship-check-6d9f98a7-featured-e112",
+        "authorship-check-6d9f98a7-featured-e113",
+        "authorship-check-6d9f98a7-featured-e128",
+        "authorship-check-6d9f98a7-featured-e129"
+      ],
+      "sequence": 129,
+      "available_second": 1500,
+      "rule_version": "player-shot-creation-v1",
+      "text": "Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00."
+    }
+  ]
+}

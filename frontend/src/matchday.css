@@ -1,0 +1,374 @@
+.experience-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #18001e;
+  border-bottom: 1px solid #54265c;
+}
+.experience-nav button {
+  padding: 0.65rem 1.1rem;
+  border: 1px solid #85598d;
+  border-radius: 2rem;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.experience-nav button.active {
+  background: #fff;
+  color: #37003c;
+}
+.matchday-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+.matchday-layout > *,
+.matchday-follow > * {
+  min-width: 0;
+}
+.matchday-intro h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin: 1rem 0;
+}
+.matchday-intro p,
+.radar-card p,
+.matchday-game p {
+  margin: 0.7rem 0;
+  line-height: 1.6;
+}
+.matchday-clock {
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+.matchday-games {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.matchday-game h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+.matchday-game h3 span {
+  font-size: 1.8rem;
+}
+.matchday-game.is-heating {
+  border-color: #00ff85;
+}
+.radar-card {
+  border-top: 3px solid #00ff85;
+}
+.radar-card h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+.radar-card details {
+  margin-top: 1.25rem;
+}
+.radar-card summary {
+  cursor: pointer;
+  color: #00ff85;
+}
+.radar-card ul {
+  padding-left: 1.4rem;
+  line-height: 1.8;
+}
+.radar-evidence {
+  max-height: 250px;
+  overflow: auto;
+}
+.radar-evidence small {
+  display: block;
+  overflow-wrap: anywhere;
+  opacity: 0.7;
+}
+.radar-notice {
+  background: #00ff85;
+  color: #18001e;
+  border-radius: 1rem;
+  padding: 1.2rem;
+}
+.radar-notice p {
+  margin: 0.5rem 0 1rem;
+}
+.radar-notice .btn-primary {
+  background: #37003c;
+  color: #fff;
+}
+.radar-toast {
+  position: fixed;
+  z-index: 1200;
+  top: max(1rem, env(safe-area-inset-top));
+  right: 1rem;
+  width: min(440px, calc(100vw - 2rem));
+  box-sizing: border-box;
+  box-shadow: 0 14px 70px #0009;
+  border: 1px solid #c6ffdd;
+  animation: radar-arrive 220ms ease-out;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+.radar-toast strong {
+  display: block;
+  padding-right: 1.6rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+.radar-toast p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.radar-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.65rem;
+}
+.radar-dismiss {
+  position: absolute;
+  right: 0.65rem;
+  top: 0.55rem;
+  border: 0;
+  background: transparent;
+  color: #18001e;
+  font: inherit;
+  font-size: 1.6rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+}
+@keyframes radar-arrive {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.pitch-replay {
+  min-width: 0;
+  scroll-margin-block: 2rem;
+}
+.pitch-replay h2 {
+  margin: 0.6rem 0 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+.pitch-time {
+  color: #d2bdd7;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.pitch-score-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.7rem 0.1rem;
+}
+.pitch-score-strip span:last-child {
+  text-align: right;
+}
+.match-pitch {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 62vh;
+  background: #124e3c;
+  border: 1px solid #ffffff20;
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+.pitch-moving-event .pitch-ball-static {
+  display: none;
+}
+.pitch-ball-moving {
+  animation: pitch-recorded-pass 1.4s linear both;
+}
+@keyframes pitch-recorded-pass {
+  from {
+    transform: translate(var(--pitch-start-x), var(--pitch-start-y));
+  }
+  to {
+    transform: translate(var(--pitch-end-x), var(--pitch-end-y));
+  }
+}
+.pitch-action-layer {
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+.pitch-action-layer.is-cut {
+  opacity: 0.08;
+}
+.pitch-transition {
+  min-height: 1.2em;
+  margin: 0 0 0.6rem;
+  color: #b5d1c0;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.pitch-participant-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.2rem;
+  margin: 0.65rem 0 0;
+  font-size: 0.85rem;
+  color: #ecf5ef;
+}
+.pitch-participant-key b {
+  color: #a9c4b4;
+  font-size: 0.7rem;
+  margin-right: 0.3rem;
+}
+.pitch-replay-note {
+  margin: 0.35rem 0 0;
+  color: #b5a6bd;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+.pitch-commentary {
+  padding: 0.8rem 1rem;
+  margin: 0.8rem 0;
+  border-left: 3px solid #72e4ac;
+  background: #ffffff07;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+}
+.pitch-commentary.is-goal {
+  background: #00ff8515;
+  border-color: #00ff85;
+  color: #a5ffd3;
+}
+.pitch-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+.pitch-controls label {
+  font-size: 0.8rem;
+  color: #d2bdd7;
+  margin-left: auto;
+}
+.pitch-controls select {
+  padding: 0.5rem;
+  background: #290b32;
+  color: white;
+  border: 1px solid #85598d;
+  border-radius: 0.5rem;
+  margin-left: 0.4rem;
+}
+.pitch-moments {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding: 0.85rem 0;
+}
+.pitch-moments button {
+  flex-shrink: 0;
+  border: 1px solid #85598d80;
+  border-radius: 0.7rem;
+  color: #fff;
+  background: #ffffff08;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.pitch-moments button[aria-pressed='true'] {
+  border-color: #00ff85;
+  background: #00ff8512;
+}
+.pitch-moments small {
+  display: block;
+  color: #d2bdd7;
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+}
+.pitch-replay .card-subtitle {
+  font-size: 0.75rem;
+  margin-top: 0.8rem;
+}
+.event-log-disclosure > summary {
+  padding: 1rem;
+  cursor: pointer;
+  font-weight: 800;
+  color: #d2bdd7;
+}
+@media (max-width: 600px) {
+  .radar-toast {
+    top: auto;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    right: 0.75rem;
+    width: calc(100vw - 1.5rem);
+    padding: 1rem;
+  }
+  .radar-toast p {
+    font-size: 0.8rem;
+  }
+  .radar-toast strong {
+    font-size: 1rem;
+  }
+  .pitch-time {
+    display: block;
+    margin-top: 0.5rem;
+  }
+  .pitch-controls label {
+    margin-left: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pitch-action-layer {
+    transition: none;
+  }
+  .radar-toast {
+    animation: none;
+  }
+  .pitch-ball-moving {
+    display: none;
+  }
+  .pitch-moving-event .pitch-ball-static {
+    display: block;
+  }
+}
+.matchday-follow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  gap: 1rem;
+}
+.club-swatch {
+  flex: 0 0 0.5rem;
+  height: 1.4rem;
+  border: 1px solid #ffffff80;
+  border-radius: 3px;
+  align-self: center;
+}
+.matchday-game h3 span {
+  margin-left: auto;
+}
+@media (max-width: 800px) {
+  .matchday-games {
+    grid-template-columns: 1fr;
+  }
+  .matchday-layout {
+    padding: 0.8rem;
+  }
+  .matchday-clock {
+    width: 100%;
+    margin: 0;
+  }
+}
