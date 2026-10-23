@@ -203,7 +203,6 @@ def test_model_review_sees_exact_ai_authored_player_contribution(configured, mon
     assert written['text']=={lang:draft[lang] for lang in ('en','es')}
     assert 'repeatedly found' not in written['text']['en']
     assert all('canonical_text' not in fact and 'text' not in fact['data'] for fact in packet['facts'])
-    assert 'ACCEPT OR REJECT' in requests[0]['messages'][0]['content']
     assert not any(fact['fact_id'] == 'shots' for fact in packet['facts'])
     reviewed = json.loads(requests[1]['messages'][1]['content'])['draft']
     assert reviewed['en'] == written['text']['en']

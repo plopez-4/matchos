@@ -1,5 +1,7 @@
 # Current documentation
 
+Latest AI work: [recap quality checks and recorded failures](recap-quality-v13-review.md).
+
 Start here for the current application. The root README contains the supported setup and validation commands.
 
 | Topic                                        | Current reference                                     |

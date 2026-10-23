@@ -1,0 +1,72 @@
+{
+  "scope": "Separate two-request diagnostic after the frozen twenty-case run; synthetic drafts only. Temporary capture hook removed.",
+  "captures": {
+    "v13-draft-advanced-2700-draft_validation.json": {
+      "draft": {
+        "en": "Manchester United took the lead at 15:11 with a goal, but Manchester City equalized at 40:11. Rico Lewis recovered the ball at 40:00, then completed three passes involving Phil Foden and Jeremy Doku before Erling Haaland shot and scored at 40:11, leveling the score 1-1. The halftime whistle blew with the score tied, reflecting an intense first half where City responded after United's early advantage. Shot quality is not measured in this sequence.",
+        "es": "Manchester United se adelantó a los 15:11 con un gol, pero Manchester City empató a los 40:11. Rico Lewis recuperó el balón a los 40:00, completando tres pases con Phil Foden y Jeremy Doku antes de que Erling Haaland disparara y anotara a los 40:11, igualando el marcador 1-1. El descanso llegó con el empate, reflejando una primera mitad intensa donde City respondió tras la ventaja inicial de United. La calidad del remate no se mide en esta secuencia.",
+        "fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:editorial-eval-0e634f5e05-featured-e263",
+          "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+        ]
+      },
+      "stage": "draft_validation",
+      "error": null,
+      "details": null
+    },
+    "v13-draft-advanced-2700-revision_validation.json": {
+      "draft": {
+        "en": "Manchester United led 1-0 after scoring at 15:11. At 40:00, Rico Lewis recovered possession for Manchester City, who then completed three passes involving Phil Foden and Jeremy Doku before Erling Haaland shot and scored at 40:11, equalizing the match 1-1. The first half ended tied at 1-1. Shot quality is not measured in this sequence.",
+        "es": "Manchester United se puso adelante 1-0 con un gol a los 15:11. A los 40:00, Rico Lewis recuperó el balón para Manchester City, que completó tres pases con Phil Foden y Jeremy Doku antes de que Erling Haaland disparara y anotara a los 40:11, igualando el partido 1-1. El primer tiempo terminó empatado 1-1. La calidad del remate no se mide en esta secuencia.",
+        "fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:editorial-eval-0e634f5e05-featured-e263",
+          "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+        ]
+      },
+      "stage": "revision_validation",
+      "error": null,
+      "details": null
+    },
+    "v13-draft-casual-2700-draft_validation.json": {
+      "draft": {
+        "en": "Manchester United took the lead at 15:11 with a goal, but Manchester City equalized late in the first half at 40:11. Rico Lewis recovered the ball at 40:00 and completed three passes involving Phil Foden and Jeremy Doku before Erling Haaland shot and scored to level the match 1-1. The halftime whistle blew with the score tied, setting up an intense second half.",
+        "es": "Manchester United se adelantó en el marcador a los 15:11 con un gol, pero Manchester City igualó cerca del final de la primera mitad a los 40:11. Rico Lewis recuperó el balón a los 40:00 y completó tres pases con Phil Foden y Jeremy Doku antes de que Erling Haaland disparara y anotara para empatar el partido 1-1. El árbitro pitó el descanso con el marcador igualado, preparando una segunda mitad intensa.",
+        "fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:editorial-eval-0e634f5e05-featured-e263",
+          "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+        ]
+      },
+      "stage": "draft_validation",
+      "error": null,
+      "details": null
+    },
+    "v13-draft-casual-2700-revision_validation.json": {
+      "draft": {
+        "en": "Manchester United took the lead at 15:11, but Manchester City equalized at 40:11. Rico Lewis recovered the ball at 40:00 and completed three passes involving Phil Foden and Jeremy Doku before Erling Haaland shot and scored to level the match 1-1. The halftime whistle blew with the score tied, setting the stage for the second half.",
+        "es": "Manchester United se adelantó a los 15:11, pero Manchester City empató a los 40:11. Rico Lewis recuperó el balón a los 40:00 y completó tres pases con Phil Foden y Jeremy Doku antes de que Erling Haaland disparara y anotara para empatar el partido 1-1. El árbitro pitó el descanso con el marcador igualado, preparando la segunda mitad.",
+        "fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:editorial-eval-0e634f5e05-featured-e263",
+          "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+        ]
+      },
+      "stage": "revision_validation",
+      "error": "missing_selected_goal",
+      "details": {
+        "fact_id": "story:goal:editorial-eval-0e634f5e05-featured-e263",
+        "language": "en"
+      }
+    }
+  }
+}

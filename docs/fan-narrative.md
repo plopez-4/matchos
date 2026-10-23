@@ -1,5 +1,7 @@
 # One story, with the evidence underneath
 
+Latest quality revision: [v13–v13.2 editorial review](recap-quality-v13-review.md) separates scoring moves from rolling metrics, gives the one AI revision all detected errors and fixes a team-versus-player subject bug. The twenty-request run failed its quality gate; focused follow-ups are labeled separately. Model review remains fallible.
+
 Current update: [connected scoring sequences](linked-scoring-sequence.md) documents the v12.1 evidence format, strict recovery-to-goal link and final live failures. Older version sections below are development history, not current acceptance results.
 
 Player-impact revision: the primary plan now prefers a verified named player contribution—direct pass-to-shot links, repeated shooting, or repeated forward passing—over a generic team-shot comparison. Repeated creator/recipient combinations can be named together. Snapshot windows include the latest observed action; checkpoint windows retain missed history. See [definitions and limits](player-impact.md). The selected contribution replaces the generic recent-shot sentence in fallback prose; Azure now writes the entire recap from structured facts and supporting event rows, including goals and the player explanation. No commentary templates are supplied to the writer or inserted into its output. AI countdown wording is rejected to prevent elapsed time being mistranslated as time remaining.

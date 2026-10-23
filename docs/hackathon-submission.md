@@ -31,10 +31,10 @@ The rules require synthetic football-realistic data, a project description, func
 
 ## Evidence and remaining work
 
-- Local validation: 351 backend tests, 61 frontend tests and production build passed.
+- Local validation: 368 backend tests, formatting and credential scan passed. The unchanged frontend previously passed 61 tests and production build.
 - [Linked sequence report](linked-scoring-sequence.md): exact chronology, strict linking, live failures and fallback behavior.
 - [Five-fan evaluation](fan-evaluation.md): prepared; real sessions remain unrun.
-- Final live check rejected both audience drafts. Consistent accurate, engaging AI prose remains unresolved.
+- Latest focused live check: two AI returns, one content rejection and one provider rate limit across four requests. The [editorial review](recap-quality-v13-review.md) preserves failures and limits. Consistent accurate, engaging AI prose remains unresolved.
 - Public code: https://github.com/plopez-4/matchos. Canonical release branch: `main` after integration.
 - Public demo video: not provided. Hosted judging access/test build: not confirmed. Complete these before portal submission.
 - Confirm [asset permissions](visual-assets.md) for footage. No permission is inferred from hackathon branding.

@@ -22,9 +22,13 @@ from app import story_writer
 from app.models import MatchEvent
 
 
-def run(output, cooldown, case_names=None, matchday_id=None):
-    cases = json.loads((ROOT/'docs/recap-evaluation-cases.json').read_text())
+def run(output, cooldown, case_names=None, matchday_id=None, cases_path=None, resume=False):
+    cases_path = cases_path or ROOT/'docs/recap-evaluation-cases.json'
+    cases = json.loads(cases_path.read_text())
     if case_names:
+        unknown = set(case_names)-{case['case'] for case in cases}
+        if unknown:
+            raise ValueError('Cases absent from the selected manifest: '+', '.join(sorted(unknown)))
         cases = [case for case in cases if case['case'] in case_names]
     identifier = matchday_id or 'editorial-eval-'+uuid.uuid4().hex[:10]
     report = {'writer_version': story_writer.VERSION,
@@ -35,9 +39,23 @@ def run(output, cooldown, case_names=None, matchday_id=None):
                                 for name in ('story_writer.py', 'recap_context.py', 'recap_quality.py', 'story_plan.py')},
               'cases': [], 'prompts': {}, 'complete': False,
               'independent_fan_study': 'not_run', 'semantic_quality_verdict': 'pending_editorial_review'}
+    report['case_manifest'] = {'file':cases_path.name, 'sha256':sha256(cases_path.read_bytes()).hexdigest()}
+    if resume:
+        previous = json.loads(output.read_text(encoding='utf-8'))
+        if any(previous[key] != report[key] for key in ('writer_version','source_hashes','case_manifest')):
+            raise RuntimeError('Cannot resume an evaluation after changing its frozen source or cases.')
+        if previous.get('complete'):
+            raise RuntimeError('Evaluation is already complete.')
+        report = previous
+        identifier = report['fixture_matchday_id']
+        report['resumed_utc'] = datetime.now(timezone.utc).isoformat()
+        report['complete'] = False
+    completed = {(row['case'],row['audience']) for row in report['cases']}
 
     def save():
         report['mode_counts'] = dict(Counter(row['writer_mode'] for row in report['cases']))
+        report['fallback_counts'] = dict(Counter(row['fallback_reason'] for row in report['cases'] if row['fallback_reason']))
+        report['intentional_non_ai_cases'] = sum(row['fallback_reason'] in ('limited_coverage','no_selected_story') for row in report['cases'])
         output.write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
 
     with httpx.Client(base_url='http://127.0.0.1:8000', headers={'X-MatchOS-Client':'replay'}, timeout=90) as browser:
@@ -47,7 +65,7 @@ def run(output, cooldown, case_names=None, matchday_id=None):
             raise RuntimeError('The configured backend does not have the frozen evaluation version.')
         browser.post('/api/session', json={}).raise_for_status()
         browser.post('/api/matchdays/start', json={'matchday_id':identifier}).raise_for_status()
-        tick, last_request = 0, None
+        tick, last_request = 0, time.monotonic() if resume else None
         try:
             for case in cases:
                 while tick < case['second']//30:
@@ -59,6 +77,8 @@ def run(output, cooldown, case_names=None, matchday_id=None):
                 events = response.json()
                 cursor = max(event['sequence'] for event in events if event['match_second'] <= case['cursor_second'])
                 for audience in ('casual', 'advanced'):
+                    if (case['case'],audience) in completed:
+                        continue
                     if last_request is not None:
                         remaining = cooldown-(time.monotonic()-last_request)
                         if remaining > 0:
@@ -101,10 +121,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=Path, default=ROOT/'docs/recap-editorial-evaluation.json')
     parser.add_argument('--cooldown', type=float, default=60)
-    parser.add_argument('--case', action='append', dest='case_names',
-                        choices=[case['case'] for case in json.loads((ROOT/'docs/recap-evaluation-cases.json').read_text())])
+    parser.add_argument('--case', action='append', dest='case_names', help='Case name from the selected manifest; repeat to select several')
     parser.add_argument('--matchday-id', help='Reuse a released fixture ID for an exact seeded comparison')
+    parser.add_argument('--cases',type=Path,help='Frozen case manifest; defaults to the original ten-case baseline')
+    parser.add_argument('--resume',action='store_true',help='Continue unfinished slots without retrying or hiding recorded failures')
     args = parser.parse_args()
     if not 0 <= args.cooldown <= 60:
         parser.error('cooldown must be between 0 and 60 seconds')
-    sys.exit(0 if run(args.output, args.cooldown, args.case_names, args.matchday_id) else 1)
+    sys.exit(0 if run(args.output, args.cooldown, args.case_names, args.matchday_id, args.cases, args.resume) else 1)

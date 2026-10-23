@@ -33,6 +33,27 @@ def normalized(text):
     return unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode().lower()
 
 
+def team_subject_position(prefix, name):
+    """A team in 'Lewis recovered for City and completed' is not the passer.
+
+    This is a conservative guard for known EN/ES forms, not a grammar parser.
+    A relative clause ('City, who completed') can explicitly transfer the subject.
+    """
+    full = normalized(name)
+    words = {full, full.split()[-1] if full else '', 'team', 'equipo'} - {''}
+    spans = {match.span() for word in words
+             for match in re.finditer(r'(?<!\w)'+re.escape(word)+r'(?!\w)', prefix)}
+    positions = []
+    for start, end in spans:
+        if any(left <= start and end <= right and (left,right)!=(start,end) for left,right in spans):
+            continue  # Do not reinterpret the City inside 'for Manchester City'.
+        object_of_preposition = re.search(r'\b(?:for|of|para|de|del)\s+(?:(?:the|el|la)\s+)?$', prefix[:start])
+        relative_subject = re.match(r'\s*,?\s*(?:who|which|que)\b', prefix[end:])
+        if not object_of_preposition or relative_subject:
+            positions.append(start)
+    return max(positions, default=-1)
+
+
 def count_digits(text):
     """Allow small measured counts in words without prescribing the writer's style."""
     text = re.sub(r'\b\d{1,3}:\d{2}\b', '', normalized(text))
@@ -86,6 +107,9 @@ def validate(text, packet, cited):
         r'\b(?:vision|finishing quality|combined seamlessly|seamless (?:combination|partnership))\b',
         r'\b(?:set|sets|setting) the tone\b|\bsharp build[- ]up\b',
         r'\b(?:marco|marca|marcando) el ritmo\b',
+        r'\b(?:intense|thrilling|lively|frenetic)\s+(?:(?:first|second|opening|closing)\s+)?(?:half|match|game)\b',
+        r'\b(?:(?:primera|segunda)\s+)?(?:mitad|parte|partido)\s+(?:intens[oa]|vibrante|emocionante)\b',
+        r'\bbalanced (?:contest|match|game)\b|\bpartido equilibrado\b',
         r'\b(?:gol|disparo|remate) (?:preciso|brillante|magistral)|\b(?:vision|se combinaron perfectamente)\b',
         r'\b(?:assists?|asistencias?|asistio|asistid[oa]s?|asistiendo)\b',
         r'\b(?:headers?|headed shots?|dribbl(?:es?|ing)|take[- ]?ons?|line[- ]breaking|broke (?:the )?lines|beat (?:his|their|the) (?:man|defender))\b',
@@ -219,7 +243,9 @@ def validate_selected_claims(text, packet):
         if goal:
             if not any(named(goal['player_name'], sentence)
                        and goal['clock'] in sentence for sentence in sentences):
-                raise RecapQualityError('missing_selected_goal', fact_id=fact['fact_id'])
+                raise RecapQualityError('missing_selected_goal', fact_id=fact['fact_id'],
+                                        required_scorer=goal['player_name'], required_goal_clock=goal['clock'],
+                                        required_scope='scorer_and_goal_clock_in_same_sentence')
         metric = data.get('metric', {})
         kind = data.get('kind')
         counts = []
@@ -274,19 +300,20 @@ def validate_selected_claims(text, packet):
                     if (re.search(r'\b(?:passes|pases)\b', normalized(sentence))
                             and str(link['completed_pass_count']) not in count_digits(sentence)):
                         raise RecapQualityError('wrong_scoring_sequence_pass_count', fact_id=fact['fact_id'])
-                    for claim in re.finditer(r'\b(?:completed|completo|completaron)\s+(\w+)\s+(?:passes|pases)\b',plain):
+                    for claim in re.finditer(r'\b(?:completed|completing|completo|completaron|completando)\s+(\w+)\s+(?:passes|pases)\b',plain):
                         prefix=plain[:claim.start()]
                         actors={row['player_name'] for row in link.get('completed_passes',[])}
                         candidates=[(max(prefix.rfind(normalized(actor)),prefix.rfind(normalized(actor.split()[-1]))),actor)
                                     for actor in actors if named(actor,prefix)]
-                        team_name=normalized(link.get('team_name',''))
-                        team_words=[team_name,team_name.split()[-1] if team_name else '', 'team','equipo']
-                        team_position=max((prefix.rfind(word) for word in team_words if word),default=-1)
+                        team_position=team_subject_position(prefix,link.get('team_name',''))
                         if candidates:
                             position,actor=max(candidates)
                             actual=sum(row['player_name']==actor for row in link['completed_passes'])
                             if position>team_position and count_digits(claim.group(1))!=[str(actual)]:
-                                raise RecapQualityError('wrong_scoring_sequence_pass_credit',fact_id=fact['fact_id'])
+                                raise RecapQualityError('wrong_scoring_sequence_pass_credit',fact_id=fact['fact_id'],
+                                    player=actor, claimed_count=count_digits(claim.group(1)),
+                                    individual_completed_passes=actual,
+                                    team_name=link['team_name'], team_completed_passes=link['completed_pass_count'])
                 continue  # The linked path has its own measured duration OR verified team-pass count.
         if not counts:
             continue

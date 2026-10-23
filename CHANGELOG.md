@@ -1,5 +1,13 @@
 # Patch notes
 
+## In progress — recap quality without new features
+
+- Separated concrete scoring-move instructions from rolling statistics and corrected conditional Spanish lead/tie wording.
+- The one AI revision receives independent errors from both languages, including actual expected scorer, clock and team/individual counts. Output remains wholly model-authored or wholly replaced by factual fallback.
+- Fixed a pass-subject validation bug discovered in model-reviewed prose: a player recovering for a team cannot borrow the team's identity to justify an individual pass count.
+- Preserved the failed twenty-request evaluation, diagnostic drafts and interrupted failed source audit. Focused follow-ups remain separate; reliable writing and real-fan success are not claimed.
+- Validation: 368 backend tests and credential scan passed. Frontend unchanged. See [editorial review](docs/recap-quality-v13-review.md).
+
 ## Current release candidate — connected scoring recaps and bilingual narration
 
 - Consolidated the focused fan page and separate development inspector around the same three current fixtures; retired the Hull feed and unused UI components.
