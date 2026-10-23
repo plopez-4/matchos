@@ -24,6 +24,11 @@ class MatchEvent(BaseModel):
     player_name: str | None = Field(default=None, min_length=1, max_length=100)
     recipient_player_id: str | None = Field(default=None, min_length=1, max_length=100)
     recipient_player_name: str | None = Field(default=None, min_length=1, max_length=100)
+    player_shirt_number: int | None = Field(default=None, ge=1, le=99)
+    recipient_player_shirt_number: int | None = Field(default=None, ge=1, le=99)
+    player_position: Literal['GK', 'DEF', 'MID', 'FWD'] | None = None
+    recipient_player_position: Literal['GK', 'DEF', 'MID', 'FWD'] | None = None
+    roster_version: str | None = Field(default=None, min_length=1, max_length=100)
 
     @model_validator(mode="after")
     def validate_full_feed(self):

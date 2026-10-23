@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { fetchMatchData, fetchMatchGraph } from '../api';
 
 export function useMatchData(matchId = 'demo-match', options = {}) {
-  const { pollInterval = 2000, onReset } = options;
+  const { pollInterval = 2000, onReset, includeGraph = true } = options;
 
   const [data, setData] = useState({
     events: [],
@@ -15,14 +15,16 @@ export function useMatchData(matchId = 'demo-match', options = {}) {
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const highestSequenceRef = useRef(0);
+  const requestVersion = useRef(0);
   const onResetRef = useRef(onReset);
   onResetRef.current = onReset;
 
   const refresh = useCallback(
     async (signal) => {
+      const version = ++requestVersion.current;
       try {
         const matchResult = await fetchMatchData(matchId, { signal });
-        if (signal?.aborted) return;
+        if (signal?.aborted || version !== requestVersion.current) return;
         const events = matchResult.events || [];
         const latestSequence = events.length > 0 ? (events[events.length - 1]?.sequence ?? 0) : 0;
 
@@ -37,14 +39,14 @@ export function useMatchData(matchId = 'demo-match', options = {}) {
         // Optional graph fetching: try fetching graph if there are events
         let graph = null;
         try {
-          if (events.length > 0) {
+          if (includeGraph && events.length > 0) {
             graph = await fetchMatchGraph(matchId, { signal });
           }
         } catch {
           // Graph is secondary; don't fail primary data
         }
 
-        if (signal?.aborted) return;
+        if (signal?.aborted || version !== requestVersion.current) return;
         setData({
           events,
           stories: matchResult.stories || [],
@@ -56,7 +58,7 @@ export function useMatchData(matchId = 'demo-match', options = {}) {
         setError('');
         setLastUpdated(new Date());
       } catch (err) {
-        if (signal?.aborted) return;
+        if (signal?.aborted || version !== requestVersion.current) return;
         setError(
           err.message
             ? `${err.message}. Backend may be offline or restarting.`
@@ -65,7 +67,7 @@ export function useMatchData(matchId = 'demo-match', options = {}) {
         setStatus('stale');
       }
     },
-    [matchId],
+    [matchId, includeGraph],
   );
 
   useEffect(() => {

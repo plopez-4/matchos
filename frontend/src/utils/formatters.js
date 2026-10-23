@@ -6,8 +6,8 @@ export function formatMatchSecond(second) {
 }
 
 export function formatTeamName(teamId) {
-  if (teamId === 'home') return 'Home FC';
-  if (teamId === 'away') return 'Away FC';
+  if (teamId === 'home') return 'Home';
+  if (teamId === 'away') return 'Away';
   return teamId ? teamId.toUpperCase() : 'Unknown';
 }
 

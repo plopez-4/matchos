@@ -7,6 +7,7 @@ root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "backend"))
 from app.full_match import FULL_MATCHES, full_match_catalog, generate_full_match
 from app.models import MatchEvent
+from app.matchday import VERSION
 
 
 def main():
@@ -21,9 +22,9 @@ def main():
         path.write_text("".join(json.dumps(e) + "\n" for e in events), encoding="utf-8")
         print(f"{sid}: {len(events)} synthetic events")
     manifest = {"data_origin": "synthetic", "seed": 7,
-                "generator": "backend/app/full_match.py", "version": "full-match-v1",
+                "generator": "backend/app/full_match.py", "version": VERSION,
                 "purpose": "Match analytics and grounded narrative evaluation; no model training performed",
-                "real_fixture_reconstruction": False, "fictional_players": True,
+                "real_fixture_reconstruction": False, "fictional_players": False, "reference_player_identities": True,
                 "coordinate_convention": "0..100 fixed attack frame, Home ->100 and Away ->0 across both halves",
                 "clock_convention": "Cumulative playing seconds, 45-minute halves, zero-duration halftime, 3 added minutes in second half",
                 "scenarios": catalog}

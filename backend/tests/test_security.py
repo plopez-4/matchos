@@ -19,7 +19,7 @@ def browser():
     return client
 
 
-def start(client, mid='private', scenario='legacy-default'):
+def start(client, mid='private', scenario='united-city-90'):
     return client.post('/api/replay/start', json={'match_id':mid, 'scenario_id':scenario})
 
 
@@ -163,7 +163,7 @@ def test_busy_catch_up_fails_fast_and_ai_concurrency_is_bounded(monkeypatch):
     security.release_ai()
 
 
-@pytest.mark.parametrize('scenario', ['united-city-90','united-hull-90'])
+@pytest.mark.parametrize('scenario', ['united-city-90','palace-newcastle-90','brighton-fulham-90'])
 def test_full_match_uses_only_canonical_replay_and_retains_briefing(scenario, monkeypatch):
     monkeypatch.setenv('MATCHOS_AI_MODE', 'off')
     client = browser()
@@ -175,4 +175,4 @@ def test_full_match_uses_only_canonical_replay_and_retains_briefing(scenario, mo
     result = client.post(f'/api/matches/{scenario}/catch-up', json={})
     assert result.status_code == 200
     assert result.json()['through_sequence'] == len(fixture)
-    assert 'Manchester United' in result.json()['match_briefing']['text']
+    assert fixture[0]['team_name'] in result.json()['match_briefing']['text']

@@ -1,0 +1,27 @@
+{
+  "writer_version": "fan-narrative-v12.1-ordered-scoring-actions",
+  "match_id": "linked-goal-9ae5a121fb",
+  "cases": [
+    {
+      "audience": "casual",
+      "mode": "deterministic",
+      "review": null,
+      "fallback_reason": "missing_recovery_goal_connection",
+      "text": {
+        "en": "Crystal Palace and Newcastle United are level at 1 all. Harvey Barnes scored for Newcastle United at 15:11. Takehiro Tomiyasu recovered the ball and, 10 seconds later, Ismaila Sarr shot at 60:10: that shot produced the equalizer recorded at 60:11. There are 27 minutes and 30 seconds until ninety, plus added time.",
+        "es": "Crystal Palace y Newcastle United están empatados 1 a 1. Harvey Barnes marcó para Newcastle United a los 15:11. Takehiro Tomiyasu recuperó el balón y, 10 segundos después, Ismaila Sarr remató a los 60:10: ese remate terminó en el empate registrado a los 60:11. Faltan 27 minutos y 30 segundos para los noventa, más el añadido."
+      }
+    },
+    {
+      "audience": "advanced",
+      "mode": "deterministic",
+      "review": null,
+      "fallback_reason": "repeated_linked_goal_explanation",
+      "text": {
+        "en": "Crystal Palace and Newcastle United are level at 1 all. Harvey Barnes scored for Newcastle United at 15:11. Takehiro Tomiyasu recovered the ball and, 10 seconds later, Ismaila Sarr shot at 60:10: that shot produced the equalizer recorded at 60:11. This sequence supports that goal, not a claim of dominance or shot quality. There are 27 minutes and 30 seconds until ninety, plus added time.",
+        "es": "Crystal Palace y Newcastle United están empatados 1 a 1. Harvey Barnes marcó para Newcastle United a los 15:11. Takehiro Tomiyasu recuperó el balón y, 10 segundos después, Ismaila Sarr remató a los 60:10: ese remate terminó en el empate registrado a los 60:11. La secuencia respalda este gol, no una conclusión sobre dominio o calidad del remate. Faltan 27 minutos y 30 segundos para los noventa, más el añadido."
+      }
+    }
+  ],
+  "scope": "Live integration spot checks, not a fan study or general accuracy benchmark."
+}

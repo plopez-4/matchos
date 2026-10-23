@@ -1,5 +1,7 @@
 """Deterministic facts and evidence graph. No causal/tactical inference."""
 from app.models import MatchEvent
+from app.player_impact import player_impact_stories, KINDS as PLAYER_KINDS
+from app.recap_context import recovery_goal_link
 
 WINDOW = 300
 RULE_SHOT = 'shot-frequency-v1'
@@ -58,23 +60,34 @@ def score_trajectory(events: list[MatchEvent]):
             'rule_version': 'score-trajectory-v1'}
 
 
-def shot_windows(events: list[MatchEvent]):
+def shot_windows(events: list[MatchEvent], *, include_history=False):
+    """Latest completed comparison for live stats, or every covered comparison for stories.
+
+    Historical stories must keep the window in which they became available even
+    after the live comparison moves on. Only observed, completed windows qualify.
+    """
     if not events:
         return []
     end = max(e.match_second for e in events) // WINDOW * WINDOW
     # Both five-minute intervals must have elapsed and the feed must cover the baseline.
-    if end < WINDOW * 2 or min(e.match_second for e in events) > end - WINDOW * 2:
+    first_observed = min(e.match_second for e in events)
+    if end < WINDOW * 2 or first_observed > end - WINDOW * 2:
         return []
     result = []
-    for team in ('home', 'away'):
-        windows = []
-        for start, stop in ((end - 2 * WINDOW, end - WINDOW), (end - WINDOW, end)):
-            shots = [e for e in events if e.team_id == team and e.type == 'shot'
-                     and start <= e.match_second < stop]
-            windows.append({'start_second': start, 'end_second': stop,
-                            'shot_count': len(shots), 'evidence_event_ids': [e.event_id for e in shots]})
-        result.append({'team_id': team, 'previous': windows[0], 'current': windows[1],
-                       'rule_version': RULE_SHOT})
+    ends = range(2 * WINDOW, end + 1, WINDOW) if include_history else (end,)
+    for completed_end in ends:
+        if first_observed > completed_end - 2 * WINDOW:
+            continue
+        for team in ('home', 'away'):
+            windows = []
+            for start, stop in ((completed_end - 2 * WINDOW, completed_end - WINDOW),
+                                (completed_end - WINDOW, completed_end)):
+                shots = [e for e in events if e.team_id == team and e.type == 'shot'
+                         and start <= e.match_second < stop]
+                windows.append({'start_second': start, 'end_second': stop,
+                                'shot_count': len(shots), 'evidence_event_ids': [e.event_id for e in shots]})
+            result.append({'team_id': team, 'previous': windows[0], 'current': windows[1],
+                           'rule_version': RULE_SHOT})
     return result
 
 
@@ -197,7 +210,7 @@ def match_stories(events: list[MatchEvent]):
         })
 
     # 2. Shot frequency stories
-    for metric in shot_windows(events):
+    for metric in shot_windows(events, include_history=True):
         previous, current = metric['previous'], metric['current']
         # At least three shots and an increase of two recorded attempts.
         if current['shot_count'] < 3 or current['shot_count'] - previous['shot_count'] < 2:
@@ -245,17 +258,24 @@ def match_stories(events: list[MatchEvent]):
             })
 
     # 5. Recovery to shot transition stories
+    transitions = score_trajectory(events)['transitions']
     for c in recovery_shot_chains(events):
+        link = recovery_goal_link(c, events, transitions)
+        if link:
+            c = {**c, 'goal_link':link,
+                 'evidence_event_ids':list(dict.fromkeys(c['evidence_event_ids'] + link['evidence_event_ids']))}
         stories.append({
             'story_id': f"recovery-shot:{c['shot_event_id']}",
             'kind': 'recovery_shot',
+            'match_second': by_id[c['shot_event_id']].match_second,
             'text': f"{c['team_id'].title()} recorded a shot {c['elapsed_seconds']} seconds after recovering the ball in the same possession.",
             'evidence_event_ids': c['evidence_event_ids'],
             'metric': c,
             'rule_version': RULE_TRANSITION,
-            'sequence': c['shot_sequence'],
+            'sequence': link['goal_sequence'] if link else c['shot_sequence'],
         })
 
+    stories.extend(player_impact_stories(events, min_gain=PROGRESSIVE_PASS_MIN_GAIN))
     return sorted(stories, key=lambda s: (s['sequence'], s['story_id']))
 
 
@@ -273,7 +293,7 @@ def story_graph(events: list[MatchEvent]):
                 for event_id in window['evidence_event_ids']:
                     edges.append({'source': event_id, 'target': metric_id, 'type': 'supports'})
                 edges.append({'source': metric_id, 'target': story['story_id'], 'type': 'supports'})
-        elif story['kind'] in ('high_recovery', 'progressive_pass'):
+        elif story['kind'] in ('high_recovery', 'progressive_pass', *PLAYER_KINDS):
             metric_id = f"metric:{story['story_id']}"
             nodes.append({'id': metric_id, 'type': 'metric_window', **story['metric']})
             for event_id in story['evidence_event_ids']:

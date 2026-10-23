@@ -1,5 +1,20 @@
 import { waitForReplay } from './replay.js';
 
+// A running tab can receive an older server response during a restart.
+export function discoveryReason(entry, now = 0) {
+  if (!entry) return null;
+  const reason = entry.pulse?.why_now;
+  if (reason?.headline && reason?.text) {
+    return { ...reason, evidence_event_ids: reason.evidence_event_ids ?? [] };
+  }
+  return {
+    headline: `${entry.home} vs ${entry.away}`,
+    text: entry.pulse?.reason ?? 'Follow this match to see the recorded events.',
+    observed_second: now,
+    evidence_event_ids: entry.pulse?.evidence_event_ids ?? [],
+  };
+}
+
 // Keep failed releases until recovery; never accumulate abandoned replay groups.
 export function createReleaseRecovery(release) {
   let pending;

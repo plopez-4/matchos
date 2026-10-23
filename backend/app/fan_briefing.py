@@ -1,6 +1,8 @@
 """A compact score story, recent action and clock, rendered from observed facts."""
 from collections import Counter
 from app.intelligence import score_trajectory
+from app.historical_context import historical_precedent
+from app.narration_text import recap_text
 
 
 def fan_briefing(events, new_events, *, now=None):
@@ -41,7 +43,7 @@ def fan_briefing(events, new_events, *, now=None):
             unit = 'minute' if elapsed == 60 else 'minutes'
             delay = f'{elapsed//60} {unit}' if elapsed % 60 == 0 else f'{clock(elapsed)} of match time'
             swing += f' Their goal came {delay} after {name(other)} scored.'
-        if not any(e.type == 'goal' for e in new_events):
+        if not any(e.type == 'goal' and e.match_second <= now for e in new_events):
             swing = 'No new goals since your last check. ' + swing
     current_start, previous_start = max(-1, now-300), max(-1, now-600)
     current = [e for e in observed if current_start < e.match_second <= now and e.type == 'shot']
@@ -65,9 +67,23 @@ def fan_briefing(events, new_events, *, now=None):
         {'title':'Recent action', 'text':tempo, 'evidence_event_ids':[e.event_id for e in current+previous]},
         {'title':'The clock', 'text':timing, 'evidence_event_ids':[observed[-1].event_id]},
     ]
-    return {'headline':headline, 'scoreline':scoreline, 'clock':clock(now), 'sections':sections,
+    briefing = {'headline':headline, 'scoreline':scoreline, 'clock':clock(now), 'sections':sections,
+            'snapshot':{'match_id':observed[-1].match_id, 'through_sequence':observed[-1].sequence,
+                        'since_sequence':min((e.sequence for e in new_events if e.match_second<=now), default=observed[-1].sequence+1)-1,
+                        'match_second':now},
+            'historical_precedent':historical_precedent('finished' if finished else 'halftime' if halftime else 'playing', score),
+            'locale_facts':{'names':{'home':name('home'),'away':name('away')},
+                            'goals':[{'event_id':event.event_id, 'player_name':event.player_name or event.player_id,
+                                      'team_id':event.team_id, 'clock':clock(event.match_second)}
+                                     for event in observed if event.type == 'goal'],
+                            'phase':'finished' if finished else 'halftime' if halftime else 'playing',
+                            'shots':{'home':counts['home'],'away':counts['away']},
+                            'previous_shots':len(previous), 'has_new_goals':any(e.type == 'goal' and e.match_second <= now for e in new_events)},
             'trajectory':trajectory, 'late_parity':now >= 4200 and not finished and score['home'] == score['away'],
             'window':{'start_exclusive':current_start,'end_inclusive':now},
             'previous_window':{'start_exclusive':previous_start,'end_inclusive':now-300} if now >= 300 else None,
             'comparison_available':comparison_ready, 'rule_version':'fan-briefing-v2',
             'evidence_event_ids':list(dict.fromkeys(eid for section in sections for eid in section['evidence_event_ids']))}
+
+    briefing['spoken_recap'] = {language: recap_text(briefing, language) for language in ('en', 'es')}
+    return briefing

@@ -1,52 +1,55 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { DEMO_FIXTURES } from '../utils/scenarios';
+import React, { useEffect, useRef, useState, useImperativeHandle } from 'react';
 import { fetchReplayScenario, fetchReplayScenarios, ingestReplayEvent } from '../api';
 import { playReplay } from '../utils/replay';
 
-const DEFAULT_CATALOG = [
-  {
-    id: 'pressure-builds',
-    name: 'Pressure Builds',
-    description: 'Follow repeated attacks, forward passing, and recoveries high up the pitch.',
-    event_count: 33,
-  },
-  {
-    id: 'comeback',
-    name: 'The Comeback',
-    description: 'Follow how both sides respond as the match develops.',
-    event_count: 34,
-  },
-  {
-    id: 'quiet-match',
-    name: 'Quiet Match',
-    description:
-      'Disciplined midfield circulation and defensive restraint with limited attacking openings.',
-    event_count: 30,
-  },
-  {
-    id: 'legacy-default',
-    name: 'Legacy Fixture',
-    description: 'Fictional ten-minute highlight reel with balanced phases and a decisive finish.',
-    event_count: 30,
-  },
-];
+const DEFAULT_CATALOG = DEMO_FIXTURES;
 
 export function ReplayControls({
   matchId,
-  scenarioId = 'pressure-builds',
+  scenarioId = 'united-city-90',
   hasEvents,
   loading,
   autoStart,
   onNewMatch,
   onScenarioChange,
+  compact = false,
+  controlsRef,
+  running: controlledRunning,
+  onRunningChange,
+  observedSequence = 0,
 }) {
   const [catalog, setCatalog] = useState(DEFAULT_CATALOG);
   const [events, setEvents] = useState(null);
-  const [running, setRunning] = useState(autoStart);
+  const [localRunning, setLocalRunning] = useState(autoStart);
+  const running = controlledRunning ?? localRunning;
+  const setRunning = onRunningChange ?? setLocalRunning;
   const [speed, setSpeed] = useState(1);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
   const [attempt, setAttempt] = useState(0);
   const cursor = useRef(0);
+  const activeReplay = useRef(null);
+  const pendingAdvance = useRef(null);
+
+  useImperativeHandle(controlsRef, () => ({
+    async pause() {
+      setRunning(false);
+      activeReplay.current?.abort();
+      // Let the one server write already sent finish before taking a recap snapshot.
+      await pendingAdvance.current?.catch(() => {});
+    },
+    resume() {
+      if (!finished) start();
+    },
+  }));
+
+  useEffect(() => {
+    if (events && observedSequence > cursor.current) {
+      cursor.current = Math.min(observedSequence, events.length);
+      setProgress(cursor.current);
+    }
+  }, [events, observedSequence]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -82,12 +85,23 @@ export function ReplayControls({
   useEffect(() => {
     if (!running || !events) return;
     const controller = new AbortController();
+    activeReplay.current = controller;
     playReplay({
       events,
       startIndex: cursor.current,
       intervalMs: 3000 / speed,
       signal: controller.signal,
-      ingest: ingestReplayEvent,
+      ingest: (event) => {
+        const pending = ingestReplayEvent(event).then((result) => {
+          cursor.current = event.sequence;
+          setProgress(event.sequence);
+          return result;
+        });
+        pendingAdvance.current = pending;
+        return pending.finally(() => {
+          if (pendingAdvance.current === pending) pendingAdvance.current = null;
+        });
+      },
       onProgress: (count) => {
         cursor.current = count;
         setProgress(count);
@@ -130,11 +144,37 @@ export function ReplayControls({
 
   const state = finished ? 'Finished' : running ? 'Playing' : progress ? 'Paused' : 'Ready';
 
+  const extraControls = (
+    <>
+      <button type="button" className="replay-reset" onClick={() => onNewMatch(false, scenarioId)}>
+        Reset
+      </button>
+      <label className="replay-speed">
+        Speed
+        <select
+          value={speed}
+          onChange={(event) => setSpeed(Number(event.target.value))}
+          aria-label="Replay speed"
+        >
+          <option value={0.5}>0.5× · Slow</option>
+          <option value={1}>1× · Normal</option>
+          <option value={2}>2× · Fast</option>
+          <option value={4}>4× · Quick</option>
+          <option value={20}>20× · Full match</option>
+          <option value={80}>80× · Fast preview</option>
+        </select>
+      </label>
+    </>
+  );
+
   return (
-    <section className="dashboard-card replay-card" aria-label="Match replay controls">
+    <section
+      className={`dashboard-card replay-card ${compact ? 'replay-card-compact' : ''}`}
+      aria-label="Match replay controls"
+    >
       <div className="card-header">
         <div className="header-text-group">
-          <h2 className="card-title">Play the match</h2>
+          <h2 className="card-title">{compact ? 'Match playback' : 'Play the match'}</h2>
           <p className="card-subtitle scenario-description">
             {currentScenario.description ||
               'A fictional ten-minute highlight reel. You control the pace.'}
@@ -153,7 +193,8 @@ export function ReplayControls({
           >
             {catalog.map((sc) => (
               <option key={sc.id} value={sc.id}>
-                {sc.name} ({sc.event_count} events)
+                {sc.name}
+                {!compact && ` (${sc.event_count} events)`}
               </option>
             ))}
           </select>
@@ -172,39 +213,29 @@ export function ReplayControls({
                 ? 'Resume'
                 : 'Start replay'}
         </button>
-        <button
-          type="button"
-          className="replay-reset"
-          onClick={() => onNewMatch(false, scenarioId)}
-        >
-          Reset
-        </button>
-        <label className="replay-speed">
-          Speed
-          <select
-            value={speed}
-            onChange={(event) => setSpeed(Number(event.target.value))}
-            aria-label="Replay speed"
-          >
-            <option value={0.5}>0.5× · Slow</option>
-            <option value={1}>1× · Normal</option>
-            <option value={2}>2× · Fast</option>
-            <option value={4}>4× · Quick</option>
-            <option value={20}>20× · Full match</option>
-            <option value={80}>80× · Fast preview</option>
-          </select>
-        </label>
+        {compact ? (
+          <details className="fan-demo-settings">
+            <summary>Demo settings</summary>
+            <div>{extraControls}</div>
+          </details>
+        ) : (
+          extraControls
+        )}
       </div>
-      <div className="replay-progress">
-        <progress value={progress} max={maxEvents} aria-label="Replay progress" />
-        <span>
-          {progress} / {maxEvents} events
-        </span>
-      </div>
-      <p className="card-subtitle">
-        Normal speed delivers one event every three seconds. Speed controls event delivery, not the
-        match clock. Keep this page open while playing. Reset opens a fresh match.
-      </p>
+      {!compact && (
+        <div className="replay-progress">
+          <progress value={progress} max={maxEvents} aria-label="Replay progress" />
+          <span>
+            {progress} / {maxEvents} events
+          </span>
+        </div>
+      )}
+      {!compact && (
+        <p className="card-subtitle">
+          Normal speed delivers one event every three seconds. Speed controls event delivery, not
+          the match clock. Keep this page open while playing. Reset opens a fresh match.
+        </p>
+      )}
       {error && (
         <p className="replay-error" role="alert">
           {error}

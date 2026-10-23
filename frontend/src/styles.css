@@ -10,18 +10,106 @@
   font-weight: 400;
   font-display: swap;
 }
+.listen-recap {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+.listen-recap small {
+  color: var(--text-muted);
+}
+.listen-recap {
+  max-width: 280px;
+}
+.narrator-choice {
+  display: grid;
+  gap: 0.35rem;
+}
+.narrator-choice select {
+  color: #ffffff;
+  background: #38003c;
+  border: 1px solid #85598d;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font: inherit;
+  max-width: 100%;
+}
+.narrator-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.narrator-choice select:focus-visible {
+  outline: 2px solid #00ff85;
+  outline-offset: 3px;
+}
+.listen-recap button {
+  font: inherit;
+  color: #ffffff;
+  background: #38003c;
+  border: 1px solid #85598d;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+.listen-recap button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.listen-recap button:focus-visible {
+  outline: 2px solid #00ff85;
+  outline-offset: 3px;
+}
+.pitch-inspection {
+  margin: 0.6rem 0;
+}
+.pitch-inspection summary {
+  color: #38bdf8;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.pitch-vector {
+  margin: 0.6rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.pitch-vector svg {
+  flex: 0 0 120px;
+  border-radius: 0.4rem;
+  background: #081f23;
+}
+.pitch-vector figcaption {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+.pitch-vector-line {
+  animation: pitch-flow 1.2s linear infinite;
+}
+@keyframes pitch-flow {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pitch-vector-line {
+    animation: none;
+  }
+}
+
 /* ==========================================================================
    MatchOS - Design System & Styles
    The AI Operating System for Live Football
    ========================================================================== */
 
 :root {
-  --bg-app: #18001e;
+  --bg-app: #1a0022;
   --bg-card: #27002e;
-  --bg-card-elevated: #42064b;
+  --bg-card-elevated: #38003c;
   --bg-card-subtle: #210027;
   --border-subtle: #54265c;
-  --border-focus: #38bdf8;
+  --border-focus: #00ff85;
   --border-hover: #85598d;
 
   --text-main: #f8fafc;
@@ -556,69 +644,6 @@ body {
    Catch Me Up Panel
    ========================================================================== */
 
-.catchup-card {
-  border-color: #243b59;
-  background: linear-gradient(180deg, #101c2c 0%, var(--bg-card) 100%);
-}
-
-.cursor-pill {
-  font-size: 12px;
-  font-family: monospace;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-}
-
-.audience-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.segmented-control {
-  display: inline-flex;
-  background: #090e18;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 4px;
-  gap: 4px;
-}
-
-.segmented-btn {
-  background: transparent;
-  color: var(--text-muted);
-  border: none;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.segmented-btn:hover:not(:disabled) {
-  color: #ffffff;
-}
-
-.segmented-btn.active {
-  background: var(--bg-card-elevated);
-  color: #ffffff;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-hover);
-}
-
-.audience-help-text {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  line-height: 1.4;
-}
-
 .btn-primary {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: #042416;
@@ -647,12 +672,6 @@ body {
   transform: none;
 }
 
-.loading-state {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .spinner {
   width: 14px;
   height: 14px;
@@ -668,365 +687,12 @@ body {
   }
 }
 
-.catchup-error-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--accent-danger-bg);
-  border: 1px solid rgba(244, 63, 94, 0.4);
-  border-radius: var(--radius-md);
-  margin-bottom: 16px;
-}
-
-.error-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: #fecdd3;
-}
-
-.btn-retry {
-  background: rgba(244, 63, 94, 0.25);
-  border: 1px solid var(--accent-danger);
-  color: #ffffff;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.catchup-empty-prompt {
-  text-align: center;
-  padding: 32px 20px;
-  background: var(--bg-card-subtle);
-  border: 1px dashed var(--border-subtle);
-  border-radius: var(--radius-md);
-}
-
-.prompt-icon {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
-
-.catchup-empty-prompt h3 {
-  font-size: 18px;
-  margin: 0 0 6px;
-  color: #ffffff;
-}
-
-.catchup-empty-prompt p {
-  font-size: 13px;
-  color: var(--text-muted);
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-.result-header-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.result-mode-badges {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.mode-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-}
-
-.mode-azure {
-  background: rgba(14, 165, 233, 0.15);
-  border: 1px solid rgba(14, 165, 233, 0.4);
-  color: var(--accent-azure-light);
-}
-
-.azure-sparkle {
-  color: var(--accent-azure-light);
-  font-size: 13px;
-}
-
-.mode-deterministic {
-  background: rgba(148, 163, 184, 0.15);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  color: #e2e8f0;
-}
-
-.badge-sub {
-  font-size: 11px;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 1px 6px;
-  border-radius: var(--radius-sm);
-  color: #cbd5e1;
-}
-
-.audience-indicator {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.audience-mismatch {
-  color: var(--accent-gold-light);
-}
-
-.up-to-date-box {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 16px;
-  background: var(--accent-emerald-bg);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  border-radius: var(--radius-md);
-}
-
-.checkmark-icon {
-  font-size: 20px;
-  color: var(--accent-emerald-light);
-  line-height: 1;
-}
-
-.up-to-date-box strong {
-  color: #ffffff;
-  display: block;
-  margin-bottom: 2px;
-}
-
-.up-to-date-box p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.summary-intro-box {
-  background: var(--bg-card-elevated);
-  border-left: 3px solid var(--accent-emerald);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-}
-
-.summary-intro-text {
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0;
-}
-
-.sections-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-.match-story-points {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-}
-
-.match-story-briefing > .section-card-title {
-  font-size: 1.3rem;
-  line-height: 1.4;
-}
-
-.catchup-section-card {
-  background: var(--bg-card-subtle);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 16px;
-}
-
-.section-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.section-card-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-}
-
-.evidence-count-pill {
-  font-size: 11px;
-  font-weight: 600;
+.evidence-player {
+  color: var(--text-primary, #fff);
   background: rgba(255, 255, 255, 0.08);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  color: var(--text-muted);
-}
-
-.section-card-text {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #e2e8f0;
-  margin: 0 0 12px;
-}
-
-.evidence-details {
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 10px;
-}
-
-.evidence-summary-btn {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent-azure-light);
-  cursor: pointer;
-  user-select: none;
-  list-style: none;
-}
-
-.evidence-summary-btn::-webkit-details-marker {
-  display: none;
-}
-
-.evidence-summary-btn:hover {
-  text-decoration: underline;
-}
-
-.evidence-content-box {
-  margin-top: 10px;
-}
-
-.grounding-inspector {
-  margin-top: 20px;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.inspector-toggle {
-  background: transparent;
-  border: none;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 6px 0;
-  text-align: left;
-}
-
-.inspector-toggle:hover {
-  color: #ffffff;
-}
-
-.toggle-hint {
-  font-size: 11px;
-  color: var(--text-dim);
-}
-
-.trace-steps-list {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.trace-step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  background: var(--bg-card-subtle);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
-  font-size: 12px;
-}
-
-.trace-index {
-  background: rgba(255, 255, 255, 0.1);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 11px;
-  flex-shrink: 0;
-}
-
-.trace-details {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.trace-label {
-  color: #e2e8f0;
-  font-weight: 500;
-}
-
-.trace-code {
-  font-family: monospace;
-  font-size: 11px;
-  color: var(--accent-emerald-light);
-}
-
-.trace-meta {
-  font-family: monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-}
-
-.raw-ids-content {
-  background: var(--bg-card-subtle);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  margin-top: 8px;
-  font-size: 12px;
-}
-
-.raw-id-group {
-  margin-bottom: 8px;
-}
-
-.raw-id-group:last-child {
-  margin-bottom: 0;
-}
-
-.raw-id-group strong {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--text-muted);
-}
-
-.code-wrap {
-  font-family: monospace;
-  font-size: 11px;
-  color: #cbd5e1;
-  margin: 0;
-  word-break: break-all;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
 }
 
 /* ==========================================================================
@@ -1955,62 +1621,6 @@ body {
    Simulator Guide / Empty Replay
    ========================================================================== */
 
-.guide-card {
-  border-color: #3b82f6;
-  background: linear-gradient(180deg, #101c30 0%, var(--bg-card) 100%);
-}
-
-.command-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #050a12;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 10px 14px;
-  margin: 12px 0 16px;
-  gap: 12px;
-}
-
-.command-box code {
-  font-family: monospace;
-  font-size: 12px;
-  color: #38bdf8;
-  word-break: break-all;
-}
-
-.btn-copy {
-  background: rgba(56, 189, 248, 0.15);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #ffffff;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.btn-copy:hover {
-  background: rgba(56, 189, 248, 0.3);
-}
-
-.guide-expectations h4 {
-  font-size: 13px;
-  margin: 0 0 6px;
-  color: #ffffff;
-}
-
-.guide-expectations ul {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 13px;
-  color: var(--text-muted);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 /* ==========================================================================
    Dashboard Footer
    ========================================================================== */
@@ -2296,14 +1906,9 @@ body {
 .team-away-window .window-team-name {
   color: var(--team-away);
 }
-.catchup-card {
-  background: linear-gradient(135deg, #35023d, #27002e);
-  border-color: #673370;
-}
 .graph-card {
   border-color: var(--border-subtle);
 }
-.segmented-control,
 .clock-badge {
   background: #1c0023;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { formatMatchSecond } from '../utils/formatters';
 import { teams, newScoringTeams } from '../utils/teams';
 
-export function Scoreboard({ analytics, events = [], fixtureTeams = teams }) {
+export function Scoreboard({ analytics, events = [], fixtureTeams = teams, compact = false }) {
   const presentation = fixtureTeams;
   const homeGoals = analytics?.teams?.home?.goal ?? 0;
   const awayGoals = analytics?.teams?.away?.goal ?? 0;
@@ -116,43 +116,45 @@ export function Scoreboard({ analytics, events = [], fixtureTeams = teams }) {
         </div>
       </div>
 
-      <div className="stats-strip" aria-label="Recorded highlights metrics">
-        <div className="stat-item">
-          <span className="stat-label">Events</span>
-          <span className="stat-value">{events.length}</span>
-          <span className="stat-sub">recorded</span>
-        </div>
+      {!compact && (
+        <div className="stats-strip" aria-label="Recorded highlights metrics">
+          <div className="stat-item">
+            <span className="stat-label">Events</span>
+            <span className="stat-value">{events.length}</span>
+            <span className="stat-sub">recorded</span>
+          </div>
 
-        <div className="stat-item">
-          <span className="stat-label">Recorded Shots</span>
-          <span className="stat-value">
-            <strong className="stat-home">{homeShots}</strong>
-            <span className="stat-sep">:</span>
-            <strong className="stat-away">{awayShots}</strong>
-          </span>
-          <span className="stat-sub">H vs A</span>
-        </div>
+          <div className="stat-item">
+            <span className="stat-label">Recorded Shots</span>
+            <span className="stat-value">
+              <strong className="stat-home">{homeShots}</strong>
+              <span className="stat-sep">:</span>
+              <strong className="stat-away">{awayShots}</strong>
+            </span>
+            <span className="stat-sub">H vs A</span>
+          </div>
 
-        <div className="stat-item">
-          <span className="stat-label">Recorded Passes</span>
-          <span className="stat-value">
-            <strong className="stat-home">{homePasses}</strong>
-            <span className="stat-sep">:</span>
-            <strong className="stat-away">{awayPasses}</strong>
-          </span>
-          <span className="stat-sub">H vs A</span>
-        </div>
+          <div className="stat-item">
+            <span className="stat-label">Recorded Passes</span>
+            <span className="stat-value">
+              <strong className="stat-home">{homePasses}</strong>
+              <span className="stat-sep">:</span>
+              <strong className="stat-away">{awayPasses}</strong>
+            </span>
+            <span className="stat-sub">H vs A</span>
+          </div>
 
-        <div className="stat-item">
-          <span className="stat-label">Recoveries</span>
-          <span className="stat-value">
-            <strong className="stat-home">{homeRecoveries}</strong>
-            <span className="stat-sep">:</span>
-            <strong className="stat-away">{awayRecoveries}</strong>
-          </span>
-          <span className="stat-sub">H vs A</span>
+          <div className="stat-item">
+            <span className="stat-label">Recoveries</span>
+            <span className="stat-value">
+              <strong className="stat-home">{homeRecoveries}</strong>
+              <span className="stat-sep">:</span>
+              <strong className="stat-away">{awayRecoveries}</strong>
+            </span>
+            <span className="stat-sub">H vs A</span>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

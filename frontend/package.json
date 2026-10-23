@@ -8,8 +8,8 @@
     "build": "vite build --configLoader native",
     "preview": "vite preview --configLoader native",
     "test": "node --test",
-    "format": "prettier \"../*.{md,json,yml,yaml}\" \"../.github/**/*.{yml,yaml}\" \"../docs/**/*.md\" \"../schemas/example-event.json\" \"*.{js,json,html}\" \"src/**/*.{js,jsx,css}\" \"test/**/*.js\" --write --ignore-path ../.prettierignore",
-    "format:check": "prettier \"../*.{md,json,yml,yaml}\" \"../.github/**/*.{yml,yaml}\" \"../docs/**/*.md\" \"../schemas/example-event.json\" \"*.{js,json,html}\" \"src/**/*.{js,jsx,css}\" \"test/**/*.js\" --check --ignore-path ../.prettierignore"
+    "format": "prettier ../backend/app/data/*.json \"../*.{md,json,yml,yaml}\" \"../.github/**/*.{yml,yaml}\" \"../docs/**/*.md\" \"../schemas/example-event.json\" \"*.{js,json,html}\" \"src/**/*.{js,jsx,css}\" \"test/**/*.js\" --write --ignore-path ../.prettierignore",
+    "format:check": "prettier ../backend/app/data/*.json \"../*.{md,json,yml,yaml}\" \"../.github/**/*.{yml,yaml}\" \"../docs/**/*.md\" \"../schemas/example-event.json\" \"*.{js,json,html}\" \"src/**/*.{js,jsx,css}\" \"test/**/*.js\" --check --ignore-path ../.prettierignore"
   },
   "dependencies": {
     "react": "^19.2.0",

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { formatTeamName } from '../utils/formatters';
 import { EvidenceList } from './EvidenceList';
 
-export function ShotComparison({ analytics, events = [], onSelectEvent }) {
+export function ShotComparison({ analytics, events = [], fixtureTeams, onSelectEvent }) {
   const [expandedTeam, setExpandedTeam] = useState(null);
   const shotWindows = analytics?.shot_windows || [];
 
@@ -42,7 +42,10 @@ export function ShotComparison({ analytics, events = [], onSelectEvent }) {
         <div className="comparison-grid">
           {shotWindows.map((windowData) => {
             const teamId = windowData.team_id;
-            const teamName = formatTeamName(teamId);
+            const teamName =
+              fixtureTeams?.[teamId]?.name ||
+              events.find((event) => event.team_id === teamId)?.team_name ||
+              formatTeamName(teamId);
             const prev = windowData.previous;
             const curr = windowData.current;
             const diff = curr.shot_count - prev.shot_count;

@@ -8,7 +8,7 @@ from conftest import TRUSTED_HEADERS
 root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root))
 sys.path.insert(0, str(root / "backend"))
-from simulator.run import generate
+from legacy_scenarios import generate
 from app.main import app, store
 from app.models import MatchEvent
 
@@ -34,7 +34,7 @@ def test_replay_and_evidence(client):
     assert counts['teams']['away']['shot'] == 2
     stories = client.get("/api/matches/demo-match/stories").json()
     # Original facts remain; new deterministic rules add supported stories.
-    assert {s['kind'] for s in stories} == {'goal', 'shot_activity', 'progressive_pass', 'recovery_shot'}
+    assert {s['kind'] for s in stories} == {'goal', 'shot_activity', 'progressive_pass', 'recovery_shot', 'player_shooting'}
     activity = next(s for s in stories if s['kind'] == 'shot_activity')
     assert activity['metric']['previous']['shot_count'] == 1
     assert activity['metric']['current']['shot_count'] == 4

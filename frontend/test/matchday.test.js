@@ -1,6 +1,31 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { playMatchday, createReleaseRecovery } from '../src/utils/matchday.js';
+import { playMatchday, createReleaseRecovery, discoveryReason } from '../src/utils/matchday.js';
+
+test('older backend recommendations remain readable without the new discovery field', () => {
+  const entry = {
+    home: 'Palace',
+    away: 'Newcastle',
+    pulse: { reason: 'Six recent shots.', evidence_event_ids: ['e1'] },
+  };
+  const result = discoveryReason(entry, 4530);
+  assert.equal(result.headline, 'Palace vs Newcastle');
+  assert.equal(result.text, 'Six recent shots.');
+  assert.equal(result.observed_second, 4530);
+  assert.deepEqual(result.evidence_event_ids, ['e1']);
+  entry.pulse.why_now = null;
+  assert.deepEqual(discoveryReason(entry, 4530), result);
+  assert.equal(discoveryReason(null), null);
+});
+
+test('current discovery reasons retain their text and tolerate absent evidence IDs', () => {
+  const entry = {
+    pulse: {
+      why_now: { headline: 'Palace are level.', text: 'It is 2–2.', observed_second: 4530 },
+    },
+  };
+  assert.deepEqual(discoveryReason(entry), { ...entry.pulse.why_now, evidence_event_ids: [] });
+});
 
 test('failed cleanup is retained and retried before another group can be abandoned', async () => {
   const calls = [];

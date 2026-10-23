@@ -220,6 +220,84 @@
       ],
       "default": null,
       "title": "Recipient Player Name"
+    },
+    "player_shirt_number": {
+      "anyOf": [
+        {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Player Shirt Number"
+    },
+    "recipient_player_shirt_number": {
+      "anyOf": [
+        {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Shirt Number"
+    },
+    "player_position": {
+      "anyOf": [
+        {
+          "enum": [
+            "GK",
+            "DEF",
+            "MID",
+            "FWD"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Player Position"
+    },
+    "recipient_player_position": {
+      "anyOf": [
+        {
+          "enum": [
+            "GK",
+            "DEF",
+            "MID",
+            "FWD"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recipient Player Position"
+    },
+    "roster_version": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Roster Version"
     }
   },
   "required": [

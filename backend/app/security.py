@@ -96,7 +96,7 @@ def claim_match(mid, owner, store, fixture=None, scenario=None):
 
 
 def take_ai_budget():
-    """Reserve at most two provider requests per briefing, even on failure."""
+    """Reserve two provider requests; the writer may reserve one extra pair for a bounded revision."""
     global ai_calls, ai_active
     with LOCK:
         limit = int(os.getenv("MATCHOS_AI_CALL_BUDGET", "100"))

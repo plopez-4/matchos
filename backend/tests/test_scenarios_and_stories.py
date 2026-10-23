@@ -7,7 +7,8 @@ from conftest import TRUSTED_HEADERS
 
 from app.main import app, store
 from app.models import MatchEvent
-from app.simulation import get_catalog, generate, SCENARIOS
+from app.simulation import get_catalog, generate as generate_current
+from legacy_scenarios import generate
 from app.intelligence import (
     match_stories,
     high_recovery_windows,
@@ -30,9 +31,9 @@ def client():
 
 def test_scenario_catalog_metadata_and_validation(client):
     catalog = get_catalog()
-    assert len(catalog) == 6
+    assert len(catalog) == 3
     scenario_ids = {s["id"] for s in catalog}
-    assert scenario_ids == {"legacy-default", "pressure-builds", "comeback", "quiet-match", "united-city-90", "united-hull-90"}
+    assert scenario_ids == {"united-city-90", "palace-newcastle-90", "brighton-fulham-90"}
 
     res = client.get("/api/replay/scenarios")
     assert res.status_code == 200
@@ -40,15 +41,20 @@ def test_scenario_catalog_metadata_and_validation(client):
     assert api_catalog == catalog
 
     for item in catalog:
-        assert item["scenario_version"] in ("scenario-v1", "full-match-v1")
+        assert item["scenario_version"].startswith("match-radar-")
         assert item["duration_seconds"] >= 600
         # Event count matches actual fixture length
-        events = list(generate(scenario_id=item["id"]))
+        events = list(generate_current(scenario_id=item["id"]))
         assert len(events) == item["event_count"]
         # Spoiler-free: final score not disclosed in name or description
         for score_indicator in ("1-0", "0-0", "1-1", "wins", "loses", "final score"):
             assert score_indicator not in item["name"].lower()
             assert score_indicator not in item["description"].lower()
+
+    # Retired demos must not be reachable through direct replay URLs either.
+    for retired in ('united-hull-90', 'legacy-default', 'pressure-builds', 'comeback', 'quiet-match'):
+        assert client.get('/api/replay/scenario', params={'match_id': 'retired', 'scenario_id': retired}).status_code == 404
+        assert client.post('/api/replay/start', json={'match_id': 'retired', 'scenario_id': retired}).status_code == 404
 
     # Reject unknown scenario
     err_res = client.get("/api/replay/scenario", params={"match_id": "test", "scenario_id": "nonexistent"})
@@ -309,3 +315,13 @@ def test_candidate_selection_bounding_and_priorities():
     assert "g2" in cand_ids
     # Chronological ordering preserved
     assert [c["sequence"] for c in candidates] == sorted(c["sequence"] for c in candidates)
+
+
+def test_default_runtime_feed_has_reference_names_and_no_retired_generation():
+    events = list(generate_current(count=30))
+    assert {event['team_name'] for event in events} <= {'Manchester United', 'Manchester City'}
+    assert all(event.get('player_name') and event.get('roster_version') for event in events)
+    assert all(event.get('recipient_player_name') for event in events if event['type'] == 'pass')
+    for retired in ('united-hull-90', 'legacy-default', 'pressure-builds', 'comeback', 'quiet-match'):
+        with pytest.raises(ValueError, match='Unknown scenario'):
+            list(generate_current(scenario_id=retired))

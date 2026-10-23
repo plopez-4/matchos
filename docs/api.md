@@ -1,17 +1,23 @@
 # API v0.1
 
+The public replay catalog now contains only `united-city-90`, `palace-newcastle-90`, and `brighton-fulham-90`. The default is `united-city-90`. Both website views use `backend/app/data/demo_fixtures.json` and the current Matchday generator with reference roster identities. Retired Hull/placeholder scenarios return 404 from replay routes. Short legacy fixtures remain internal regression inputs only.
+
 The `fan_briefing` field now uses `fan-briefing-v2`: three sections (score story, recent action, clock), exact current/previous shot-window boundaries, comparison availability, and an observed-goal `trajectory`. Its ordered transitions distinguish `lead_acquisition`, `equalization`, `lead_extension`, `deficit_reduction` and `lead_reversal`; acquisitions count a reversal as taking the lead as well. `rapid_response` is present only when the preceding goal is by the opponent and the interval is at most 600 match seconds. Matchday entries return the same `briefing` and `briefing_events` for the shared Radar card. Catch-up returns `null` for no new events, retaining the existing cursor contract. Early shot windows include second zero using an exclusive start of -1; no previous-window metadata is returned before 300 seconds. A comparison's clock-span requirement does not establish that a real source has complete coverage.
 
 Catch-up responses add `fan_briefing` (or `null` when no new events): a headline, scoreline, match clock, three fan-facing sections and supporting event IDs. Existing `match_briefing`, `explanation`, stories and evidence fields remain available for the analytical view. This additive field uses deterministic wording from observed facts and adds no provider calls.
 
 Matchday routes: `POST /matchdays/start`, `GET /matchdays/{id}`, `POST /matchdays/{id}/tick`, and owner-only `DELETE /matchdays/{id}`. They advance three server-owned synthetic feeds on one shared clock and return an observed-event Radar snapshot. See [Match Radar API, rules and limits](match-radar.md).
 
+`POST /matchdays/start` accepts optional `resume_on_capacity` (default false). When true and a new three-match group cannot fit, it returns the most recently created complete group owned by the requesting session, with `resumed_due_to_capacity: true` and its actual `matchday_id`. The focused UI uses this to recover after reopening the home page repeatedly; it updates the URL and explains how to start fresh. No groups are evicted and ownership/capacity limits remain enforced. If no complete owned group exists, the capacity error remains. **New demo** releases the current group before starting another.
+
+Player stories add `player_shot_creation`, `player_shooting` and `player_forward_passing` to the existing story endpoint and graph. Their metrics include player identity, exact window bounds, snapshot/archive mode, count, team denominator, coverage, rule version and source IDs. Shot-creation metrics include explicit pass/shot/recipient links and elapsed time. The focused `story_plan.player_story_id` identifies the player contribution selected for prose, evidence and narration. See [player-impact definitions](player-impact.md).
+
 ## Security contract
 
 All writes require JSON and `X-MatchOS-Client: replay` (or a trusted ingestion credential). The marker is CSRF protection, not a password. Origin/Host checks and request limits apply. Public reads expose only synthetic match data.
 
 - `POST /api/session` with `{}` establishes a private HttpOnly cookie; browsers use same-origin credentials.
-- `POST /api/replay/start` with `{ "match_id": "fresh-id", "scenario_id": "comeback" }` reserves a replay for that session and returns its canonical fixture. The same owner/scenario can retry; another owner receives 403.
+- `POST /api/replay/start` with `{ "match_id": "fresh-id", "scenario_id": "palace-newcastle-90" }` reserves a replay for that session and returns its canonical fixture. The same owner/scenario can retry; another owner receives 403.
 - `POST /api/matches/{id}/advance` with `{ "sequence": 1 }` appends only the corresponding server-owned event. Other fields are rejected. Ordered retries are idempotent.
 - `POST /api/events` requires `X-MatchOS-Ingest-Token` matching a private server token of at least 32 characters. Disabled by default. Trusted ingestion cannot overwrite browser-owned replays.
 - Catch Me Up rejects a cursor ahead of the match, caches identical revision/cursor/audience/mode requests, and rejects busy/excess requests with 429. Provider limits produce a deterministic explanation instead of unlimited Azure work.
@@ -50,6 +56,12 @@ All analytics and narrative stories are strictly derived from synthetic match ev
 
 ## Catch Me Up fan briefings
 
+Explicit Catch Me Up requests can also attach `narrative` with `mode`, localized `text`, evidence IDs, version and fallback reason. A reviewed model result adds `id`, `model`, `fact_ids` and `review: model_review_passed`. This is model-written prose with a fallible model review, not deterministic claim verification. Its text also becomes `spoken_recap`. Live matchday ticks retain the deterministic paragraph without provider requests. See [writer behavior and limits](fan-narrative.md).
+
+To read a displayed AI paragraph, `/api/narration` additionally accepts its opaque `narrative_id`. The server resolves it for the owned snapshot; missing/expired/mismatched cached text returns 409 and never falls back silently to another paragraph. Omitting this ID reads the rule recap. The browser cannot submit narration text.
+
+Briefings also include `spoken_recap: {en, es}`: concise, deterministic narration from the same observed score trajectory, shot windows and phase. Device speech and Azure speech use this shared wording. It summarizes rather than reading every evidence row; the full sections, goal transitions and evidence IDs remain available. No new provider call is needed to create this text.
+
 Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports `casual` and `advanced`. Window evaluates events where $sequence > since\_sequence$; client advances cursor only after successful response.
 
 - **What happened**: Synthesizes verified score changes and goal events.
@@ -71,5 +83,11 @@ Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports `ca
 - Playback is browser-driven and sequential. Cancellation and speed changes are safe and idempotent. Reset creates a fresh match ID and URL while preserving the chosen scenario.
 
 ## Review compatibility corrections
+
+Fan briefings now include a `snapshot` (`match_id`, `through_sequence`, `since_sequence`, `match_second`) for optional narration. `GET /api/narration/status` returns configuration availability and allowed profiles without keys. `POST /api/narration` accepts the snapshot plus `language` (`en`/`es`) and `voice_profile` (`warm`/`matchday`), requires the owning replay session and returns bounded `audio/mpeg`. It rejects free-form text/SSML/URLs and snapshots omitting recorded events at their clock. `POST /api/narration/audition` accepts only language/profile and requires a session; it uses the fixed canonical synthetic 75:30 recap. Both cloud paths are disabled without backend Speech configuration. See [setup and limits](azure-narration.md).
+
+Match Radar events can include optional `player_shirt_number`, `recipient_player_shirt_number`, `player_position`, `recipient_player_position` and `roster_version`. Shirt numbers come from the dated reference subset; positions are authored demo roles. Actor IDs such as `home-7` remain synthetic identifiers and must not be displayed as jersey numbers. `source` remains `synthetic`; these are not real player performances. The published JSON schema includes these additive fields; older events omit them or use null defaults.
+
+The shared `fan_briefing` payload optionally includes `historical_precedent` (otherwise `null`). This is external, curated historical context with localized `text`/`caveat`, `source`, source revision/checksum, season and aggregate counts. It is not a synthetic match event, a story candidate, a prediction or part of `evidence_event_ids`. It appears only at an observed one-goal halftime lead. See [benchmark derivation](historical-precedents.md). Existing consumers may ignore this additive field.
 
 Legacy event content and IDs are unchanged from the original fixture. New rules can add supported stories (four for the full legacy fixture); consumers must not assume exactly two. Progressive passes require both destination coordinates. If goals plus the strongest activity change exceed the eight-candidate Azure budget, the full deterministic briefing is returned with `candidate_budget_or_identity_failure`, with no provider call.

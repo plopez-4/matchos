@@ -37,3 +37,11 @@ Turn AI off with `$env:MATCHOS_AI_MODE = 'off'` and restart the backend. No mode
 Mock tests cover the complete tool flow, unsupported/missing/duplicate selection, timeout, configuration rejection and disabled/empty behavior. They incur no Azure usage. Earlier live testing with the configured deployment succeeded for both audiences, returning azure mode and both What happened / What changed sections. The current adapter has a process-lifetime request budget, concurrency/input/output limits and deterministic fallback; identical catch-up requests are cached. Production hosting and Azure account settings still need verification before public exposure. See [security setup](security.md).
 
 Official reference: https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/function-calling
+
+## Focused recap verification — 2026-10-22
+
+The focused page now exposes Casual / Analyst and English / Spanish. The writer uses audience-specific instructions and caches by audience plus evidence snapshot. Analyst fallback adds completed/attempted passes for the observed recent window, with supporting event IDs and a warning that these counts cannot establish possession or chance quality. Both languages preserve the same facts. Narration requests accept an optional audience so cached prose can be recovered for the correct perspective.
+
+The selector retrieves evidence and validates selected stories; the prose writer receives a bounded observed evidence packet and a separate model call reviews grounding, bilingual parity, score and phase. These are bounded application-controlled steps, not a claim of autonomous multi-agent orchestration. The evidence drawer reports whether prose review passed or a rule-based fallback was used. Model review is fallible.
+
+Current verification: 171 backend tests and 69 frontend tests passed, production frontend build passed, and the running browser showed analyst passing totals and matching Spanish facts. Provider calls in these tests were mocked. No Azure model credentials were configured for this session, so the current live Azure writer/reviewer path remains unverified. Earlier selector-only success is not proof that the current full prose workflow works live. Configure privately with `scripts/start_backend.ps1 -AI`; never put a key in a chat, URL, committed file or screenshot.

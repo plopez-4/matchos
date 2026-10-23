@@ -4,10 +4,12 @@ MatchOS uses a purple and white broadcast theme, a locally bundled photograph an
 
 ## Asset credits
 
+The header identifies MatchOS as a Hackathon Prototype; both app footers say “Built for the Microsoft Premier League Hackathon 2026” and disclaim endorsement. These statements describe the project's purpose and do not grant a trademark license. Existing artwork is retained for prototype review; authorization has not been established. [Microsoft's published brand guidance](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks) requires express permission for logo use. Confirm applicable organizer permissions before a public submission. The palette uses `#1a0022`, `#38003c` and `#00ff85` (green, rather than cyan); these are implementation choices, not a verified complete official brand palette.
+
 - `premier-league.svg`: unchanged white lion/wordmark artwork from https://logo.premierleague.com/img/lion-light.svg. © Copyright The Football Association Premier League Limited, 2016. The mark is not covered by this repository's MIT license. Brand guidance and use terms: https://logo.premierleague.com/. Hackathon participation does not establish sponsorship or endorsement; confirm the event's authorization for the mark before including it in the public submission video.
 - `goodison-park.webp`: Goodison Park, Liverpool, photographed by **Arne Müseler / arne-mueseler.com**, 31 July 2023. Source: https://commons.wikimedia.org/wiki/File:Liverpool_fc_everton_stadium.jpg. License: https://creativecommons.org/licenses/by-sa/3.0/de/deed.en. Downloaded the 1280px thumbnail and optimized it to a 960px WebP for delivery; CSS displays a crop with a purple overlay. The photograph and its visual adaptation remain CC BY-SA 3.0 DE, separately from application code. Visible attribution and license links appear beneath the photograph.
 - `BebasNeue-Regular.ttf` and `Manrope.ttf`: Google Fonts source repository, https://github.com/google/fonts/tree/main/ofl/bebasneue and https://github.com/google/fonts/tree/main/ofl/manrope. SIL Open Font License 1.1; accompanying license files are bundled with the fonts. Fonts load locally without contacting Google.
-- Four-square Microsoft identifier: code-native representation accompanying the factual label “Powered by Microsoft Azure.” Microsoft marks remain their owners' property; no official project endorsement is claimed.
+- Four-square Microsoft identifier: existing code-native representation accompanying “Optional AI integration · Microsoft Azure.” Microsoft marks remain their owners' property; no official project endorsement or permission is claimed.
 
 ## Goal celebration
 

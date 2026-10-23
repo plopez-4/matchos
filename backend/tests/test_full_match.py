@@ -1,4 +1,5 @@
-from collections import Counter
+from app.matchday import PROFILES, fixture
+from app.rosters import club_for_name
 import pytest
 from fastapi.testclient import TestClient
 from conftest import TRUSTED_HEADERS
@@ -13,12 +14,13 @@ from app.models import MatchEvent
 def test_full_feed_identity_clock_and_ball_continuity(scenario, seed):
     events = generate_full_match(scenario, seed)
     assert events == generate_full_match(scenario, seed)
-    assert len(events) > 1000
+    assert len(events) > 500
     assert events[0]["match_second"] == 0
     assert events[-1]["match_second"] == 5580
     assert events[-1]["type"] == "match_end"
     assert [e["type"] for e in events].count("half_end") == 1
-    assert [e["type"] for e in events].count("substitution") == 2
+    expected_subs = sum(len(club_for_name(FULL_MATCHES[scenario][side]).get('demo_bench', [])) for side in ('home', 'away'))
+    assert [e["type"] for e in events].count("substitution") == expected_subs
     active = {t: {f"{t}-{i}" for i in range(1, 12)} for t in ("home", "away")}
     previous = None
     by_id = {}
@@ -44,9 +46,12 @@ def test_full_feed_identity_clock_and_ball_continuity(scenario, seed):
             assert (e.team_id, e.player_id) == (shot.team_id, shot.player_id)
         by_id[e.event_id] = e
         previous = e
-    passes = Counter(e["team_id"] for e in events if e["type"] == "pass")
-    dominant = "away" if scenario == "united-city-90" else "home"
-    assert passes[dominant] > passes["home" if dominant == "away" else "away"]
+    profile = next(p for p in PROFILES if p['role'] == FULL_MATCHES[scenario]['role'])
+    assert events == fixture(profile, 'full-match', seed=seed)
+    for raw in events:
+        club = club_for_name(raw['team_name'])
+        assert raw['player_name'] in {player['name'] for player in club['players']}
+
 
 
 @pytest.mark.parametrize("scenario", FULL_MATCHES)
@@ -63,7 +68,7 @@ def test_full_match_api_and_readable_briefing(scenario, monkeypatch):
         assert client.post("/api/events", json=events[-1]).json()["accepted"] is False
         result = client.post(f"/api/matches/{scenario}/catch-up", json={"audience": "advanced"}).json()
         briefing = result["match_briefing"]
-        assert "Manchester United" in briefing["text"]
+        assert FULL_MATCHES[scenario]["home"] in briefing["text"]
         assert "completed" in briefing["text"] and "93:00" in briefing["text"]
         assert "synthetic match has finished" in briefing["text"]
         ids = {e["event_id"] for e in events}

@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from conftest import TRUSTED_HEADERS
 from app.main import app, store
 from app.models import MatchEvent
-from app.simulation import generate
+from legacy_scenarios import generate
 from app.intelligence import match_stories, progressive_pass_windows
 from app.explanations import explain, select_candidates
 

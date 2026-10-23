@@ -112,6 +112,36 @@ def test_only_owner_can_release_group_and_capacity_is_reusable():
     start(c, 'another-day')
 
 
+def test_capacity_recovery_reopens_owned_demo_without_eviction():
+    owner, other = client(), client()
+    start(other, 'foreign-day')
+    start(owner, 'first-day')
+    second = start(owner, 'second-day')
+    tick_to(owner, second, 30)
+    before = set(store)
+    assert owner.post('/api/matchdays/start', json={'matchday_id':'third-day'}).status_code == 429
+    recovered = owner.post('/api/matchdays/start', json={
+        'matchday_id':'third-day', 'resume_on_capacity':True})
+    assert recovered.status_code == 200
+    assert recovered.json()['matchday_id'] == 'second-day'
+    assert recovered.json()['clock_second'] == 30
+    assert recovered.json()['resumed_due_to_capacity'] is True
+    assert set(store) == before and set(security.matches) == before
+    # Releasing the resumed group makes a genuinely fresh start possible.
+    assert owner.request('DELETE', '/api/matchdays/second-day', json={}).status_code == 200
+    assert start(owner, 'third-day')['clock_second'] == 0
+
+
+def test_capacity_recovery_never_reuses_another_owners_group(monkeypatch):
+    owner, other = client(), client()
+    start(other, 'foreign-day')
+    monkeypatch.setattr(security, 'MAX_MATCHES', 3)
+    response = owner.post('/api/matchdays/start', json={
+        'matchday_id':'new-day', 'resume_on_capacity':True})
+    assert response.status_code == 429
+    assert len(store) == 3
+
+
 def test_partial_group_release_preserves_ownership_and_other_matches():
     owner, other = client(), client()
     view = start(owner)
@@ -184,3 +214,63 @@ def test_window_boundary_no_future_inputs_and_briefing(monkeypatch):
     assert briefing.status_code == 200
     assert 'Crystal Palace' in briefing.json()['match_briefing']['text']
     assert briefing.json()['fan_briefing']['headline'] == 'Newcastle United led twice. Crystal Palace have answered twice.'
+
+
+def radar_goal(sequence, team, second):
+    return MatchEvent(event_id=f'g{sequence}', match_id='m', sequence=sequence,
+                      match_second=second, team_id=team, team_name=team.title(),
+                      player_id=f'{team}-9', type='goal', x=50, y=50)
+
+
+def test_equalizer_qualifies_without_shots_and_expires_at_exact_boundary():
+    goals = [radar_goal(1, 'away', 3960), radar_goal(2, 'home', 4500)]
+    result = matchday.pulse(goals, 4530)
+    why = result['why_now']
+    assert result['eligible'] and why['trigger'] == 'equalizer'
+    assert why['expires_at_second'] == 4680
+    assert '9:00 after the previous goal' in why['text']
+    assert '14:30 until ninety' in why['text']
+    assert set(why['evidence_event_ids']) == {'g1', 'g2'}
+    assert matchday.pulse(goals, 4679)['eligible']
+    assert matchday.pulse(goals, 4680)['why_now'] is None
+
+
+def test_lead_reversal_is_distinct_from_first_lead_and_later_goals_replace_trigger():
+    goals = [radar_goal(1, 'away', 4000), radar_goal(2, 'home', 4100),
+             radar_goal(3, 'home', 4200)]
+    assert matchday.pulse(goals[:1], 4030)['why_now'] is None
+    result = matchday.pulse(goals, 4230)
+    assert result['why_now']['trigger'] == 'lead_reversal'
+    assert 'Home have turned the lead around' in result['why_now']['headline']
+    # A subsequent goal makes the earlier close-game recommendation obsolete.
+    goals.append(radar_goal(4, 'home', 4240))
+    assert not matchday.pulse(goals, 4250)['eligible']
+    # Future goals cannot change the earlier snapshot.
+    assert matchday.pulse(goals, 4230) == result
+
+
+def test_activity_reason_survives_expired_goal_without_calling_it_fresh():
+    feed = [MatchEvent(**e) for e in matchday.fixture(matchday.PROFILES[1], 'm')]
+    result = matchday.pulse(feed, 4770)
+    assert result['eligible']
+    assert result['why_now']['trigger'] == 'shot_activity'
+    assert 'equalizer' not in result['why_now']['text']
+    assert set(result['why_now']['evidence_event_ids']) <= set(result['evidence_event_ids'])
+    assert matchday.pulse(feed, 5100)['why_now'] is None
+
+
+def test_added_time_wording_and_full_time_suppression():
+    goals = [radar_goal(1, 'away', 5300), radar_goal(2, 'home', 5410)]
+    why = matchday.pulse(goals, 5430)['why_now']
+    assert 'in added time' in why['text'] and 'until ninety' not in why['text']
+    assert matchday.pulse(goals, matchday.DURATION)['why_now'] is None
+
+
+def test_notification_uses_the_current_discovery_reason():
+    c = client()
+    view = start(c)
+    while not view['notification']:
+        view = tick_to(c, view, view['clock_second']+30)
+    why = view['recommendation']['pulse']['why_now']
+    assert view['notification']['title'] == why['headline']
+    assert view['notification']['reason'] == why['text']

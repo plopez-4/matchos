@@ -63,14 +63,14 @@ test('replay uses a single private cookie session and sends only sequence advanc
   await fetchReplayScenario('match-2', { signal: new AbortController().signal });
   assert.deepEqual(JSON.parse(requestedOptions.body), {
     match_id: 'match-2',
-    scenario_id: 'legacy-default',
+    scenario_id: 'united-city-90',
   });
 
   // Default scenario parameter omitted
   await fetchReplayScenario('match-3');
   assert.deepEqual(JSON.parse(requestedOptions.body), {
     match_id: 'match-3',
-    scenario_id: 'legacy-default',
+    scenario_id: 'united-city-90',
   });
   await ingestReplayEvent({
     match_id: 'match-3',
@@ -86,15 +86,20 @@ test('replay uses a single private cookie session and sends only sequence advanc
   globalThis.fetch = originalFetch;
 });
 
-test('scenario selection fallback handles invalid and valid URLs', () => {
-  assert.equal(resolveScenario('comeback'), 'comeback');
-  assert.equal(resolveScenario('quiet-match'), 'quiet-match');
-  assert.equal(resolveScenario('pressure-builds'), 'pressure-builds');
-  assert.equal(resolveScenario('legacy-default'), 'legacy-default');
-
-  // Fallbacks
-  assert.equal(resolveScenario(null), 'pressure-builds');
-  assert.equal(resolveScenario(''), 'pressure-builds');
-  assert.equal(resolveScenario('corrupted-id'), 'pressure-builds');
-  assert.equal(resolveScenario('../hack'), 'pressure-builds');
+test('scenario URLs accept current fixtures and retire old selectable demos', () => {
+  for (const id of ['united-city-90', 'palace-newcastle-90', 'brighton-fulham-90']) {
+    assert.equal(resolveScenario(id), id);
+  }
+  for (const id of [
+    null,
+    '',
+    'pressure-builds',
+    'comeback',
+    'quiet-match',
+    'legacy-default',
+    'united-hull-90',
+    '../hack',
+  ]) {
+    assert.equal(resolveScenario(id), 'united-city-90');
+  }
 });

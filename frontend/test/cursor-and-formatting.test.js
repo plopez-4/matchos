@@ -15,9 +15,9 @@ test('formatMatchSecond formats seconds into MM:SS correctly', () => {
   assert.equal(formatMatchSecond(null), '0:00');
 });
 
-test('formatTeamName maps IDs to fictional club names', () => {
-  assert.equal(formatTeamName('home'), 'Home FC');
-  assert.equal(formatTeamName('away'), 'Away FC');
+test('formatTeamName uses neutral side labels when no team name is available', () => {
+  assert.equal(formatTeamName('home'), 'Home');
+  assert.equal(formatTeamName('away'), 'Away');
   assert.equal(formatTeamName('other'), 'OTHER');
 });
 

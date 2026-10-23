@@ -21,6 +21,11 @@ from app.intelligence import (
 from app.explanations import explain
 from app.briefing import full_feed_briefing
 from app.fan_briefing import fan_briefing
+from app import narration
+from app import story_writer
+from app import story_plan
+from app.rosters import ROSTER_DATA
+from typing import Literal
 
 app = FastAPI(title="MatchOS", version="0.1.0",
               docs_url=None if security.production() else "/docs",
@@ -32,10 +37,113 @@ store: dict[str, dict[str, MatchEvent]] = {}
 CATCH_LOCK = threading.Lock()
 
 
+@app.get('/api/rosters/{club_id}')
+def roster_reference(club_id: str):
+    club = ROSTER_DATA['clubs'].get(club_id)
+    if not club:
+        raise HTTPException(404, 'Club reference not found')
+    return {'version': ROSTER_DATA['version'], 'season': ROSTER_DATA['season'],
+            'source': ROSTER_DATA['source'], 'source_published_on': ROSTER_DATA['source_published_on'],
+            'scope': club.get('reference_scope', 'Curated subset, not a complete squad'),
+            'checked_on': club.get('checked_on', ROSTER_DATA['checked_on']),
+            'match_note': ROSTER_DATA['match_note'], 'club': club}
+
+
+class NarrationRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    match_id: str = Field(pattern=r'^[a-zA-Z0-9_-]{1,100}$')
+    through_sequence: int = Field(ge=1, le=security.MAX_EVENTS)
+    since_sequence: int = Field(default=0, ge=0, le=security.MAX_EVENTS)
+    match_second: int = Field(ge=0, le=9000)
+    language: Literal['en','es'] = 'en'
+    audience: Literal['casual','advanced'] = 'casual'
+    voice_profile: Literal['warm','matchday'] = 'matchday'
+    narrative_id: str | None = Field(default=None, pattern=r'^[a-f0-9]{64}$')
+    selected_story_ids: list[str] | None = Field(default=None, max_length=128)
+
+
+class VoiceAuditionRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    language: Literal['en','es'] = 'en'
+    voice_profile: Literal['warm','matchday'] = 'matchday'
+    roster_batch: int | None = Field(default=None, ge=0, le=20)
+
+
+def audio_response(briefing, language, profile):
+    audio,voice,delivery = narration.synthesize(briefing,language,profile)
+    return Response(audio,media_type='audio/mpeg',headers={'X-MatchOS-Voice':voice,
+                    'X-MatchOS-Delivery':delivery,'X-MatchOS-Snapshot':briefing['clock']})
+
+
+@app.get('/api/narration/status')
+def narration_status():
+    return narration.status()
+
+
+@app.get('/api/ai/status')
+def ai_status():
+    # Configuration presence is not a successful connection or quality check.
+    return {'configured': story_writer.configuration() is not None,
+            'writer_version': story_writer.VERSION}
+
+
+@app.post('/api/narration')
+def narrate(payload: NarrationRequest, request: Request):
+    with security.LOCK:
+        owner = security.session(request)
+        security.expire(store)
+        meta = security.matches.get(payload.match_id)
+        if not meta or meta['owner']!=owner:raise HTTPException(403,'Narration requires a replay owned by this session')
+        if not security.allow_request(('narration',owner),6):raise HTTPException(429,'Narration request limit reached')
+        all_items = events_for(payload.match_id)
+        if not all_items or payload.through_sequence>all_items[-1].sequence or payload.match_second>meta.get('clock',all_items[-1].match_second):
+            raise HTTPException(422,'Narration snapshot is ahead of the recorded match')
+        items = [e for e in all_items if e.match_second<=payload.match_second]
+        if not items or items[-1].sequence!=payload.through_sequence:
+            raise HTTPException(422,'Narration snapshot must include every recorded event through its clock')
+        new = [e for e in items if e.sequence>payload.since_sequence]
+        briefing = fan_briefing(items,new,now=payload.match_second)
+        if not briefing:raise HTTPException(422,'No new recorded events for this narration snapshot')
+        if payload.selected_story_ids is not None:
+            known = {story['story_id']: story for story in match_stories(items)
+                     if story['sequence'] > payload.since_sequence}
+            if len(set(payload.selected_story_ids)) != len(payload.selected_story_ids) or any(sid not in known for sid in payload.selected_story_ids):
+                raise HTTPException(422, 'Narration contains an unknown or out-of-scope story')
+            story_plan.bind(briefing, [known[sid] for sid in payload.selected_story_ids], payload.audience)
+        story_writer.personalize(briefing, items, payload.audience)
+    if payload.narrative_id:
+        written = story_writer.cached(briefing, items)
+        if not written or written['id'] != payload.narrative_id:
+            raise HTTPException(409, 'This AI recap is no longer cached. Refresh Catch Me Up before listening again.')
+        story_writer.apply(briefing, written)
+    return audio_response(briefing,payload.language,payload.voice_profile)
+
+
+@app.post('/api/narration/audition')
+def audition_voice(payload: VoiceAuditionRequest, request: Request):
+    if payload.roster_batch is not None and security.production():
+        raise HTTPException(404, 'Roster audition is a development-only tool')
+    with security.LOCK:
+        owner = security.session(request)
+        if not security.allow_request(('narration',owner),6):raise HTTPException(429,'Narration request limit reached')
+    if payload.roster_batch is not None:
+        from app.pronunciation import audition_names
+        names = audition_names(payload.roster_batch)
+        if not names:
+            raise HTTPException(422, 'Unknown roster batch')
+        text = '. '.join(names) + '.'
+        return audio_response({'audience': 'advanced', 'clock': 'Roster audition',
+                               'spoken_recap': {'en': text, 'es': text}},
+                              payload.language, payload.voice_profile)
+    # Same canonical synthetic recap for every voice comparison; no user-supplied text.
+    items = [MatchEvent(**e) for e in matchday.fixture(matchday.PROFILES[1],'voice-audition') if e['match_second']<=4530]
+    return audio_response(fan_briefing(items,items,now=4530),payload.language,payload.voice_profile)
+
+
 class ReplayStart(BaseModel):
     model_config = ConfigDict(extra="forbid")
     match_id: str = Field(pattern=r"^[a-zA-Z0-9_-]{1,80}$")
-    scenario_id: str = Field(default="legacy-default", pattern=r"^[a-zA-Z0-9_-]{1,80}$")
+    scenario_id: str = Field(default="united-city-90", pattern=r"^[a-zA-Z0-9_-]{1,80}$")
 
 
 class ReplayAdvance(BaseModel):
@@ -46,6 +154,7 @@ class ReplayAdvance(BaseModel):
 class MatchdayStart(BaseModel):
     model_config = ConfigDict(extra="forbid")
     matchday_id: str = Field(pattern=r"^[a-zA-Z0-9_-]{1,60}$")
+    resume_on_capacity: bool = False
 
 
 class MatchdayTick(BaseModel):
@@ -99,6 +208,16 @@ def start_matchday(payload: MatchdayStart, request: Request):
                 raise HTTPException(403, "This matchday belongs to another session")
             return matchday_view(payload.matchday_id, members)
         if len(security.matches)+3 > security.MAX_MATCHES or sum(m["owner"] == owner for m in security.matches.values())+3 > 8:
+            if payload.resume_on_capacity:
+                # Reopening the home page must not strand a browser behind its own old replays.
+                # Reuse only a complete owned group; never evict another tab or another owner.
+                groups = {meta['matchday_id']: meta['expires'] for meta in security.matches.values()
+                          if meta['owner'] == owner and meta.get('matchday_id')}
+                for existing, _ in sorted(groups.items(), key=lambda item: item[1], reverse=True):
+                    existing_members = [f'{existing}-{profile["role"]}' for profile in matchday.PROFILES]
+                    if all(mid in security.matches and security.matches[mid]['owner'] == owner
+                           and security.matches[mid].get('matchday_id') == existing for mid in existing_members):
+                        return {**matchday_view(existing, existing_members), 'resumed_due_to_capacity': True}
             raise HTTPException(429, "Not enough demo capacity for three matches")
         fixtures = [matchday.fixture(profile, mid) for profile, mid in zip(matchday.PROFILES, members)]
         if any(len(feed) > security.MAX_EVENTS for feed in fixtures):
@@ -170,8 +289,8 @@ def tick_matchday(day_id: str, payload: MatchdayTick, request: Request):
             state["last_notified"][leader_id] = now
             state["notification"] = {"id":f'{state["generation"]}:{payload.tick}:{leader_id}',
                                      "match_id":leader_id, "clock_second":now,
-                                     "title":leader['briefing']['headline'],
-                                     "reason":leader['briefing']['scoreline'] + '. ' + leader['briefing']['sections'][1]['text']}
+                                     "title":leader['pulse']['why_now']['headline'],
+                                     "reason":leader['pulse']['why_now']['text']}
         state["previous_leader"] = leader_id
         view["notification"] = state["notification"]
         return view
@@ -237,7 +356,7 @@ def replay_scenarios():
 @app.get("/api/replay/scenario", response_model=list[MatchEvent])
 def replay_scenario(
     match_id: str = Query(pattern=r"^[a-zA-Z0-9_-]{1,80}$"),
-    scenario_id: str = Query(default="legacy-default", pattern=r"^[a-zA-Z0-9_-]{1,80}$"),
+    scenario_id: str = Query(default="united-city-90", pattern=r"^[a-zA-Z0-9_-]{1,80}$"),
 ):
     catalog_ids = {s["id"] for s in catalog()}
     if scenario_id not in catalog_ids:
@@ -350,7 +469,8 @@ def catch_up(match_id: str, request: CatchUpRequest):
         raise HTTPException(429, "Catch Me Up is busy; try again shortly", headers={"Retry-After": "2"})
     try:
         cache_key = (match_id, generation, revision, request.since_sequence, request.audience,
-                     os.getenv("MATCHOS_AI_MODE", "off"))
+                     os.getenv("MATCHOS_AI_MODE", "off"),
+                     story_writer.prompt_fingerprint({'story_plan': {}, 'audience': request.audience}))
         with security.LOCK:
             if cache_key in security.catch_cache:
                 security.catch_cache.move_to_end(cache_key)
@@ -388,8 +508,12 @@ def build_catch_up(all_items, request):
         text = intro + (" " + explanation["text"] if explanation["text"] else "")
     selected = [s for s in new_stories if s["story_id"] in explanation["selected_story_ids"]]
     briefing = full_feed_briefing(all_items, items, request.audience)
+    fan = fan_briefing(all_items, items)
+    story_plan.bind(fan, selected, request.audience)
+    story_writer.personalize(fan, all_items, request.audience)
+    story_writer.apply(fan, story_writer.write(fan, all_items))
     return {
-        "fan_briefing": fan_briefing(all_items, items),
+        "fan_briefing": fan,
         "match_briefing": briefing,
         "summary": text,
         "intro": intro,

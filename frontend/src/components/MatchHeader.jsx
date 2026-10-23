@@ -1,6 +1,12 @@
+import { CompetitionBranding } from './CompetitionBranding';
 import React from 'react';
 
-export function MatchHeader({ status = 'connected', error = '', lastUpdated = null }) {
+export function MatchHeader({
+  status = 'connected',
+  error = '',
+  lastUpdated = null,
+  compact = false,
+}) {
   const getStatusBadge = () => {
     switch (status) {
       case 'connected':
@@ -45,30 +51,8 @@ export function MatchHeader({ status = 'connected', error = '', lastUpdated = nu
   };
 
   return (
-    <header className="match-header">
-      <div className="competition-strip">
-        <div className="league-identity">
-          <img src="/assets/premier-league.svg" alt="Premier League" width="126" height="54" />
-          <span>
-            INSIDE THE GAME
-            <br />
-            <strong>DEVELOPER HACKATHON</strong>
-          </span>
-        </div>
-        <div className="microsoft-credit">
-          <span className="microsoft-mark" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
-          <span>
-            Powered by
-            <br />
-            <strong>Microsoft Azure</strong>
-          </span>
-        </div>
-      </div>
+    <header className={`match-header ${compact ? 'match-header-compact' : ''}`}>
+      <CompetitionBranding />
       <div className="stadium-hero">
         <img
           className="stadium-photo"
@@ -106,6 +90,7 @@ export function MatchHeader({ status = 'connected', error = '', lastUpdated = nu
           <p className="eyebrow">THE AI OPERATING SYSTEM FOR LIVE FOOTBALL</p>
           <div className="brand-title-wrap">
             <h1 className="brand-title">MatchOS</h1>
+            <span className="synthetic-badge">Hackathon Prototype</span>
             <span
               className="synthetic-badge"
               title="Fictional synthetic replay for Microsoft/Premier League Hackathon"
@@ -114,8 +99,9 @@ export function MatchHeader({ status = 'connected', error = '', lastUpdated = nu
             </span>
           </div>
           <p className="product-summary">
-            Deterministic event analytics, connected match stories, and personalized Azure AI
-            catch-up briefings for live football.
+            {compact
+              ? 'Missed the action? See how it happened and understand what changed.'
+              : 'Deterministic event analytics, connected match stories, and personalized Azure AI catch-up briefings for live football.'}
           </p>
         </div>
 

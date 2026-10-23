@@ -117,7 +117,7 @@ def test_goal_only_selection_adds_verified_change(configured):
 def test_casual_and_advanced_share_evidence(monkeypatch):
     from app.intelligence import match_stories
     from app.models import MatchEvent
-    from simulator.run import generate
+    from legacy_scenarios import generate
     monkeypatch.setenv('MATCHOS_AI_MODE', 'off')
     stories = match_stories([MatchEvent(**e) for e in generate()])
     casual = explain(stories, 'casual')

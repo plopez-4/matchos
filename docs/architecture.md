@@ -11,6 +11,7 @@ Today: in-memory repository, count and completed-window shot analytics, high rec
 - Ingestion: version/source validation, event ID deduplication and sequence conflicts. Schema v1.1 supports optional possession_id, end coordinates (end_x, end_y), outcome, and related_event_id. Ordered append is currently required; reject new events below the match cursor.
 - Repository: PostgreSQL with unique (match_id,event_id) and (match_id,sequence), migrations and durable graph storage. Add a repository interface before persistence.
 - Analytics: pure functions over ordered events, explicit windows/units/sample thresholds and versioned rules.
+  - Live shot statistics return the latest completed comparison; stories and their graph reconstruct all covered completed comparisons. Each story keeps its original window-end availability sequence, so a viewer cursor excludes acknowledged spells. Incomplete comparisons and missing baselines are not backfilled.
   - `shot-frequency-v1`: completed five-minute windows $[start, end)$, threshold $\ge 3$ shots, shift $\ge 2$ shots vs. prior window.
   - `high-recovery-v1`: completed five-minute windows $[start, end)$, recoveries in opponent's defensive third (Home $x \ge 70$, Away $x \le 30$), threshold $\ge 3$ recoveries.
   - `progressive-pass-v1`: completed five-minute windows $[start, end)$, forward gain $\ge 15.0$ normalized units towards opponent's goal line ($end\_x - x \ge 15$ for Home, $x - end\_x \ge 15$ for Away), threshold $\ge 3$ passes.
@@ -23,7 +24,7 @@ Today: in-memory repository, count and completed-window shot analytics, high rec
 
 sequence is unique ordering within a match, not an arrival timestamp. match_second is elapsed match clock including stoppage; period distinguishes halves. New arrivals cannot move the clock backwards. x/y and optional end_x/end_y are 0..100 stadium coordinates; the scripted scenarios assume Home attacks x=100 and Away x=0. Goals are separate events linked to goal-producing shots; shot counts count only shot events. If future provider feeds allow late arrivals, replace sequence catch-up with an ingestion cursor before accepting them.
 
-The simulator provides sparse, plausible highlights fixtures across multiple selectable scenarios rather than a full touch-by-touch match model. The seed varies fictional team-specific players; timing/action structure stays fixed for reproducible expected metrics. Graphs are derived snapshots: historical pattern persistence, fuller spatial/possession simulation and provider normalization remain upcoming work.
+The simulator provides sparse, plausible highlights fixtures across multiple selectable scenarios rather than a full touch-by-touch match model. The seed varies fictional team-specific players; timing/action structure stays fixed for reproducible expected metrics. Graphs are derived snapshots. Story generation reconstructs completed shot comparisons across the observed history, so a qualifying spell remains available after the live window moves on. Durable storage, fuller spatial/possession simulation and provider normalization remain upcoming work.
 
 ## Deployment limits
 
@@ -31,7 +32,7 @@ Data resets on restart. Use one process/worker. Replay writes have session owner
 
 ## Implemented frontend and AI path
 
-The Azure model retrieves trusted story candidates, selects IDs, and the backend validates the selection before rendering factual audience wording. This is not free-form narration or hosted Agent Service orchestration. The UI separates story sections, evidence, actual audience/mode and trace. A generation-aware catch-up reducer and abortable requests preserve failure/reset behavior.
+The Azure selector retrieves trusted story candidates and selects verified IDs. The shared `story-plan-v1` binds its goals and strongest selected qualifying change, with original windows, rule versions and event IDs, to the visible recap. An optional writer/reviewer pair receives that plan alongside bounded observed facts and recent actions on explicit Catch Me Up requests. Missing required selected-story references trigger fallback to bilingual plan-based templates. The evidence drawer and narration consume the same plan; model review of prose meaning remains fallible. The UI leads with that paragraph and keeps the analytical sections and trace collapsed. Unknown references and failed model reviews fall back to rule-based wording; semantic review remains fallible. This is application-level orchestration, not hosted Agent Service deployment. A generation-aware catch-up reducer and abortable requests preserve failure/reset behavior. See [fan narrative behavior and limits](fan-narrative.md).
 
 All reads and Catch Me Up use demo-match or a validated ?match=<id> query. Fresh simulator IDs allow replay without restarting the Azure-enabled process. Viewer cursors remain in React memory. Goal takeovers compare analytics snapshots and use shared kit colors; first-load baselines, unchanged polls and rollback do not create new goals. Current graph edges are supports only; preceded-by remains a future idea. Coordinates are normalized 0..100, not measured metres.
 

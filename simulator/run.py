@@ -19,11 +19,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--scenario",
-        default="legacy-default",
+        default="united-city-90",
         choices=catalog_ids,
-        help="Synthetic match scenario to replay (default: legacy-default)",
+        help="Synthetic match scenario to replay (default: united-city-90)",
     )
-    parser.add_argument("--seed", type=int, default=7, help="Random seed for fictional player names (default: 7)")
+    parser.add_argument("--seed", type=int, default=7, help="Random seed for authored player participation (default: 7)")
     parser.add_argument("--count", type=int, default=None, help="Number of events to replay (default: full scenario)")
     parser.add_argument("--interval", type=float, default=0.5, help="Seconds between events (default: 0.5)")
     parser.add_argument("--match-id", default="demo-match", help="Match identifier (default: demo-match)")

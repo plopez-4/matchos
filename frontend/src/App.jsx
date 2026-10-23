@@ -1,23 +1,16 @@
-import React, { useState, useRef, useCallback, useReducer, useEffect } from 'react';
-import { catchUpReducer, initialCatchUpState } from './utils/catchUpState';
-import { teamsForScenario, variablesForTeams } from './utils/teams';
-import { useMatchData } from './hooks/useMatchData';
-import { postCatchUp } from './api';
-import { MatchHeader } from './components/MatchHeader';
-import { Scoreboard } from './components/Scoreboard';
-import { CatchUpPanel } from './components/CatchUpPanel';
-import { ShotComparison } from './components/ShotComparison';
-import { StoryCard } from './components/StoryCard';
-import { EventTimeline } from './components/EventTimeline';
-import { EvidenceGraph } from './components/EvidenceGraph';
-import { ReplayControls } from './components/ReplayControls';
+import React, { useState, useEffect } from 'react';
 import { resolveScenario } from './utils/scenarios';
 import { Matchday } from './components/Matchday';
+import { FanMatch } from './components/FanMatch';
 import './matchday.css';
+import './focus.css';
+import './fan.css';
 
 export function App() {
   const [experience, setExperience] = useState(() =>
-    new URLSearchParams(window.location.search).get('view') === 'matchday' ? 'matchday' : 'single',
+    ['development', 'matchday'].includes(new URLSearchParams(window.location.search).get('view'))
+      ? 'matchday'
+      : 'single',
   );
   const [matchId, setMatchId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get('match');
@@ -32,10 +25,11 @@ export function App() {
   const [autoStart, setAutoStart] = useState(false);
 
   useEffect(() => {
+    if (experience !== 'single') return;
     const url = new URL(window.location.href);
     url.searchParams.set('match', matchId);
     window.history.replaceState(null, '', url);
-  }, [matchId]);
+  }, [matchId, experience]);
 
   const newMatch = (play, targetScenario = scenarioId) => {
     const id = `replay-${crypto.randomUUID()}`;
@@ -55,7 +49,7 @@ export function App() {
 
   const chooseExperience = (next) => {
     const url = new URL(window.location.href);
-    if (next === 'matchday') url.searchParams.set('view', 'matchday');
+    if (next === 'matchday') url.searchParams.set('view', 'development');
     else url.searchParams.delete('view');
     window.history.replaceState(null, '', url);
     setExperience(next);
@@ -63,24 +57,15 @@ export function App() {
 
   return (
     <>
-      <nav className="experience-nav" aria-label="MatchOS experience">
-        <button
-          className={experience === 'single' ? 'active' : ''}
-          onClick={() => chooseExperience('single')}
-        >
-          Match view
-        </button>
-        <button
-          className={experience === 'matchday' ? 'active' : ''}
-          onClick={() => chooseExperience('matchday')}
-        >
-          Matchday & Radar
-        </button>
-      </nav>
+      {experience === 'matchday' && (
+        <nav className="experience-nav" aria-label="Development dashboard">
+          <button onClick={() => chooseExperience('single')}>← Open main MatchOS page</button>
+        </nav>
+      )}
       {experience === 'matchday' ? (
         <Matchday />
       ) : (
-        <MatchDashboard
+        <FanMatch
           key={`${matchId}:${scenarioId}`}
           matchId={matchId}
           scenarioId={scenarioId}
@@ -90,166 +75,5 @@ export function App() {
         />
       )}
     </>
-  );
-}
-
-function MatchDashboard({ matchId, scenarioId, autoStart, onNewMatch, onScenarioChange }) {
-  const [{ summary, busy, error: catchUpError }, dispatch] = useReducer(
-    catchUpReducer,
-    initialCatchUpState,
-  );
-  const [selectedAudience, setSelectedAudience] = useState('casual');
-  const [highlightedEventId, setHighlightedEventId] = useState(null);
-
-  const generationIdRef = useRef(0);
-  const requestRef = useRef(null);
-
-  useEffect(
-    () => () => {
-      generationIdRef.current += 1;
-      requestRef.current?.abort();
-      requestRef.current = null;
-    },
-    [],
-  );
-
-  // Called when latest sequence drops (e.g. backend restart or simulator re-run)
-  const handleReset = useCallback((_newSequence) => {
-    generationIdRef.current += 1;
-    requestRef.current?.abort();
-    requestRef.current = null;
-    dispatch({ type: 'reset', generation: generationIdRef.current });
-    setHighlightedEventId(null);
-  }, []);
-
-  const {
-    data,
-    status,
-    error: pollingError,
-    lastUpdated,
-  } = useMatchData(matchId, {
-    pollInterval: 2000,
-    onReset: handleReset,
-  });
-
-  const handleCatchUp = async () => {
-    if (requestRef.current) return;
-    const controller = new AbortController();
-    requestRef.current = controller;
-    const currentGen = generationIdRef.current;
-    const currentCursor = summary?.through_sequence ?? 0;
-    dispatch({ type: 'start', generation: currentGen });
-
-    try {
-      const result = await postCatchUp(
-        matchId,
-        {
-          since_sequence: currentCursor,
-          audience: selectedAudience,
-        },
-        { signal: controller.signal },
-      );
-
-      // Discard stale in-flight response if a backend reset occurred while request was in-flight
-      if (currentGen === generationIdRef.current) {
-        dispatch({ type: 'success', generation: currentGen, result });
-      }
-    } catch (err) {
-      if (currentGen === generationIdRef.current) {
-        // Keep prior summary and cursor intact on failure so retrying doesn't skip events
-        dispatch({
-          type: 'failure',
-          generation: currentGen,
-          error: err.message || 'Catch Me Up request failed. Backend may be busy.',
-        });
-      }
-    } finally {
-      if (requestRef.current === controller) requestRef.current = null;
-    }
-  };
-
-  const handleSelectEvent = (eventId) => {
-    setHighlightedEventId(eventId);
-  };
-
-  const handleClearHighlight = () => {
-    setHighlightedEventId(null);
-  };
-
-  const hasEvents = data.events.length > 0;
-  const fixtureTeams = teamsForScenario(scenarioId);
-
-  return (
-    <div className="matchos-app" style={variablesForTeams(fixtureTeams)}>
-      <MatchHeader status={status} error={pollingError} lastUpdated={lastUpdated} />
-
-      <main className="dashboard-grid">
-        {/* Left Primary Column: Overview, Catch Up, Analytics, Stories, Graph */}
-        <div className="main-column">
-          <Scoreboard analytics={data.analytics} events={data.events} fixtureTeams={fixtureTeams} />
-
-          <ReplayControls
-            matchId={matchId}
-            scenarioId={scenarioId}
-            hasEvents={hasEvents}
-            loading={status === 'loading'}
-            autoStart={autoStart}
-            onNewMatch={onNewMatch}
-            onScenarioChange={onScenarioChange}
-          />
-
-          <CatchUpPanel
-            summary={summary}
-            busy={busy}
-            error={catchUpError}
-            selectedAudience={selectedAudience}
-            onAudienceChange={setSelectedAudience}
-            onCatchUp={handleCatchUp}
-            events={data.events}
-            onSelectEvent={handleSelectEvent}
-          />
-
-          <ShotComparison
-            analytics={data.analytics}
-            events={data.events}
-            onSelectEvent={handleSelectEvent}
-          />
-
-          <StoryCard
-            stories={data.stories}
-            events={data.events}
-            onSelectEvent={handleSelectEvent}
-          />
-
-          <EvidenceGraph graph={data.graph} stories={data.stories} />
-        </div>
-
-        {/* Right Secondary Column: Live Timeline of Events */}
-        <aside className="sidebar-column">
-          <EventTimeline
-            events={data.events}
-            highlightedEventId={highlightedEventId}
-            onClearHighlight={handleClearHighlight}
-          />
-        </aside>
-      </main>
-
-      <footer className="dashboard-footer">
-        <div className="footer-content">
-          <p className="footer-primary">
-            MatchOS — Fictional synthetic replay with deterministic analytics and evidence-linked
-            stories.
-          </p>
-          <p className="footer-secondary">
-            AI story selection is powered by Azure OpenAI (<code>matchos-explainer</code>) with
-            verified grounding fallback. Displayed metrics and stories come strictly from
-            deterministic rules. No real Premier League data used.
-          </p>
-          <p className="photo-credit">
-            Premier League mark: © Copyright The Football Association Premier League Limited, 2016.
-          </p>
-        </div>
-      </footer>
-    </div>
   );
 }

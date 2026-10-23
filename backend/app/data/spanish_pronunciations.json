@@ -1,0 +1,140 @@
+{
+  "version": "spanish-name-hints-v3-reported-names",
+  "note": "Spanish-friendly approximations from written guides, spelling references, and targeted candidates for user-reported pronunciation failures. Identity references do not verify pronunciation. No native-speaker or live-listening sign-off is claimed.",
+  "sources": {
+    "pl": "https://www.premierleague.com/en/news/3740592",
+    "ucl": "https://www.uefa.com/uefachampionsleague/news/0285-1904931a8ef5-3ea3371d477e-1000--uefa-champions-league-how-to-pronounce-the-players-names/",
+    "euro": "https://www.uefa.com/uefaeuro/history/news/028e-1b1ce734d639-04c124927ade-1000--how-to-pronounce-the-uefa-euro-2024-players-names-correctly/",
+    "babbel": "https://www.babbel.com/en/magazine/most-mispronounced-words-2024",
+    "city_es": "https://es.mancity.com/news/mens/enzo-fernandez-entrevista-maresca-63923955",
+    "pl_stats": "https://www.premierleague.com/stats/top/players/total_tackle?cl=7&se=54",
+    "nufc_identity": "https://www.newcastleunited.com/en/teams/mens-team/harvey-barnes",
+    "cpfc_identity": "https://www.cpfc.co.uk/teams/first-team/isma-la-sarr/"
+  },
+  "players": [
+    {
+      "name": "Bryan Mbeumo",
+      "alias": "Bráian Bérmo",
+      "short_forms": { "Mbeumo": "Bérmo" },
+      "source": "pl"
+    },
+    {
+      "name": "Bruno Fernandes",
+      "alias": "Bruno Fernánsh",
+      "short_forms": { "Fernandes": "Fernánsh" },
+      "source": "pl"
+    },
+    {
+      "name": "Dominik Szoboszlai",
+      "alias": "Dóminik Sóboslai",
+      "short_forms": { "Szoboszlai": "Sóboslai" },
+      "source": "pl"
+    },
+    {
+      "name": "Kaoru Mitoma",
+      "alias": "Kaoru Mitóma",
+      "short_forms": { "Mitoma": "Mitóma" },
+      "source": "pl"
+    },
+    {
+      "name": "Matthijs de Ligt",
+      "alias": "Matáis de Lijt",
+      "short_forms": { "de Ligt": "de Lijt" },
+      "source": "ucl"
+    },
+    {
+      "name": "Erling Haaland",
+      "alias": "Érling Jálan",
+      "short_forms": { "Haaland": "Jálan" },
+      "source": "ucl"
+    },
+    {
+      "name": "Ruben Dias",
+      "alias": "Rúben Díash",
+      "variants": ["Rúben Dias"],
+      "short_forms": { "Dias": "Díash" },
+      "source": "ucl"
+    },
+    {
+      "name": "Mateo Kovacic",
+      "alias": "Mateo Kováchich",
+      "variants": ["Mateo Kovačić"],
+      "short_forms": { "Kovacic": "Kováchich", "Kovačić": "Kováchich" },
+      "source": "ucl"
+    },
+    {
+      "name": "Josko Gvardiol",
+      "alias": "Yóshko Gvárdiol",
+      "variants": ["Joško Gvardiol"],
+      "short_forms": { "Gvardiol": "Gvárdiol" },
+      "source": "babbel"
+    },
+    {
+      "name": "Kobbie Mainoo",
+      "alias": "Kóbi Meinú",
+      "short_forms": { "Mainoo": "Meinú" },
+      "source": "euro"
+    },
+    {
+      "name": "Marc Guehi",
+      "alias": "Mark Guéyi",
+      "variants": ["Marc Guéhi"],
+      "short_forms": { "Guehi": "Guéyi", "Guéhi": "Guéyi" },
+      "source": "euro"
+    },
+    {
+      "name": "Eberechi Eze",
+      "alias": "Eberechi Éze",
+      "short_forms": { "Eze": "Éze" },
+      "source": "euro"
+    },
+    {
+      "name": "Benjamin Sesko",
+      "alias": "Benjamin Shéshko",
+      "variants": ["Benjamin Šeško"],
+      "short_forms": { "Sesko": "Shéshko", "Šeško": "Shéshko" },
+      "source": "euro"
+    },
+    {
+      "name": "Enzo Fernandez",
+      "alias": "Enzo Fernández",
+      "variants": ["Enzo Fernández"],
+      "short_forms": { "Fernandez": "Fernández" },
+      "source": "city_es"
+    },
+    {
+      "name": "Geronimo Rulli",
+      "alias": "Gerónimo Rulli",
+      "variants": ["Gerónimo Rulli"],
+      "source": "city_es"
+    },
+    {
+      "name": "Moises Caicedo",
+      "alias": "Moisés Caicedo",
+      "variants": ["Moisés Caicedo"],
+      "source": "pl_stats"
+    },
+    {
+      "name": "Daniel Munoz",
+      "alias": "Daniel Muñoz",
+      "variants": ["Daniel Muñoz"],
+      "short_forms": { "Munoz": "Muñoz" },
+      "source": "pl_stats"
+    },
+    {
+      "name": "Harvey Barnes",
+      "alias": "Járvi Barns",
+      "short_forms": { "Harvey": "Járvi", "Barnes": "Barns" },
+      "source": "nufc_identity",
+      "basis": "user_reported_pronunciation_candidate"
+    },
+    {
+      "name": "Ismaila Sarr",
+      "alias": "Ismaíla Sar",
+      "variants": ["Ismaïla Sarr"],
+      "short_forms": { "Ismaila": "Ismaíla", "Ismaïla": "Ismaíla", "Sarr": "Sar" },
+      "source": "cpfc_identity",
+      "basis": "user_reported_pronunciation_candidate"
+    }
+  ]
+}
