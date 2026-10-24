@@ -1,0 +1,103 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "type": "string", "defaultValue": "northcentralus" },
+    "appName": { "type": "string", "defaultValue": "matchos-judging" },
+    "environmentName": { "type": "string", "defaultValue": "matchos-judging-env" },
+    "image": {
+      "type": "string",
+      "defaultValue": "ghcr.io/plopez-4/matchos-judging@sha256:ea33c7430eb75db64f257da73d4ed53e7ada5425a29ddf84dc7e3493bcc2f73f"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.App/managedEnvironments",
+      "apiVersion": "2024-03-01",
+      "name": "[parameters('environmentName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "zoneRedundant": false,
+        "workloadProfiles": [{ "name": "Consumption", "workloadProfileType": "Consumption" }]
+      }
+    },
+    {
+      "type": "Microsoft.App/containerApps",
+      "apiVersion": "2024-03-01",
+      "name": "[parameters('appName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.App/managedEnvironments', parameters('environmentName'))]"
+      ],
+      "properties": {
+        "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('environmentName'))]",
+        "workloadProfileName": "Consumption",
+        "configuration": {
+          "activeRevisionsMode": "Single",
+          "ingress": {
+            "external": true,
+            "targetPort": 8000,
+            "transport": "auto",
+            "allowInsecure": false
+          }
+        },
+        "template": {
+          "containers": [
+            {
+              "name": "matchos",
+              "image": "[parameters('image')]",
+              "resources": { "cpu": 0.25, "memory": "0.5Gi" },
+              "env": [
+                { "name": "MATCHOS_ENV", "value": "production" },
+                { "name": "MATCHOS_PROXY_MODE", "value": "azure-container-apps" },
+                {
+                  "name": "MATCHOS_ALLOWED_HOSTS",
+                  "value": "[concat(parameters('appName'), '.', reference(resourceId('Microsoft.App/managedEnvironments', parameters('environmentName')), '2024-03-01').defaultDomain)]"
+                },
+                {
+                  "name": "MATCHOS_ALLOWED_ORIGINS",
+                  "value": "[concat('https://', parameters('appName'), '.', reference(resourceId('Microsoft.App/managedEnvironments', parameters('environmentName')), '2024-03-01').defaultDomain)]"
+                },
+                { "name": "MATCHOS_AI_MODE", "value": "off" },
+                { "name": "MATCHOS_SPEECH_MODE", "value": "off" }
+              ],
+              "probes": [
+                {
+                  "type": "Startup",
+                  "tcpSocket": { "port": 8000 },
+                  "initialDelaySeconds": 1,
+                  "periodSeconds": 5,
+                  "failureThreshold": 60
+                },
+                {
+                  "type": "Readiness",
+                  "tcpSocket": { "port": 8000 },
+                  "periodSeconds": 5,
+                  "failureThreshold": 3
+                },
+                {
+                  "type": "Liveness",
+                  "tcpSocket": { "port": 8000 },
+                  "initialDelaySeconds": 10,
+                  "periodSeconds": 10,
+                  "failureThreshold": 3
+                }
+              ]
+            }
+          ],
+          "scale": {
+            "minReplicas": 0,
+            "maxReplicas": 1,
+            "rules": [{ "name": "http", "http": { "metadata": { "concurrentRequests": "10" } } }]
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "website": {
+      "type": "string",
+      "value": "[concat('https://', reference(resourceId('Microsoft.App/containerApps', parameters('appName')), '2024-03-01').configuration.ingress.fqdn)]"
+    }
+  }
+}
