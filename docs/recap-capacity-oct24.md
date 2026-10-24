@@ -18,4 +18,6 @@ The [single v14 live sample](recap-v14-halftime-live.json) returned AI prose aft
 
 391 backend tests, 62 frontend tests, production frontend build, formatting and credential scan passed locally. Tests simulate time without waiting and cover selector-to-writer and writer-to-selector throttling, expiry/recovery, header parsing, bounded state, budget preservation, safe fallback and retryable snapshot caching. The temporary draft capture is removed.
 
-Judging access is still not deployed. [Container preparation and public-access verification](judging-deployment.md) are separate from text-model correctness. Real Azure throughput inspection, public deployment, external browser/phone testing and the five-fan study remain outstanding.
+Read-only portal inspection confirmed `matchos-explainer` uses GPT-4.1 mini (2025-04-14), Global Standard, with a current allocation of **10,000 tokens per minute**. The edit form displayed a 5,000,000 upper bound; that is not proof that all capacity is available. No allocation was changed, and requests-per-minute capacity was not confirmed.
+
+Judging access is still not deployed. [Container preparation and public-access verification](judging-deployment.md) are separate from text-model correctness. The existing student resource group contains Foundry, its project and Speech, with no website host. Public deployment, external browser/phone testing and the five-fan study remain outstanding.
