@@ -1,6 +1,6 @@
 # MatchOS — current submission package
 
-Updated 2026-10-23. This repository package is not a completed hackathon portal entry.
+Updated 2026-10-24. This repository package is not a completed hackathon portal entry. See the [publication readiness review](publish-readiness.md) for current release gates.
 
 ## Pitch
 
@@ -13,7 +13,7 @@ MatchOS helps football fans return to a match and understand what they missed. S
 - Azure OpenAI-compatible Foundry deployment: tool-based selection, whole-paragraph EN/ES writing, model review and bounded revision.
 - Azure AI Speech: optional server-generated narration, pronunciation hints and club-name pauses.
 
-These are application-orchestrated calls. Hosted Foundry Agent Service, a distributed multi-agent deployment, Event Hubs, Cosmos DB and Container Apps are not implemented.
+These are application-orchestrated calls. Hosted Foundry Agent Service, a distributed multi-agent deployment, Event Hubs and Cosmos DB are not implemented. A verified image and Azure Container Apps template are prepared; no public hosting deployment is claimed.
 
 ## Official requirements
 
@@ -31,10 +31,10 @@ The rules require synthetic football-realistic data, a project description, func
 
 ## Evidence and remaining work
 
-- Local validation: 368 backend tests, formatting and credential scan passed. The unchanged frontend previously passed 61 tests and production build.
+- Latest validated checks: 391 backend tests, 62 frontend tests, frontend build, formatting, credential scan, dependency audit and container startup passed.
 - [Linked sequence report](linked-scoring-sequence.md): exact chronology, strict linking, live failures and fallback behavior.
 - [Five-fan evaluation](fan-evaluation.md): prepared; real sessions remain unrun.
-- Latest focused live check: two AI returns, one content rejection and one provider rate limit across four requests. The [editorial review](recap-quality-v13-review.md) preserves failures and limits. Consistent accurate, engaging AI prose remains unresolved.
+- Latest v14 live check: one source-correct bilingual halftime recap after revision, with repeated equalizer wording still present. The [24 October evidence](recap-capacity-oct24.md) and [earlier editorial review](recap-quality-v13-review.md) preserve the limited success and failures separately. Consistent accurate, engaging AI prose remains unresolved.
 - Public code: https://github.com/plopez-4/matchos. Canonical release branch: `main` after integration.
 - Public demo video: not provided. Hosted judging access/test build: not confirmed. Complete these before portal submission.
 - Confirm [asset permissions](visual-assets.md) for footage. No permission is inferred from hackathon branding.

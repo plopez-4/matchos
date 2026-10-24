@@ -1,5 +1,7 @@
 # Current documentation
 
+Publication decision and remaining gates: [24 October readiness review](publish-readiness.md). Deployment is on hold until the quality and billing checks are resolved.
+
 Latest AI work: [recap quality checks and recorded failures](recap-quality-v13-review.md).
 
 24 October update: [shared Azure cooldown and live recap check](recap-capacity-oct24.md), [judging deployment preparation](judging-deployment.md).
