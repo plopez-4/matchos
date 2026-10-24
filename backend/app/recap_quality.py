@@ -74,6 +74,40 @@ def clock_ranges(text):
     return result
 
 
+def pass_partition(text, link):
+    """Recognize a measured individual pass followed by the remaining team passes.
+
+    Only explicit EN/ES count partitions are supported; unrelated digits, scores
+    and clocks cannot supply the team total. This is not a general prose parser.
+    """
+    plain = normalized(text)
+    number = r'(?:\d+|one|two|three|four|five|un|uno|dos|tres|cuatro|cinco|a)'
+    first = re.search(r'\b(?:completed|completo)\s+('+number+r')\s+(?:completed\s+)?(?:pass|pase)\b', plain)
+    reverse = re.search(r'\b('+number+r')\s+(?:completed pass by|pase completado por)\s+([^,;.]+?)\s+(?:and|y)\s+('+number+r')\s+(?:others by teammates|por sus companeros)\b', plain)
+    more = re.search(r'\b('+number+r')\s+(?:(?:more|team)\s+)*(?:passes|pases)\s*(?:mas\b)?', plain[first.end():]) if first else None
+    if reverse:
+        left, right = reverse.group(1), reverse.group(3)
+        subject = reverse.group(2)
+    elif first and more:
+        left, right = first.group(1), more.group(1)
+        subject = plain[:first.start()]
+        # Require the explicit remainder marker rather than two arbitrary counts.
+        if not re.search(r'\b(?:more|mas)\b',more.group()): return False
+    else:
+        return False
+    actors = {row['player_name'] for row in link.get('completed_passes', [])}
+    positions = [(max(subject.rfind(normalized(actor)),subject.rfind(normalized(actor.split()[-1]))),actor)
+                 for actor in actors if normalized(actor) in subject or re.search(r'\b'+re.escape(normalized(actor.split()[-1]))+r'\b',subject)]
+    if not positions: return False
+    _, actor = max(positions)
+    count = lambda word: 1 if word in ('a','un') else int(count_digits(word)[0])
+    individual = sum(row['player_name']==actor for row in link['completed_passes'])
+    if count(left)!=individual or count(right)!=link['completed_pass_count']-individual:
+        raise RecapQualityError('wrong_scoring_sequence_pass_partition',player=actor,
+                                individual_completed_passes=individual,team_completed_passes=link['completed_pass_count'])
+    return True
+
+
 def scoped_ranges(sentence, fact, now):
     result = clock_ranges(sentence)
     plain = normalized(sentence)
@@ -103,7 +137,7 @@ def validate(text, packet, cited):
         r'\bdomina(?:n)?\b(?!\s+\d+\s*[-:]\s*\d+)',
         r'\b(?:quality|better|high-quality) (?:chances?|opportunities)|\bocasiones? claras?\b',
         r'\b(?:player_shot_creation|player_shooting|player_forward_passing|metric_window|editorial_plan)\b',
-        r'\b(?:fine|precise|brilliant|superb) (?:goal|strike|shot|finish)\b',
+        r'\b(?:fine|precise|brilliant|superb) (?:goal|strike|shot|finish|pass)\b',
         r'\b(?:vision|finishing quality|combined seamlessly|seamless (?:combination|partnership))\b',
         r'\b(?:set|sets|setting) the tone\b|\bsharp build[- ]up\b',
         r'\b(?:marco|marca|marcando) el ritmo\b',
@@ -111,9 +145,10 @@ def validate(text, packet, cited):
         r'\b(?:(?:primera|segunda)\s+)?(?:mitad|parte|partido)\s+(?:intens[oa]|vibrante|emocionante)\b',
         r'\bbalanced (?:(?:first|second|opening|closing) )?(?:contest|match|game|half)\b|\bpartido equilibrado\b',
         r'\btightly contested\b|\b(?:partido|encuentro) (?:muy )?disputado\b',
+        r'\btight contest\b|\bduelo cerrado\b',
         r'\btension (?:stays|remains|is) high\b|\b(?:high|rising) tension\b|\btension (?:se mantiene|es|sigue) alta\b',
         r'\bmomentum shifts?\b|\bshifts? in momentum\b|\bcambios? de ritmo\b',
-        r'\b(?:gol|disparo|remate) (?:preciso|brillante|magistral)|\b(?:vision|se combinaron perfectamente)\b',
+        r'\b(?:gol|disparo|remate|pase) (?:preciso|brillante|magistral)|\b(?:vision|se combinaron perfectamente)\b',
         r'\b(?:assists?|asistencias?|asistio|asistid[oa]s?|asistiendo)\b',
         r'\b(?:headers?|headed shots?|dribbl(?:es?|ing)|take[- ]?ons?|line[- ]breaking|broke (?:the )?lines|beat (?:his|their|the) (?:man|defender))\b',
         r'\b(?:cabezazos?|remates? de cabeza|regates?|rompio las lineas|supero a su (?:rival|defensor))\b',
@@ -181,6 +216,19 @@ def validate(text, packet, cited):
                     return scoped_ranges(sentences[index-1], fact, now)
                 return explicit
             def point_supported(fact):
+                if fact['data'].get('kind')=='player_shot_creation':
+                    # A single recorded pass is an event, not a window-wide passing total.
+                    # Keep plural/shot claims under the existing statistical scope checks.
+                    if (not re.search(r'\b(?:pass|pase)\b',sentence,re.I)
+                            or re.search(r'\b(?:passes|pases|shots?|attempts?|remates?|tiros?)\b',sentence,re.I)):
+                        return False
+                    metric=fact['data']['metric']
+                    plain_sentence=normalized(sentence)
+                    mentioned=lambda name: any(re.search(r'(?<!\w)'+re.escape(alias)+r'(?!\w)',plain_sentence)
+                        for alias in (normalized(name),normalized(name).split()[-1]) if alias)
+                    return any((action.get('pass_clock') or label(action['pass_second'],action['pass_second']).split('–')[0]) in sentence
+                               and mentioned(metric['player_name']) and mentioned(action['recipient_player_name'])
+                               for action in fact.get('chronology',{}).get('actions',[]))
                 if fact['data'].get('kind') != 'recovery_shot':
                     return False
                 point = fact.get('point_clock')
@@ -194,6 +242,18 @@ def validate(text, packet, cited):
                     nearby=' '.join(sentences[max(0,index-1):index+2])
                     if link['recovery_clock'] in nearby and link['goal_clock'] in nearby:
                         return True
+                    # A bounded continuation may follow the scoreboard sentence.
+                    # Require the exact linked clocks, duration and any pass partition.
+                    prior=' '.join(sentences[max(0,index-3):index])
+                    if (re.match(r'^(?:the|this|la|esta) (?:sequence|secuencia)\b',normalized(sentence))
+                            and not re.search(r'\d{1,3}:\d{2}',sentence)
+                            and link['recovery_clock'] in prior and link['goal_clock'] in prior
+                            and str(fact['data']['metric']['elapsed_seconds']) in count_digits(sentence)
+                            and re.search(r'\b(?:seconds?|segundos?)\b',sentence,re.I)
+                            and re.search(r'\b(?:recover\w*|recuper\w*)\b',normalized(sentence))
+                            and (not re.search(r'\b(?:passes|pases|pass|pase)\b',sentence,re.I)
+                                 or pass_partition(sentence,link))):
+                        return True
                 if (link and point and point not in clause and index+1<len(sentences)
                         and point in sentences[index+1]
                         and any(normalized(name) in normalized(sentence)
@@ -202,7 +262,18 @@ def validate(text, packet, cited):
                 if point and point not in clause and not re.search(r'\d{1,3}:\d{2}', sentence) and index and re.match(r'^(?:this|these|that|those|esta|este|estos|estas)\b', normalized(sentence)):
                     clause = sentences[index-1]
                 return bool(point and point in clause)
-            if not any(allowed & contextual_ranges(fact) or point_supported(fact) for fact in metrics):
+            def definition_supported(fact):
+                if fact['data'].get('kind')!='recovery_shot': return False
+                plain_sentence=normalized(sentence)
+                threshold=fact['data']['metric'].get('threshold_seconds')
+                return bool(threshold is not None and count_digits(sentence)==[str(threshold)]
+                    and not re.search(r'\d{1,3}:\d{2}',sentence)
+                    and re.search(r'\b(?:threshold|rule|umbral|regla)\b',plain_sentence)
+                    and re.search(r'\b(?:seconds?|segundos?)\b',plain_sentence)
+                    and re.search(r'\b(?:within|inside|meets?|cumple|dentro)\b',plain_sentence)
+                    and not re.search(r'\b(?:outside|fuera)\b|\b(?:not|no)\s+(?:\w+\s+){0,2}(?:within|inside|meet\w*|cumple)\b',plain_sentence)
+                    and fact.get('point_clock') in ' '.join(sentences[:index]))
+            if not any(allowed & contextual_ranges(fact) or point_supported(fact) or definition_supported(fact) for fact in metrics):
                 raise RecapQualityError('ambiguous_statistic_window', sentence_index=sentences.index(sentence))
 
 
@@ -231,6 +302,21 @@ def validate_selected_claims(text, packet):
     known_names = {normalized(row[key]) for row in packet.get('events', [])
                    for key in ('player_name', 'recipient_player_name') if row.get(key)}
 
+    trajectory=next((fact['data'] for fact in packet['facts'] if fact['fact_id']=='trajectory'),{})
+    transitions=trajectory.get('transitions',[])
+    if transitions:
+        clock=lambda row:f"{row['match_second']//60}:{row['match_second']%60:02d}"
+        goal_clocks={clock(row) for row in transitions}
+        equalizer_clocks={clock(row) for row in transitions if row['type']=='equalization'}
+        for sentence in sentences:
+            plain=normalized(sentence)
+            for claim in re.finditer(r'\b(?:goal|gol)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})',plain):
+                if claim.group(1) not in goal_clocks:
+                    raise RecapQualityError('wrong_explicit_goal_clock',claimed_clock=claim.group(1),recorded_goal_clocks=sorted(goal_clocks))
+            for claim in re.finditer(r'\b(?:equalized?|levelled?|leveled?|empato|igualo)\b[^.!?;:]{0,70}?\b(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})',plain):
+                if claim.group(1) not in equalizer_clocks:
+                    raise RecapQualityError('wrong_equalizer_clock',claimed_clock=claim.group(1),recorded_equalizer_clocks=sorted(equalizer_clocks))
+
     def named(name, sentence):
         full = normalized(name)
         aliases = {full}
@@ -238,6 +324,34 @@ def validate_selected_claims(text, packet):
             if len(part) >= 3 and not any(part in other.split() for other in known_names if other != full):
                 aliases.add(part)
         return any(re.search(r'(?<!\w)' + re.escape(alias) + r'(?!\w)', normalized(sentence)) for alias in aliases)
+    shot_clocks={f"{event['match_second']//60}:{event['match_second']%60:02d}"
+                 for event in packet.get('events',[]) if event.get('type')=='shot'}
+    shot_clocks.update(row['shot_clock'] for row in transitions if row.get('shot_clock'))
+    for fact in packet['facts']:
+        shot_clocks.update(action.get('shot_clock') or f"{action['shot_second']//60}:{action['shot_second']%60:02d}"
+                           for action in fact.get('chronology',{}).get('actions',[]))
+        link=fact['data'].get('metric',{}).get('goal_link')
+        if link: shot_clocks.add(link['shot_clock'])
+        if fact['data'].get('kind')=='recovery_shot' and fact.get('point_clock'):
+            shot_clocks.add(fact['point_clock'])
+    for sentence in sentences:
+        plain=normalized(sentence)
+        explicit_shot=r'\b(?:goal attempt|shot|remate|tiro|disparo)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})'
+        combined=r'\b(?:shot|remato|disparo)\s+(?:and|y)\s+(?:goal|scored|anoto|marco)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})'
+        for pattern in (explicit_shot,combined):
+            for claim in re.finditer(pattern,plain):
+                if shot_clocks and claim.group(1) not in shot_clocks:
+                    raise RecapQualityError('wrong_explicit_shot_clock',claimed_clock=claim.group(1),recorded_shot_clocks=sorted(shot_clocks))
+        for row in transitions:
+            if not row.get('scorer') or row.get('goal_clock') not in sentence: continue
+            for other in {item['scorer'] for item in transitions if item.get('scorer')}-{row['scorer']}:
+                person=re.escape(normalized(other))
+                at=re.escape(row['goal_clock'])
+                before=r'\b'+person+r'\s+(?:scored|marco|anoto)\b[^\d.!?;]{0,65}'+at
+                after=at+r'[^\d.!?;]{0,40}?(?:(?:with|con)\s+(?:a goal (?:from|by)|un gol de)\s+'+person+r'\b|with\s+'+person+r'\s+scoring\b)'
+                if re.search(before,plain) or re.search(after,plain):
+                    raise RecapQualityError('wrong_explicit_goal_scorer',claimed_scorer=other,
+                                            recorded_scorer=row['scorer'],goal_clock=row['goal_clock'])
     for fact in packet['facts']:
         if fact['fact_id'] not in required:
             continue
@@ -260,6 +374,19 @@ def validate_selected_claims(text, packet):
                 targets = {link['recipient_player_name'] for link in metric['links']}
                 if len(targets) == 1:
                     names.extend(targets)
+                for sentence in sentences:
+                    if not named(metric['player_name'],sentence): continue
+                    for claim in re.finditer(r'\b(?:pass|pase)\b(?P<tail>[^,.!?;:]{0,110}?)\b(?:at|a los|al|a las)\s+(?P<clock>\d{1,3}:\d{2})',normalized(sentence)):
+                        if re.search(r'\b(?:scored|marco|anoto|shot|shoots?|remat\w*|dispar\w*|goal|gol)\b',claim['tail']):
+                            continue
+                        recipients={target for target in targets if named(target,sentence)}
+                        if not recipients: continue
+                        clocks={action.get('pass_clock') or f"{action['pass_second']//60}:{action['pass_second']%60:02d}"
+                                for action in fact.get('chronology',{}).get('actions',[])
+                                if action['recipient_player_name'] in recipients}
+                        if clocks and claim['clock'] not in clocks:
+                            raise RecapQualityError('wrong_creation_pass_clock',fact_id=fact['fact_id'],
+                                player=metric['player_name'],claimed_clock=claim['clock'],recorded_pass_clocks=sorted(clocks))
         elif kind == 'shot_activity' and 'current' in metric:
             counts = [metric['current']['shot_count'], metric['previous']['shot_count']]
         elif kind in ('high_recovery', 'progressive_pass', 'recovery_shot'):
@@ -304,11 +431,12 @@ def validate_selected_claims(text, packet):
                     after=' '.join(sentences[index:index+2])
                     context=' '.join(sentences[max(0,index-1):index+2])
                     plain_context=normalized(context)
+                    partition=pass_partition(context,link)
                     timed_shot=(link['shot_clock'] in sentence and re.search(
                         r'\b(?:shot|shoots?|fired|remato|disparo|tiro)\b',normalized(sentence))
                         and str(metric['elapsed_seconds']) in count_digits(context))
                     passing_path=(link['recovery_clock'] in context and re.search(r'\b(?:passes|pases)\b',plain_context)
-                                  and str(link['completed_pass_count']) in count_digits(context)
+                                  and (str(link['completed_pass_count']) in count_digits(context) or partition)
                                   and re.search(r'\b(?:recover\w*|recuper\w*)\b',plain_context))
                     if (link['goal_clock'] in after and all(named(name,context) for name in names)
                             and (timed_shot or passing_path)):
@@ -335,9 +463,14 @@ def validate_selected_claims(text, packet):
                                     and named(link['recoverer'],between)):
                                 raise RecapQualityError('wrong_recovery_clock',fact_id=fact['fact_id'])
                     if (re.search(r'\b(?:passes|pases)\b', normalized(sentence))
-                            and str(link['completed_pass_count']) not in count_digits(sentence)):
+                            and str(link['completed_pass_count']) not in count_digits(sentence)
+                            and not pass_partition(sentence,link)):
                         raise RecapQualityError('wrong_scoring_sequence_pass_count', fact_id=fact['fact_id'])
                     for claim in re.finditer(r'\b(?:completed|completing|completes?|completo|completaron|completando|completar)\s+(\w+)\s+(?:team\s+)?(?:passes|pases)\b',plain):
+                        # "Three completed team passes" does not mean a player "completed team passes" numerically.
+                        claimed=count_digits(claim.group(1))
+                        if not claimed:
+                            continue
                         prefix=plain[:claim.start()]
                         actors={row['player_name'] for row in link.get('completed_passes',[])}
                         candidates=[(max(prefix.rfind(normalized(actor)),prefix.rfind(normalized(actor.split()[-1]))),actor)
@@ -346,13 +479,24 @@ def validate_selected_claims(text, packet):
                         if candidates:
                             position,actor=max(candidates)
                             actual=sum(row['player_name']==actor for row in link['completed_passes'])
+                            # An explicit plural subject can own the remaining passes jointly.
+                            # "Ugarte and Fernandes completed two" is not Fernandes alone.
+                            joint={actor}
+                            for other in actors-{actor}:
+                                aliases=lambda name:(normalized(name),normalized(name.split()[-1]))
+                                if any(re.search(r'\b'+re.escape(a)+r'\s+(?:and|y)\s+'+re.escape(b)+r'\s+(?:then\s+)?$',prefix)
+                                       for left,right in ((other,actor),(actor,other))
+                                       for a in aliases(left) for b in aliases(right)):
+                                    joint.add(other)
+                            if len(joint)>1:
+                                actual=sum(row['player_name'] in joint for row in link['completed_passes'])
                             if position>team_position and count_digits(claim.group(1))!=[str(actual)]:
                                 raise RecapQualityError('wrong_scoring_sequence_pass_credit',fact_id=fact['fact_id'],
                                     player=actor, claimed_count=count_digits(claim.group(1)),
                                     individual_completed_passes=actual,
                                     team_name=link['team_name'], team_completed_passes=link['completed_pass_count'])
                             if position>team_position:
-                                recipients={row['recipient_player_name'] for row in link['completed_passes'] if row['player_name']==actor}
+                                recipients={row['recipient_player_name'] for row in link['completed_passes'] if row['player_name'] in joint}
                                 clause=re.split(r'\b(?:before|while|mientras|antes|ending|finalizando|who|quien|then|despues)\b',
                                                 plain[claim.end():],maxsplit=1)[0]
                                 if re.search(r'\b(?:to|a)\b',clause):
@@ -370,10 +514,32 @@ def validate_selected_claims(text, packet):
                 recovery_second=shot_second-metric['elapsed_seconds']
                 recovery_clock=f'{recovery_second//60}:{recovery_second%60:02d}'
                 participants=list(fact.get('participants',{}).values())
+                # A fully timestamped recorded route can span several short sentences.
+                # Every source action, participant and clock must appear in order.
+                actions=fact.get('ordered_actions',[])
+                for start in range(len(sentences)):
+                    context=normalized(' '.join(sentences[start:start+5]))
+                    positions=[context.find(action['clock']) for action in actions]
+                    if (actions and all(position>=0 for position in positions)
+                            and positions==sorted(set(positions))
+                            and not set(count_digits(re.sub(r'\b\d+\s*-\s*\d+\b','',context)))-{str(metric['threshold_seconds'])}):
+                        for index,action in enumerate(actions):
+                            left=positions[index-1] if index else 0
+                            if index:
+                                left=context.rfind('.',0,positions[index-1])+1
+                            right=positions[index+1] if index+1<len(actions) else len(context)
+                            local=context[left:right]
+                            names_in_action=[action[key] for key in ('player','passer','recipient') if action.get(key)]
+                            if not all(named(name,local) for name in names_in_action): break
+                        else:
+                            break
+                else:
+                    actions=[]
+                if actions: continue
                 # Both exact source clocks express the measured duration without a repeated number.
                 if any(recovery_clock in context and point in context
                        and re.search(r'\b(?:recover\w*|recuper\w*)\b',normalized(context))
-                       and re.search(r'\b(?:shot|shoots?|fired|remato|disparo)\b',normalized(context))
+                       and re.search(r'\b(?:shot|shoots?|fired|remat\w*|dispar\w*|tiros?)\b',normalized(context))
                        and all(named(name,context) for name in participants)
                        for index in range(len(sentences))
                        for context in [' '.join(sentences[index:index+2])]):

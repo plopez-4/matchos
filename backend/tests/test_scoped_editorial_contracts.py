@@ -117,8 +117,15 @@ def test_captured_generic_momentum_claim_is_rejected_in_both_languages():
 
 def test_model_reviewed_pass_credit_error_is_rejected_in_both_languages():
     for language in ('en','es'):
+        text=ACCEPTED_BAD['draft'][language]
+        # This actual output also conflates its shot/goal clocks. Isolate that
+        # error first, then verify the independent individual-pass attribution.
+        if language=='en':
+            with pytest.raises(recap_quality.RecapQualityError,match='wrong_explicit_shot_clock'):
+                recap_quality.validate_selected_claims(text,ACCEPTED_BAD['packet'])
+            text=text.replace('shot and scored at 40:11','scored at 40:11')
         with pytest.raises(recap_quality.RecapQualityError,match='wrong_scoring_sequence_pass_credit'):
-            recap_quality.validate_selected_claims(ACCEPTED_BAD['draft'][language],ACCEPTED_BAD['packet'])
+            recap_quality.validate_selected_claims(text,ACCEPTED_BAD['packet'])
         with pytest.raises(recap_quality.RecapQualityError,match='unsupported_interpretation'):
             recap_quality.validate(ACCEPTED_BAD['draft'][language],ACCEPTED_BAD['packet'],set(ACCEPTED_BAD['draft']['fact_ids']))
 

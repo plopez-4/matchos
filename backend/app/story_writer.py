@@ -15,9 +15,10 @@ from app import security
 from app.intelligence import match_stories
 from app import recap_quality
 from app import ai_capacity
-from app.recap_context import creator_chronology
+from app import recap_diagnostics
+from app.recap_context import creator_chronology, score_chronology
 
-VERSION = 'fan-narrative-v16-verified-passing-relationships'
+VERSION = 'fan-narrative-v19-named-scoring-timeline'
 CACHE = OrderedDict()
 LOCK = threading.Lock()
 
@@ -107,7 +108,8 @@ def evidence_packet(briefing, events):
 
     add('score', {'names': briefing['locale_facts']['names'], 'score': briefing['trajectory']['score']},
         briefing['trajectory']['evidence_event_ids'] or [observed[-1].event_id])
-    add('trajectory', briefing['trajectory'], briefing['trajectory']['evidence_event_ids'] or [observed[-1].event_id])
+    add('trajectory', score_chronology(briefing['trajectory'],observed,briefing['locale_facts']['names']),
+        briefing['trajectory']['evidence_event_ids'] or [observed[-1].event_id])
     add('phase', {'phase': briefing['locale_facts']['phase'], 'clock': briefing['clock'],
                   'match_second': now, 'has_new_goals': briefing['locale_facts']['has_new_goals']}, [observed[-1].event_id])
     if plan is None:
@@ -215,6 +217,9 @@ def writer_evidence(packet):
                          'score_change':link['score_change'],'score_after':link['score_after']}])
         fact['data']={'kind':'verified_scoring_sequence','team_name':link['team_name'],
                       'ordered_actions':actions,'team_completed_passes':link['completed_pass_count'],
+                      'individual_completed_passes':[
+                          {'player':actor,'count':sum(row['player_name']==actor for row in link['completed_passes'])}
+                          for actor in dict.fromkeys(row['player_name'] for row in link['completed_passes'])],
                       'seconds_recovery_to_shot':data['metric']['elapsed_seconds']}
     return {'source': packet['source'], 'facts': facts,
             'required_fact_ids': packet['required_fact_ids'], 'editorial_plan': packet['editorial_plan']}
@@ -310,6 +315,10 @@ def writer_prompt(briefing):
         'Combine a selected goal and its verified build-up in the SAME explanation rather than announcing it twice. '
         'Include every required_fact_id, even when one explanation covers both a goal and its connected move. '
         'Respect the actual score: level means tied/empatados; use lead/gana/va por delante ONLY for an actual lead. '
+        'Read trajectory.transitions for ALL mentioned goals, including historical context: each has a scorer, team, '
+        'goal_clock, separate shot_clock and score effect. Never borrow another goal\'s scorer or clock. '
+        'A shot/goal attempt uses shot_clock; scoring uses goal_clock. Do not combine shot and goal under one timestamp '
+        'when their records have different clocks. You may omit shot time. '
         'Use retrospective wording at halftime/fulltime. Old goals are context, never newly happening now. '
         'Use the selected contribution once; do not append a conclusion about what the pattern or connection shows. '
         'Each sentence adds an observed action, score change, chronology relationship or necessary limitation. '
@@ -331,6 +340,7 @@ def writer_prompt(briefing):
             'NO analysis window or extra rule threshold is needed. You may omit the separate shot time and elapsed seconds. '
             'If mentioning elapsed seconds, they measure recovery to SHOT, not recovery to GOAL. '
             'The recoverer did not make every team pass; individual actors are listed in ordered_actions. '
+            'individual_completed_passes explicitly counts each player; team_completed_passes counts the whole team. '
             'Do not imply a subset of passers made the entire team total. '
         )
     elif 'recovery_shot' in kinds:
@@ -353,6 +363,8 @@ def writer_prompt(briefing):
                 'For repeated pass-to-shot links, name both passer and recipient when there is one recipient. '
                 'The count means completed final passes immediately followed by that recipient shooting, NOT assists. '
                 'Use chronology.goal_relationships to distinguish the goal-producing attempt from later attempts. '
+                'Use chronology.actions.pass_clock for a pass and shot_clock for a shot. The goal_clock is a separate goal record; '
+                'never assign the shot clock to its preceding pass or the goal clock to the shot. '
                 'An entire pattern containing later shots is not the build-up to its earlier goal. '
             )
     else:
@@ -382,6 +394,9 @@ def legacy_writer_prompt(briefing):
         'causal tactical claims, possession percentages, unrecorded assists/cards/chances or invented players. '
         'Passing counts alone do not establish control. Mention a pass sequence only when it is actually recorded. '
         'Respect phase, exact score and score order; repeated equalizers are not lead reversals. '
+        'For every goal and equalizer, read trajectory.transitions: each has its own match_second, type, before and after score. '
+        'Never reuse a later lead-taking timestamp for an earlier equalizer, or a shot timestamp for the goal record. '
+        'For pass chains, distinguish the team total from each individual passer; prefer the team total followed by named actions. '
         'If no new goal, say the score is unchanged since the last check; do not present old goals as new. '
         'At half/full-time use retrospective language with no live countdown. '
         'Do not read every metric, timestamp, or player. Every goal remains in the separate evidence drawer. '
@@ -431,6 +446,9 @@ def review_prompt():
                 'Check each metric sentence attributes the exact count, team and supplied clock range; passing and shooting may cover different windows. '
                 'The prose is authored by the writer, not server-certified text. Check actual coverage, not just listed IDs. '
                 'Each selected goal must have its scorer and exact time, including when explained inside its build-up. '
+                'Check historical scorers too against trajectory.transitions, not only the selected goals. '
+                'goal_clock and shot_clock are distinct: reject assigning a goal timestamp to a shot or goal attempt, '
+                'including combined shot-and-goal wording under one timestamp. '
                 'Rolling contributions need the named player/team, count and supplied window. '
                 'A linked scoring sequence instead needs its named recoverer/scorer, actual recovery clock, team-pass total, '
                 'goal clock and score effect; a correct shot clock plus recovery-to-shot duration is also sufficient. '
@@ -440,6 +458,7 @@ def review_prompt():
                 'Check chronology.goal_relationships and every action time, not just the overall window. '
                 'For recovery_shot.metric.goal_link, verify the exact shot-to-goal reference, participants and score_change. '
                 'Check recovery_clock versus shot_clock and completed_passes: the recoverer did not necessarily make every pass. '
+                'Check the exact passer and recipient of every described pass; relative pronouns must not transfer a pass to another player. '
                 'A current tied score cannot be described as either side leading in either language. '
                 'A tied score does not establish a balanced contest. Check the grammatical subject: '
                 'a player recovering FOR a team did not thereby complete all the subsequent team passes. '
@@ -506,10 +525,12 @@ def write(briefing, events, client=None):
     try:
         draft = complete(client, config, [{'role': 'system', 'content': instruction},
                                           {'role': 'user', 'content': data}], 'match_recap', schema)
+        recap_diagnostics.record('draft',draft=draft)
         stage = 'draft_validation'
         try:
             draft = compose_draft(draft, packet)
         except recap_quality.RecapQualityError as error:
+            recap_diagnostics.record('draft_rejected',error=error)
             if plan is None:
                 raise
             # Reserve another pair conservatively: at most one revision and
@@ -523,6 +544,7 @@ def write(briefing, events, client=None):
                 {'role':'user', 'content':json.dumps({'evidence':writer_evidence(packet), 'draft':draft,
                     'validation':{'code':str(error), 'details':error.details}}, ensure_ascii=False)}
             ], 'match_recap_revision', schema)
+            recap_diagnostics.record('revision',draft=draft)
             stage = 'revision_validation'
             draft = compose_draft(draft, packet)
         stage = 'review'
@@ -551,6 +573,7 @@ def write(briefing, events, client=None):
                   'revision_used': extra_reserved,
                   'fallback_reason': None}
     except recap_quality.RecapQualityError as error:
+        recap_diagnostics.record(stage+'_rejected',error=error)
         result = {**fallback, 'fallback_reason': str(error), 'validation_stage': stage,
                   'validation_details': error.details}
     except ai_capacity.CoolingDown as error:
@@ -569,6 +592,7 @@ def write(briefing, events, client=None):
             security.release_ai()
         if owned:
             client.close()
+    result.setdefault('revision_used',extra_reserved)
     # Cache only successful reviewed prose; transient failures can be retried explicitly.
     if result['mode'] == 'azure':
         with LOCK:

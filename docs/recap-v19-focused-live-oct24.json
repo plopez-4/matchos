@@ -1,0 +1,4764 @@
+{
+  "evaluation": "Focused follow-up: 3 situations x two audiences; both languages",
+  "started_utc": "2026-10-24T20:35:53.396112+00:00",
+  "writer_version": "fan-narrative-v19-named-scoring-timeline",
+  "generator_version": "match-radar-v4-nine-matches",
+  "source_hashes": {
+    "backend/app/matchday.py": "bc0cc8adb722725f7c1a2fc5149f91dd51b99909205eb5d785fd7e761c7456e4",
+    "backend/app/story_writer.py": "ad6d12da27caf9190dfd2a1d3cf02772152d5c54e48ee6e48ddb99a583478d01",
+    "backend/app/recap_context.py": "fa61368e5d451495c16b1eb91fb483a2ec9de80a91bd7f60a0f9cf311f0b6a03",
+    "backend/app/recap_quality.py": "372680acf38803a156aa456fc7ca03eb9fa5d0a8766725a3247dee570f06f72f",
+    "backend/app/story_plan.py": "d02a588879b0a97addc7851bd92a8e1b2e6a06cae0d50f20c47bec52108fee5e",
+    "backend/app/data/match_variants.json": "2c2bd808c0c1f89786aa1be1b690fc5f92b933341199d009db4e2567b9335e46",
+    "backend/app/data/players_2026.json": "ec25314d6906fc69074d44b594cca8338f769d92b37af74cd8ff6738811f074a"
+  },
+  "cases": [
+    {
+      "case": "early_derby_contribution",
+      "role": "featured",
+      "variant_id": 1,
+      "second": 1500,
+      "cursor_second": 0,
+      "audience": "casual",
+      "http_status": 200,
+      "seconds": 6.8,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Manchester United leads 1-0 against Manchester City at 25:00, thanks to Bryan Mbeumo's goal at 15:11. This goal came right after Bruno Fernandes repeatedly passed to Mbeumo three times between 15:00 and 25:00, with one of those passes at 15:09 setting up the decisive shot at 15:10. Despite two later saved shots by Mbeumo at 16:40 and 18:40, the score remains unchanged as the match continues.",
+            "es": "Manchester United va por delante 1-0 frente a Manchester City a los 25:00, gracias al gol de Bryan Mbeumo a los 15:11. Este gol llegó tras tres pases repetidos de Bruno Fernandes a Mbeumo entre 15:00 y 25:00, incluyendo uno a los 15:09 que preparó el remate decisivo a los 15:10. Aunque Mbeumo tuvo dos remates detenidos a los 16:40 y 18:40, el marcador sigue igual mientras continúa el partido.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-featured-e124",
+              "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "draft_rejected",
+          "error": "ambiguous_statistic_window",
+          "details": {
+            "sentence_index": 2,
+            "language": "en",
+            "issues": [
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 2,
+                  "language": "en"
+                }
+              },
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 2,
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "stage": "revision",
+          "draft": {
+            "en": "Manchester United leads 1-0 against Manchester City at 25:00, with Bryan Mbeumo scoring at 15:11 after receiving a pass from Bruno Fernandes at 15:09, who completed three passes to Mbeumo between 15:00 and 25:00. Mbeumo's shot at 15:10 resulted in the goal. Later, Mbeumo had two saved shots at 16:40 and 18:40, but the score remains unchanged as the match continues.",
+            "es": "Manchester United va por delante 1-0 frente a Manchester City a los 25:00, con Bryan Mbeumo anotando a los 15:11 tras recibir un pase de Bruno Fernandes a los 15:09, quien completó tres pases a Mbeumo entre 15:00 y 25:00. El remate de Mbeumo a los 15:10 resultó en el gol. Más tarde, Mbeumo tuvo dos remates detenidos a los 16:40 y 18:40, pero el marcador sigue igual mientras continúa el partido.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-featured-e124",
+              "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "revision_validation_rejected",
+          "error": "ambiguous_statistic_window",
+          "details": {
+            "sentence_index": 2,
+            "language": "en",
+            "issues": [
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 2,
+                  "language": "en"
+                }
+              },
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 2,
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-eaffbb14-63-featured",
+        "through_sequence": 210,
+        "since_sequence": 1,
+        "match_second": 1500
+      },
+      "text": {
+        "en": "Manchester United lead Manchester City 1 to 0. Bryan Mbeumo scored for Manchester United at 15:11. Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00. There are 65 minutes until ninety, plus added time.",
+        "es": "Manchester United va por delante de Manchester City, 1 a 0. Bryan Mbeumo marcó para Manchester United a los 15:11. Bruno Fernandes encontró repetidamente a Bryan Mbeumo: sus pases completados precedieron directamente 3 de los 3 remates de Manchester United en 15:00–25:00. Faltan 65 minutos para los noventa, más el añadido."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-featured-e124",
+          "kind": "goal",
+          "text": "Home scored at 15:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-featured-e123",
+            "library-audit-eaffbb14-63-featured-e124"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 124
+        },
+        {
+          "story_id": "player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot",
+          "kind": "player_shot_creation",
+          "metric": {
+            "match_id": "library-audit-eaffbb14-63-featured",
+            "team_id": "home",
+            "team_name": "Manchester United",
+            "period": 1,
+            "player_id": "home-7",
+            "player_name": "Bruno Fernandes",
+            "start_second": 900,
+            "end_second": 1500,
+            "count": 3,
+            "team_total": 3,
+            "min_gain": 15.0,
+            "max_link_seconds": 10,
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e122",
+              "library-audit-eaffbb14-63-featured-e123",
+              "library-audit-eaffbb14-63-featured-e140",
+              "library-audit-eaffbb14-63-featured-e141",
+              "library-audit-eaffbb14-63-featured-e159",
+              "library-audit-eaffbb14-63-featured-e160"
+            ],
+            "rule_version": "player-shot-creation-v1",
+            "coverage": "recorded_events_only",
+            "window_mode": "snapshot",
+            "start_inclusive": false,
+            "end_inclusive": true,
+            "links": [
+              {
+                "pass_event_id": "library-audit-eaffbb14-63-featured-e122",
+                "shot_event_id": "library-audit-eaffbb14-63-featured-e123",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-eaffbb14-63-featured-e140",
+                "shot_event_id": "library-audit-eaffbb14-63-featured-e141",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-eaffbb14-63-featured-e159",
+                "shot_event_id": "library-audit-eaffbb14-63-featured-e160",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              }
+            ],
+            "goal_shot_count": 1
+          },
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-featured-e122",
+            "library-audit-eaffbb14-63-featured-e123",
+            "library-audit-eaffbb14-63-featured-e140",
+            "library-audit-eaffbb14-63-featured-e141",
+            "library-audit-eaffbb14-63-featured-e159",
+            "library-audit-eaffbb14-63-featured-e160"
+          ],
+          "sequence": 160,
+          "available_second": 1500,
+          "rule_version": "player-shot-creation-v1",
+          "text": "Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00."
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 1,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 1,
+                "away": 0
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 911,
+                  "sequence": 124,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-featured-e124"
+                  ],
+                  "goal_clock": "15:11",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "15:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 1,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-featured-e124"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "25:00",
+              "match_second": 1500,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e210"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-featured-e124",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-featured-e124",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-featured-e123",
+                "library-audit-eaffbb14-63-featured-e124"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 124,
+              "goal": {
+                "player_name": "Bryan Mbeumo",
+                "team_name": "Manchester United",
+                "clock": "15:11",
+                "match_second": 911
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e123",
+              "library-audit-eaffbb14-63-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot",
+            "data": {
+              "story_id": "player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot",
+              "kind": "player_shot_creation",
+              "metric": {
+                "match_id": "library-audit-eaffbb14-63-featured",
+                "team_id": "home",
+                "team_name": "Manchester United",
+                "period": 1,
+                "player_id": "home-7",
+                "player_name": "Bruno Fernandes",
+                "start_second": 900,
+                "end_second": 1500,
+                "count": 3,
+                "team_total": 3,
+                "min_gain": 15.0,
+                "max_link_seconds": 10,
+                "evidence_event_ids": [
+                  "library-audit-eaffbb14-63-featured-e122",
+                  "library-audit-eaffbb14-63-featured-e123",
+                  "library-audit-eaffbb14-63-featured-e140",
+                  "library-audit-eaffbb14-63-featured-e141",
+                  "library-audit-eaffbb14-63-featured-e159",
+                  "library-audit-eaffbb14-63-featured-e160"
+                ],
+                "rule_version": "player-shot-creation-v1",
+                "coverage": "recorded_events_only",
+                "window_mode": "snapshot",
+                "start_inclusive": false,
+                "end_inclusive": true,
+                "links": [
+                  {
+                    "pass_event_id": "library-audit-eaffbb14-63-featured-e122",
+                    "shot_event_id": "library-audit-eaffbb14-63-featured-e123",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-eaffbb14-63-featured-e140",
+                    "shot_event_id": "library-audit-eaffbb14-63-featured-e141",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-eaffbb14-63-featured-e159",
+                    "shot_event_id": "library-audit-eaffbb14-63-featured-e160",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  }
+                ],
+                "goal_shot_count": 1
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-featured-e122",
+                "library-audit-eaffbb14-63-featured-e123",
+                "library-audit-eaffbb14-63-featured-e140",
+                "library-audit-eaffbb14-63-featured-e141",
+                "library-audit-eaffbb14-63-featured-e159",
+                "library-audit-eaffbb14-63-featured-e160"
+              ],
+              "sequence": 160,
+              "available_second": 1500,
+              "rule_version": "player-shot-creation-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e122",
+              "library-audit-eaffbb14-63-featured-e123",
+              "library-audit-eaffbb14-63-featured-e140",
+              "library-audit-eaffbb14-63-featured-e141",
+              "library-audit-eaffbb14-63-featured-e159",
+              "library-audit-eaffbb14-63-featured-e160"
+            ],
+            "window_labels": [
+              "15:00–25:00"
+            ],
+            "chronology": {
+              "actions": [
+                {
+                  "pass_event_id": "library-audit-eaffbb14-63-featured-e122",
+                  "shot_event_id": "library-audit-eaffbb14-63-featured-e123",
+                  "pass_second": 909,
+                  "shot_second": 910,
+                  "pass_clock": "15:09",
+                  "shot_clock": "15:10",
+                  "shot_sequence": 123,
+                  "shot_outcome": "goal",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-eaffbb14-63-featured-e140",
+                  "shot_event_id": "library-audit-eaffbb14-63-featured-e141",
+                  "pass_second": 999,
+                  "shot_second": 1000,
+                  "pass_clock": "16:39",
+                  "shot_clock": "16:40",
+                  "shot_sequence": 141,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-eaffbb14-63-featured-e159",
+                  "shot_event_id": "library-audit-eaffbb14-63-featured-e160",
+                  "pass_second": 1119,
+                  "shot_second": 1120,
+                  "pass_clock": "18:39",
+                  "shot_clock": "18:40",
+                  "shot_sequence": 160,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                }
+              ],
+              "goal_relationships": [
+                {
+                  "goal_event_id": "library-audit-eaffbb14-63-featured-e124",
+                  "goal_second": 911,
+                  "goal_clock": "15:11",
+                  "goal_team_id": "home",
+                  "scorer": "Bryan Mbeumo",
+                  "goal_attempt_shot_ids": [
+                    "library-audit-eaffbb14-63-featured-e123"
+                  ],
+                  "goal_attempt_count": 1,
+                  "other_earlier_shot_ids": [],
+                  "other_earlier_count": 0,
+                  "later_shot_ids": [
+                    "library-audit-eaffbb14-63-featured-e141",
+                    "library-audit-eaffbb14-63-featured-e160"
+                  ],
+                  "later_count": 2,
+                  "whole_pattern_precedes_goal": false
+                }
+              ],
+              "missing_link_count": 0,
+              "meaning": "repeated_completed_pass_followed_by_shot",
+              "does_not_measure": [
+                "vision",
+                "finishing_quality",
+                "tactical_causality",
+                "assists"
+              ]
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e122",
+            "sequence": 122,
+            "match_second": 909,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p31",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e123",
+            "sequence": 123,
+            "match_second": 910,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-featured:p31",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e124",
+            "sequence": 124,
+            "match_second": 911,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-featured:p31",
+            "related_event_id": "library-audit-eaffbb14-63-featured-e123",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e140",
+            "sequence": 140,
+            "match_second": 999,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p34",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 69.0,
+            "end_x": 82.0,
+            "end_y": 69.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e141",
+            "sequence": 141,
+            "match_second": 1000,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-eaffbb14-63-featured:p34",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 69.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e159",
+            "sequence": 159,
+            "match_second": 1119,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p38",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 17.0,
+            "end_x": 82.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e160",
+            "sequence": 160,
+            "match_second": 1120,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-eaffbb14-63-featured:p38",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 17.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e203",
+            "sequence": 203,
+            "match_second": 1442,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Kobbie Mainoo",
+            "recipient_player_name": "Bruno Fernandes",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p49",
+            "related_event_id": null,
+            "x": 35.0,
+            "y": 61.0,
+            "end_x": 41.0,
+            "end_y": 53.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e204",
+            "sequence": 204,
+            "match_second": 1444,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Matthijs de Ligt",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p49",
+            "related_event_id": null,
+            "x": 41.0,
+            "y": 53.0,
+            "end_x": 36.0,
+            "end_y": 58.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e205",
+            "sequence": 205,
+            "match_second": 1446,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Matthijs de Ligt",
+            "recipient_player_name": "Matheus Cunha",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p49",
+            "related_event_id": null,
+            "x": 36.0,
+            "y": 58.0,
+            "end_x": 39.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e206",
+            "sequence": 206,
+            "match_second": 1470,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e207",
+            "sequence": 207,
+            "match_second": 1472,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": "Elliot Anderson",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": 66.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e208",
+            "sequence": 208,
+            "match_second": 1474,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Elliot Anderson",
+            "recipient_player_name": "Rico Lewis",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 66.0,
+            "y": 83.0,
+            "end_x": 60.0,
+            "end_y": 75.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e209",
+            "sequence": 209,
+            "match_second": 1476,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rico Lewis",
+            "recipient_player_name": "Enzo Fernandez",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 60.0,
+            "y": 75.0,
+            "end_x": 57.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e210",
+            "sequence": 210,
+            "match_second": 1500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-featured:p51",
+            "related_event_id": null,
+            "x": 43.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-eaffbb14-63-featured-e124",
+          "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-eaffbb14-63-featured-e124",
+            "player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-eaffbb14-63-featured-e124",
+          "second": 911,
+          "team": "Manchester United",
+          "scorer": "Bryan Mbeumo",
+          "shot_id": "library-audit-eaffbb14-63-featured-e123"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "deterministic",
+      "fallback_reason": "ambiguous_statistic_window",
+      "validation_stage": "revision_validation",
+      "validation_details": {
+        "sentence_index": 2,
+        "language": "en",
+        "issues": [
+          {
+            "code": "ambiguous_statistic_window",
+            "details": {
+              "sentence_index": 2,
+              "language": "en"
+            }
+          },
+          {
+            "code": "ambiguous_statistic_window",
+            "details": {
+              "sentence_index": 2,
+              "language": "es"
+            }
+          }
+        ]
+      },
+      "model_review": null,
+      "revision_used": true,
+      "prompt_hash": "10337e77e8e04d8f75fc6ef9260e624ff5c56cafdf847f728ff8038f45790110"
+    },
+    {
+      "case": "early_derby_contribution",
+      "role": "featured",
+      "variant_id": 1,
+      "second": 1500,
+      "cursor_second": 0,
+      "audience": "advanced",
+      "http_status": 200,
+      "seconds": 7.91,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Manchester United leads 1-0 against Manchester City at 25:00, thanks to Bryan Mbeumo's goal at 15:11 following a pass at 15:09. Between 15:00 and 25:00, Bruno Fernandes completed 3 passes directly leading to Mbeumo's shots, including the goal. This pattern of repeated completed passes immediately followed by shots highlights United's focused attack during this period. The match remains in play with United holding the advantage after this decisive moment.",
+            "es": "Manchester United va por delante 1-0 contra Manchester City a los 25:00, gracias al gol de Bryan Mbeumo a los 15:11 tras un pase a los 15:09. Entre 15:00 y 25:00, Bruno Fernandes completó 3 pases que llevaron directamente a remates de Mbeumo, incluido el gol. Este patrón de pases completados seguidos inmediatamente por remates muestra el ataque concentrado de United en este periodo. El partido sigue en juego con United manteniendo la ventaja tras este momento decisivo.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-featured-e124",
+              "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "draft_rejected",
+          "error": "ambiguous_statistic_window",
+          "details": {
+            "sentence_index": 0,
+            "language": "en",
+            "issues": [
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 0,
+                  "language": "en"
+                }
+              },
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 0,
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "stage": "revision",
+          "draft": {
+            "en": "Manchester United leads 1-0 against Manchester City at 25:00, with Bryan Mbeumo scoring at 15:11 after receiving a pass at 15:09. Between 15:00 and 25:00, Bruno Fernandes completed 3 passes that immediately preceded Mbeumo's shots, including the goal. This pattern of repeated completed passes followed by shots illustrates United's attacking actions during this period. The match continues with United holding the advantage after this goal.",
+            "es": "Manchester United va por delante 1-0 contra Manchester City a los 25:00, con Bryan Mbeumo anotando a los 15:11 tras un pase a los 15:09. Entre 15:00 y 25:00, Bruno Fernandes completó 3 pases que precedieron inmediatamente a los remates de Mbeumo, incluido el gol. Este patrón de pases completados seguidos por remates refleja las acciones ofensivas de United en este periodo. El partido sigue con United manteniendo la ventaja tras este gol.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-featured-e124",
+              "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "revision_validation_rejected",
+          "error": "ambiguous_statistic_window",
+          "details": {
+            "sentence_index": 0,
+            "language": "en",
+            "issues": [
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 0,
+                  "language": "en"
+                }
+              },
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 0,
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-eaffbb14-63-featured",
+        "through_sequence": 210,
+        "since_sequence": 1,
+        "match_second": 1500
+      },
+      "text": {
+        "en": "Manchester United lead Manchester City 1 to 0. Bryan Mbeumo scored for Manchester United at 15:11. Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00. Each recipient shot on the next recorded action, in the same possession and within ten seconds; this is not a chance-quality rating. There are 65 minutes until ninety, plus added time.",
+        "es": "Manchester United va por delante de Manchester City, 1 a 0. Bryan Mbeumo marcó para Manchester United a los 15:11. Bruno Fernandes encontró repetidamente a Bryan Mbeumo: sus pases completados precedieron directamente 3 de los 3 remates de Manchester United en 15:00–25:00. El receptor remató en la siguiente acción registrada, en la misma posesión y en un máximo de diez segundos; no es una valoración de la ocasión. Faltan 65 minutos para los noventa, más el añadido."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-featured-e124",
+          "kind": "goal",
+          "text": "Home scored at 15:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-featured-e123",
+            "library-audit-eaffbb14-63-featured-e124"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 124
+        },
+        {
+          "story_id": "player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot",
+          "kind": "player_shot_creation",
+          "metric": {
+            "match_id": "library-audit-eaffbb14-63-featured",
+            "team_id": "home",
+            "team_name": "Manchester United",
+            "period": 1,
+            "player_id": "home-7",
+            "player_name": "Bruno Fernandes",
+            "start_second": 900,
+            "end_second": 1500,
+            "count": 3,
+            "team_total": 3,
+            "min_gain": 15.0,
+            "max_link_seconds": 10,
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e122",
+              "library-audit-eaffbb14-63-featured-e123",
+              "library-audit-eaffbb14-63-featured-e140",
+              "library-audit-eaffbb14-63-featured-e141",
+              "library-audit-eaffbb14-63-featured-e159",
+              "library-audit-eaffbb14-63-featured-e160"
+            ],
+            "rule_version": "player-shot-creation-v1",
+            "coverage": "recorded_events_only",
+            "window_mode": "snapshot",
+            "start_inclusive": false,
+            "end_inclusive": true,
+            "links": [
+              {
+                "pass_event_id": "library-audit-eaffbb14-63-featured-e122",
+                "shot_event_id": "library-audit-eaffbb14-63-featured-e123",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-eaffbb14-63-featured-e140",
+                "shot_event_id": "library-audit-eaffbb14-63-featured-e141",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-eaffbb14-63-featured-e159",
+                "shot_event_id": "library-audit-eaffbb14-63-featured-e160",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              }
+            ],
+            "goal_shot_count": 1
+          },
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-featured-e122",
+            "library-audit-eaffbb14-63-featured-e123",
+            "library-audit-eaffbb14-63-featured-e140",
+            "library-audit-eaffbb14-63-featured-e141",
+            "library-audit-eaffbb14-63-featured-e159",
+            "library-audit-eaffbb14-63-featured-e160"
+          ],
+          "sequence": 160,
+          "available_second": 1500,
+          "rule_version": "player-shot-creation-v1",
+          "text": "Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00."
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 1,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 1,
+                "away": 0
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 911,
+                  "sequence": 124,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-featured-e124"
+                  ],
+                  "goal_clock": "15:11",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "15:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 1,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-featured-e124"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "25:00",
+              "match_second": 1500,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e210"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-featured-e124",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-featured-e124",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-featured-e123",
+                "library-audit-eaffbb14-63-featured-e124"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 124,
+              "goal": {
+                "player_name": "Bryan Mbeumo",
+                "team_name": "Manchester United",
+                "clock": "15:11",
+                "match_second": 911
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e123",
+              "library-audit-eaffbb14-63-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot",
+            "data": {
+              "story_id": "player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot",
+              "kind": "player_shot_creation",
+              "metric": {
+                "match_id": "library-audit-eaffbb14-63-featured",
+                "team_id": "home",
+                "team_name": "Manchester United",
+                "period": 1,
+                "player_id": "home-7",
+                "player_name": "Bruno Fernandes",
+                "start_second": 900,
+                "end_second": 1500,
+                "count": 3,
+                "team_total": 3,
+                "min_gain": 15.0,
+                "max_link_seconds": 10,
+                "evidence_event_ids": [
+                  "library-audit-eaffbb14-63-featured-e122",
+                  "library-audit-eaffbb14-63-featured-e123",
+                  "library-audit-eaffbb14-63-featured-e140",
+                  "library-audit-eaffbb14-63-featured-e141",
+                  "library-audit-eaffbb14-63-featured-e159",
+                  "library-audit-eaffbb14-63-featured-e160"
+                ],
+                "rule_version": "player-shot-creation-v1",
+                "coverage": "recorded_events_only",
+                "window_mode": "snapshot",
+                "start_inclusive": false,
+                "end_inclusive": true,
+                "links": [
+                  {
+                    "pass_event_id": "library-audit-eaffbb14-63-featured-e122",
+                    "shot_event_id": "library-audit-eaffbb14-63-featured-e123",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-eaffbb14-63-featured-e140",
+                    "shot_event_id": "library-audit-eaffbb14-63-featured-e141",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-eaffbb14-63-featured-e159",
+                    "shot_event_id": "library-audit-eaffbb14-63-featured-e160",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  }
+                ],
+                "goal_shot_count": 1
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-featured-e122",
+                "library-audit-eaffbb14-63-featured-e123",
+                "library-audit-eaffbb14-63-featured-e140",
+                "library-audit-eaffbb14-63-featured-e141",
+                "library-audit-eaffbb14-63-featured-e159",
+                "library-audit-eaffbb14-63-featured-e160"
+              ],
+              "sequence": 160,
+              "available_second": 1500,
+              "rule_version": "player-shot-creation-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-featured-e122",
+              "library-audit-eaffbb14-63-featured-e123",
+              "library-audit-eaffbb14-63-featured-e140",
+              "library-audit-eaffbb14-63-featured-e141",
+              "library-audit-eaffbb14-63-featured-e159",
+              "library-audit-eaffbb14-63-featured-e160"
+            ],
+            "window_labels": [
+              "15:00–25:00"
+            ],
+            "chronology": {
+              "actions": [
+                {
+                  "pass_event_id": "library-audit-eaffbb14-63-featured-e122",
+                  "shot_event_id": "library-audit-eaffbb14-63-featured-e123",
+                  "pass_second": 909,
+                  "shot_second": 910,
+                  "pass_clock": "15:09",
+                  "shot_clock": "15:10",
+                  "shot_sequence": 123,
+                  "shot_outcome": "goal",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-eaffbb14-63-featured-e140",
+                  "shot_event_id": "library-audit-eaffbb14-63-featured-e141",
+                  "pass_second": 999,
+                  "shot_second": 1000,
+                  "pass_clock": "16:39",
+                  "shot_clock": "16:40",
+                  "shot_sequence": 141,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-eaffbb14-63-featured-e159",
+                  "shot_event_id": "library-audit-eaffbb14-63-featured-e160",
+                  "pass_second": 1119,
+                  "shot_second": 1120,
+                  "pass_clock": "18:39",
+                  "shot_clock": "18:40",
+                  "shot_sequence": 160,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                }
+              ],
+              "goal_relationships": [
+                {
+                  "goal_event_id": "library-audit-eaffbb14-63-featured-e124",
+                  "goal_second": 911,
+                  "goal_clock": "15:11",
+                  "goal_team_id": "home",
+                  "scorer": "Bryan Mbeumo",
+                  "goal_attempt_shot_ids": [
+                    "library-audit-eaffbb14-63-featured-e123"
+                  ],
+                  "goal_attempt_count": 1,
+                  "other_earlier_shot_ids": [],
+                  "other_earlier_count": 0,
+                  "later_shot_ids": [
+                    "library-audit-eaffbb14-63-featured-e141",
+                    "library-audit-eaffbb14-63-featured-e160"
+                  ],
+                  "later_count": 2,
+                  "whole_pattern_precedes_goal": false
+                }
+              ],
+              "missing_link_count": 0,
+              "meaning": "repeated_completed_pass_followed_by_shot",
+              "does_not_measure": [
+                "vision",
+                "finishing_quality",
+                "tactical_causality",
+                "assists"
+              ]
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e122",
+            "sequence": 122,
+            "match_second": 909,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p31",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e123",
+            "sequence": 123,
+            "match_second": 910,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-featured:p31",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e124",
+            "sequence": 124,
+            "match_second": 911,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-featured:p31",
+            "related_event_id": "library-audit-eaffbb14-63-featured-e123",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e140",
+            "sequence": 140,
+            "match_second": 999,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p34",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 69.0,
+            "end_x": 82.0,
+            "end_y": 69.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e141",
+            "sequence": 141,
+            "match_second": 1000,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-eaffbb14-63-featured:p34",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 69.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e159",
+            "sequence": 159,
+            "match_second": 1119,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p38",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 17.0,
+            "end_x": 82.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e160",
+            "sequence": 160,
+            "match_second": 1120,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-eaffbb14-63-featured:p38",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 17.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e203",
+            "sequence": 203,
+            "match_second": 1442,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Kobbie Mainoo",
+            "recipient_player_name": "Bruno Fernandes",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p49",
+            "related_event_id": null,
+            "x": 35.0,
+            "y": 61.0,
+            "end_x": 41.0,
+            "end_y": 53.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e204",
+            "sequence": 204,
+            "match_second": 1444,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Matthijs de Ligt",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p49",
+            "related_event_id": null,
+            "x": 41.0,
+            "y": 53.0,
+            "end_x": 36.0,
+            "end_y": 58.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e205",
+            "sequence": 205,
+            "match_second": 1446,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Matthijs de Ligt",
+            "recipient_player_name": "Matheus Cunha",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p49",
+            "related_event_id": null,
+            "x": 36.0,
+            "y": 58.0,
+            "end_x": 39.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e206",
+            "sequence": 206,
+            "match_second": 1470,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e207",
+            "sequence": 207,
+            "match_second": 1472,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": "Elliot Anderson",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": 66.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e208",
+            "sequence": 208,
+            "match_second": 1474,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Elliot Anderson",
+            "recipient_player_name": "Rico Lewis",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 66.0,
+            "y": 83.0,
+            "end_x": 60.0,
+            "end_y": 75.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e209",
+            "sequence": 209,
+            "match_second": 1476,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rico Lewis",
+            "recipient_player_name": "Enzo Fernandez",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-featured:p50",
+            "related_event_id": null,
+            "x": 60.0,
+            "y": 75.0,
+            "end_x": 57.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-featured-e210",
+            "sequence": 210,
+            "match_second": 1500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-featured:p51",
+            "related_event_id": null,
+            "x": 43.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-eaffbb14-63-featured-e124",
+          "story:player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-eaffbb14-63-featured-e124",
+            "player:player_shot_creation:library-audit-eaffbb14-63-featured:home-7:1500:snapshot"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-eaffbb14-63-featured-e124",
+          "second": 911,
+          "team": "Manchester United",
+          "scorer": "Bryan Mbeumo",
+          "shot_id": "library-audit-eaffbb14-63-featured-e123"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "deterministic",
+      "fallback_reason": "ambiguous_statistic_window",
+      "validation_stage": "revision_validation",
+      "validation_details": {
+        "sentence_index": 0,
+        "language": "en",
+        "issues": [
+          {
+            "code": "ambiguous_statistic_window",
+            "details": {
+              "sentence_index": 0,
+              "language": "en"
+            }
+          },
+          {
+            "code": "ambiguous_statistic_window",
+            "details": {
+              "sentence_index": 0,
+              "language": "es"
+            }
+          }
+        ]
+      },
+      "model_review": null,
+      "revision_used": true,
+      "prompt_hash": "3f3e8cf90e402e597e8909aa321f11ae0c074c087332fc03b43b947788e8bb11"
+    },
+    {
+      "case": "palace_repeated_replies",
+      "role": "comeback",
+      "variant_id": 1,
+      "second": 4530,
+      "cursor_second": 3300,
+      "audience": "casual",
+      "http_status": 200,
+      "seconds": 8.78,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Newcastle United opened the scoring at 15:11 when Yoane Wissa netted after a quick shot at 15:10. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 with Harvey Barnes scoring. Crystal Palace tied it again at 75:11 after Daichi Kamada recovered the ball at 75:00, then passed through Jefferson Lerma and Adam Wharton before Jean-Philippe Mateta scored following his shot at 75:10, making it 2-2.",
+            "es": "Newcastle United abrió el marcador a los 15:11 con un gol de Yoane Wissa tras un remate a los 15:10. Crystal Palace empató a los 60:11 con Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 gracias a Harvey Barnes. Crystal Palace igualó de nuevo a los 75:11 tras una recuperación de Daichi Kamada a los 75:00, seguido de pases a Jefferson Lerma y Adam Wharton antes de que Jean-Philippe Mateta anotara tras su remate a los 75:10, dejando el marcador 2-2.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-comeback-e500",
+              "story:goal:library-audit-eaffbb14-63-comeback-e551",
+              "story:goal:library-audit-eaffbb14-63-comeback-e634",
+              "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+            ]
+          }
+        },
+        {
+          "stage": "draft_rejected",
+          "error": "missing_recovery_goal_connection",
+          "details": {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+            "recoverer": "Daichi Kamada",
+            "scorer": "Jean-Philippe Mateta",
+            "recovery_clock": "75:00",
+            "shot_clock": "75:10",
+            "goal_clock": "75:11",
+            "team_completed_passes": 3,
+            "seconds_recovery_to_shot": 10,
+            "required_score_change": "equalization",
+            "language": "en",
+            "issues": [
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+                  "recoverer": "Daichi Kamada",
+                  "scorer": "Jean-Philippe Mateta",
+                  "recovery_clock": "75:00",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 10,
+                  "required_score_change": "equalization",
+                  "language": "en"
+                }
+              },
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+                  "recoverer": "Daichi Kamada",
+                  "scorer": "Jean-Philippe Mateta",
+                  "recovery_clock": "75:00",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 10,
+                  "required_score_change": "equalization",
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "stage": "revision",
+          "draft": {
+            "en": "Newcastle United took the lead at 15:11 when Yoane Wissa scored following a shot at 15:10. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 with Harvey Barnes scoring. Crystal Palace tied the game at 75:11 after Daichi Kamada recovered the ball at 75:00, then completed passes to Jefferson Lerma and Adam Wharton before Jean-Philippe Mateta scored following his shot at 75:10, leveling the score at 2-2.",
+            "es": "Newcastle United se adelantó a los 15:11 con un gol de Yoane Wissa tras un remate a los 15:10. Crystal Palace empató a los 60:11 con Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 gracias a Harvey Barnes. Crystal Palace igualó a los 75:11 tras una recuperación de Daichi Kamada a los 75:00, seguido de pases a Jefferson Lerma y Adam Wharton antes de que Jean-Philippe Mateta anotara tras su remate a los 75:10, dejando el marcador 2-2.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-comeback-e500",
+              "story:goal:library-audit-eaffbb14-63-comeback-e551",
+              "story:goal:library-audit-eaffbb14-63-comeback-e634",
+              "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+            ]
+          }
+        },
+        {
+          "stage": "revision_validation_rejected",
+          "error": "missing_recovery_goal_connection",
+          "details": {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+            "recoverer": "Daichi Kamada",
+            "scorer": "Jean-Philippe Mateta",
+            "recovery_clock": "75:00",
+            "shot_clock": "75:10",
+            "goal_clock": "75:11",
+            "team_completed_passes": 3,
+            "seconds_recovery_to_shot": 10,
+            "required_score_change": "equalization",
+            "language": "en",
+            "issues": [
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+                  "recoverer": "Daichi Kamada",
+                  "scorer": "Jean-Philippe Mateta",
+                  "recovery_clock": "75:00",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 10,
+                  "required_score_change": "equalization",
+                  "language": "en"
+                }
+              },
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+                  "recoverer": "Daichi Kamada",
+                  "scorer": "Jean-Philippe Mateta",
+                  "recovery_clock": "75:00",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 10,
+                  "required_score_change": "equalization",
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-eaffbb14-63-comeback",
+        "through_sequence": 635,
+        "since_sequence": 454,
+        "match_second": 4530
+      },
+      "text": {
+        "en": "Newcastle United led twice, but Crystal Palace have answered twice. Ismaila Sarr scored for Crystal Palace at 60:11. Harvey Barnes scored for Newcastle United at 66:11. That leaves them level at 2 all. The latest goal came 9 minutes after the previous one. Daichi Kamada recovered the ball and, 10 seconds later, Jean-Philippe Mateta shot at 75:10: that shot produced the equalizer recorded at 75:11. There are 14 minutes and 30 seconds until ninety, plus added time.",
+        "es": "Newcastle United se adelantó dos veces, pero Crystal Palace respondió dos veces. Ismaila Sarr marcó para Crystal Palace a los 60:11. Harvey Barnes marcó para Newcastle United a los 66:11. Así quedan empatados 2 a 2. El último gol llegó 9 minutos después del anterior. Daichi Kamada recuperó el balón y, 10 segundos después, Jean-Philippe Mateta remató a los 75:10: ese remate terminó en el empate registrado a los 75:11. Faltan 14 minutos y 30 segundos para los noventa, más el añadido."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-comeback-e500",
+          "kind": "goal",
+          "text": "Home scored at 60:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e499",
+            "library-audit-eaffbb14-63-comeback-e500"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 500
+        },
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-comeback-e551",
+          "kind": "goal",
+          "text": "Away scored at 66:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e550",
+            "library-audit-eaffbb14-63-comeback-e551"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 551
+        },
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-comeback-e634",
+          "kind": "goal",
+          "text": "Home scored at 75:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e633",
+            "library-audit-eaffbb14-63-comeback-e634"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 634
+        },
+        {
+          "story_id": "recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+          "kind": "recovery_shot",
+          "match_second": 4510,
+          "text": "Home recorded a shot 10 seconds after recovering the ball in the same possession.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e629",
+            "library-audit-eaffbb14-63-comeback-e630",
+            "library-audit-eaffbb14-63-comeback-e631",
+            "library-audit-eaffbb14-63-comeback-e632",
+            "library-audit-eaffbb14-63-comeback-e633",
+            "library-audit-eaffbb14-63-comeback-e634"
+          ],
+          "metric": {
+            "team_id": "home",
+            "recovery_event_id": "library-audit-eaffbb14-63-comeback-e629",
+            "shot_event_id": "library-audit-eaffbb14-63-comeback-e633",
+            "shot_sequence": 633,
+            "elapsed_seconds": 10,
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "threshold_seconds": 30,
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e629",
+              "library-audit-eaffbb14-63-comeback-e630",
+              "library-audit-eaffbb14-63-comeback-e631",
+              "library-audit-eaffbb14-63-comeback-e632",
+              "library-audit-eaffbb14-63-comeback-e633",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "rule_version": "recovery-shot-v1",
+            "goal_link": {
+              "version": "recovery-goal-v1",
+              "goal_event_id": "library-audit-eaffbb14-63-comeback-e634",
+              "goal_sequence": 634,
+              "goal_second": 4511,
+              "goal_clock": "75:11",
+              "shot_clock": "75:10",
+              "recovery_clock": "75:00",
+              "recoverer": "Daichi Kamada",
+              "scorer": "Jean-Philippe Mateta",
+              "team_name": "Crystal Palace",
+              "score_change": "equalization",
+              "score_before": {
+                "home": 1,
+                "away": 2
+              },
+              "score_after": {
+                "home": 2,
+                "away": 2
+              },
+              "completed_pass_count": 3,
+              "completed_passes": [
+                {
+                  "player_name": "Daichi Kamada",
+                  "recipient_player_name": "Jefferson Lerma",
+                  "match_second": 4502
+                },
+                {
+                  "player_name": "Jefferson Lerma",
+                  "recipient_player_name": "Adam Wharton",
+                  "match_second": 4504
+                },
+                {
+                  "player_name": "Adam Wharton",
+                  "recipient_player_name": "Jean-Philippe Mateta",
+                  "match_second": 4509
+                }
+              ],
+              "seconds_before_snapshot": 19,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e629",
+                "library-audit-eaffbb14-63-comeback-e630",
+                "library-audit-eaffbb14-63-comeback-e631",
+                "library-audit-eaffbb14-63-comeback-e632",
+                "library-audit-eaffbb14-63-comeback-e633",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ]
+            }
+          },
+          "rule_version": "recovery-shot-v1",
+          "sequence": 634
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Crystal Palace",
+                "away": "Newcastle United"
+              },
+              "score": {
+                "home": 2,
+                "away": 2
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e136",
+              "library-audit-eaffbb14-63-comeback-e500",
+              "library-audit-eaffbb14-63-comeback-e551",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 2,
+                "away": 2
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-10",
+                  "match_second": 911,
+                  "sequence": 136,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e136"
+                  ],
+                  "goal_clock": "15:11",
+                  "scorer": "Yoane Wissa",
+                  "team_name": "Newcastle United",
+                  "shot_clock": "15:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 3611,
+                  "sequence": 500,
+                  "before": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e500"
+                  ],
+                  "goal_clock": "60:11",
+                  "scorer": "Ismaila Sarr",
+                  "team_name": "Crystal Palace",
+                  "shot_clock": "60:10"
+                },
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-9",
+                  "match_second": 3971,
+                  "sequence": 551,
+                  "before": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 360,
+                    "evidence_event_ids": [
+                      "library-audit-eaffbb14-63-comeback-e500",
+                      "library-audit-eaffbb14-63-comeback-e551"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e551"
+                  ],
+                  "goal_clock": "66:11",
+                  "scorer": "Harvey Barnes",
+                  "team_name": "Newcastle United",
+                  "shot_clock": "66:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-10",
+                  "match_second": 4511,
+                  "sequence": 634,
+                  "before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 540,
+                    "evidence_event_ids": [
+                      "library-audit-eaffbb14-63-comeback-e551",
+                      "library-audit-eaffbb14-63-comeback-e634"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e634"
+                  ],
+                  "goal_clock": "75:11",
+                  "scorer": "Jean-Philippe Mateta",
+                  "team_name": "Crystal Palace",
+                  "shot_clock": "75:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 2
+              },
+              "equalizers": {
+                "home": 2,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e136",
+                "library-audit-eaffbb14-63-comeback-e500",
+                "library-audit-eaffbb14-63-comeback-e551",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e136",
+              "library-audit-eaffbb14-63-comeback-e500",
+              "library-audit-eaffbb14-63-comeback-e551",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "75:30",
+              "match_second": 4530,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e635"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-comeback-e500",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-comeback-e500",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e499",
+                "library-audit-eaffbb14-63-comeback-e500"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 500,
+              "goal": {
+                "player_name": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "clock": "60:11",
+                "match_second": 3611
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e499",
+              "library-audit-eaffbb14-63-comeback-e500"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-comeback-e551",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-comeback-e551",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e550",
+                "library-audit-eaffbb14-63-comeback-e551"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 551,
+              "goal": {
+                "player_name": "Harvey Barnes",
+                "team_name": "Newcastle United",
+                "clock": "66:11",
+                "match_second": 3971
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e550",
+              "library-audit-eaffbb14-63-comeback-e551"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-comeback-e634",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-comeback-e634",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e633",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 634,
+              "goal": {
+                "player_name": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "clock": "75:11",
+                "match_second": 4511
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e633",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+            "data": {
+              "story_id": "recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+              "kind": "recovery_shot",
+              "match_second": 4510,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e629",
+                "library-audit-eaffbb14-63-comeback-e630",
+                "library-audit-eaffbb14-63-comeback-e631",
+                "library-audit-eaffbb14-63-comeback-e632",
+                "library-audit-eaffbb14-63-comeback-e633",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ],
+              "metric": {
+                "team_id": "home",
+                "recovery_event_id": "library-audit-eaffbb14-63-comeback-e629",
+                "shot_event_id": "library-audit-eaffbb14-63-comeback-e633",
+                "shot_sequence": 633,
+                "elapsed_seconds": 10,
+                "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-eaffbb14-63-comeback-e629",
+                  "library-audit-eaffbb14-63-comeback-e630",
+                  "library-audit-eaffbb14-63-comeback-e631",
+                  "library-audit-eaffbb14-63-comeback-e632",
+                  "library-audit-eaffbb14-63-comeback-e633",
+                  "library-audit-eaffbb14-63-comeback-e634"
+                ],
+                "rule_version": "recovery-shot-v1",
+                "goal_link": {
+                  "version": "recovery-goal-v1",
+                  "goal_event_id": "library-audit-eaffbb14-63-comeback-e634",
+                  "goal_sequence": 634,
+                  "goal_second": 4511,
+                  "goal_clock": "75:11",
+                  "shot_clock": "75:10",
+                  "recovery_clock": "75:00",
+                  "recoverer": "Daichi Kamada",
+                  "scorer": "Jean-Philippe Mateta",
+                  "team_name": "Crystal Palace",
+                  "score_change": "equalization",
+                  "score_before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "score_after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "completed_pass_count": 3,
+                  "completed_passes": [
+                    {
+                      "player_name": "Daichi Kamada",
+                      "recipient_player_name": "Jefferson Lerma",
+                      "match_second": 4502
+                    },
+                    {
+                      "player_name": "Jefferson Lerma",
+                      "recipient_player_name": "Adam Wharton",
+                      "match_second": 4504
+                    },
+                    {
+                      "player_name": "Adam Wharton",
+                      "recipient_player_name": "Jean-Philippe Mateta",
+                      "match_second": 4509
+                    }
+                  ],
+                  "seconds_before_snapshot": 19,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e629",
+                    "library-audit-eaffbb14-63-comeback-e630",
+                    "library-audit-eaffbb14-63-comeback-e631",
+                    "library-audit-eaffbb14-63-comeback-e632",
+                    "library-audit-eaffbb14-63-comeback-e633",
+                    "library-audit-eaffbb14-63-comeback-e634"
+                  ]
+                }
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 634
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e629",
+              "library-audit-eaffbb14-63-comeback-e630",
+              "library-audit-eaffbb14-63-comeback-e631",
+              "library-audit-eaffbb14-63-comeback-e632",
+              "library-audit-eaffbb14-63-comeback-e633",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": [],
+            "point_clock": "75:10",
+            "participants": {
+              "recoverer": "Daichi Kamada",
+              "shooter": "Jean-Philippe Mateta"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e136",
+            "sequence": 136,
+            "match_second": 911,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p31",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e135",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e499",
+            "sequence": 499,
+            "match_second": 3610,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Ismaila Sarr",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p121",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 20.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e500",
+            "sequence": 500,
+            "match_second": 3611,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Ismaila Sarr",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p121",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e499",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e550",
+            "sequence": 550,
+            "match_second": 3970,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Harvey Barnes",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p133",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 48.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e551",
+            "sequence": 551,
+            "match_second": 3971,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Harvey Barnes",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p133",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e550",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e628",
+            "sequence": 628,
+            "match_second": 4480,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p150",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 66.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e629",
+            "sequence": 629,
+            "match_second": 4500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Daichi Kamada",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e630",
+            "sequence": 630,
+            "match_second": 4502,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Daichi Kamada",
+            "recipient_player_name": "Jefferson Lerma",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": 87.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e631",
+            "sequence": 631,
+            "match_second": 4504,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Jefferson Lerma",
+            "recipient_player_name": "Adam Wharton",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 87.0,
+            "y": 17.0,
+            "end_x": 95.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e632",
+            "sequence": 632,
+            "match_second": 4509,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Adam Wharton",
+            "recipient_player_name": "Jean-Philippe Mateta",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e633",
+            "sequence": 633,
+            "match_second": 4510,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Jean-Philippe Mateta",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e634",
+            "sequence": 634,
+            "match_second": 4511,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Jean-Philippe Mateta",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e633",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e635",
+            "sequence": 635,
+            "match_second": 4530,
+            "type": "kickoff",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-comeback:p152",
+            "related_event_id": null,
+            "x": 50.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-eaffbb14-63-comeback-e500",
+          "story:goal:library-audit-eaffbb14-63-comeback-e551",
+          "story:goal:library-audit-eaffbb14-63-comeback-e634",
+          "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-eaffbb14-63-comeback-e500",
+            "goal:library-audit-eaffbb14-63-comeback-e551",
+            "goal:library-audit-eaffbb14-63-comeback-e634",
+            "recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e136",
+          "second": 911,
+          "team": "Newcastle United",
+          "scorer": "Yoane Wissa",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e135"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e500",
+          "second": 3611,
+          "team": "Crystal Palace",
+          "scorer": "Ismaila Sarr",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e499"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e551",
+          "second": 3971,
+          "team": "Newcastle United",
+          "scorer": "Harvey Barnes",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e550"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e634",
+          "second": 4511,
+          "team": "Crystal Palace",
+          "scorer": "Jean-Philippe Mateta",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e633"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "deterministic",
+      "fallback_reason": "missing_recovery_goal_connection",
+      "validation_stage": "revision_validation",
+      "validation_details": {
+        "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+        "recoverer": "Daichi Kamada",
+        "scorer": "Jean-Philippe Mateta",
+        "recovery_clock": "75:00",
+        "shot_clock": "75:10",
+        "goal_clock": "75:11",
+        "team_completed_passes": 3,
+        "seconds_recovery_to_shot": 10,
+        "required_score_change": "equalization",
+        "language": "en",
+        "issues": [
+          {
+            "code": "missing_recovery_goal_connection",
+            "details": {
+              "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+              "recoverer": "Daichi Kamada",
+              "scorer": "Jean-Philippe Mateta",
+              "recovery_clock": "75:00",
+              "shot_clock": "75:10",
+              "goal_clock": "75:11",
+              "team_completed_passes": 3,
+              "seconds_recovery_to_shot": 10,
+              "required_score_change": "equalization",
+              "language": "en"
+            }
+          },
+          {
+            "code": "missing_recovery_goal_connection",
+            "details": {
+              "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+              "recoverer": "Daichi Kamada",
+              "scorer": "Jean-Philippe Mateta",
+              "recovery_clock": "75:00",
+              "shot_clock": "75:10",
+              "goal_clock": "75:11",
+              "team_completed_passes": 3,
+              "seconds_recovery_to_shot": 10,
+              "required_score_change": "equalization",
+              "language": "es"
+            }
+          }
+        ]
+      },
+      "model_review": null,
+      "revision_used": true,
+      "prompt_hash": "411d7a51dd0707496fcf353dded70a7a90850e4564031c57a419292003c2fb64"
+    },
+    {
+      "case": "palace_repeated_replies",
+      "role": "comeback",
+      "variant_id": 1,
+      "second": 4530,
+      "cursor_second": 3300,
+      "audience": "advanced",
+      "http_status": 200,
+      "seconds": 6.45,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Newcastle United took the lead at 15:11 when Yoane Wissa scored after a quick shot at 15:10. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 with Harvey Barnes scoring. At 75:00, Daichi Kamada recovered the ball for Crystal Palace, who completed three passes involving Jefferson Lerma and Adam Wharton before Jean-Philippe Mateta scored at 75:11 to tie the match 2-2. The game clock reads 75:30 with the score level.",
+            "es": "Newcastle United se adelantó a los 15:11 con un gol de Yoane Wissa tras un remate a los 15:10. Crystal Palace empató a los 60:11 con Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 gracias a Harvey Barnes. A los 75:00, Daichi Kamada recuperó el balón para Crystal Palace, que completó tres pases con Jefferson Lerma y Adam Wharton antes de que Jean-Philippe Mateta anotara a los 75:11 para empatar 2-2. El reloj marca 75:30 con el marcador igualado.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-63-comeback-e500",
+              "story:goal:library-audit-eaffbb14-63-comeback-e551",
+              "story:goal:library-audit-eaffbb14-63-comeback-e634",
+              "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-eaffbb14-63-comeback",
+        "through_sequence": 635,
+        "since_sequence": 454,
+        "match_second": 4530
+      },
+      "text": {
+        "en": "Newcastle United took the lead at 15:11 when Yoane Wissa scored after a quick shot at 15:10. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 with Harvey Barnes scoring. At 75:00, Daichi Kamada recovered the ball for Crystal Palace, who completed three passes involving Jefferson Lerma and Adam Wharton before Jean-Philippe Mateta scored at 75:11 to tie the match 2-2. The game clock reads 75:30 with the score level.",
+        "es": "Newcastle United se adelantó a los 15:11 con un gol de Yoane Wissa tras un remate a los 15:10. Crystal Palace empató a los 60:11 con Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 gracias a Harvey Barnes. A los 75:00, Daichi Kamada recuperó el balón para Crystal Palace, que completó tres pases con Jefferson Lerma y Adam Wharton antes de que Jean-Philippe Mateta anotara a los 75:11 para empatar 2-2. El reloj marca 75:30 con el marcador igualado."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-comeback-e500",
+          "kind": "goal",
+          "text": "Home scored at 60:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e499",
+            "library-audit-eaffbb14-63-comeback-e500"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 500
+        },
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-comeback-e551",
+          "kind": "goal",
+          "text": "Away scored at 66:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e550",
+            "library-audit-eaffbb14-63-comeback-e551"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 551
+        },
+        {
+          "story_id": "goal:library-audit-eaffbb14-63-comeback-e634",
+          "kind": "goal",
+          "text": "Home scored at 75:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e633",
+            "library-audit-eaffbb14-63-comeback-e634"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 634
+        },
+        {
+          "story_id": "recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+          "kind": "recovery_shot",
+          "match_second": 4510,
+          "text": "Home recorded a shot 10 seconds after recovering the ball in the same possession.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-63-comeback-e629",
+            "library-audit-eaffbb14-63-comeback-e630",
+            "library-audit-eaffbb14-63-comeback-e631",
+            "library-audit-eaffbb14-63-comeback-e632",
+            "library-audit-eaffbb14-63-comeback-e633",
+            "library-audit-eaffbb14-63-comeback-e634"
+          ],
+          "metric": {
+            "team_id": "home",
+            "recovery_event_id": "library-audit-eaffbb14-63-comeback-e629",
+            "shot_event_id": "library-audit-eaffbb14-63-comeback-e633",
+            "shot_sequence": 633,
+            "elapsed_seconds": 10,
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "threshold_seconds": 30,
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e629",
+              "library-audit-eaffbb14-63-comeback-e630",
+              "library-audit-eaffbb14-63-comeback-e631",
+              "library-audit-eaffbb14-63-comeback-e632",
+              "library-audit-eaffbb14-63-comeback-e633",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "rule_version": "recovery-shot-v1",
+            "goal_link": {
+              "version": "recovery-goal-v1",
+              "goal_event_id": "library-audit-eaffbb14-63-comeback-e634",
+              "goal_sequence": 634,
+              "goal_second": 4511,
+              "goal_clock": "75:11",
+              "shot_clock": "75:10",
+              "recovery_clock": "75:00",
+              "recoverer": "Daichi Kamada",
+              "scorer": "Jean-Philippe Mateta",
+              "team_name": "Crystal Palace",
+              "score_change": "equalization",
+              "score_before": {
+                "home": 1,
+                "away": 2
+              },
+              "score_after": {
+                "home": 2,
+                "away": 2
+              },
+              "completed_pass_count": 3,
+              "completed_passes": [
+                {
+                  "player_name": "Daichi Kamada",
+                  "recipient_player_name": "Jefferson Lerma",
+                  "match_second": 4502
+                },
+                {
+                  "player_name": "Jefferson Lerma",
+                  "recipient_player_name": "Adam Wharton",
+                  "match_second": 4504
+                },
+                {
+                  "player_name": "Adam Wharton",
+                  "recipient_player_name": "Jean-Philippe Mateta",
+                  "match_second": 4509
+                }
+              ],
+              "seconds_before_snapshot": 19,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e629",
+                "library-audit-eaffbb14-63-comeback-e630",
+                "library-audit-eaffbb14-63-comeback-e631",
+                "library-audit-eaffbb14-63-comeback-e632",
+                "library-audit-eaffbb14-63-comeback-e633",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ]
+            }
+          },
+          "rule_version": "recovery-shot-v1",
+          "sequence": 634
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Crystal Palace",
+                "away": "Newcastle United"
+              },
+              "score": {
+                "home": 2,
+                "away": 2
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e136",
+              "library-audit-eaffbb14-63-comeback-e500",
+              "library-audit-eaffbb14-63-comeback-e551",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 2,
+                "away": 2
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-10",
+                  "match_second": 911,
+                  "sequence": 136,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e136"
+                  ],
+                  "goal_clock": "15:11",
+                  "scorer": "Yoane Wissa",
+                  "team_name": "Newcastle United",
+                  "shot_clock": "15:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 3611,
+                  "sequence": 500,
+                  "before": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e500"
+                  ],
+                  "goal_clock": "60:11",
+                  "scorer": "Ismaila Sarr",
+                  "team_name": "Crystal Palace",
+                  "shot_clock": "60:10"
+                },
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-9",
+                  "match_second": 3971,
+                  "sequence": 551,
+                  "before": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 360,
+                    "evidence_event_ids": [
+                      "library-audit-eaffbb14-63-comeback-e500",
+                      "library-audit-eaffbb14-63-comeback-e551"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e551"
+                  ],
+                  "goal_clock": "66:11",
+                  "scorer": "Harvey Barnes",
+                  "team_name": "Newcastle United",
+                  "shot_clock": "66:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-10",
+                  "match_second": 4511,
+                  "sequence": 634,
+                  "before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 540,
+                    "evidence_event_ids": [
+                      "library-audit-eaffbb14-63-comeback-e551",
+                      "library-audit-eaffbb14-63-comeback-e634"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e634"
+                  ],
+                  "goal_clock": "75:11",
+                  "scorer": "Jean-Philippe Mateta",
+                  "team_name": "Crystal Palace",
+                  "shot_clock": "75:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 2
+              },
+              "equalizers": {
+                "home": 2,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e136",
+                "library-audit-eaffbb14-63-comeback-e500",
+                "library-audit-eaffbb14-63-comeback-e551",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e136",
+              "library-audit-eaffbb14-63-comeback-e500",
+              "library-audit-eaffbb14-63-comeback-e551",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "75:30",
+              "match_second": 4530,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e635"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-comeback-e500",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-comeback-e500",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e499",
+                "library-audit-eaffbb14-63-comeback-e500"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 500,
+              "goal": {
+                "player_name": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "clock": "60:11",
+                "match_second": 3611
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e499",
+              "library-audit-eaffbb14-63-comeback-e500"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-comeback-e551",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-comeback-e551",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e550",
+                "library-audit-eaffbb14-63-comeback-e551"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 551,
+              "goal": {
+                "player_name": "Harvey Barnes",
+                "team_name": "Newcastle United",
+                "clock": "66:11",
+                "match_second": 3971
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e550",
+              "library-audit-eaffbb14-63-comeback-e551"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-63-comeback-e634",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-63-comeback-e634",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e633",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 634,
+              "goal": {
+                "player_name": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "clock": "75:11",
+                "match_second": 4511
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e633",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+            "data": {
+              "story_id": "recovery-shot:library-audit-eaffbb14-63-comeback-e633",
+              "kind": "recovery_shot",
+              "match_second": 4510,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-63-comeback-e629",
+                "library-audit-eaffbb14-63-comeback-e630",
+                "library-audit-eaffbb14-63-comeback-e631",
+                "library-audit-eaffbb14-63-comeback-e632",
+                "library-audit-eaffbb14-63-comeback-e633",
+                "library-audit-eaffbb14-63-comeback-e634"
+              ],
+              "metric": {
+                "team_id": "home",
+                "recovery_event_id": "library-audit-eaffbb14-63-comeback-e629",
+                "shot_event_id": "library-audit-eaffbb14-63-comeback-e633",
+                "shot_sequence": 633,
+                "elapsed_seconds": 10,
+                "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-eaffbb14-63-comeback-e629",
+                  "library-audit-eaffbb14-63-comeback-e630",
+                  "library-audit-eaffbb14-63-comeback-e631",
+                  "library-audit-eaffbb14-63-comeback-e632",
+                  "library-audit-eaffbb14-63-comeback-e633",
+                  "library-audit-eaffbb14-63-comeback-e634"
+                ],
+                "rule_version": "recovery-shot-v1",
+                "goal_link": {
+                  "version": "recovery-goal-v1",
+                  "goal_event_id": "library-audit-eaffbb14-63-comeback-e634",
+                  "goal_sequence": 634,
+                  "goal_second": 4511,
+                  "goal_clock": "75:11",
+                  "shot_clock": "75:10",
+                  "recovery_clock": "75:00",
+                  "recoverer": "Daichi Kamada",
+                  "scorer": "Jean-Philippe Mateta",
+                  "team_name": "Crystal Palace",
+                  "score_change": "equalization",
+                  "score_before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "score_after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "completed_pass_count": 3,
+                  "completed_passes": [
+                    {
+                      "player_name": "Daichi Kamada",
+                      "recipient_player_name": "Jefferson Lerma",
+                      "match_second": 4502
+                    },
+                    {
+                      "player_name": "Jefferson Lerma",
+                      "recipient_player_name": "Adam Wharton",
+                      "match_second": 4504
+                    },
+                    {
+                      "player_name": "Adam Wharton",
+                      "recipient_player_name": "Jean-Philippe Mateta",
+                      "match_second": 4509
+                    }
+                  ],
+                  "seconds_before_snapshot": 19,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-63-comeback-e629",
+                    "library-audit-eaffbb14-63-comeback-e630",
+                    "library-audit-eaffbb14-63-comeback-e631",
+                    "library-audit-eaffbb14-63-comeback-e632",
+                    "library-audit-eaffbb14-63-comeback-e633",
+                    "library-audit-eaffbb14-63-comeback-e634"
+                  ]
+                }
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 634
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-63-comeback-e629",
+              "library-audit-eaffbb14-63-comeback-e630",
+              "library-audit-eaffbb14-63-comeback-e631",
+              "library-audit-eaffbb14-63-comeback-e632",
+              "library-audit-eaffbb14-63-comeback-e633",
+              "library-audit-eaffbb14-63-comeback-e634"
+            ],
+            "window_labels": [],
+            "point_clock": "75:10",
+            "participants": {
+              "recoverer": "Daichi Kamada",
+              "shooter": "Jean-Philippe Mateta"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e136",
+            "sequence": 136,
+            "match_second": 911,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p31",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e135",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e499",
+            "sequence": 499,
+            "match_second": 3610,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Ismaila Sarr",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p121",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 20.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e500",
+            "sequence": 500,
+            "match_second": 3611,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Ismaila Sarr",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p121",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e499",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e550",
+            "sequence": 550,
+            "match_second": 3970,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Harvey Barnes",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p133",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 48.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e551",
+            "sequence": 551,
+            "match_second": 3971,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Harvey Barnes",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p133",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e550",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e628",
+            "sequence": 628,
+            "match_second": 4480,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p150",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 66.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e629",
+            "sequence": 629,
+            "match_second": 4500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Daichi Kamada",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e630",
+            "sequence": 630,
+            "match_second": 4502,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Daichi Kamada",
+            "recipient_player_name": "Jefferson Lerma",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": 87.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e631",
+            "sequence": 631,
+            "match_second": 4504,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Jefferson Lerma",
+            "recipient_player_name": "Adam Wharton",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 87.0,
+            "y": 17.0,
+            "end_x": 95.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e632",
+            "sequence": 632,
+            "match_second": 4509,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Adam Wharton",
+            "recipient_player_name": "Jean-Philippe Mateta",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e633",
+            "sequence": 633,
+            "match_second": 4510,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Jean-Philippe Mateta",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e634",
+            "sequence": 634,
+            "match_second": 4511,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Jean-Philippe Mateta",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-63-comeback:p151",
+            "related_event_id": "library-audit-eaffbb14-63-comeback-e633",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-63-comeback-e635",
+            "sequence": 635,
+            "match_second": 4530,
+            "type": "kickoff",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-63-comeback:p152",
+            "related_event_id": null,
+            "x": 50.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-eaffbb14-63-comeback-e500",
+          "story:goal:library-audit-eaffbb14-63-comeback-e551",
+          "story:goal:library-audit-eaffbb14-63-comeback-e634",
+          "story:recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-eaffbb14-63-comeback-e500",
+            "goal:library-audit-eaffbb14-63-comeback-e551",
+            "goal:library-audit-eaffbb14-63-comeback-e634",
+            "recovery-shot:library-audit-eaffbb14-63-comeback-e633"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e136",
+          "second": 911,
+          "team": "Newcastle United",
+          "scorer": "Yoane Wissa",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e135"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e500",
+          "second": 3611,
+          "team": "Crystal Palace",
+          "scorer": "Ismaila Sarr",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e499"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e551",
+          "second": 3971,
+          "team": "Newcastle United",
+          "scorer": "Harvey Barnes",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e550"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-63-comeback-e634",
+          "second": 4511,
+          "team": "Crystal Palace",
+          "scorer": "Jean-Philippe Mateta",
+          "shot_id": "library-audit-eaffbb14-63-comeback-e633"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "azure",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "model_review": "model_review_passed",
+      "revision_used": false,
+      "prompt_hash": "4bee88c33bb30aeed8bc22964498de0f9b40dfde81b5dda70566a27f95f23661"
+    },
+    {
+      "case": "late_derby_equalizer",
+      "role": "featured",
+      "variant_id": 3,
+      "second": 4530,
+      "cursor_second": 3900,
+      "audience": "casual",
+      "http_status": 200,
+      "seconds": 7.0,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Manchester City took the lead at 10:11 with Jeremy Doku's goal. Manchester United equalized at 50:11 through Amad Diallo. Erling Haaland put City ahead again at 69:11. At 75:01, Mason Mount recovered the ball, passing through Manuel Ugarte and Bruno Fernandes before Bryan Mbeumo scored at 75:11 to tie the match 2-2. The game clock shows 75:30 with the score level.",
+            "es": "Manchester City se adelantó a los 10:11 con un gol de Jeremy Doku. Manchester United empató a los 50:11 gracias a Amad Diallo. Erling Haaland volvió a poner en ventaja al City a los 69:11. A los 75:01, Mason Mount recuperó el balón, pasó a Manuel Ugarte y Bruno Fernandes, y Bryan Mbeumo anotó a los 75:11 para empatar 2-2. El reloj marca 75:30 con el marcador igualado.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-2-featured-e558",
+              "story:goal:library-audit-eaffbb14-2-featured-e625",
+              "story:recovery-shot:library-audit-eaffbb14-2-featured-e624"
+            ]
+          }
+        },
+        {
+          "stage": "draft_rejected",
+          "error": "missing_recovery_goal_connection",
+          "details": {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+            "recoverer": "Mason Mount",
+            "scorer": "Bryan Mbeumo",
+            "recovery_clock": "75:01",
+            "shot_clock": "75:10",
+            "goal_clock": "75:11",
+            "team_completed_passes": 3,
+            "seconds_recovery_to_shot": 9,
+            "required_score_change": "equalization",
+            "language": "en",
+            "issues": [
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+                  "recoverer": "Mason Mount",
+                  "scorer": "Bryan Mbeumo",
+                  "recovery_clock": "75:01",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 9,
+                  "required_score_change": "equalization",
+                  "language": "en"
+                }
+              },
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+                  "recoverer": "Mason Mount",
+                  "scorer": "Bryan Mbeumo",
+                  "recovery_clock": "75:01",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 9,
+                  "required_score_change": "equalization",
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "stage": "revision",
+          "draft": {
+            "en": "Manchester City opened scoring at 10:11 with Jeremy Doku's goal. Manchester United leveled at 50:11 through Amad Diallo. Erling Haaland restored City's lead at 69:11. Then at 75:01, Mason Mount recovered the ball and completed a pass to Manuel Ugarte, who passed to Bruno Fernandes, leading to Bryan Mbeumo's shot and goal at 75:11, tying the match 2-2. The clock reads 75:30 with the score even.",
+            "es": "Manchester City abrió el marcador a los 10:11 con un gol de Jeremy Doku. Manchester United igualó a los 50:11 gracias a Amad Diallo. Erling Haaland volvió a adelantar al City a los 69:11. Luego, a los 75:01, Mason Mount recuperó el balón y completó un pase a Manuel Ugarte, quien se la entregó a Bruno Fernandes, lo que llevó al remate y gol de Bryan Mbeumo a los 75:11 para empatar 2-2. El reloj marca 75:30 con el marcador igualado.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-2-featured-e558",
+              "story:goal:library-audit-eaffbb14-2-featured-e625",
+              "story:recovery-shot:library-audit-eaffbb14-2-featured-e624"
+            ]
+          }
+        },
+        {
+          "stage": "revision_validation_rejected",
+          "error": "wrong_explicit_shot_clock",
+          "details": {
+            "claimed_clock": "75:11",
+            "recorded_shot_clocks": [
+              "10:10",
+              "50:10",
+              "69:10",
+              "75:10"
+            ],
+            "language": "en",
+            "issues": [
+              {
+                "code": "wrong_explicit_shot_clock",
+                "details": {
+                  "claimed_clock": "75:11",
+                  "recorded_shot_clocks": [
+                    "10:10",
+                    "50:10",
+                    "69:10",
+                    "75:10"
+                  ],
+                  "language": "en"
+                }
+              },
+              {
+                "code": "missing_recovery_goal_connection",
+                "details": {
+                  "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+                  "recoverer": "Mason Mount",
+                  "scorer": "Bryan Mbeumo",
+                  "recovery_clock": "75:01",
+                  "shot_clock": "75:10",
+                  "goal_clock": "75:11",
+                  "team_completed_passes": 3,
+                  "seconds_recovery_to_shot": 9,
+                  "required_score_change": "equalization",
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-eaffbb14-2-featured",
+        "through_sequence": 626,
+        "since_sequence": 514,
+        "match_second": 4530
+      },
+      "text": {
+        "en": "Manchester City led twice, but Manchester United have answered twice. Erling Haaland scored for Manchester City at 69:11. That leaves them level at 2 all. The latest goal came 6 minutes after the previous one. Mason Mount recovered the ball and, 9 seconds later, Bryan Mbeumo shot at 75:10: that shot produced the equalizer recorded at 75:11. There are 14 minutes and 30 seconds until ninety, plus added time.",
+        "es": "Manchester City se adelantó dos veces, pero Manchester United respondió dos veces. Erling Haaland marcó para Manchester City a los 69:11. Así quedan empatados 2 a 2. El último gol llegó 6 minutos después del anterior. Mason Mount recuperó el balón y, 9 segundos después, Bryan Mbeumo remató a los 75:10: ese remate terminó en el empate registrado a los 75:11. Faltan 14 minutos y 30 segundos para los noventa, más el añadido."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-eaffbb14-2-featured-e558",
+          "kind": "goal",
+          "text": "Away scored at 69:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-2-featured-e557",
+            "library-audit-eaffbb14-2-featured-e558"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 558
+        },
+        {
+          "story_id": "goal:library-audit-eaffbb14-2-featured-e625",
+          "kind": "goal",
+          "text": "Home scored at 75:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-2-featured-e624",
+            "library-audit-eaffbb14-2-featured-e625"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 625
+        },
+        {
+          "story_id": "recovery-shot:library-audit-eaffbb14-2-featured-e624",
+          "kind": "recovery_shot",
+          "match_second": 4510,
+          "text": "Home recorded a shot 9 seconds after recovering the ball in the same possession.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-2-featured-e620",
+            "library-audit-eaffbb14-2-featured-e621",
+            "library-audit-eaffbb14-2-featured-e622",
+            "library-audit-eaffbb14-2-featured-e623",
+            "library-audit-eaffbb14-2-featured-e624",
+            "library-audit-eaffbb14-2-featured-e625"
+          ],
+          "metric": {
+            "team_id": "home",
+            "recovery_event_id": "library-audit-eaffbb14-2-featured-e620",
+            "shot_event_id": "library-audit-eaffbb14-2-featured-e624",
+            "shot_sequence": 624,
+            "elapsed_seconds": 9,
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "threshold_seconds": 30,
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e620",
+              "library-audit-eaffbb14-2-featured-e621",
+              "library-audit-eaffbb14-2-featured-e622",
+              "library-audit-eaffbb14-2-featured-e623",
+              "library-audit-eaffbb14-2-featured-e624",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "rule_version": "recovery-shot-v1",
+            "goal_link": {
+              "version": "recovery-goal-v1",
+              "goal_event_id": "library-audit-eaffbb14-2-featured-e625",
+              "goal_sequence": 625,
+              "goal_second": 4511,
+              "goal_clock": "75:11",
+              "shot_clock": "75:10",
+              "recovery_clock": "75:01",
+              "recoverer": "Mason Mount",
+              "scorer": "Bryan Mbeumo",
+              "team_name": "Manchester United",
+              "score_change": "equalization",
+              "score_before": {
+                "home": 1,
+                "away": 2
+              },
+              "score_after": {
+                "home": 2,
+                "away": 2
+              },
+              "completed_pass_count": 3,
+              "completed_passes": [
+                {
+                  "player_name": "Mason Mount",
+                  "recipient_player_name": "Manuel Ugarte",
+                  "match_second": 4502
+                },
+                {
+                  "player_name": "Manuel Ugarte",
+                  "recipient_player_name": "Bruno Fernandes",
+                  "match_second": 4504
+                },
+                {
+                  "player_name": "Bruno Fernandes",
+                  "recipient_player_name": "Bryan Mbeumo",
+                  "match_second": 4509
+                }
+              ],
+              "seconds_before_snapshot": 19,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e620",
+                "library-audit-eaffbb14-2-featured-e621",
+                "library-audit-eaffbb14-2-featured-e622",
+                "library-audit-eaffbb14-2-featured-e623",
+                "library-audit-eaffbb14-2-featured-e624",
+                "library-audit-eaffbb14-2-featured-e625"
+              ]
+            }
+          },
+          "rule_version": "recovery-shot-v1",
+          "sequence": 625
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 2,
+                "away": 2
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e83",
+              "library-audit-eaffbb14-2-featured-e402",
+              "library-audit-eaffbb14-2-featured-e558",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 2,
+                "away": 2
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-11",
+                  "match_second": 611,
+                  "sequence": 83,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e83"
+                  ],
+                  "goal_clock": "10:11",
+                  "scorer": "Jeremy Doku",
+                  "team_name": "Manchester City",
+                  "shot_clock": "10:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-11",
+                  "match_second": 3011,
+                  "sequence": 402,
+                  "before": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e402"
+                  ],
+                  "goal_clock": "50:11",
+                  "scorer": "Amad Diallo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "50:10"
+                },
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-10",
+                  "match_second": 4151,
+                  "sequence": 558,
+                  "before": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e558"
+                  ],
+                  "goal_clock": "69:11",
+                  "scorer": "Erling Haaland",
+                  "team_name": "Manchester City",
+                  "shot_clock": "69:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 4511,
+                  "sequence": 625,
+                  "before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 360,
+                    "evidence_event_ids": [
+                      "library-audit-eaffbb14-2-featured-e558",
+                      "library-audit-eaffbb14-2-featured-e625"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e625"
+                  ],
+                  "goal_clock": "75:11",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "75:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 2
+              },
+              "equalizers": {
+                "home": 2,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e83",
+                "library-audit-eaffbb14-2-featured-e402",
+                "library-audit-eaffbb14-2-featured-e558",
+                "library-audit-eaffbb14-2-featured-e625"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e83",
+              "library-audit-eaffbb14-2-featured-e402",
+              "library-audit-eaffbb14-2-featured-e558",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "75:30",
+              "match_second": 4530,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e626"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-2-featured-e558",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-2-featured-e558",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e557",
+                "library-audit-eaffbb14-2-featured-e558"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 558,
+              "goal": {
+                "player_name": "Erling Haaland",
+                "team_name": "Manchester City",
+                "clock": "69:11",
+                "match_second": 4151
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e557",
+              "library-audit-eaffbb14-2-featured-e558"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-2-featured-e625",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-2-featured-e625",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e624",
+                "library-audit-eaffbb14-2-featured-e625"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 625,
+              "goal": {
+                "player_name": "Bryan Mbeumo",
+                "team_name": "Manchester United",
+                "clock": "75:11",
+                "match_second": 4511
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e624",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+            "data": {
+              "story_id": "recovery-shot:library-audit-eaffbb14-2-featured-e624",
+              "kind": "recovery_shot",
+              "match_second": 4510,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e620",
+                "library-audit-eaffbb14-2-featured-e621",
+                "library-audit-eaffbb14-2-featured-e622",
+                "library-audit-eaffbb14-2-featured-e623",
+                "library-audit-eaffbb14-2-featured-e624",
+                "library-audit-eaffbb14-2-featured-e625"
+              ],
+              "metric": {
+                "team_id": "home",
+                "recovery_event_id": "library-audit-eaffbb14-2-featured-e620",
+                "shot_event_id": "library-audit-eaffbb14-2-featured-e624",
+                "shot_sequence": 624,
+                "elapsed_seconds": 9,
+                "possession_id": "library-audit-eaffbb14-2-featured:p151",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-eaffbb14-2-featured-e620",
+                  "library-audit-eaffbb14-2-featured-e621",
+                  "library-audit-eaffbb14-2-featured-e622",
+                  "library-audit-eaffbb14-2-featured-e623",
+                  "library-audit-eaffbb14-2-featured-e624",
+                  "library-audit-eaffbb14-2-featured-e625"
+                ],
+                "rule_version": "recovery-shot-v1",
+                "goal_link": {
+                  "version": "recovery-goal-v1",
+                  "goal_event_id": "library-audit-eaffbb14-2-featured-e625",
+                  "goal_sequence": 625,
+                  "goal_second": 4511,
+                  "goal_clock": "75:11",
+                  "shot_clock": "75:10",
+                  "recovery_clock": "75:01",
+                  "recoverer": "Mason Mount",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "score_change": "equalization",
+                  "score_before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "score_after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "completed_pass_count": 3,
+                  "completed_passes": [
+                    {
+                      "player_name": "Mason Mount",
+                      "recipient_player_name": "Manuel Ugarte",
+                      "match_second": 4502
+                    },
+                    {
+                      "player_name": "Manuel Ugarte",
+                      "recipient_player_name": "Bruno Fernandes",
+                      "match_second": 4504
+                    },
+                    {
+                      "player_name": "Bruno Fernandes",
+                      "recipient_player_name": "Bryan Mbeumo",
+                      "match_second": 4509
+                    }
+                  ],
+                  "seconds_before_snapshot": 19,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e620",
+                    "library-audit-eaffbb14-2-featured-e621",
+                    "library-audit-eaffbb14-2-featured-e622",
+                    "library-audit-eaffbb14-2-featured-e623",
+                    "library-audit-eaffbb14-2-featured-e624",
+                    "library-audit-eaffbb14-2-featured-e625"
+                  ]
+                }
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 625
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e620",
+              "library-audit-eaffbb14-2-featured-e621",
+              "library-audit-eaffbb14-2-featured-e622",
+              "library-audit-eaffbb14-2-featured-e623",
+              "library-audit-eaffbb14-2-featured-e624",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": [],
+            "point_clock": "75:10",
+            "participants": {
+              "recoverer": "Mason Mount",
+              "shooter": "Bryan Mbeumo"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e83",
+            "sequence": 83,
+            "match_second": 611,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Jeremy Doku",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p21",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e82",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e402",
+            "sequence": 402,
+            "match_second": 3011,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Amad Diallo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p101",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e401",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e557",
+            "sequence": 557,
+            "match_second": 4150,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p139",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 55.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e558",
+            "sequence": 558,
+            "match_second": 4151,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p139",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e557",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e619",
+            "sequence": 619,
+            "match_second": 4500,
+            "type": "substitution",
+            "team_id": "home",
+            "player_name": "Kobbie Mainoo",
+            "recipient_player_name": "Manuel Ugarte",
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e620",
+            "sequence": 620,
+            "match_second": 4501,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Mason Mount",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e621",
+            "sequence": 621,
+            "match_second": 4502,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Mason Mount",
+            "recipient_player_name": "Manuel Ugarte",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": 87.0,
+            "end_y": 13.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e622",
+            "sequence": 622,
+            "match_second": 4504,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Manuel Ugarte",
+            "recipient_player_name": "Bruno Fernandes",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 87.0,
+            "y": 13.0,
+            "end_x": 95.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e623",
+            "sequence": 623,
+            "match_second": 4509,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e624",
+            "sequence": 624,
+            "match_second": 4510,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e625",
+            "sequence": 625,
+            "match_second": 4511,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e624",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e626",
+            "sequence": 626,
+            "match_second": 4530,
+            "type": "kickoff",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-2-featured:p152",
+            "related_event_id": null,
+            "x": 50.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-eaffbb14-2-featured-e558",
+          "story:goal:library-audit-eaffbb14-2-featured-e625",
+          "story:recovery-shot:library-audit-eaffbb14-2-featured-e624"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-eaffbb14-2-featured-e558",
+            "goal:library-audit-eaffbb14-2-featured-e625",
+            "recovery-shot:library-audit-eaffbb14-2-featured-e624"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e83",
+          "second": 611,
+          "team": "Manchester City",
+          "scorer": "Jeremy Doku",
+          "shot_id": "library-audit-eaffbb14-2-featured-e82"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e402",
+          "second": 3011,
+          "team": "Manchester United",
+          "scorer": "Amad Diallo",
+          "shot_id": "library-audit-eaffbb14-2-featured-e401"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e558",
+          "second": 4151,
+          "team": "Manchester City",
+          "scorer": "Erling Haaland",
+          "shot_id": "library-audit-eaffbb14-2-featured-e557"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e625",
+          "second": 4511,
+          "team": "Manchester United",
+          "scorer": "Bryan Mbeumo",
+          "shot_id": "library-audit-eaffbb14-2-featured-e624"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "deterministic",
+      "fallback_reason": "wrong_explicit_shot_clock",
+      "validation_stage": "revision_validation",
+      "validation_details": {
+        "claimed_clock": "75:11",
+        "recorded_shot_clocks": [
+          "10:10",
+          "50:10",
+          "69:10",
+          "75:10"
+        ],
+        "language": "en",
+        "issues": [
+          {
+            "code": "wrong_explicit_shot_clock",
+            "details": {
+              "claimed_clock": "75:11",
+              "recorded_shot_clocks": [
+                "10:10",
+                "50:10",
+                "69:10",
+                "75:10"
+              ],
+              "language": "en"
+            }
+          },
+          {
+            "code": "missing_recovery_goal_connection",
+            "details": {
+              "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+              "recoverer": "Mason Mount",
+              "scorer": "Bryan Mbeumo",
+              "recovery_clock": "75:01",
+              "shot_clock": "75:10",
+              "goal_clock": "75:11",
+              "team_completed_passes": 3,
+              "seconds_recovery_to_shot": 9,
+              "required_score_change": "equalization",
+              "language": "es"
+            }
+          }
+        ]
+      },
+      "model_review": null,
+      "revision_used": true,
+      "prompt_hash": "411d7a51dd0707496fcf353dded70a7a90850e4564031c57a419292003c2fb64"
+    },
+    {
+      "case": "late_derby_equalizer",
+      "role": "featured",
+      "variant_id": 3,
+      "second": 4530,
+      "cursor_second": 3900,
+      "audience": "advanced",
+      "http_status": 200,
+      "seconds": 6.38,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Manchester City took the lead at 10:11 with Jeremy Doku scoring after a quick shot. Manchester United equalized at 50:11 through Amad Diallo. Erling Haaland put City ahead again at 69:11. At 75:01, Mason Mount recovered the ball for United, who completed three passes involving Mount, Manuel Ugarte, and Bruno Fernandes before Bryan Mbeumo scored at 75:11 to tie the match 2-2. The game clock reads 75:30 with the score level.",
+            "es": "Manchester City se adelantó a los 10:11 con un gol de Jeremy Doku tras un remate rápido. Manchester United empató a los 50:11 con Amad Diallo. Erling Haaland puso de nuevo por delante al City a los 69:11. A los 75:01, Mason Mount recuperó el balón para United, que completó tres pases entre Mount, Manuel Ugarte y Bruno Fernandes antes de que Bryan Mbeumo marcara a los 75:11 para empatar 2-2. El reloj marca 75:30 con el marcador igualado.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-eaffbb14-2-featured-e558",
+              "story:goal:library-audit-eaffbb14-2-featured-e625",
+              "story:recovery-shot:library-audit-eaffbb14-2-featured-e624"
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-eaffbb14-2-featured",
+        "through_sequence": 626,
+        "since_sequence": 514,
+        "match_second": 4530
+      },
+      "text": {
+        "en": "Manchester City took the lead at 10:11 with Jeremy Doku scoring after a quick shot. Manchester United equalized at 50:11 through Amad Diallo. Erling Haaland put City ahead again at 69:11. At 75:01, Mason Mount recovered the ball for United, who completed three passes involving Mount, Manuel Ugarte, and Bruno Fernandes before Bryan Mbeumo scored at 75:11 to tie the match 2-2. The game clock reads 75:30 with the score level.",
+        "es": "Manchester City se adelantó a los 10:11 con un gol de Jeremy Doku tras un remate rápido. Manchester United empató a los 50:11 con Amad Diallo. Erling Haaland puso de nuevo por delante al City a los 69:11. A los 75:01, Mason Mount recuperó el balón para United, que completó tres pases entre Mount, Manuel Ugarte y Bruno Fernandes antes de que Bryan Mbeumo marcara a los 75:11 para empatar 2-2. El reloj marca 75:30 con el marcador igualado."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-eaffbb14-2-featured-e558",
+          "kind": "goal",
+          "text": "Away scored at 69:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-2-featured-e557",
+            "library-audit-eaffbb14-2-featured-e558"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 558
+        },
+        {
+          "story_id": "goal:library-audit-eaffbb14-2-featured-e625",
+          "kind": "goal",
+          "text": "Home scored at 75:11.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-2-featured-e624",
+            "library-audit-eaffbb14-2-featured-e625"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 625
+        },
+        {
+          "story_id": "recovery-shot:library-audit-eaffbb14-2-featured-e624",
+          "kind": "recovery_shot",
+          "match_second": 4510,
+          "text": "Home recorded a shot 9 seconds after recovering the ball in the same possession.",
+          "evidence_event_ids": [
+            "library-audit-eaffbb14-2-featured-e620",
+            "library-audit-eaffbb14-2-featured-e621",
+            "library-audit-eaffbb14-2-featured-e622",
+            "library-audit-eaffbb14-2-featured-e623",
+            "library-audit-eaffbb14-2-featured-e624",
+            "library-audit-eaffbb14-2-featured-e625"
+          ],
+          "metric": {
+            "team_id": "home",
+            "recovery_event_id": "library-audit-eaffbb14-2-featured-e620",
+            "shot_event_id": "library-audit-eaffbb14-2-featured-e624",
+            "shot_sequence": 624,
+            "elapsed_seconds": 9,
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "threshold_seconds": 30,
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e620",
+              "library-audit-eaffbb14-2-featured-e621",
+              "library-audit-eaffbb14-2-featured-e622",
+              "library-audit-eaffbb14-2-featured-e623",
+              "library-audit-eaffbb14-2-featured-e624",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "rule_version": "recovery-shot-v1",
+            "goal_link": {
+              "version": "recovery-goal-v1",
+              "goal_event_id": "library-audit-eaffbb14-2-featured-e625",
+              "goal_sequence": 625,
+              "goal_second": 4511,
+              "goal_clock": "75:11",
+              "shot_clock": "75:10",
+              "recovery_clock": "75:01",
+              "recoverer": "Mason Mount",
+              "scorer": "Bryan Mbeumo",
+              "team_name": "Manchester United",
+              "score_change": "equalization",
+              "score_before": {
+                "home": 1,
+                "away": 2
+              },
+              "score_after": {
+                "home": 2,
+                "away": 2
+              },
+              "completed_pass_count": 3,
+              "completed_passes": [
+                {
+                  "player_name": "Mason Mount",
+                  "recipient_player_name": "Manuel Ugarte",
+                  "match_second": 4502
+                },
+                {
+                  "player_name": "Manuel Ugarte",
+                  "recipient_player_name": "Bruno Fernandes",
+                  "match_second": 4504
+                },
+                {
+                  "player_name": "Bruno Fernandes",
+                  "recipient_player_name": "Bryan Mbeumo",
+                  "match_second": 4509
+                }
+              ],
+              "seconds_before_snapshot": 19,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e620",
+                "library-audit-eaffbb14-2-featured-e621",
+                "library-audit-eaffbb14-2-featured-e622",
+                "library-audit-eaffbb14-2-featured-e623",
+                "library-audit-eaffbb14-2-featured-e624",
+                "library-audit-eaffbb14-2-featured-e625"
+              ]
+            }
+          },
+          "rule_version": "recovery-shot-v1",
+          "sequence": 625
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 2,
+                "away": 2
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e83",
+              "library-audit-eaffbb14-2-featured-e402",
+              "library-audit-eaffbb14-2-featured-e558",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 2,
+                "away": 2
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-11",
+                  "match_second": 611,
+                  "sequence": 83,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e83"
+                  ],
+                  "goal_clock": "10:11",
+                  "scorer": "Jeremy Doku",
+                  "team_name": "Manchester City",
+                  "shot_clock": "10:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-11",
+                  "match_second": 3011,
+                  "sequence": 402,
+                  "before": {
+                    "home": 0,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e402"
+                  ],
+                  "goal_clock": "50:11",
+                  "scorer": "Amad Diallo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "50:10"
+                },
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "away",
+                  "player_id": "away-10",
+                  "match_second": 4151,
+                  "sequence": 558,
+                  "before": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e558"
+                  ],
+                  "goal_clock": "69:11",
+                  "scorer": "Erling Haaland",
+                  "team_name": "Manchester City",
+                  "shot_clock": "69:10"
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 4511,
+                  "sequence": 625,
+                  "before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 360,
+                    "evidence_event_ids": [
+                      "library-audit-eaffbb14-2-featured-e558",
+                      "library-audit-eaffbb14-2-featured-e625"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e625"
+                  ],
+                  "goal_clock": "75:11",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "75:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 2
+              },
+              "equalizers": {
+                "home": 2,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e83",
+                "library-audit-eaffbb14-2-featured-e402",
+                "library-audit-eaffbb14-2-featured-e558",
+                "library-audit-eaffbb14-2-featured-e625"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e83",
+              "library-audit-eaffbb14-2-featured-e402",
+              "library-audit-eaffbb14-2-featured-e558",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "75:30",
+              "match_second": 4530,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e626"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-2-featured-e558",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-2-featured-e558",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e557",
+                "library-audit-eaffbb14-2-featured-e558"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 558,
+              "goal": {
+                "player_name": "Erling Haaland",
+                "team_name": "Manchester City",
+                "clock": "69:11",
+                "match_second": 4151
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e557",
+              "library-audit-eaffbb14-2-featured-e558"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-eaffbb14-2-featured-e625",
+            "data": {
+              "story_id": "goal:library-audit-eaffbb14-2-featured-e625",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e624",
+                "library-audit-eaffbb14-2-featured-e625"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 625,
+              "goal": {
+                "player_name": "Bryan Mbeumo",
+                "team_name": "Manchester United",
+                "clock": "75:11",
+                "match_second": 4511
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e624",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-eaffbb14-2-featured-e624",
+            "data": {
+              "story_id": "recovery-shot:library-audit-eaffbb14-2-featured-e624",
+              "kind": "recovery_shot",
+              "match_second": 4510,
+              "evidence_event_ids": [
+                "library-audit-eaffbb14-2-featured-e620",
+                "library-audit-eaffbb14-2-featured-e621",
+                "library-audit-eaffbb14-2-featured-e622",
+                "library-audit-eaffbb14-2-featured-e623",
+                "library-audit-eaffbb14-2-featured-e624",
+                "library-audit-eaffbb14-2-featured-e625"
+              ],
+              "metric": {
+                "team_id": "home",
+                "recovery_event_id": "library-audit-eaffbb14-2-featured-e620",
+                "shot_event_id": "library-audit-eaffbb14-2-featured-e624",
+                "shot_sequence": 624,
+                "elapsed_seconds": 9,
+                "possession_id": "library-audit-eaffbb14-2-featured:p151",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-eaffbb14-2-featured-e620",
+                  "library-audit-eaffbb14-2-featured-e621",
+                  "library-audit-eaffbb14-2-featured-e622",
+                  "library-audit-eaffbb14-2-featured-e623",
+                  "library-audit-eaffbb14-2-featured-e624",
+                  "library-audit-eaffbb14-2-featured-e625"
+                ],
+                "rule_version": "recovery-shot-v1",
+                "goal_link": {
+                  "version": "recovery-goal-v1",
+                  "goal_event_id": "library-audit-eaffbb14-2-featured-e625",
+                  "goal_sequence": 625,
+                  "goal_second": 4511,
+                  "goal_clock": "75:11",
+                  "shot_clock": "75:10",
+                  "recovery_clock": "75:01",
+                  "recoverer": "Mason Mount",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "score_change": "equalization",
+                  "score_before": {
+                    "home": 1,
+                    "away": 2
+                  },
+                  "score_after": {
+                    "home": 2,
+                    "away": 2
+                  },
+                  "completed_pass_count": 3,
+                  "completed_passes": [
+                    {
+                      "player_name": "Mason Mount",
+                      "recipient_player_name": "Manuel Ugarte",
+                      "match_second": 4502
+                    },
+                    {
+                      "player_name": "Manuel Ugarte",
+                      "recipient_player_name": "Bruno Fernandes",
+                      "match_second": 4504
+                    },
+                    {
+                      "player_name": "Bruno Fernandes",
+                      "recipient_player_name": "Bryan Mbeumo",
+                      "match_second": 4509
+                    }
+                  ],
+                  "seconds_before_snapshot": 19,
+                  "evidence_event_ids": [
+                    "library-audit-eaffbb14-2-featured-e620",
+                    "library-audit-eaffbb14-2-featured-e621",
+                    "library-audit-eaffbb14-2-featured-e622",
+                    "library-audit-eaffbb14-2-featured-e623",
+                    "library-audit-eaffbb14-2-featured-e624",
+                    "library-audit-eaffbb14-2-featured-e625"
+                  ]
+                }
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 625
+            },
+            "evidence_event_ids": [
+              "library-audit-eaffbb14-2-featured-e620",
+              "library-audit-eaffbb14-2-featured-e621",
+              "library-audit-eaffbb14-2-featured-e622",
+              "library-audit-eaffbb14-2-featured-e623",
+              "library-audit-eaffbb14-2-featured-e624",
+              "library-audit-eaffbb14-2-featured-e625"
+            ],
+            "window_labels": [],
+            "point_clock": "75:10",
+            "participants": {
+              "recoverer": "Mason Mount",
+              "shooter": "Bryan Mbeumo"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e83",
+            "sequence": 83,
+            "match_second": 611,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Jeremy Doku",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p21",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e82",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e402",
+            "sequence": 402,
+            "match_second": 3011,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Amad Diallo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p101",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e401",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e557",
+            "sequence": 557,
+            "match_second": 4150,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p139",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 55.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e558",
+            "sequence": 558,
+            "match_second": 4151,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p139",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e557",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e619",
+            "sequence": 619,
+            "match_second": 4500,
+            "type": "substitution",
+            "team_id": "home",
+            "player_name": "Kobbie Mainoo",
+            "recipient_player_name": "Manuel Ugarte",
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e620",
+            "sequence": 620,
+            "match_second": 4501,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Mason Mount",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e621",
+            "sequence": 621,
+            "match_second": 4502,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Mason Mount",
+            "recipient_player_name": "Manuel Ugarte",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 72.0,
+            "y": 25.0,
+            "end_x": 87.0,
+            "end_y": 13.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e622",
+            "sequence": 622,
+            "match_second": 4504,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Manuel Ugarte",
+            "recipient_player_name": "Bruno Fernandes",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 87.0,
+            "y": 13.0,
+            "end_x": 95.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e623",
+            "sequence": 623,
+            "match_second": 4509,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e624",
+            "sequence": 624,
+            "match_second": 4510,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e625",
+            "sequence": 625,
+            "match_second": 4511,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-eaffbb14-2-featured:p151",
+            "related_event_id": "library-audit-eaffbb14-2-featured-e624",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-eaffbb14-2-featured-e626",
+            "sequence": 626,
+            "match_second": 4530,
+            "type": "kickoff",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-eaffbb14-2-featured:p152",
+            "related_event_id": null,
+            "x": 50.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-eaffbb14-2-featured-e558",
+          "story:goal:library-audit-eaffbb14-2-featured-e625",
+          "story:recovery-shot:library-audit-eaffbb14-2-featured-e624"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-eaffbb14-2-featured-e558",
+            "goal:library-audit-eaffbb14-2-featured-e625",
+            "recovery-shot:library-audit-eaffbb14-2-featured-e624"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e83",
+          "second": 611,
+          "team": "Manchester City",
+          "scorer": "Jeremy Doku",
+          "shot_id": "library-audit-eaffbb14-2-featured-e82"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e402",
+          "second": 3011,
+          "team": "Manchester United",
+          "scorer": "Amad Diallo",
+          "shot_id": "library-audit-eaffbb14-2-featured-e401"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e558",
+          "second": 4151,
+          "team": "Manchester City",
+          "scorer": "Erling Haaland",
+          "shot_id": "library-audit-eaffbb14-2-featured-e557"
+        },
+        {
+          "event_id": "library-audit-eaffbb14-2-featured-e625",
+          "second": 4511,
+          "team": "Manchester United",
+          "scorer": "Bryan Mbeumo",
+          "shot_id": "library-audit-eaffbb14-2-featured-e624"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "azure",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "model_review": "model_review_passed",
+      "revision_used": false,
+      "prompt_hash": "4bee88c33bb30aeed8bc22964498de0f9b40dfde81b5dda70566a27f95f23661"
+    }
+  ],
+  "complete": true,
+  "independent_fan_study": "not_run",
+  "editorial_verdict": "pending_source_review",
+  "selected_cases": [
+    "early_derby_contribution",
+    "palace_repeated_replies",
+    "late_derby_equalizer"
+  ],
+  "version_coverage": [
+    {
+      "variant_id": 1,
+      "role": "comeback"
+    },
+    {
+      "variant_id": 1,
+      "role": "featured"
+    },
+    {
+      "variant_id": 3,
+      "role": "featured"
+    }
+  ],
+  "planned_requests": 6,
+  "temporary_groups": [
+    {
+      "id": "library-audit-eaffbb14-63",
+      "variant_id": 1,
+      "released": true
+    },
+    {
+      "id": "library-audit-eaffbb14-2",
+      "variant_id": 3,
+      "released": true
+    }
+  ],
+  "capture_rejections": true,
+  "mode_counts": {
+    "deterministic": 4,
+    "azure": 2
+  },
+  "fallback_counts": {
+    "ambiguous_statistic_window": 2,
+    "missing_recovery_goal_connection": 1,
+    "wrong_explicit_shot_clock": 1
+  },
+  "finished_utc": "2026-10-24T20:39:07.450636+00:00"
+}

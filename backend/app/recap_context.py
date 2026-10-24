@@ -1,6 +1,27 @@
 """Observed chronology for the writer, without supplying commentary sentences."""
 
 
+def score_chronology(trajectory, events, names):
+    """Enrich observed score transitions with names and distinct action clocks."""
+    by_id={event.event_id:event for event in events}
+    goals={event.sequence:event for event in events if event.type=='goal'}
+    rows=[]
+    for transition in trajectory.get('transitions',[]):
+        row=dict(transition)
+        goal=goals.get(row['sequence'])
+        if goal:
+            row.update(goal_clock=f'{goal.match_second//60}:{goal.match_second%60:02d}',
+                       scorer=goal.player_name or goal.player_id,team_name=names[goal.team_id])
+            shot=by_id.get(goal.related_event_id)
+            if (shot and shot.type=='shot' and shot.outcome=='goal'
+                    and shot.player_id==goal.player_id and shot.team_id==goal.team_id
+                    and shot.match_id==goal.match_id and shot.period==goal.period
+                    and shot.sequence<goal.sequence and 0<=goal.match_second-shot.match_second<=10):
+                row['shot_clock']=f'{shot.match_second//60}:{shot.match_second%60:02d}'
+        rows.append(row)
+    return {**trajectory,'transitions':rows}
+
+
 def recovery_goal_link(chain, events, transitions):
     """Link only the actual goal-producing shot, never a nearby goal."""
     by_id = {event.event_id: event for event in events}
@@ -61,6 +82,8 @@ def creator_chronology(story, events):
         actions.append({
             'pass_event_id': before.event_id, 'shot_event_id': shot.event_id,
             'pass_second': before.match_second, 'shot_second': shot.match_second,
+            'pass_clock': f'{before.match_second//60}:{before.match_second%60:02d}',
+            'shot_clock': f'{shot.match_second//60}:{shot.match_second%60:02d}',
             'shot_sequence': shot.sequence, 'shot_outcome': shot.outcome,
             'recipient_player_name': shot.player_name or shot.player_id,
         })
