@@ -10,15 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build image from this revision
-        run: docker build -t ghcr.io/plopez-4/matchos:${{ github.sha }} .
+        run: docker build --label org.opencontainers.image.source=https://github.com/plopez-4/matchos -t ghcr.io/plopez-4/matchos-judging:${{ github.sha }} .
       - name: Authenticate to GitHub Container Registry
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
       - name: Publish immutable revision tag and record digest
         run: |
-          docker push ghcr.io/plopez-4/matchos:${{ github.sha }}
-          docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/plopez-4/matchos:${{ github.sha }} >> "$GITHUB_STEP_SUMMARY"
+          docker push ghcr.io/plopez-4/matchos-judging:${{ github.sha }}
+          docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/plopez-4/matchos-judging:${{ github.sha }} >> "$GITHUB_STEP_SUMMARY"
       - name: Clear temporary registry authentication
         if: always()
         run: docker logout ghcr.io
