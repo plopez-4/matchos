@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 MATCHOS_ENV=production MATCHOS_
 WORKDIR /app
 COPY backend/pyproject.toml backend/constraints.txt ./backend/
 COPY backend/app ./backend/app
-RUN python -m pip install --no-cache-dir pip==26.2.1 setuptools==83.0.0 && python -m pip install --no-cache-dir -c backend/constraints.txt ./backend
+RUN python -m pip install --no-cache-dir pip==26.2.1 setuptools==84.1.0 && python -m pip install --no-cache-dir -c backend/constraints.txt ./backend
 COPY --from=frontend /build/frontend/dist ./frontend/dist
 COPY deploy/start.py ./deploy/start.py
 USER 10001:10001
