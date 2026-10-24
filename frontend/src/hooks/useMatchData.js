@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { fetchMatchData, fetchMatchGraph } from '../api';
 
 export function useMatchData(matchId = 'demo-match', options = {}) {
-  const { pollInterval = 2000, onReset, includeGraph = true } = options;
+  const { pollInterval = 2000, onReset, includeGraph = true, enabled = true } = options;
 
   const [data, setData] = useState({
     events: [],
@@ -71,6 +71,7 @@ export function useMatchData(matchId = 'demo-match', options = {}) {
   );
 
   useEffect(() => {
+    if (!enabled) return;
     let active = true;
     let timerId = null;
     const controller = new AbortController();
@@ -90,7 +91,7 @@ export function useMatchData(matchId = 'demo-match', options = {}) {
       controller.abort();
       if (timerId) clearTimeout(timerId);
     };
-  }, [refresh, pollInterval]);
+  }, [refresh, pollInterval, enabled]);
 
   return {
     data,

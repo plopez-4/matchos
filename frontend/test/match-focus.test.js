@@ -267,6 +267,9 @@ test('the default route is the branded main page and development is explicit', (
     );
     assert.match(main, /Catch Me Up/);
     assert.match(main, /Demo settings/);
+    assert.match(main, /All three matches run together/);
+    assert.match(main, /Crystal Palace vs Newcastle United/);
+    assert.match(main, /Brighton vs Fulham/);
     const inspector = renderToStaticMarkup(
       React.createElement(DevelopmentInspector, { matchId: 'same-fan-match' }),
     );
