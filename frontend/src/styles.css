@@ -1686,16 +1686,18 @@ body {
   gap: 24px;
   padding: 22px 0;
 }
-.league-identity {
+.matchos-identity {
   display: flex;
   align-items: center;
   gap: 24px;
 }
-.league-identity img {
-  display: block;
-  object-fit: contain;
+.matchos-wordmark {
+  color: #00ff85;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
 }
-.league-identity > span {
+.competition-context {
   font-size: 10px;
   letter-spacing: 1.6px;
   line-height: 1.8;
@@ -1713,25 +1715,6 @@ body {
 .microsoft-credit strong {
   color: white;
   font-size: 14px;
-}
-.microsoft-mark {
-  display: grid;
-  grid-template-columns: repeat(2, 12px);
-  gap: 3px;
-}
-.microsoft-mark i {
-  width: 12px;
-  height: 12px;
-  background: #f25022;
-}
-.microsoft-mark i:nth-child(2) {
-  background: #7fba00;
-}
-.microsoft-mark i:nth-child(3) {
-  background: #00a4ef;
-}
-.microsoft-mark i:nth-child(4) {
-  background: #ffb900;
 }
 .stadium-hero {
   height: 270px;
@@ -2024,14 +2007,10 @@ body {
     gap: 12px;
     padding: 16px 0;
   }
-  .league-identity {
+  .matchos-identity {
     gap: 10px;
   }
-  .league-identity img {
-    width: 100px;
-    height: 43px;
-  }
-  .league-identity > span {
+  .competition-context {
     display: none;
   }
   .microsoft-credit strong {
