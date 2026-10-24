@@ -17,7 +17,6 @@
       "name": "[parameters('environmentName')]",
       "location": "[parameters('location')]",
       "properties": {
-        "appLogsConfiguration": { "destination": "none" },
         "zoneRedundant": false,
         "workloadProfiles": [{ "name": "Consumption", "workloadProfileType": "Consumption" }]
       }
