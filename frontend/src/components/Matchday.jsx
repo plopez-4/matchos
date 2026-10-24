@@ -556,8 +556,6 @@ export function Matchday() {
           : 'Missed the action? See how it happened.'}
         <br />
         Independent hackathon prototype · Fictional match action.
-        <br />
-        Premier League mark: © The Football Association Premier League Limited, 2016.
       </footer>
 
       {notice &&

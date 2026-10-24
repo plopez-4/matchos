@@ -246,7 +246,6 @@ export function FanMatch({
       <footer className="dashboard-footer">
         <p>MatchOS · Real club and player names. Fictional match action.</p>
         <p>Independent hackathon prototype · No endorsement claimed.</p>
-        <p>Premier League mark: © The Football Association Premier League Limited, 2016.</p>
         <a href={inspectorUrl}>Development dashboard</a>
       </footer>
     </div>
