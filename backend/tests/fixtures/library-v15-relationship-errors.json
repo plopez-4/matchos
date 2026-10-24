@@ -1,0 +1,1079 @@
+{
+  "note": "Actual v15 accepted outputs. Palace names an impossible self-recipient; halftime recipients were correct but the balanced-half claim is unsupported.",
+  "palace": {
+    "text": {
+      "en": "Crystal Palace and Newcastle United are tied 1-1 at 62:30. Newcastle took the lead at 15:11 with a goal. Crystal Palace equalized at 60:11 after Takehiro Tomiyasu recovered the ball at 60:00 and completed two passes, one to Jefferson Lerma and another back to Tomiyasu, before the team completed five passes total, ending with Adam Wharton passing to Ismaila Sarr, who scored to level the match.",
+      "es": "Crystal Palace y Newcastle United están empatados 1-1 a los 62:30. Newcastle se adelantó a los 15:11 con un gol. Crystal Palace igualó a los 60:11 tras una recuperación de Takehiro Tomiyasu a los 60:00, quien completó dos pases, uno a Jefferson Lerma y otro de regreso a Tomiyasu, mientras que el equipo completó cinco pases en total, finalizando con Adam Wharton pasando a Ismaila Sarr, quien anotó para empatar el partido."
+    },
+    "packet": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Crystal Palace",
+              "away": "Newcastle United"
+            },
+            "score": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-comeback-e136",
+            "library-audit-546422c5-1-comeback-e500"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 1,
+              "away": 1
+            },
+            "transitions": [
+              {
+                "type": "lead_acquisition",
+                "team_id": "away",
+                "player_id": "away-10",
+                "match_second": 911,
+                "sequence": 136,
+                "before": {
+                  "home": 0,
+                  "away": 0
+                },
+                "after": {
+                  "home": 0,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-546422c5-1-comeback-e136"
+                ]
+              },
+              {
+                "type": "equalization",
+                "team_id": "home",
+                "player_id": "home-9",
+                "match_second": 3611,
+                "sequence": 500,
+                "before": {
+                  "home": 0,
+                  "away": 1
+                },
+                "after": {
+                  "home": 1,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-546422c5-1-comeback-e500"
+                ]
+              }
+            ],
+            "lead_acquisitions": {
+              "home": 0,
+              "away": 1
+            },
+            "equalizers": {
+              "home": 1,
+              "away": 0
+            },
+            "evidence_event_ids": [
+              "library-audit-546422c5-1-comeback-e136",
+              "library-audit-546422c5-1-comeback-e500"
+            ],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-comeback-e136",
+            "library-audit-546422c5-1-comeback-e500"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "62:30",
+            "match_second": 3750,
+            "has_new_goals": true
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-comeback-e514"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-546422c5-1-comeback-e500",
+          "data": {
+            "story_id": "goal:library-audit-546422c5-1-comeback-e500",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-546422c5-1-comeback-e499",
+              "library-audit-546422c5-1-comeback-e500"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 500,
+            "goal": {
+              "player_name": "Ismaila Sarr",
+              "team_name": "Crystal Palace",
+              "clock": "60:11",
+              "match_second": 3611
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-comeback-e499",
+            "library-audit-546422c5-1-comeback-e500"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-546422c5-1-comeback-e499",
+          "data": {
+            "story_id": "recovery-shot:library-audit-546422c5-1-comeback-e499",
+            "kind": "recovery_shot",
+            "match_second": 3610,
+            "evidence_event_ids": [
+              "library-audit-546422c5-1-comeback-e493",
+              "library-audit-546422c5-1-comeback-e494",
+              "library-audit-546422c5-1-comeback-e495",
+              "library-audit-546422c5-1-comeback-e496",
+              "library-audit-546422c5-1-comeback-e497",
+              "library-audit-546422c5-1-comeback-e498",
+              "library-audit-546422c5-1-comeback-e499",
+              "library-audit-546422c5-1-comeback-e500"
+            ],
+            "metric": {
+              "team_id": "home",
+              "recovery_event_id": "library-audit-546422c5-1-comeback-e493",
+              "shot_event_id": "library-audit-546422c5-1-comeback-e499",
+              "shot_sequence": 499,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-546422c5-1-comeback:p121",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-546422c5-1-comeback-e493",
+                "library-audit-546422c5-1-comeback-e494",
+                "library-audit-546422c5-1-comeback-e495",
+                "library-audit-546422c5-1-comeback-e496",
+                "library-audit-546422c5-1-comeback-e497",
+                "library-audit-546422c5-1-comeback-e498",
+                "library-audit-546422c5-1-comeback-e499",
+                "library-audit-546422c5-1-comeback-e500"
+              ],
+              "rule_version": "recovery-shot-v1",
+              "goal_link": {
+                "version": "recovery-goal-v1",
+                "goal_event_id": "library-audit-546422c5-1-comeback-e500",
+                "goal_sequence": 500,
+                "goal_second": 3611,
+                "goal_clock": "60:11",
+                "shot_clock": "60:10",
+                "recovery_clock": "60:00",
+                "recoverer": "Takehiro Tomiyasu",
+                "scorer": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "score_change": "equalization",
+                "score_before": {
+                  "home": 0,
+                  "away": 1
+                },
+                "score_after": {
+                  "home": 1,
+                  "away": 1
+                },
+                "completed_pass_count": 5,
+                "completed_passes": [
+                  {
+                    "player_name": "Takehiro Tomiyasu",
+                    "recipient_player_name": "Jefferson Lerma",
+                    "match_second": 3602
+                  },
+                  {
+                    "player_name": "Jefferson Lerma",
+                    "recipient_player_name": "Chris Richards",
+                    "match_second": 3604
+                  },
+                  {
+                    "player_name": "Chris Richards",
+                    "recipient_player_name": "Takehiro Tomiyasu",
+                    "match_second": 3606
+                  },
+                  {
+                    "player_name": "Takehiro Tomiyasu",
+                    "recipient_player_name": "Adam Wharton",
+                    "match_second": 3608
+                  },
+                  {
+                    "player_name": "Adam Wharton",
+                    "recipient_player_name": "Ismaila Sarr",
+                    "match_second": 3609
+                  }
+                ],
+                "seconds_before_snapshot": 139,
+                "evidence_event_ids": [
+                  "library-audit-546422c5-1-comeback-e493",
+                  "library-audit-546422c5-1-comeback-e494",
+                  "library-audit-546422c5-1-comeback-e495",
+                  "library-audit-546422c5-1-comeback-e496",
+                  "library-audit-546422c5-1-comeback-e497",
+                  "library-audit-546422c5-1-comeback-e498",
+                  "library-audit-546422c5-1-comeback-e499",
+                  "library-audit-546422c5-1-comeback-e500"
+                ]
+              }
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 500
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-comeback-e493",
+            "library-audit-546422c5-1-comeback-e494",
+            "library-audit-546422c5-1-comeback-e495",
+            "library-audit-546422c5-1-comeback-e496",
+            "library-audit-546422c5-1-comeback-e497",
+            "library-audit-546422c5-1-comeback-e498",
+            "library-audit-546422c5-1-comeback-e499",
+            "library-audit-546422c5-1-comeback-e500"
+          ],
+          "window_labels": [],
+          "point_clock": "60:10",
+          "participants": {
+            "recoverer": "Takehiro Tomiyasu",
+            "shooter": "Ismaila Sarr"
+          }
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e136",
+          "sequence": 136,
+          "match_second": 911,
+          "type": "goal",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-546422c5-1-comeback:p31",
+          "related_event_id": "library-audit-546422c5-1-comeback-e135",
+          "x": 0.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e493",
+          "sequence": 493,
+          "match_second": 3600,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Takehiro Tomiyasu",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 35.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e494",
+          "sequence": 494,
+          "match_second": 3602,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Takehiro Tomiyasu",
+          "recipient_player_name": "Jefferson Lerma",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 35.0,
+          "y": 25.0,
+          "end_x": 43.0,
+          "end_y": 17.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e495",
+          "sequence": 495,
+          "match_second": 3604,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Jefferson Lerma",
+          "recipient_player_name": "Chris Richards",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 43.0,
+          "y": 17.0,
+          "end_x": 49.0,
+          "end_y": 22.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e496",
+          "sequence": 496,
+          "match_second": 3606,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Chris Richards",
+          "recipient_player_name": "Takehiro Tomiyasu",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 49.0,
+          "y": 22.0,
+          "end_x": 57.0,
+          "end_y": 32.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e497",
+          "sequence": 497,
+          "match_second": 3608,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Takehiro Tomiyasu",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 32.0,
+          "end_x": 63.0,
+          "end_y": 20.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e498",
+          "sequence": 498,
+          "match_second": 3609,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": "Ismaila Sarr",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 63.0,
+          "y": 20.0,
+          "end_x": 82.0,
+          "end_y": 20.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e499",
+          "sequence": 499,
+          "match_second": 3610,
+          "type": "shot",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": null,
+          "x": 82.0,
+          "y": 20.0,
+          "end_x": 100.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e500",
+          "sequence": 500,
+          "match_second": 3611,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-546422c5-1-comeback:p121",
+          "related_event_id": "library-audit-546422c5-1-comeback-e499",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e507",
+          "sequence": 507,
+          "match_second": 3664,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "intercepted",
+          "possession_id": "library-audit-546422c5-1-comeback:p123",
+          "related_event_id": null,
+          "x": 51.0,
+          "y": 59.0,
+          "end_x": 46.0,
+          "end_y": 69.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e508",
+          "sequence": 508,
+          "match_second": 3690,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Nico Gonzalez",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-comeback:p124",
+          "related_event_id": null,
+          "x": 65.0,
+          "y": 61.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e509",
+          "sequence": 509,
+          "match_second": 3692,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Nico Gonzalez",
+          "recipient_player_name": "Joe Willock",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p124",
+          "related_event_id": null,
+          "x": 65.0,
+          "y": 61.0,
+          "end_x": 59.0,
+          "end_y": 66.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e510",
+          "sequence": 510,
+          "match_second": 3694,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joe Willock",
+          "recipient_player_name": "Anthony Elanga",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p124",
+          "related_event_id": null,
+          "x": 59.0,
+          "y": 66.0,
+          "end_x": 64.0,
+          "end_y": 54.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e511",
+          "sequence": 511,
+          "match_second": 3720,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Chadi Riad",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-comeback:p125",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 73.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e512",
+          "sequence": 512,
+          "match_second": 3722,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Chadi Riad",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p125",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 73.0,
+          "end_x": 42.0,
+          "end_y": 61.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e513",
+          "sequence": 513,
+          "match_second": 3724,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": "Daichi Kamada",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-comeback:p125",
+          "related_event_id": null,
+          "x": 42.0,
+          "y": 61.0,
+          "end_x": 50.0,
+          "end_y": 53.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-comeback-e514",
+          "sequence": 514,
+          "match_second": 3750,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Joelinton",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-comeback:p126",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:goal:library-audit-546422c5-1-comeback-e500",
+        "story:recovery-shot:library-audit-546422c5-1-comeback-e499"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "goal:library-audit-546422c5-1-comeback-e500",
+          "recovery-shot:library-audit-546422c5-1-comeback-e499"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    }
+  },
+  "halftime": {
+    "text": {
+      "en": "Manchester United took the lead at 15:11, but Manchester City equalized at 40:11. Rico Lewis recovered the ball at 40:00 and completed two passes to Elliot Anderson and Marc Guehi, while the team completed five passes total before Phil Foden passed to Jeremy Doku, who scored the tying goal at 40:11. The halftime score was 1-1, reflecting the match's balanced first half.",
+      "es": "Manchester United se adelantó a los 15:11, pero Manchester City empató a los 40:11. Rico Lewis recuperó el balón a los 40:00 y completó dos pases a Elliot Anderson y Marc Guehi, mientras que el equipo completó cinco pases en total antes de que Phil Foden pasara a Jeremy Doku, quien anotó el gol del empate a los 40:11. El marcador al descanso fue 1-1, reflejando la igualdad en la primera mitad."
+    },
+    "packet": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Manchester United",
+              "away": "Manchester City"
+            },
+            "score": {
+              "home": 1,
+              "away": 1
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-featured-e124",
+            "library-audit-546422c5-1-featured-e339"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 1,
+              "away": 1
+            },
+            "transitions": [
+              {
+                "type": "lead_acquisition",
+                "team_id": "home",
+                "player_id": "home-9",
+                "match_second": 911,
+                "sequence": 124,
+                "before": {
+                  "home": 0,
+                  "away": 0
+                },
+                "after": {
+                  "home": 1,
+                  "away": 0
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-546422c5-1-featured-e124"
+                ]
+              },
+              {
+                "type": "equalization",
+                "team_id": "away",
+                "player_id": "away-11",
+                "match_second": 2411,
+                "sequence": 339,
+                "before": {
+                  "home": 1,
+                  "away": 0
+                },
+                "after": {
+                  "home": 1,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-546422c5-1-featured-e339"
+                ]
+              }
+            ],
+            "lead_acquisitions": {
+              "home": 1,
+              "away": 0
+            },
+            "equalizers": {
+              "home": 0,
+              "away": 1
+            },
+            "evidence_event_ids": [
+              "library-audit-546422c5-1-featured-e124",
+              "library-audit-546422c5-1-featured-e339"
+            ],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-featured-e124",
+            "library-audit-546422c5-1-featured-e339"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "halftime",
+            "clock": "45:00",
+            "match_second": 2700,
+            "has_new_goals": true
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-featured-e373"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-546422c5-1-featured-e339",
+          "data": {
+            "story_id": "goal:library-audit-546422c5-1-featured-e339",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-546422c5-1-featured-e338",
+              "library-audit-546422c5-1-featured-e339"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 339,
+            "goal": {
+              "player_name": "Jeremy Doku",
+              "team_name": "Manchester City",
+              "clock": "40:11",
+              "match_second": 2411
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-featured-e338",
+            "library-audit-546422c5-1-featured-e339"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-546422c5-1-featured-e338",
+          "data": {
+            "story_id": "recovery-shot:library-audit-546422c5-1-featured-e338",
+            "kind": "recovery_shot",
+            "match_second": 2410,
+            "evidence_event_ids": [
+              "library-audit-546422c5-1-featured-e332",
+              "library-audit-546422c5-1-featured-e333",
+              "library-audit-546422c5-1-featured-e334",
+              "library-audit-546422c5-1-featured-e335",
+              "library-audit-546422c5-1-featured-e336",
+              "library-audit-546422c5-1-featured-e337",
+              "library-audit-546422c5-1-featured-e338",
+              "library-audit-546422c5-1-featured-e339"
+            ],
+            "metric": {
+              "team_id": "away",
+              "recovery_event_id": "library-audit-546422c5-1-featured-e332",
+              "shot_event_id": "library-audit-546422c5-1-featured-e338",
+              "shot_sequence": 338,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-546422c5-1-featured:p81",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-546422c5-1-featured-e332",
+                "library-audit-546422c5-1-featured-e333",
+                "library-audit-546422c5-1-featured-e334",
+                "library-audit-546422c5-1-featured-e335",
+                "library-audit-546422c5-1-featured-e336",
+                "library-audit-546422c5-1-featured-e337",
+                "library-audit-546422c5-1-featured-e338",
+                "library-audit-546422c5-1-featured-e339"
+              ],
+              "rule_version": "recovery-shot-v1",
+              "goal_link": {
+                "version": "recovery-goal-v1",
+                "goal_event_id": "library-audit-546422c5-1-featured-e339",
+                "goal_sequence": 339,
+                "goal_second": 2411,
+                "goal_clock": "40:11",
+                "shot_clock": "40:10",
+                "recovery_clock": "40:00",
+                "recoverer": "Rico Lewis",
+                "scorer": "Jeremy Doku",
+                "team_name": "Manchester City",
+                "score_change": "equalization",
+                "score_before": {
+                  "home": 1,
+                  "away": 0
+                },
+                "score_after": {
+                  "home": 1,
+                  "away": 1
+                },
+                "completed_pass_count": 5,
+                "completed_passes": [
+                  {
+                    "player_name": "Rico Lewis",
+                    "recipient_player_name": "Elliot Anderson",
+                    "match_second": 2402
+                  },
+                  {
+                    "player_name": "Elliot Anderson",
+                    "recipient_player_name": "Rico Lewis",
+                    "match_second": 2404
+                  },
+                  {
+                    "player_name": "Rico Lewis",
+                    "recipient_player_name": "Marc Guehi",
+                    "match_second": 2406
+                  },
+                  {
+                    "player_name": "Marc Guehi",
+                    "recipient_player_name": "Phil Foden",
+                    "match_second": 2408
+                  },
+                  {
+                    "player_name": "Phil Foden",
+                    "recipient_player_name": "Jeremy Doku",
+                    "match_second": 2409
+                  }
+                ],
+                "seconds_before_snapshot": 289,
+                "evidence_event_ids": [
+                  "library-audit-546422c5-1-featured-e332",
+                  "library-audit-546422c5-1-featured-e333",
+                  "library-audit-546422c5-1-featured-e334",
+                  "library-audit-546422c5-1-featured-e335",
+                  "library-audit-546422c5-1-featured-e336",
+                  "library-audit-546422c5-1-featured-e337",
+                  "library-audit-546422c5-1-featured-e338",
+                  "library-audit-546422c5-1-featured-e339"
+                ]
+              }
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 339
+          },
+          "evidence_event_ids": [
+            "library-audit-546422c5-1-featured-e332",
+            "library-audit-546422c5-1-featured-e333",
+            "library-audit-546422c5-1-featured-e334",
+            "library-audit-546422c5-1-featured-e335",
+            "library-audit-546422c5-1-featured-e336",
+            "library-audit-546422c5-1-featured-e337",
+            "library-audit-546422c5-1-featured-e338",
+            "library-audit-546422c5-1-featured-e339"
+          ],
+          "window_labels": [],
+          "point_clock": "40:10",
+          "participants": {
+            "recoverer": "Rico Lewis",
+            "shooter": "Jeremy Doku"
+          }
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-546422c5-1-featured-e124",
+          "sequence": 124,
+          "match_second": 911,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Bryan Mbeumo",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-546422c5-1-featured:p31",
+          "related_event_id": "library-audit-546422c5-1-featured-e123",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e332",
+          "sequence": 332,
+          "match_second": 2400,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Rico Lewis",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e333",
+          "sequence": 333,
+          "match_second": 2402,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Rico Lewis",
+          "recipient_player_name": "Elliot Anderson",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": 49.0,
+          "end_y": 17.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e334",
+          "sequence": 334,
+          "match_second": 2404,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Elliot Anderson",
+          "recipient_player_name": "Rico Lewis",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 49.0,
+          "y": 17.0,
+          "end_x": 54.0,
+          "end_y": 22.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e335",
+          "sequence": 335,
+          "match_second": 2406,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Rico Lewis",
+          "recipient_player_name": "Marc Guehi",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 54.0,
+          "y": 22.0,
+          "end_x": 59.0,
+          "end_y": 14.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e336",
+          "sequence": 336,
+          "match_second": 2408,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Marc Guehi",
+          "recipient_player_name": "Phil Foden",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 59.0,
+          "y": 14.0,
+          "end_x": 51.0,
+          "end_y": 10.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e337",
+          "sequence": 337,
+          "match_second": 2409,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Phil Foden",
+          "recipient_player_name": "Jeremy Doku",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 51.0,
+          "y": 10.0,
+          "end_x": 18.0,
+          "end_y": 10.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e338",
+          "sequence": 338,
+          "match_second": 2410,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Jeremy Doku",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 10.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e339",
+          "sequence": 339,
+          "match_second": 2411,
+          "type": "goal",
+          "team_id": "away",
+          "player_name": "Jeremy Doku",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-546422c5-1-featured:p81",
+          "related_event_id": "library-audit-546422c5-1-featured-e338",
+          "x": 0.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e366",
+          "sequence": 366,
+          "match_second": 2640,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Kobbie Mainoo",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-featured:p89",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 61.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e367",
+          "sequence": 367,
+          "match_second": 2642,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Kobbie Mainoo",
+          "recipient_player_name": "Carlos Baleba",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p89",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 61.0,
+          "end_x": 47.0,
+          "end_y": 53.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e368",
+          "sequence": 368,
+          "match_second": 2644,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Carlos Baleba",
+          "recipient_player_name": "Amad Diallo",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p89",
+          "related_event_id": null,
+          "x": 47.0,
+          "y": 53.0,
+          "end_x": 55.0,
+          "end_y": 41.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e369",
+          "sequence": 369,
+          "match_second": 2670,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Phil Foden",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-featured:p90",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 73.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e370",
+          "sequence": 370,
+          "match_second": 2672,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Phil Foden",
+          "recipient_player_name": "Enzo Fernandez",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p90",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 73.0,
+          "end_x": 62.0,
+          "end_y": 78.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e371",
+          "sequence": 371,
+          "match_second": 2674,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": "Josko Gvardiol",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p90",
+          "related_event_id": null,
+          "x": 62.0,
+          "y": 78.0,
+          "end_x": 59.0,
+          "end_y": 66.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e372",
+          "sequence": 372,
+          "match_second": 2676,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Josko Gvardiol",
+          "recipient_player_name": "Elliot Anderson",
+          "outcome": "complete",
+          "possession_id": "library-audit-546422c5-1-featured:p90",
+          "related_event_id": null,
+          "x": 59.0,
+          "y": 66.0,
+          "end_x": 53.0,
+          "end_y": 71.0
+        },
+        {
+          "event_id": "library-audit-546422c5-1-featured-e373",
+          "sequence": 373,
+          "match_second": 2700,
+          "type": "half_end",
+          "team_id": "home",
+          "player_name": "Diogo Dalot",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-546422c5-1-featured:p91",
+          "related_event_id": null,
+          "x": 35.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:goal:library-audit-546422c5-1-featured-e339",
+        "story:recovery-shot:library-audit-546422c5-1-featured-e338"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "goal:library-audit-546422c5-1-featured-e339",
+          "recovery-shot:library-audit-546422c5-1-featured-e338"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    }
+  }
+}
