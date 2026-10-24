@@ -1,0 +1,1481 @@
+{
+  "note": "Actual accepted v14 outputs from the frozen nine-match library audit; no provider credentials.",
+  "samples": [
+    {
+      "case": "quiet_brighton",
+      "audience": "casual",
+      "expected_error": "wrong_recovery_clock",
+      "text": {
+        "en": "At 55:10, Rodrigo Muniz of Fulham recovered the ball and quickly took a shot just 10 seconds later, but the score remained 0-0. The match clock now reads 75:00 with no goals scored yet, keeping the game tied as both Brighton and Fulham continue their efforts without breaking the deadlock. This recovery and shot sequence highlights Fulham's attempts to change the scoreline during the second half.",
+        "es": "Al minuto 55:10, Rodrigo Muniz de Fulham recuperó el balón y en solo 10 segundos realizó un remate, aunque el marcador seguía 0-0. El reloj marca 75:00 y no se han anotado goles, manteniendo el empate mientras Brighton y Fulham siguen intentando sin romper la igualdad. Esta recuperación y remate muestran los intentos de Fulham por cambiar el marcador en la segunda mitad."
+      },
+      "packet": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Brighton",
+                "away": "Fulham"
+              },
+              "score": {
+                "home": 0,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e611"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 0,
+                "away": 0
+              },
+              "transitions": [],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e611"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "75:00",
+              "match_second": 4500,
+              "has_new_goals": false
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e611"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-15715a46-31-quiet-e446",
+            "data": {
+              "story_id": "recovery-shot:library-audit-15715a46-31-quiet-e446",
+              "kind": "recovery_shot",
+              "match_second": 3310,
+              "evidence_event_ids": [
+                "library-audit-15715a46-31-quiet-e442",
+                "library-audit-15715a46-31-quiet-e443",
+                "library-audit-15715a46-31-quiet-e444",
+                "library-audit-15715a46-31-quiet-e445",
+                "library-audit-15715a46-31-quiet-e446"
+              ],
+              "metric": {
+                "team_id": "away",
+                "recovery_event_id": "library-audit-15715a46-31-quiet-e442",
+                "shot_event_id": "library-audit-15715a46-31-quiet-e446",
+                "shot_sequence": 446,
+                "elapsed_seconds": 10,
+                "possession_id": "library-audit-15715a46-31-quiet:p111",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-15715a46-31-quiet-e442",
+                  "library-audit-15715a46-31-quiet-e443",
+                  "library-audit-15715a46-31-quiet-e444",
+                  "library-audit-15715a46-31-quiet-e445",
+                  "library-audit-15715a46-31-quiet-e446"
+                ],
+                "rule_version": "recovery-shot-v1"
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 446
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e442",
+              "library-audit-15715a46-31-quiet-e443",
+              "library-audit-15715a46-31-quiet-e444",
+              "library-audit-15715a46-31-quiet-e445",
+              "library-audit-15715a46-31-quiet-e446"
+            ],
+            "window_labels": [],
+            "point_clock": "55:10",
+            "participants": {
+              "recoverer": "Rodrigo Muniz",
+              "shooter": "Rodrigo Muniz"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e442",
+            "sequence": 442,
+            "match_second": 3300,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Rodrigo Muniz",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e443",
+            "sequence": 443,
+            "match_second": 3302,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rodrigo Muniz",
+            "recipient_player_name": "Tom Cairney",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 25.0,
+            "end_x": 62.0,
+            "end_y": 30.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e444",
+            "sequence": 444,
+            "match_second": 3304,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Tom Cairney",
+            "recipient_player_name": "Kevin",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 62.0,
+            "y": 30.0,
+            "end_x": 67.0,
+            "end_y": 35.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e445",
+            "sequence": 445,
+            "match_second": 3309,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Kevin",
+            "recipient_player_name": "Rodrigo Muniz",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 67.0,
+            "y": 35.0,
+            "end_x": 18.0,
+            "end_y": 35.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e446",
+            "sequence": 446,
+            "match_second": 3310,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Rodrigo Muniz",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 35.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e604",
+            "sequence": 604,
+            "match_second": 4442,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Mats Wieffer",
+            "recipient_player_name": "Jack Hinshelwood",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 39.0,
+            "y": 61.0,
+            "end_x": 45.0,
+            "end_y": 66.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e605",
+            "sequence": 605,
+            "match_second": 4444,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Jack Hinshelwood",
+            "recipient_player_name": "Costinha",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 45.0,
+            "y": 66.0,
+            "end_x": 51.0,
+            "end_y": 58.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e606",
+            "sequence": 606,
+            "match_second": 4446,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Costinha",
+            "recipient_player_name": "Olivier Boscagli",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 51.0,
+            "y": 58.0,
+            "end_x": 59.0,
+            "end_y": 68.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e607",
+            "sequence": 607,
+            "match_second": 4448,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Olivier Boscagli",
+            "recipient_player_name": "Stefanos Tzimas",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 59.0,
+            "y": 68.0,
+            "end_x": 62.0,
+            "end_y": 56.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e608",
+            "sequence": 608,
+            "match_second": 4470,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Alex Iwobi",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-31-quiet:p150",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e609",
+            "sequence": 609,
+            "match_second": 4472,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Alex Iwobi",
+            "recipient_player_name": "Tom Cairney",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p150",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 73.0,
+            "end_x": 62.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e610",
+            "sequence": 610,
+            "match_second": 4474,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Tom Cairney",
+            "recipient_player_name": "Rodrigo Muniz",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p150",
+            "related_event_id": null,
+            "x": 62.0,
+            "y": 83.0,
+            "end_x": 67.0,
+            "end_y": 75.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e611",
+            "sequence": 611,
+            "match_second": 4500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Jack Hinshelwood",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-31-quiet:p151",
+            "related_event_id": null,
+            "x": 35.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:recovery-shot:library-audit-15715a46-31-quiet-e446"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "recovery-shot:library-audit-15715a46-31-quiet-e446"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      }
+    },
+    {
+      "case": "quiet_brighton",
+      "audience": "advanced",
+      "expected_error": "unsupported_interpretation",
+      "text": {
+        "en": "At 55:10, Rodrigo Muniz of Fulham recovered the ball and took a shot just 10 seconds later, marking a notable recovery-to-shot sequence in the match. Despite this effort, the score remains 0-0 as the game reaches the 75th minute. No goals have been scored so far, and the match continues with both teams level, reflecting a tightly contested encounter without any lead changes or equalizers.",
+        "es": "Al minuto 55:10, Rodrigo Muniz de Fulham recuperó el balón y realizó un remate apenas 10 segundos después, destacando una secuencia de recuperación a remate en el partido. A pesar de este intento, el marcador sigue 0-0 cuando el juego alcanza el minuto 75. No se han anotado goles hasta ahora, y el partido continúa empatado, reflejando un encuentro muy disputado sin cambios en el marcador ni igualadas."
+      },
+      "packet": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Brighton",
+                "away": "Fulham"
+              },
+              "score": {
+                "home": 0,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e611"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 0,
+                "away": 0
+              },
+              "transitions": [],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e611"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "75:00",
+              "match_second": 4500,
+              "has_new_goals": false
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e611"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-15715a46-31-quiet-e446",
+            "data": {
+              "story_id": "recovery-shot:library-audit-15715a46-31-quiet-e446",
+              "kind": "recovery_shot",
+              "match_second": 3310,
+              "evidence_event_ids": [
+                "library-audit-15715a46-31-quiet-e442",
+                "library-audit-15715a46-31-quiet-e443",
+                "library-audit-15715a46-31-quiet-e444",
+                "library-audit-15715a46-31-quiet-e445",
+                "library-audit-15715a46-31-quiet-e446"
+              ],
+              "metric": {
+                "team_id": "away",
+                "recovery_event_id": "library-audit-15715a46-31-quiet-e442",
+                "shot_event_id": "library-audit-15715a46-31-quiet-e446",
+                "shot_sequence": 446,
+                "elapsed_seconds": 10,
+                "possession_id": "library-audit-15715a46-31-quiet:p111",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-15715a46-31-quiet-e442",
+                  "library-audit-15715a46-31-quiet-e443",
+                  "library-audit-15715a46-31-quiet-e444",
+                  "library-audit-15715a46-31-quiet-e445",
+                  "library-audit-15715a46-31-quiet-e446"
+                ],
+                "rule_version": "recovery-shot-v1"
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 446
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-31-quiet-e442",
+              "library-audit-15715a46-31-quiet-e443",
+              "library-audit-15715a46-31-quiet-e444",
+              "library-audit-15715a46-31-quiet-e445",
+              "library-audit-15715a46-31-quiet-e446"
+            ],
+            "window_labels": [],
+            "point_clock": "55:10",
+            "participants": {
+              "recoverer": "Rodrigo Muniz",
+              "shooter": "Rodrigo Muniz"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e442",
+            "sequence": 442,
+            "match_second": 3300,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Rodrigo Muniz",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e443",
+            "sequence": 443,
+            "match_second": 3302,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rodrigo Muniz",
+            "recipient_player_name": "Tom Cairney",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 25.0,
+            "end_x": 62.0,
+            "end_y": 30.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e444",
+            "sequence": 444,
+            "match_second": 3304,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Tom Cairney",
+            "recipient_player_name": "Kevin",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 62.0,
+            "y": 30.0,
+            "end_x": 67.0,
+            "end_y": 35.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e445",
+            "sequence": 445,
+            "match_second": 3309,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Kevin",
+            "recipient_player_name": "Rodrigo Muniz",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 67.0,
+            "y": 35.0,
+            "end_x": 18.0,
+            "end_y": 35.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e446",
+            "sequence": 446,
+            "match_second": 3310,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Rodrigo Muniz",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-15715a46-31-quiet:p111",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 35.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e604",
+            "sequence": 604,
+            "match_second": 4442,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Mats Wieffer",
+            "recipient_player_name": "Jack Hinshelwood",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 39.0,
+            "y": 61.0,
+            "end_x": 45.0,
+            "end_y": 66.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e605",
+            "sequence": 605,
+            "match_second": 4444,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Jack Hinshelwood",
+            "recipient_player_name": "Costinha",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 45.0,
+            "y": 66.0,
+            "end_x": 51.0,
+            "end_y": 58.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e606",
+            "sequence": 606,
+            "match_second": 4446,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Costinha",
+            "recipient_player_name": "Olivier Boscagli",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 51.0,
+            "y": 58.0,
+            "end_x": 59.0,
+            "end_y": 68.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e607",
+            "sequence": 607,
+            "match_second": 4448,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Olivier Boscagli",
+            "recipient_player_name": "Stefanos Tzimas",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p149",
+            "related_event_id": null,
+            "x": 59.0,
+            "y": 68.0,
+            "end_x": 62.0,
+            "end_y": 56.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e608",
+            "sequence": 608,
+            "match_second": 4470,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Alex Iwobi",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-31-quiet:p150",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e609",
+            "sequence": 609,
+            "match_second": 4472,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Alex Iwobi",
+            "recipient_player_name": "Tom Cairney",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p150",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 73.0,
+            "end_x": 62.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e610",
+            "sequence": 610,
+            "match_second": 4474,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Tom Cairney",
+            "recipient_player_name": "Rodrigo Muniz",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-31-quiet:p150",
+            "related_event_id": null,
+            "x": 62.0,
+            "y": 83.0,
+            "end_x": 67.0,
+            "end_y": 75.0
+          },
+          {
+            "event_id": "library-audit-15715a46-31-quiet-e611",
+            "sequence": 611,
+            "match_second": 4500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Jack Hinshelwood",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-31-quiet:p151",
+            "related_event_id": null,
+            "x": 35.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:recovery-shot:library-audit-15715a46-31-quiet-e446"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "recovery-shot:library-audit-15715a46-31-quiet-e446"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      }
+    },
+    {
+      "case": "first_half_exchange",
+      "audience": "casual",
+      "expected_error": "wrong_scoring_sequence_pass_credit",
+      "text": {
+        "en": "Crystal Palace took the lead at 30:11 when Jean-Philippe Mateta scored, making it 1-0. Newcastle United responded at 35:11 with Yoane Wissa equalizing after recovering the ball at 35:00 and completing three team passes involving Joelinton and Joe Willock before his shot. The score is tied 1-1 at 37:30 as the match continues.",
+        "es": "Crystal Palace se adelantó a los 30:11 con un gol de Jean-Philippe Mateta, poniendo el marcador 1-0. Newcastle United respondió a los 35:11 con Yoane Wissa igualando tras recuperar el balón a los 35:00 y completar tres pases en equipo con Joelinton y Joe Willock antes de su remate. El marcador está empatado 1-1 a los 37:30 mientras continúa el partido."
+      },
+      "packet": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Crystal Palace",
+                "away": "Newcastle United"
+              },
+              "score": {
+                "home": 1,
+                "away": 1
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-comeback-e238",
+              "library-audit-15715a46-0-comeback-e288"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 1,
+                "away": 1
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "home",
+                  "player_id": "home-10",
+                  "match_second": 1811,
+                  "sequence": 238,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-15715a46-0-comeback-e238"
+                  ]
+                },
+                {
+                  "type": "equalization",
+                  "team_id": "away",
+                  "player_id": "away-10",
+                  "match_second": 2111,
+                  "sequence": 288,
+                  "before": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "rapid_response": {
+                    "elapsed_seconds": 300,
+                    "evidence_event_ids": [
+                      "library-audit-15715a46-0-comeback-e238",
+                      "library-audit-15715a46-0-comeback-e288"
+                    ]
+                  },
+                  "evidence_event_ids": [
+                    "library-audit-15715a46-0-comeback-e288"
+                  ]
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 1,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 1
+              },
+              "evidence_event_ids": [
+                "library-audit-15715a46-0-comeback-e238",
+                "library-audit-15715a46-0-comeback-e288"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-comeback-e238",
+              "library-audit-15715a46-0-comeback-e288"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "37:30",
+              "match_second": 2250,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-comeback-e308"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-15715a46-0-comeback-e238",
+            "data": {
+              "story_id": "goal:library-audit-15715a46-0-comeback-e238",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-15715a46-0-comeback-e237",
+                "library-audit-15715a46-0-comeback-e238"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 238,
+              "goal": {
+                "player_name": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "clock": "30:11",
+                "match_second": 1811
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-comeback-e237",
+              "library-audit-15715a46-0-comeback-e238"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-15715a46-0-comeback-e288",
+            "data": {
+              "story_id": "goal:library-audit-15715a46-0-comeback-e288",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-15715a46-0-comeback-e287",
+                "library-audit-15715a46-0-comeback-e288"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 288,
+              "goal": {
+                "player_name": "Yoane Wissa",
+                "team_name": "Newcastle United",
+                "clock": "35:11",
+                "match_second": 2111
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-comeback-e287",
+              "library-audit-15715a46-0-comeback-e288"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-15715a46-0-comeback-e287",
+            "data": {
+              "story_id": "recovery-shot:library-audit-15715a46-0-comeback-e287",
+              "kind": "recovery_shot",
+              "match_second": 2110,
+              "evidence_event_ids": [
+                "library-audit-15715a46-0-comeback-e283",
+                "library-audit-15715a46-0-comeback-e284",
+                "library-audit-15715a46-0-comeback-e285",
+                "library-audit-15715a46-0-comeback-e286",
+                "library-audit-15715a46-0-comeback-e287",
+                "library-audit-15715a46-0-comeback-e288"
+              ],
+              "metric": {
+                "team_id": "away",
+                "recovery_event_id": "library-audit-15715a46-0-comeback-e283",
+                "shot_event_id": "library-audit-15715a46-0-comeback-e287",
+                "shot_sequence": 287,
+                "elapsed_seconds": 10,
+                "possession_id": "library-audit-15715a46-0-comeback:p71",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-15715a46-0-comeback-e283",
+                  "library-audit-15715a46-0-comeback-e284",
+                  "library-audit-15715a46-0-comeback-e285",
+                  "library-audit-15715a46-0-comeback-e286",
+                  "library-audit-15715a46-0-comeback-e287",
+                  "library-audit-15715a46-0-comeback-e288"
+                ],
+                "rule_version": "recovery-shot-v1",
+                "goal_link": {
+                  "version": "recovery-goal-v1",
+                  "goal_event_id": "library-audit-15715a46-0-comeback-e288",
+                  "goal_sequence": 288,
+                  "goal_second": 2111,
+                  "goal_clock": "35:11",
+                  "shot_clock": "35:10",
+                  "recovery_clock": "35:00",
+                  "recoverer": "Yoane Wissa",
+                  "scorer": "Yoane Wissa",
+                  "team_name": "Newcastle United",
+                  "score_change": "equalization",
+                  "score_before": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "score_after": {
+                    "home": 1,
+                    "away": 1
+                  },
+                  "completed_pass_count": 3,
+                  "completed_passes": [
+                    {
+                      "player_name": "Yoane Wissa",
+                      "recipient_player_name": "Joelinton",
+                      "match_second": 2102
+                    },
+                    {
+                      "player_name": "Joelinton",
+                      "recipient_player_name": "Joe Willock",
+                      "match_second": 2104
+                    },
+                    {
+                      "player_name": "Joe Willock",
+                      "recipient_player_name": "Yoane Wissa",
+                      "match_second": 2109
+                    }
+                  ],
+                  "seconds_before_snapshot": 139,
+                  "evidence_event_ids": [
+                    "library-audit-15715a46-0-comeback-e283",
+                    "library-audit-15715a46-0-comeback-e284",
+                    "library-audit-15715a46-0-comeback-e285",
+                    "library-audit-15715a46-0-comeback-e286",
+                    "library-audit-15715a46-0-comeback-e287",
+                    "library-audit-15715a46-0-comeback-e288"
+                  ]
+                }
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 288
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-comeback-e283",
+              "library-audit-15715a46-0-comeback-e284",
+              "library-audit-15715a46-0-comeback-e285",
+              "library-audit-15715a46-0-comeback-e286",
+              "library-audit-15715a46-0-comeback-e287",
+              "library-audit-15715a46-0-comeback-e288"
+            ],
+            "window_labels": [],
+            "point_clock": "35:10",
+            "participants": {
+              "recoverer": "Yoane Wissa",
+              "shooter": "Yoane Wissa"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e237",
+            "sequence": 237,
+            "match_second": 1810,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Jean-Philippe Mateta",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-15715a46-0-comeback:p61",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e238",
+            "sequence": 238,
+            "match_second": 1811,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Jean-Philippe Mateta",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-15715a46-0-comeback:p61",
+            "related_event_id": "library-audit-15715a46-0-comeback-e237",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e283",
+            "sequence": 283,
+            "match_second": 2100,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-0-comeback:p71",
+            "related_event_id": null,
+            "x": 28.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e284",
+            "sequence": 284,
+            "match_second": 2102,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": "Joelinton",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p71",
+            "related_event_id": null,
+            "x": 28.0,
+            "y": 25.0,
+            "end_x": 10.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e285",
+            "sequence": 285,
+            "match_second": 2104,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Joelinton",
+            "recipient_player_name": "Joe Willock",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p71",
+            "related_event_id": null,
+            "x": 10.0,
+            "y": 17.0,
+            "end_x": 5.0,
+            "end_y": 27.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e286",
+            "sequence": 286,
+            "match_second": 2109,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Joe Willock",
+            "recipient_player_name": "Yoane Wissa",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p71",
+            "related_event_id": null,
+            "x": 5.0,
+            "y": 27.0,
+            "end_x": 18.0,
+            "end_y": 27.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e287",
+            "sequence": 287,
+            "match_second": 2110,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-15715a46-0-comeback:p71",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 27.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e288",
+            "sequence": 288,
+            "match_second": 2111,
+            "type": "goal",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-15715a46-0-comeback:p71",
+            "related_event_id": "library-audit-15715a46-0-comeback-e287",
+            "x": 0.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e301",
+            "sequence": 301,
+            "match_second": 2196,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Joelinton",
+            "recipient_player_name": "Lewis Hall",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p74",
+            "related_event_id": null,
+            "x": 5.0,
+            "y": 63.0,
+            "end_x": 5.0,
+            "end_y": 73.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e302",
+            "sequence": 302,
+            "match_second": 2198,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Lewis Hall",
+            "recipient_player_name": "Joe Willock",
+            "outcome": "intercepted",
+            "possession_id": "library-audit-15715a46-0-comeback:p74",
+            "related_event_id": null,
+            "x": 5.0,
+            "y": 73.0,
+            "end_x": 5.0,
+            "end_y": 61.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e303",
+            "sequence": 303,
+            "match_second": 2220,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Tino Livramento",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-0-comeback:p75",
+            "related_event_id": null,
+            "x": 28.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e304",
+            "sequence": 304,
+            "match_second": 2222,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Tino Livramento",
+            "recipient_player_name": "Joelinton",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p75",
+            "related_event_id": null,
+            "x": 28.0,
+            "y": 73.0,
+            "end_x": 10.0,
+            "end_y": 65.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e305",
+            "sequence": 305,
+            "match_second": 2224,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Joelinton",
+            "recipient_player_name": "Joe Willock",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p75",
+            "related_event_id": null,
+            "x": 10.0,
+            "y": 65.0,
+            "end_x": 5.0,
+            "end_y": 70.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e306",
+            "sequence": 306,
+            "match_second": 2229,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Joe Willock",
+            "recipient_player_name": "Yoane Wissa",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-comeback:p75",
+            "related_event_id": null,
+            "x": 5.0,
+            "y": 70.0,
+            "end_x": 18.0,
+            "end_y": 70.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e307",
+            "sequence": 307,
+            "match_second": 2230,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Yoane Wissa",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-15715a46-0-comeback:p75",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 70.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-comeback-e308",
+            "sequence": 308,
+            "match_second": 2250,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Tino Livramento",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-0-comeback:p76",
+            "related_event_id": null,
+            "x": 65.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-15715a46-0-comeback-e238",
+          "story:goal:library-audit-15715a46-0-comeback-e288",
+          "story:recovery-shot:library-audit-15715a46-0-comeback-e287"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-15715a46-0-comeback-e238",
+            "goal:library-audit-15715a46-0-comeback-e288",
+            "recovery-shot:library-audit-15715a46-0-comeback-e287"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      }
+    },
+    {
+      "case": "quiet_derby",
+      "audience": "casual",
+      "expected_error": "unsupported_interpretation",
+      "text": {
+        "en": "At 62:10, Erling Haaland took a shot just 10 seconds after Enzo Fernandez recovered the ball for Manchester City, but the score remains 0-0 as the match clock hits 62:30. Despite this quick attempt, neither Manchester United nor Manchester City has managed to break the deadlock in this ongoing game. The tension stays high with no goals scored yet.",
+        "es": "Al minuto 62:10, Erling Haaland disparó apenas 10 segundos después de que Enzo Fernandez recuperara el balón para el Manchester City, pero el marcador sigue 0-0 cuando el reloj marca 62:30. A pesar de este intento rápido, ni Manchester United ni Manchester City han logrado romper el empate en este partido en curso. La tensión se mantiene alta sin goles anotados aún."
+      },
+      "packet": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 0,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-featured-e515"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 0,
+                "away": 0
+              },
+              "transitions": [],
+              "lead_acquisitions": {
+                "home": 0,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-featured-e515"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "62:30",
+              "match_second": 3750,
+              "has_new_goals": false
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-featured-e515"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:recovery-shot:library-audit-15715a46-0-featured-e514",
+            "data": {
+              "story_id": "recovery-shot:library-audit-15715a46-0-featured-e514",
+              "kind": "recovery_shot",
+              "match_second": 3730,
+              "evidence_event_ids": [
+                "library-audit-15715a46-0-featured-e509",
+                "library-audit-15715a46-0-featured-e510",
+                "library-audit-15715a46-0-featured-e511",
+                "library-audit-15715a46-0-featured-e512",
+                "library-audit-15715a46-0-featured-e513",
+                "library-audit-15715a46-0-featured-e514"
+              ],
+              "metric": {
+                "team_id": "away",
+                "recovery_event_id": "library-audit-15715a46-0-featured-e509",
+                "shot_event_id": "library-audit-15715a46-0-featured-e514",
+                "shot_sequence": 514,
+                "elapsed_seconds": 10,
+                "possession_id": "library-audit-15715a46-0-featured:p125",
+                "threshold_seconds": 30,
+                "evidence_event_ids": [
+                  "library-audit-15715a46-0-featured-e509",
+                  "library-audit-15715a46-0-featured-e510",
+                  "library-audit-15715a46-0-featured-e511",
+                  "library-audit-15715a46-0-featured-e512",
+                  "library-audit-15715a46-0-featured-e513",
+                  "library-audit-15715a46-0-featured-e514"
+                ],
+                "rule_version": "recovery-shot-v1"
+              },
+              "rule_version": "recovery-shot-v1",
+              "sequence": 514
+            },
+            "evidence_event_ids": [
+              "library-audit-15715a46-0-featured-e509",
+              "library-audit-15715a46-0-featured-e510",
+              "library-audit-15715a46-0-featured-e511",
+              "library-audit-15715a46-0-featured-e512",
+              "library-audit-15715a46-0-featured-e513",
+              "library-audit-15715a46-0-featured-e514"
+            ],
+            "window_labels": [],
+            "point_clock": "62:10",
+            "participants": {
+              "recoverer": "Enzo Fernandez",
+              "shooter": "Erling Haaland"
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-15715a46-0-featured-e508",
+            "sequence": 508,
+            "match_second": 3698,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rayan Cherki",
+            "recipient_player_name": "Enzo Fernandez",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-featured:p124",
+            "related_event_id": null,
+            "x": 58.0,
+            "y": 33.0,
+            "end_x": 63.0,
+            "end_y": 25.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e509",
+            "sequence": 509,
+            "match_second": 3720,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Enzo Fernandez",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-0-featured:p125",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e510",
+            "sequence": 510,
+            "match_second": 3722,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Enzo Fernandez",
+            "recipient_player_name": "Rayan Cherki",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-featured:p125",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": 55.0,
+            "end_y": 78.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e511",
+            "sequence": 511,
+            "match_second": 3724,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rayan Cherki",
+            "recipient_player_name": "Ruben Dias",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-featured:p125",
+            "related_event_id": null,
+            "x": 55.0,
+            "y": 78.0,
+            "end_x": 52.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e512",
+            "sequence": 512,
+            "match_second": 3726,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Ruben Dias",
+            "recipient_player_name": "Mateo Kovacic",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-featured:p125",
+            "related_event_id": null,
+            "x": 52.0,
+            "y": 83.0,
+            "end_x": 46.0,
+            "end_y": 88.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e513",
+            "sequence": 513,
+            "match_second": 3729,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Mateo Kovacic",
+            "recipient_player_name": "Erling Haaland",
+            "outcome": "complete",
+            "possession_id": "library-audit-15715a46-0-featured:p125",
+            "related_event_id": null,
+            "x": 46.0,
+            "y": 88.0,
+            "end_x": 18.0,
+            "end_y": 88.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e514",
+            "sequence": 514,
+            "match_second": 3730,
+            "type": "shot",
+            "team_id": "away",
+            "player_name": "Erling Haaland",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-15715a46-0-featured:p125",
+            "related_event_id": null,
+            "x": 18.0,
+            "y": 88.0,
+            "end_x": 0.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-15715a46-0-featured-e515",
+            "sequence": 515,
+            "match_second": 3750,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Enzo Fernandez",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-15715a46-0-featured:p126",
+            "related_event_id": null,
+            "x": 57.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:recovery-shot:library-audit-15715a46-0-featured-e514"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "recovery-shot:library-audit-15715a46-0-featured-e514"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      }
+    }
+  ]
+}

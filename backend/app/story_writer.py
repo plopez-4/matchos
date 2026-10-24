@@ -17,7 +17,7 @@ from app import recap_quality
 from app import ai_capacity
 from app.recap_context import creator_chronology
 
-VERSION = 'fan-narrative-v14-capacity-and-connection-feedback'
+VERSION = 'fan-narrative-v16-verified-passing-relationships'
 CACHE = OrderedDict()
 LOCK = threading.Lock()
 
@@ -161,6 +161,16 @@ def evidence_packet(briefing, events):
             fact['participants'] = {role: by_id[metric[key]].player_name or by_id[metric[key]].player_id
                                     for role, key in (('recoverer', 'recovery_event_id'), ('shooter', 'shot_event_id'))
                                     if metric.get(key) in by_id}
+            if not metric.get('goal_link'):
+                recovery, shot = by_id[metric['recovery_event_id']], by_id[metric['shot_event_id']]
+                clock = lambda event: f'{event.match_second//60}:{event.match_second%60:02d}'
+                fact['action_clocks'] = {'recovery':clock(recovery), 'shot':clock(shot)}
+                fact['ordered_actions'] = [{'action':'recovery', 'player':recovery.player_name, 'clock':clock(recovery)}]
+                fact['ordered_actions'].extend({'action':'completed_pass', 'passer':event.player_name,
+                    'recipient':event.recipient_player_name, 'clock':clock(event)}
+                    for event in observed if recovery.sequence<event.sequence<shot.sequence
+                    and event.possession_id==shot.possession_id and event.type=='pass' and event.outcome=='complete')
+                fact['ordered_actions'].append({'action':'shot', 'player':shot.player_name, 'clock':clock(shot)})
         if plan is not None and fact['data'].get('kind') == 'goal':
             goal = next((by_id[eid] for eid in fact['evidence_event_ids'] if eid in by_id and by_id[eid].type == 'goal'), None)
             if goal:
@@ -308,7 +318,9 @@ def writer_prompt(briefing):
         'assists, headers, dribbles, defensive line breaks, player emotions or crowd reactions. '
         'Do not claim a goal set the tone, a partnership was seamless or build-up was sharp. '
         'Both languages must express the same claims and chronology; translate meaning, not word order. '
-        'Spanish: shots are remates, attempts are intentos. No headings, links, markup, IDs or technical field names in prose. '
+        'Spanish: shots are remates, attempts are intentos, saved shots are remates detenidos. '
+        'Match clocks describe elapsed minutes: use a los 16:11, never a las 16:11 as a time of day. '
+        'No headings, links, markup, IDs or technical field names in prose. '
     )
     if linked:
         instruction += (
@@ -324,7 +336,10 @@ def writer_prompt(briefing):
     elif 'recovery_shot' in kinds:
         instruction += (
             'SELECTED CONTRIBUTION: a single recovery-to-shot event. State its point_clock (SHOT time), '
-            'elapsed_seconds since recovery and named participants. It has no rolling window. '
+            'and named participants. Give either elapsed_seconds since recovery OR both exact action_clocks. It has no rolling window. '
+            'Read action_clocks and ordered_actions: the recovery and shot have different clocks. '
+            'Never attach the shot clock to the recovery or imply the shot happened another elapsed_seconds later. '
+            'Credit each pass only to its recorded passer; the recoverer is not automatically the final passer. '
             'Without a verified scoring sequence, do not attach this shot to a nearby goal. '
         )
     elif changes:

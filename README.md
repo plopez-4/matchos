@@ -18,7 +18,7 @@ Built for Inside the Game: Developer Hackathon. Independent prototype; no sponso
 - Optional Azure AI selects verified stories and writes the complete bilingual paragraph from structured observations. Local checks and a separate fallible model review can reject it in favor of a labeled factual fallback.
 - Optional Azure Speech reads the displayed recap. Device speech remains available separately. Pronunciation hints address reported names and club-name joins; human listening acceptance is still needed.
 
-The latest focused v14 halftime check returned a source-correct bilingual AI recap after one revision, with repeated goal wording still present. **Consistent AI prose quality remains unresolved.** Shared Azure cooldown handling now prevents repeated provider calls during rate limits. The [24 October report](docs/recap-capacity-oct24.md) records this limited check; the [earlier editorial review](docs/recap-quality-v13-review.md) preserves the failed twenty-request run separately. No five-person human study has been completed.
+The [nine-match recap audit](docs/recap-library-review-oct24.md) preserves a 72-pair deterministic source baseline and two failed 22-request live matrices. It found accepted recovery/shot-clock errors, ambiguous individual/team pass credit and an impossible pass recipient. New regression checks address those captured defects, with a separate six-request focused follow-up. **Consistent AI prose quality remains unresolved.** App-level reserved-call budgets also caused factual fallbacks; they were not raised. Earlier capacity and editorial reports remain development history. No five-person human study has been completed.
 
 ## Core architecture
 
