@@ -1,0 +1,44 @@
+{
+  "candidate": "fan-narrative-v24-route-ownership-and-rule-scopes",
+  "source_report": "recap-v24-focused-live-oct24.json",
+  "review_scope": "Developer EN/ES source review; not a human fan study or proof of general accuracy.",
+  "reviewed_pairs": 6,
+  "cases": [
+    {
+      "case": "palace_repeated_replies",
+      "audience": "casual",
+      "mode": "azure",
+      "notes": "All four scorer-clock pairs correct; Kamada75:00 and three collective passes by Kamada/Lerma/Wharton precede Mateta75:11equalizer;2-2at75:30. No wrong individual pass total found."
+    },
+    {
+      "case": "palace_repeated_replies",
+      "audience": "advanced",
+      "mode": "deterministic",
+      "notes": "Displayed fallback matches source. Original EN/ES wrongly gives Kamada both Lerma and Wharton as direct recipients; the new guard rejects it. Revised Spanish preserves that wrong direct list. Revised English changes subjects correctly but omits a required count/duration, and the new guard also wrongly treats the following scorer Mateta as Lerma's recipient; that diagnostic boundary needs correction."
+    },
+    {
+      "case": "quiet_derby",
+      "audience": "casual",
+      "mode": "deterministic",
+      "notes": "Displayed fallback matches source. Original Spanish has unsupported precise-pass praise. Revision is source-correct but ordinal clock wording 'match passes the 62nd minute' still triggers the passing-statistic check; requires the same clock exclusion to support ordinal wording."
+    },
+    {
+      "case": "quiet_derby",
+      "audience": "advanced",
+      "mode": "azure",
+      "notes": "Enzo62:00-Cherki-Dias-Kovacic-Haaland route, shot62:10,0-0at62:30,10-second duration and30-second rule all match. Duration/threshold explanation now returns AI prose. 'Playing phase' and 'coordinated sequence' are unnecessary editorial wording."
+    },
+    {
+      "case": "no_new_goal_palace",
+      "audience": "casual",
+      "mode": "azure",
+      "notes": "Palace2-0at75:00,Mateta10:11,Sarr30:11,Wissa55:00recovery and Barnes55:10shot match. Wissa->Willock and Willock->Livramento are explicitly separated; remaining route hops through Elanga to Barnes are compressed/implicit rather than claimed as Wissa's direct recipients."
+    },
+    {
+      "case": "no_new_goal_palace",
+      "audience": "advanced",
+      "mode": "azure",
+      "notes": "Correct2-0at75:00,Mateta10:11,Sarr30:11,Wissa55:00 recovery and collective route through Willock/Livramento/Elanga toBarnes shot55:10. Ten-second duration and30-second rule match; no new goal since the cursor. Does not assign every pass to Wissa."
+    }
+  ]
+}

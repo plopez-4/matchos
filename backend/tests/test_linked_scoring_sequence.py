@@ -150,9 +150,17 @@ def test_observed_passing_path_is_valid_without_repeating_elapsed_seconds():
     _,_,packet,value=drafted()
     value['en']=('At 62:30, Crystal Palace and Newcastle United are tied 1-1. Harvey Barnes scored at 15:11. '
                  'Takehiro Tomiyasu recovered the ball at 60:00 and completed a pass to Adam Wharton, who passed '
-                 'to Jean-Philippe Mateta, then to Ismaila Sarr, who scored the equalizer at 60:11 after three '
+                 'to Jean-Philippe Mateta. Mateta then passed to Ismaila Sarr, who scored the equalizer at 60:11 after three '
                  'completed passes in the 60:00-60:10 window.')
     story_writer.validate_draft(value,packet)
+
+
+def test_old_ambiguous_route_does_not_assign_matetas_pass_to_wharton():
+    _,_,packet,_=drafted()
+    sentence=('Takehiro Tomiyasu recovered the ball at 60:00 and completed a pass to Adam Wharton, '
+              'who passed to Jean-Philippe Mateta, then to Ismaila Sarr.')
+    with pytest.raises(recap_quality.RecapQualityError,match='wrong_pass_route_recipient'):
+        recap_quality.validate_pass_route_recipients(sentence,packet['facts'])
 
 
 def test_passing_path_can_explain_the_goal_across_sentences_without_shot_timestamp():

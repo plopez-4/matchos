@@ -131,7 +131,7 @@ def pass_partition(text, link):
     """
     plain = normalized(text)
     number = r'(?:\d+|one|two|three|four|five|un|uno|dos|tres|cuatro|cinco|a)'
-    first = re.search(r'\b(?:completed|completo)\s+('+number+r')\s+(?:completed\s+)?(?:pass|pase)\b', plain)
+    first = re.search(r'\b(?:completed|completo|completara|made)\s+('+number+r')\s+(?:completed\s+)?(?:pass|pase)\b', plain)
     reverse = re.search(r'\b('+number+r')\s+(?:completed pass by|pase completado por)\s+([^,;.]+?)\s+(?:and|y)\s+('+number+r')\s+(?:others by teammates|por sus companeros)\b', plain)
     more = re.search(r'\b('+number+r')\s+(?:(?:more|team)\s+)*(?:passes|pases)\s*(?:mas\b)?', plain[first.end():]) if first else None
     if reverse:
@@ -155,6 +155,42 @@ def pass_partition(text, link):
         raise RecapQualityError('wrong_scoring_sequence_pass_partition',player=actor,
                                 individual_completed_passes=individual,team_completed_passes=link['completed_pass_count'])
     return True
+
+
+def validate_pass_route_recipients(sentence, facts):
+    """Check known direct recipients without confusing a route with one passer."""
+    passes=[row for fact in facts for row in fact['data'].get('metric',{}).get('goal_link',{}).get('completed_passes',[])]
+    passes.extend({'player_name':row['passer'],'recipient_player_name':row['recipient']}
+                  for fact in facts for row in fact.get('ordered_actions',[]) if row['action']=='completed_pass')
+    people={row[key] for row in passes for key in ('player_name','recipient_player_name') if row.get(key)}
+    if not people: return
+    aliases={name:{normalized(name)} for name in people}
+    for name in people:
+        surname=normalized(name).split()[-1]
+        if len(surname)>=3 and not any(surname in normalized(other).split() for other in people-{name}):
+            aliases[name].add(surname)
+    mentions=lambda name,value:list(re.finditer(r'\b(?:'+'|'.join(re.escape(alias) for alias in aliases[name])+r')\b',value))
+    plain=normalized(sentence)
+    senders={row['player_name'] for row in passes}
+    for claim in re.finditer(r'\b(?:passed|passing|paso|pasando)\s+(?:(?:quickly|rapidly|rapidamente)\s+)?(?:to|a)\s+',plain):
+        prefix=plain[:claim.start()]
+        candidates=[(match.start(),name) for name in senders for match in mentions(name,prefix)]
+        if not candidates: continue
+        _,actor=max(candidates)
+        tail=re.split(r'\b(?:who|quien|que|before|antes)\b|[.!?;]',plain[claim.end():],maxsplit=1)[0]
+        tail=re.split(r'\b(?:and|then|y|luego)\s+(?:(?:the|el)\s+)?(?:ball|balon)\b',tail,maxsplit=1)[0]
+        tail=re.split(r'\b(?:continuing through|continued through|continuando por|siguiendo por)\b',tail,maxsplit=1)[0]
+        # A following named subject starts a new action, not another recipient.
+        for name in people:
+            for match in mentions(name,tail):
+                if match.start()>0 and re.match(r'\s+(?:(?:then|luego)\s+)?(?:passed|passes|passing|found|connected|delivered|scored|scores|scoring|shot|shoots|took|paso|pasa|pasando|encontro|conecto|entrego|anoto|marco|remato|disparo)\b',tail[match.end():]):
+                    tail=tail[:match.start()]
+                    break
+        recipients={row['recipient_player_name'] for row in passes if row['player_name']==actor}
+        wrong={name for name in people-recipients if mentions(name,tail)}
+        if wrong:
+            raise RecapQualityError('wrong_pass_route_recipient',player=actor,
+                                    claimed_recipients=sorted(wrong),recorded_recipients=sorted(recipients))
 
 
 def scoped_ranges(sentence, fact, now):
@@ -245,9 +281,11 @@ def validate(text, packet, cited):
         shot_pattern: [fact for fact in facts if fact['fact_id'] == 'shots' or fact['data'].get('kind') in ('shot_activity', 'player_shooting', 'player_shot_creation', 'recovery_shot')],
     }
     for index, sentence in enumerate(sentences):
+        validate_pass_route_recipients(sentence,facts)
         verified_shot_list=enumerated_shot_points(sentence,facts,packet)
         for pattern, metrics in groups.items():
-            if not re.search(pattern, sentence, re.I):
+            action_wording=re.sub(r'\b(?:match|game|clock)\s+passes\s+(?:the\s+)?\d+(?:st|nd|rd|th)?\s+minutes?\b','',sentence,flags=re.I)
+            if not re.search(pattern, action_wording, re.I):
                 continue
             # Qualitative connective prose is reviewed against event links; only
             # quantified action claims need a numeric window on that sentence.
@@ -330,10 +368,19 @@ def validate(text, packet, cited):
                 if fact['data'].get('kind')!='recovery_shot': return False
                 plain_sentence=normalized(sentence)
                 threshold=fact['data']['metric'].get('threshold_seconds')
-                return bool(threshold is not None and count_digits(sentence)==[str(threshold)]
+                elapsed=fact['data']['metric'].get('elapsed_seconds')
+                duration=re.search(r'\b(?:lasted|duro)\s+(\w+)\s+(?:seconds?|segundos?)\b',plain_sentence)
+                prior=' '.join(sentences[max(0,index-5):index])
+                measured=(duration and count_digits(duration.group(1))==[str(elapsed)]
+                    and count_digits(sentence)==[str(elapsed),str(threshold)]
+                    and re.search(r'\b(?:recovery.to.shot|recuperacion.remate|recuperacion a remate)\b',plain_sentence)
+                    and fact.get('action_clocks',{}).get('recovery') is not None
+                    and fact['action_clocks']['recovery'] in prior and fact.get('point_clock') in prior)
+                return bool(threshold is not None and (count_digits(sentence)==[str(threshold)] or measured)
                     and not re.search(r'\d{1,3}:\d{2}',sentence)
-                    and re.search(r'\b(?:threshold|rule|umbral|regla)\b',plain_sentence)
+                    and re.search(r'\b(?:threshold|rule|umbral|regla|limite)\b',plain_sentence)
                     and re.search(r'\b(?:seconds?|segundos?)\b',plain_sentence)
+                    and re.search(r'\b'+str(threshold)+r'(?:-\s*|\s+)(?:seconds?|segundos?)\b',plain_sentence)
                     and re.search(r'\b(?:within|inside|meets?|cumple|dentro)\b',plain_sentence)
                     and not re.search(r'\b(?:outside|fuera)\b|\b(?:not|no)\s+(?:\w+\s+){0,2}(?:within|inside|meet\w*|cumple)\b',plain_sentence)
                     and fact.get('point_clock') in ' '.join(sentences[:index]))
@@ -474,9 +521,9 @@ def validate_selected_claims(text, packet):
                             if verb:
                                 before=tail[:verb.start()]
                                 after=tail[verb.end():]
-                                relative=re.search(r'\b(?:after|despues|desde|earlier|antes)\b',before)
+                                relative=re.search(r'\b(?:after|following|tras|despues|desde|earlier|antes)\b',before)
                                 earlier=re.search(r'\b(?:seconds? earlier|segundos? antes)\b',after)
-                                prior_shot=re.search(r'\b(?:shot|shoots?|fired|remato|disparo)\b',before)
+                                prior_shot=re.search(r'\b(?:shot|shoots?|fired|remat\w*|dispar\w*)\b',before)
                                 if not (relative or earlier or prior_shot):
                                     raise RecapQualityError('wrong_recovery_clock',fact_id=fact['fact_id'],
                                         recovery_clock=recovery_clock,shot_clock=point,
@@ -588,7 +635,7 @@ def validate_selected_claims(text, packet):
                     positions=[context.find(action['clock']) for action in actions]
                     if (actions and all(position>=0 for position in positions)
                             and positions==sorted(set(positions))
-                            and not set(count_digits(re.sub(r'\b\d+\s*-\s*\d+\b','',context)))-{str(metric['threshold_seconds'])}):
+                            and not set(count_digits(re.sub(r'\b\d+\s*-\s*\d+\b','',context)))-{str(metric['threshold_seconds']),str(metric['elapsed_seconds'])}):
                         for index,action in enumerate(actions):
                             left=positions[index-1] if index else 0
                             if index:

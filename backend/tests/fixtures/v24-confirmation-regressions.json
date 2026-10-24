@@ -1,0 +1,3073 @@
+[
+  {
+    "case": "palace_repeated_replies",
+    "audience": "casual",
+    "writer_mode": "azure",
+    "text": {
+      "en": "Newcastle United took the lead at 15:11 with Yoane Wissa scoring after a quick shot at 15:10. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 when Harvey Barnes scored. At 75:11, Crystal Palace leveled again as Jean-Philippe Mateta scored following a recovery by Daichi Kamada at 75:00 and three completed passes involving Kamada, Jefferson Lerma, and Adam Wharton. The score is now 2-2 at 75:30.",
+      "es": "Newcastle United se adelantó a los 15:11 con un gol de Yoane Wissa tras un remate a los 15:10. Crystal Palace empató a los 60:11 con Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 con un gol de Harvey Barnes. A los 75:11, Crystal Palace igualó nuevamente gracias a Jean-Philippe Mateta, quien marcó tras una recuperación de Daichi Kamada a los 75:00 y tres pases completados entre Kamada, Jefferson Lerma y Adam Wharton. El marcador está 2-2 a los 75:30."
+    },
+    "evidence": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Crystal Palace",
+              "away": "Newcastle United"
+            },
+            "score": {
+              "home": 2,
+              "away": 2
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e136",
+            "library-audit-218160c9-27-comeback-e500",
+            "library-audit-218160c9-27-comeback-e551",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 2,
+              "away": 2
+            },
+            "transitions": [
+              {
+                "type": "lead_acquisition",
+                "team_id": "away",
+                "player_id": "away-10",
+                "match_second": 911,
+                "sequence": 136,
+                "before": {
+                  "home": 0,
+                  "away": 0
+                },
+                "after": {
+                  "home": 0,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e136"
+                ],
+                "goal_clock": "15:11",
+                "scorer": "Yoane Wissa",
+                "team_name": "Newcastle United",
+                "shot_clock": "15:10"
+              },
+              {
+                "type": "equalization",
+                "team_id": "home",
+                "player_id": "home-9",
+                "match_second": 3611,
+                "sequence": 500,
+                "before": {
+                  "home": 0,
+                  "away": 1
+                },
+                "after": {
+                  "home": 1,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e500"
+                ],
+                "goal_clock": "60:11",
+                "scorer": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "shot_clock": "60:10"
+              },
+              {
+                "type": "lead_acquisition",
+                "team_id": "away",
+                "player_id": "away-9",
+                "match_second": 3971,
+                "sequence": 551,
+                "before": {
+                  "home": 1,
+                  "away": 1
+                },
+                "after": {
+                  "home": 1,
+                  "away": 2
+                },
+                "rapid_response": {
+                  "elapsed_seconds": 360,
+                  "evidence_event_ids": [
+                    "library-audit-218160c9-27-comeback-e500",
+                    "library-audit-218160c9-27-comeback-e551"
+                  ]
+                },
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e551"
+                ],
+                "goal_clock": "66:11",
+                "scorer": "Harvey Barnes",
+                "team_name": "Newcastle United",
+                "shot_clock": "66:10"
+              },
+              {
+                "type": "equalization",
+                "team_id": "home",
+                "player_id": "home-10",
+                "match_second": 4511,
+                "sequence": 634,
+                "before": {
+                  "home": 1,
+                  "away": 2
+                },
+                "after": {
+                  "home": 2,
+                  "away": 2
+                },
+                "rapid_response": {
+                  "elapsed_seconds": 540,
+                  "evidence_event_ids": [
+                    "library-audit-218160c9-27-comeback-e551",
+                    "library-audit-218160c9-27-comeback-e634"
+                  ]
+                },
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e634"
+                ],
+                "goal_clock": "75:11",
+                "scorer": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "shot_clock": "75:10"
+              }
+            ],
+            "lead_acquisitions": {
+              "home": 0,
+              "away": 2
+            },
+            "equalizers": {
+              "home": 2,
+              "away": 0
+            },
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e136",
+              "library-audit-218160c9-27-comeback-e500",
+              "library-audit-218160c9-27-comeback-e551",
+              "library-audit-218160c9-27-comeback-e634"
+            ],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e136",
+            "library-audit-218160c9-27-comeback-e500",
+            "library-audit-218160c9-27-comeback-e551",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "75:30",
+            "match_second": 4530,
+            "has_new_goals": true
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e635"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-218160c9-27-comeback-e500",
+          "data": {
+            "story_id": "goal:library-audit-218160c9-27-comeback-e500",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e499",
+              "library-audit-218160c9-27-comeback-e500"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 500,
+            "goal": {
+              "player_name": "Ismaila Sarr",
+              "team_name": "Crystal Palace",
+              "clock": "60:11",
+              "match_second": 3611
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e499",
+            "library-audit-218160c9-27-comeback-e500"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-218160c9-27-comeback-e551",
+          "data": {
+            "story_id": "goal:library-audit-218160c9-27-comeback-e551",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e550",
+              "library-audit-218160c9-27-comeback-e551"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 551,
+            "goal": {
+              "player_name": "Harvey Barnes",
+              "team_name": "Newcastle United",
+              "clock": "66:11",
+              "match_second": 3971
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e550",
+            "library-audit-218160c9-27-comeback-e551"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-218160c9-27-comeback-e634",
+          "data": {
+            "story_id": "goal:library-audit-218160c9-27-comeback-e634",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e633",
+              "library-audit-218160c9-27-comeback-e634"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 634,
+            "goal": {
+              "player_name": "Jean-Philippe Mateta",
+              "team_name": "Crystal Palace",
+              "clock": "75:11",
+              "match_second": 4511
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e633",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-218160c9-27-comeback-e633",
+          "data": {
+            "story_id": "recovery-shot:library-audit-218160c9-27-comeback-e633",
+            "kind": "recovery_shot",
+            "match_second": 4510,
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e629",
+              "library-audit-218160c9-27-comeback-e630",
+              "library-audit-218160c9-27-comeback-e631",
+              "library-audit-218160c9-27-comeback-e632",
+              "library-audit-218160c9-27-comeback-e633",
+              "library-audit-218160c9-27-comeback-e634"
+            ],
+            "metric": {
+              "team_id": "home",
+              "recovery_event_id": "library-audit-218160c9-27-comeback-e629",
+              "shot_event_id": "library-audit-218160c9-27-comeback-e633",
+              "shot_sequence": 633,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-218160c9-27-comeback:p151",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-218160c9-27-comeback-e629",
+                "library-audit-218160c9-27-comeback-e630",
+                "library-audit-218160c9-27-comeback-e631",
+                "library-audit-218160c9-27-comeback-e632",
+                "library-audit-218160c9-27-comeback-e633",
+                "library-audit-218160c9-27-comeback-e634"
+              ],
+              "rule_version": "recovery-shot-v1",
+              "goal_link": {
+                "version": "recovery-goal-v1",
+                "goal_event_id": "library-audit-218160c9-27-comeback-e634",
+                "goal_sequence": 634,
+                "goal_second": 4511,
+                "goal_clock": "75:11",
+                "shot_clock": "75:10",
+                "recovery_clock": "75:00",
+                "recoverer": "Daichi Kamada",
+                "scorer": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "score_change": "equalization",
+                "score_before": {
+                  "home": 1,
+                  "away": 2
+                },
+                "score_after": {
+                  "home": 2,
+                  "away": 2
+                },
+                "completed_pass_count": 3,
+                "completed_passes": [
+                  {
+                    "player_name": "Daichi Kamada",
+                    "recipient_player_name": "Jefferson Lerma",
+                    "match_second": 4502
+                  },
+                  {
+                    "player_name": "Jefferson Lerma",
+                    "recipient_player_name": "Adam Wharton",
+                    "match_second": 4504
+                  },
+                  {
+                    "player_name": "Adam Wharton",
+                    "recipient_player_name": "Jean-Philippe Mateta",
+                    "match_second": 4509
+                  }
+                ],
+                "seconds_before_snapshot": 19,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e629",
+                  "library-audit-218160c9-27-comeback-e630",
+                  "library-audit-218160c9-27-comeback-e631",
+                  "library-audit-218160c9-27-comeback-e632",
+                  "library-audit-218160c9-27-comeback-e633",
+                  "library-audit-218160c9-27-comeback-e634"
+                ]
+              }
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 634
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e629",
+            "library-audit-218160c9-27-comeback-e630",
+            "library-audit-218160c9-27-comeback-e631",
+            "library-audit-218160c9-27-comeback-e632",
+            "library-audit-218160c9-27-comeback-e633",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": [],
+          "point_clock": "75:10",
+          "participants": {
+            "recoverer": "Daichi Kamada",
+            "shooter": "Jean-Philippe Mateta"
+          }
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e136",
+          "sequence": 136,
+          "match_second": 911,
+          "type": "goal",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p31",
+          "related_event_id": "library-audit-218160c9-27-comeback-e135",
+          "x": 0.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e499",
+          "sequence": 499,
+          "match_second": 3610,
+          "type": "shot",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p121",
+          "related_event_id": null,
+          "x": 82.0,
+          "y": 20.0,
+          "end_x": 100.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e500",
+          "sequence": 500,
+          "match_second": 3611,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p121",
+          "related_event_id": "library-audit-218160c9-27-comeback-e499",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e550",
+          "sequence": 550,
+          "match_second": 3970,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p133",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 48.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e551",
+          "sequence": 551,
+          "match_second": 3971,
+          "type": "goal",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p133",
+          "related_event_id": "library-audit-218160c9-27-comeback-e550",
+          "x": 0.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e628",
+          "sequence": 628,
+          "match_second": 4480,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": "saved",
+          "possession_id": "library-audit-218160c9-27-comeback:p150",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 66.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e629",
+          "sequence": 629,
+          "match_second": 4500,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 72.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e630",
+          "sequence": 630,
+          "match_second": 4502,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": "Jefferson Lerma",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 72.0,
+          "y": 25.0,
+          "end_x": 87.0,
+          "end_y": 17.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e631",
+          "sequence": 631,
+          "match_second": 4504,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Jefferson Lerma",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 87.0,
+          "y": 17.0,
+          "end_x": 95.0,
+          "end_y": 10.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e632",
+          "sequence": 632,
+          "match_second": 4509,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": "Jean-Philippe Mateta",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 95.0,
+          "y": 10.0,
+          "end_x": 82.0,
+          "end_y": 10.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e633",
+          "sequence": 633,
+          "match_second": 4510,
+          "type": "shot",
+          "team_id": "home",
+          "player_name": "Jean-Philippe Mateta",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 82.0,
+          "y": 10.0,
+          "end_x": 100.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e634",
+          "sequence": 634,
+          "match_second": 4511,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Jean-Philippe Mateta",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": "library-audit-218160c9-27-comeback-e633",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e635",
+          "sequence": 635,
+          "match_second": 4530,
+          "type": "kickoff",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-27-comeback:p152",
+          "related_event_id": null,
+          "x": 50.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:goal:library-audit-218160c9-27-comeback-e500",
+        "story:goal:library-audit-218160c9-27-comeback-e551",
+        "story:goal:library-audit-218160c9-27-comeback-e634",
+        "story:recovery-shot:library-audit-218160c9-27-comeback-e633"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "goal:library-audit-218160c9-27-comeback-e500",
+          "goal:library-audit-218160c9-27-comeback-e551",
+          "goal:library-audit-218160c9-27-comeback-e634",
+          "recovery-shot:library-audit-218160c9-27-comeback-e633"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    },
+    "evaluation_trace": [
+      {
+        "stage": "draft",
+        "draft": {
+          "en": "Newcastle United took the lead at 15:11 with Yoane Wissa scoring after a quick shot at 15:10. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 when Harvey Barnes scored. At 75:11, Crystal Palace leveled again as Jean-Philippe Mateta scored following a recovery by Daichi Kamada at 75:00 and three completed passes involving Kamada, Jefferson Lerma, and Adam Wharton. The score is now 2-2 at 75:30.",
+          "es": "Newcastle United se adelantó a los 15:11 con un gol de Yoane Wissa tras un remate a los 15:10. Crystal Palace empató a los 60:11 con Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 con un gol de Harvey Barnes. A los 75:11, Crystal Palace igualó nuevamente gracias a Jean-Philippe Mateta, quien marcó tras una recuperación de Daichi Kamada a los 75:00 y tres pases completados entre Kamada, Jefferson Lerma y Adam Wharton. El marcador está 2-2 a los 75:30.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:goal:library-audit-218160c9-27-comeback-e500",
+            "story:goal:library-audit-218160c9-27-comeback-e551",
+            "story:goal:library-audit-218160c9-27-comeback-e634",
+            "story:recovery-shot:library-audit-218160c9-27-comeback-e633"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "case": "palace_repeated_replies",
+    "audience": "advanced",
+    "writer_mode": "deterministic",
+    "text": {
+      "en": "Newcastle United led twice, but Crystal Palace have answered twice. Ismaila Sarr scored for Crystal Palace at 60:11. Harvey Barnes scored for Newcastle United at 66:11. That leaves them level at 2 all. The latest goal came 9 minutes after the previous one. Daichi Kamada recovered the ball and, 10 seconds later, Jean-Philippe Mateta shot at 75:10: that shot produced the equalizer recorded at 75:11. This sequence supports that goal, not a claim of dominance or shot quality. There are 14 minutes and 30 seconds until ninety, plus added time.",
+      "es": "Newcastle United se adelantó dos veces, pero Crystal Palace respondió dos veces. Ismaila Sarr marcó para Crystal Palace a los 60:11. Harvey Barnes marcó para Newcastle United a los 66:11. Así quedan empatados 2 a 2. El último gol llegó 9 minutos después del anterior. Daichi Kamada recuperó el balón y, 10 segundos después, Jean-Philippe Mateta remató a los 75:10: ese remate terminó en el empate registrado a los 75:11. La secuencia respalda este gol, no una conclusión sobre dominio o calidad del remate. Faltan 14 minutos y 30 segundos para los noventa, más el añadido."
+    },
+    "evidence": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Crystal Palace",
+              "away": "Newcastle United"
+            },
+            "score": {
+              "home": 2,
+              "away": 2
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e136",
+            "library-audit-218160c9-27-comeback-e500",
+            "library-audit-218160c9-27-comeback-e551",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 2,
+              "away": 2
+            },
+            "transitions": [
+              {
+                "type": "lead_acquisition",
+                "team_id": "away",
+                "player_id": "away-10",
+                "match_second": 911,
+                "sequence": 136,
+                "before": {
+                  "home": 0,
+                  "away": 0
+                },
+                "after": {
+                  "home": 0,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e136"
+                ],
+                "goal_clock": "15:11",
+                "scorer": "Yoane Wissa",
+                "team_name": "Newcastle United",
+                "shot_clock": "15:10"
+              },
+              {
+                "type": "equalization",
+                "team_id": "home",
+                "player_id": "home-9",
+                "match_second": 3611,
+                "sequence": 500,
+                "before": {
+                  "home": 0,
+                  "away": 1
+                },
+                "after": {
+                  "home": 1,
+                  "away": 1
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e500"
+                ],
+                "goal_clock": "60:11",
+                "scorer": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "shot_clock": "60:10"
+              },
+              {
+                "type": "lead_acquisition",
+                "team_id": "away",
+                "player_id": "away-9",
+                "match_second": 3971,
+                "sequence": 551,
+                "before": {
+                  "home": 1,
+                  "away": 1
+                },
+                "after": {
+                  "home": 1,
+                  "away": 2
+                },
+                "rapid_response": {
+                  "elapsed_seconds": 360,
+                  "evidence_event_ids": [
+                    "library-audit-218160c9-27-comeback-e500",
+                    "library-audit-218160c9-27-comeback-e551"
+                  ]
+                },
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e551"
+                ],
+                "goal_clock": "66:11",
+                "scorer": "Harvey Barnes",
+                "team_name": "Newcastle United",
+                "shot_clock": "66:10"
+              },
+              {
+                "type": "equalization",
+                "team_id": "home",
+                "player_id": "home-10",
+                "match_second": 4511,
+                "sequence": 634,
+                "before": {
+                  "home": 1,
+                  "away": 2
+                },
+                "after": {
+                  "home": 2,
+                  "away": 2
+                },
+                "rapid_response": {
+                  "elapsed_seconds": 540,
+                  "evidence_event_ids": [
+                    "library-audit-218160c9-27-comeback-e551",
+                    "library-audit-218160c9-27-comeback-e634"
+                  ]
+                },
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e634"
+                ],
+                "goal_clock": "75:11",
+                "scorer": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "shot_clock": "75:10"
+              }
+            ],
+            "lead_acquisitions": {
+              "home": 0,
+              "away": 2
+            },
+            "equalizers": {
+              "home": 2,
+              "away": 0
+            },
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e136",
+              "library-audit-218160c9-27-comeback-e500",
+              "library-audit-218160c9-27-comeback-e551",
+              "library-audit-218160c9-27-comeback-e634"
+            ],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e136",
+            "library-audit-218160c9-27-comeback-e500",
+            "library-audit-218160c9-27-comeback-e551",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "75:30",
+            "match_second": 4530,
+            "has_new_goals": true
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e635"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-218160c9-27-comeback-e500",
+          "data": {
+            "story_id": "goal:library-audit-218160c9-27-comeback-e500",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e499",
+              "library-audit-218160c9-27-comeback-e500"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 500,
+            "goal": {
+              "player_name": "Ismaila Sarr",
+              "team_name": "Crystal Palace",
+              "clock": "60:11",
+              "match_second": 3611
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e499",
+            "library-audit-218160c9-27-comeback-e500"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-218160c9-27-comeback-e551",
+          "data": {
+            "story_id": "goal:library-audit-218160c9-27-comeback-e551",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e550",
+              "library-audit-218160c9-27-comeback-e551"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 551,
+            "goal": {
+              "player_name": "Harvey Barnes",
+              "team_name": "Newcastle United",
+              "clock": "66:11",
+              "match_second": 3971
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e550",
+            "library-audit-218160c9-27-comeback-e551"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:goal:library-audit-218160c9-27-comeback-e634",
+          "data": {
+            "story_id": "goal:library-audit-218160c9-27-comeback-e634",
+            "kind": "goal",
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e633",
+              "library-audit-218160c9-27-comeback-e634"
+            ],
+            "rule_version": "goal-v1",
+            "sequence": 634,
+            "goal": {
+              "player_name": "Jean-Philippe Mateta",
+              "team_name": "Crystal Palace",
+              "clock": "75:11",
+              "match_second": 4511
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e633",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-218160c9-27-comeback-e633",
+          "data": {
+            "story_id": "recovery-shot:library-audit-218160c9-27-comeback-e633",
+            "kind": "recovery_shot",
+            "match_second": 4510,
+            "evidence_event_ids": [
+              "library-audit-218160c9-27-comeback-e629",
+              "library-audit-218160c9-27-comeback-e630",
+              "library-audit-218160c9-27-comeback-e631",
+              "library-audit-218160c9-27-comeback-e632",
+              "library-audit-218160c9-27-comeback-e633",
+              "library-audit-218160c9-27-comeback-e634"
+            ],
+            "metric": {
+              "team_id": "home",
+              "recovery_event_id": "library-audit-218160c9-27-comeback-e629",
+              "shot_event_id": "library-audit-218160c9-27-comeback-e633",
+              "shot_sequence": 633,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-218160c9-27-comeback:p151",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-218160c9-27-comeback-e629",
+                "library-audit-218160c9-27-comeback-e630",
+                "library-audit-218160c9-27-comeback-e631",
+                "library-audit-218160c9-27-comeback-e632",
+                "library-audit-218160c9-27-comeback-e633",
+                "library-audit-218160c9-27-comeback-e634"
+              ],
+              "rule_version": "recovery-shot-v1",
+              "goal_link": {
+                "version": "recovery-goal-v1",
+                "goal_event_id": "library-audit-218160c9-27-comeback-e634",
+                "goal_sequence": 634,
+                "goal_second": 4511,
+                "goal_clock": "75:11",
+                "shot_clock": "75:10",
+                "recovery_clock": "75:00",
+                "recoverer": "Daichi Kamada",
+                "scorer": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "score_change": "equalization",
+                "score_before": {
+                  "home": 1,
+                  "away": 2
+                },
+                "score_after": {
+                  "home": 2,
+                  "away": 2
+                },
+                "completed_pass_count": 3,
+                "completed_passes": [
+                  {
+                    "player_name": "Daichi Kamada",
+                    "recipient_player_name": "Jefferson Lerma",
+                    "match_second": 4502
+                  },
+                  {
+                    "player_name": "Jefferson Lerma",
+                    "recipient_player_name": "Adam Wharton",
+                    "match_second": 4504
+                  },
+                  {
+                    "player_name": "Adam Wharton",
+                    "recipient_player_name": "Jean-Philippe Mateta",
+                    "match_second": 4509
+                  }
+                ],
+                "seconds_before_snapshot": 19,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-27-comeback-e629",
+                  "library-audit-218160c9-27-comeback-e630",
+                  "library-audit-218160c9-27-comeback-e631",
+                  "library-audit-218160c9-27-comeback-e632",
+                  "library-audit-218160c9-27-comeback-e633",
+                  "library-audit-218160c9-27-comeback-e634"
+                ]
+              }
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 634
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-27-comeback-e629",
+            "library-audit-218160c9-27-comeback-e630",
+            "library-audit-218160c9-27-comeback-e631",
+            "library-audit-218160c9-27-comeback-e632",
+            "library-audit-218160c9-27-comeback-e633",
+            "library-audit-218160c9-27-comeback-e634"
+          ],
+          "window_labels": [],
+          "point_clock": "75:10",
+          "participants": {
+            "recoverer": "Daichi Kamada",
+            "shooter": "Jean-Philippe Mateta"
+          }
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e136",
+          "sequence": 136,
+          "match_second": 911,
+          "type": "goal",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p31",
+          "related_event_id": "library-audit-218160c9-27-comeback-e135",
+          "x": 0.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e499",
+          "sequence": 499,
+          "match_second": 3610,
+          "type": "shot",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p121",
+          "related_event_id": null,
+          "x": 82.0,
+          "y": 20.0,
+          "end_x": 100.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e500",
+          "sequence": 500,
+          "match_second": 3611,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p121",
+          "related_event_id": "library-audit-218160c9-27-comeback-e499",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e550",
+          "sequence": 550,
+          "match_second": 3970,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p133",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 48.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e551",
+          "sequence": 551,
+          "match_second": 3971,
+          "type": "goal",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p133",
+          "related_event_id": "library-audit-218160c9-27-comeback-e550",
+          "x": 0.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e628",
+          "sequence": 628,
+          "match_second": 4480,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": "saved",
+          "possession_id": "library-audit-218160c9-27-comeback:p150",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 66.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e629",
+          "sequence": 629,
+          "match_second": 4500,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 72.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e630",
+          "sequence": 630,
+          "match_second": 4502,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": "Jefferson Lerma",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 72.0,
+          "y": 25.0,
+          "end_x": 87.0,
+          "end_y": 17.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e631",
+          "sequence": 631,
+          "match_second": 4504,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Jefferson Lerma",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 87.0,
+          "y": 17.0,
+          "end_x": 95.0,
+          "end_y": 10.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e632",
+          "sequence": 632,
+          "match_second": 4509,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": "Jean-Philippe Mateta",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 95.0,
+          "y": 10.0,
+          "end_x": 82.0,
+          "end_y": 10.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e633",
+          "sequence": 633,
+          "match_second": 4510,
+          "type": "shot",
+          "team_id": "home",
+          "player_name": "Jean-Philippe Mateta",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": null,
+          "x": 82.0,
+          "y": 10.0,
+          "end_x": 100.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e634",
+          "sequence": 634,
+          "match_second": 4511,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Jean-Philippe Mateta",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-27-comeback:p151",
+          "related_event_id": "library-audit-218160c9-27-comeback-e633",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-27-comeback-e635",
+          "sequence": 635,
+          "match_second": 4530,
+          "type": "kickoff",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-27-comeback:p152",
+          "related_event_id": null,
+          "x": 50.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:goal:library-audit-218160c9-27-comeback-e500",
+        "story:goal:library-audit-218160c9-27-comeback-e551",
+        "story:goal:library-audit-218160c9-27-comeback-e634",
+        "story:recovery-shot:library-audit-218160c9-27-comeback-e633"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "goal:library-audit-218160c9-27-comeback-e500",
+          "goal:library-audit-218160c9-27-comeback-e551",
+          "goal:library-audit-218160c9-27-comeback-e634",
+          "recovery-shot:library-audit-218160c9-27-comeback-e633"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    },
+    "evaluation_trace": [
+      {
+        "stage": "draft",
+        "draft": {
+          "en": "Newcastle United took the lead first with Yoane Wissa scoring at 15:11. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 when Harvey Barnes scored. Crystal Palace leveled again at 75:11 after Daichi Kamada recovered the ball at 75:00, then passed to Jefferson Lerma and Adam Wharton before Jean-Philippe Mateta finished the move with a goal. The score is tied 2-2 at 75:30.",
+          "es": "Newcastle United se adelantó primero con un gol de Yoane Wissa a los 15:11. Crystal Palace empató a los 60:11 gracias a Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 con un gol de Harvey Barnes. Crystal Palace igualó nuevamente a los 75:11 tras una recuperación de Daichi Kamada a los 75:00, quien pasó a Jefferson Lerma y luego a Adam Wharton antes de que Jean-Philippe Mateta completara la jugada con un gol. El marcador está empatado 2-2 a los 75:30.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:goal:library-audit-218160c9-27-comeback-e500",
+            "story:goal:library-audit-218160c9-27-comeback-e551",
+            "story:goal:library-audit-218160c9-27-comeback-e634",
+            "story:recovery-shot:library-audit-218160c9-27-comeback-e633"
+          ]
+        }
+      },
+      {
+        "stage": "draft_rejected",
+        "error": "wrong_pass_route_recipient",
+        "details": {
+          "player": "Daichi Kamada",
+          "claimed_recipients": [
+            "Adam Wharton"
+          ],
+          "recorded_recipients": [
+            "Jefferson Lerma"
+          ],
+          "language": "en",
+          "issues": [
+            {
+              "code": "wrong_pass_route_recipient",
+              "details": {
+                "player": "Daichi Kamada",
+                "claimed_recipients": [
+                  "Adam Wharton"
+                ],
+                "recorded_recipients": [
+                  "Jefferson Lerma"
+                ],
+                "language": "en"
+              }
+            },
+            {
+              "code": "missing_recovery_goal_connection",
+              "details": {
+                "fact_id": "story:recovery-shot:library-audit-218160c9-27-comeback-e633",
+                "recoverer": "Daichi Kamada",
+                "scorer": "Jean-Philippe Mateta",
+                "recovery_clock": "75:00",
+                "shot_clock": "75:10",
+                "goal_clock": "75:11",
+                "team_completed_passes": 3,
+                "seconds_recovery_to_shot": 10,
+                "required_score_change": "equalization",
+                "language": "en"
+              }
+            },
+            {
+              "code": "wrong_pass_route_recipient",
+              "details": {
+                "player": "Daichi Kamada",
+                "claimed_recipients": [
+                  "Adam Wharton"
+                ],
+                "recorded_recipients": [
+                  "Jefferson Lerma"
+                ],
+                "language": "es"
+              }
+            },
+            {
+              "code": "missing_recovery_goal_connection",
+              "details": {
+                "fact_id": "story:recovery-shot:library-audit-218160c9-27-comeback-e633",
+                "recoverer": "Daichi Kamada",
+                "scorer": "Jean-Philippe Mateta",
+                "recovery_clock": "75:00",
+                "shot_clock": "75:10",
+                "goal_clock": "75:11",
+                "team_completed_passes": 3,
+                "seconds_recovery_to_shot": 10,
+                "required_score_change": "equalization",
+                "language": "es"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "revision",
+        "draft": {
+          "en": "Newcastle United opened the scoring with Yoane Wissa's goal at 15:11. Crystal Palace equalized at 60:11 through Ismaila Sarr. Newcastle regained the lead at 66:11 when Harvey Barnes scored. Crystal Palace leveled the match at 75:11 after Daichi Kamada recovered the ball at 75:00, then passed to Jefferson Lerma, who passed to Adam Wharton, and finally Jean-Philippe Mateta scored. The score is tied 2-2 at 75:30.",
+          "es": "Newcastle United abrió el marcador con un gol de Yoane Wissa a los 15:11. Crystal Palace empató a los 60:11 gracias a Ismaila Sarr. Newcastle volvió a tomar la delantera a los 66:11 con un gol de Harvey Barnes. Crystal Palace igualó a los 75:11 tras una recuperación de Daichi Kamada a los 75:00, quien pasó a Jefferson Lerma, luego a Adam Wharton, y finalmente Jean-Philippe Mateta anotó. El marcador está empatado 2-2 a los 75:30.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:goal:library-audit-218160c9-27-comeback-e500",
+            "story:goal:library-audit-218160c9-27-comeback-e551",
+            "story:goal:library-audit-218160c9-27-comeback-e634",
+            "story:recovery-shot:library-audit-218160c9-27-comeback-e633"
+          ]
+        }
+      },
+      {
+        "stage": "revision_validation_rejected",
+        "error": "wrong_pass_route_recipient",
+        "details": {
+          "player": "Jefferson Lerma",
+          "claimed_recipients": [
+            "Jean-Philippe Mateta"
+          ],
+          "recorded_recipients": [
+            "Adam Wharton"
+          ],
+          "language": "en",
+          "issues": [
+            {
+              "code": "wrong_pass_route_recipient",
+              "details": {
+                "player": "Jefferson Lerma",
+                "claimed_recipients": [
+                  "Jean-Philippe Mateta"
+                ],
+                "recorded_recipients": [
+                  "Adam Wharton"
+                ],
+                "language": "en"
+              }
+            },
+            {
+              "code": "missing_recovery_goal_connection",
+              "details": {
+                "fact_id": "story:recovery-shot:library-audit-218160c9-27-comeback-e633",
+                "recoverer": "Daichi Kamada",
+                "scorer": "Jean-Philippe Mateta",
+                "recovery_clock": "75:00",
+                "shot_clock": "75:10",
+                "goal_clock": "75:11",
+                "team_completed_passes": 3,
+                "seconds_recovery_to_shot": 10,
+                "required_score_change": "equalization",
+                "language": "en"
+              }
+            },
+            {
+              "code": "wrong_pass_route_recipient",
+              "details": {
+                "player": "Daichi Kamada",
+                "claimed_recipients": [
+                  "Adam Wharton",
+                  "Jean-Philippe Mateta"
+                ],
+                "recorded_recipients": [
+                  "Jefferson Lerma"
+                ],
+                "language": "es"
+              }
+            },
+            {
+              "code": "missing_recovery_goal_connection",
+              "details": {
+                "fact_id": "story:recovery-shot:library-audit-218160c9-27-comeback-e633",
+                "recoverer": "Daichi Kamada",
+                "scorer": "Jean-Philippe Mateta",
+                "recovery_clock": "75:00",
+                "shot_clock": "75:10",
+                "goal_clock": "75:11",
+                "team_completed_passes": 3,
+                "seconds_recovery_to_shot": 10,
+                "required_score_change": "equalization",
+                "language": "es"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "case": "quiet_derby",
+    "audience": "casual",
+    "writer_mode": "deterministic",
+    "text": {
+      "en": "Manchester United and Manchester City are level at 0 all. Still goalless. At 62:10, Manchester City recorded a shot 10 seconds after recovering the ball in the same possession. Across the last five minutes, the teams have recorded 1 shot, up from 0 in the previous five. There are 27 minutes and 30 seconds until ninety, plus added time.",
+      "es": "Manchester United y Manchester City están empatados 0 a 0. Sigue sin goles. A los 62:10, Manchester City registró un remate 10 segundos después de recuperar el balón en la misma posesión. En los últimos cinco minutos se registró 1 remate, frente a 0 en los cinco anteriores. Faltan 27 minutos y 30 segundos para los noventa, más el añadido."
+    },
+    "evidence": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Manchester United",
+              "away": "Manchester City"
+            },
+            "score": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e515"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 0,
+              "away": 0
+            },
+            "transitions": [],
+            "lead_acquisitions": {
+              "home": 0,
+              "away": 0
+            },
+            "equalizers": {
+              "home": 0,
+              "away": 0
+            },
+            "evidence_event_ids": [],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e515"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "62:30",
+            "match_second": 3750,
+            "has_new_goals": false
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e515"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-218160c9-0-featured-e514",
+          "data": {
+            "story_id": "recovery-shot:library-audit-218160c9-0-featured-e514",
+            "kind": "recovery_shot",
+            "match_second": 3730,
+            "evidence_event_ids": [
+              "library-audit-218160c9-0-featured-e509",
+              "library-audit-218160c9-0-featured-e510",
+              "library-audit-218160c9-0-featured-e511",
+              "library-audit-218160c9-0-featured-e512",
+              "library-audit-218160c9-0-featured-e513",
+              "library-audit-218160c9-0-featured-e514"
+            ],
+            "metric": {
+              "team_id": "away",
+              "recovery_event_id": "library-audit-218160c9-0-featured-e509",
+              "shot_event_id": "library-audit-218160c9-0-featured-e514",
+              "shot_sequence": 514,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-218160c9-0-featured:p125",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-218160c9-0-featured-e509",
+                "library-audit-218160c9-0-featured-e510",
+                "library-audit-218160c9-0-featured-e511",
+                "library-audit-218160c9-0-featured-e512",
+                "library-audit-218160c9-0-featured-e513",
+                "library-audit-218160c9-0-featured-e514"
+              ],
+              "rule_version": "recovery-shot-v1"
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 514
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e509",
+            "library-audit-218160c9-0-featured-e510",
+            "library-audit-218160c9-0-featured-e511",
+            "library-audit-218160c9-0-featured-e512",
+            "library-audit-218160c9-0-featured-e513",
+            "library-audit-218160c9-0-featured-e514"
+          ],
+          "window_labels": [],
+          "point_clock": "62:10",
+          "participants": {
+            "recoverer": "Enzo Fernandez",
+            "shooter": "Erling Haaland"
+          },
+          "action_clocks": {
+            "recovery": "62:00",
+            "shot": "62:10"
+          },
+          "ordered_actions": [
+            {
+              "action": "recovery",
+              "player": "Enzo Fernandez",
+              "clock": "62:00"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Enzo Fernandez",
+              "recipient": "Rayan Cherki",
+              "clock": "62:02"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Rayan Cherki",
+              "recipient": "Ruben Dias",
+              "clock": "62:04"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Ruben Dias",
+              "recipient": "Mateo Kovacic",
+              "clock": "62:06"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Mateo Kovacic",
+              "recipient": "Erling Haaland",
+              "clock": "62:09"
+            },
+            {
+              "action": "shot",
+              "player": "Erling Haaland",
+              "clock": "62:10"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-218160c9-0-featured-e508",
+          "sequence": 508,
+          "match_second": 3698,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Rayan Cherki",
+          "recipient_player_name": "Enzo Fernandez",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p124",
+          "related_event_id": null,
+          "x": 58.0,
+          "y": 33.0,
+          "end_x": 63.0,
+          "end_y": 25.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e509",
+          "sequence": 509,
+          "match_second": 3720,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 61.0,
+          "y": 73.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e510",
+          "sequence": 510,
+          "match_second": 3722,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": "Rayan Cherki",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 61.0,
+          "y": 73.0,
+          "end_x": 55.0,
+          "end_y": 78.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e511",
+          "sequence": 511,
+          "match_second": 3724,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Rayan Cherki",
+          "recipient_player_name": "Ruben Dias",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 55.0,
+          "y": 78.0,
+          "end_x": 52.0,
+          "end_y": 83.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e512",
+          "sequence": 512,
+          "match_second": 3726,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Ruben Dias",
+          "recipient_player_name": "Mateo Kovacic",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 52.0,
+          "y": 83.0,
+          "end_x": 46.0,
+          "end_y": 88.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e513",
+          "sequence": 513,
+          "match_second": 3729,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Mateo Kovacic",
+          "recipient_player_name": "Erling Haaland",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 46.0,
+          "y": 88.0,
+          "end_x": 18.0,
+          "end_y": 88.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e514",
+          "sequence": 514,
+          "match_second": 3730,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Erling Haaland",
+          "recipient_player_name": null,
+          "outcome": "saved",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 88.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e515",
+          "sequence": 515,
+          "match_second": 3750,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-0-featured:p126",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:recovery-shot:library-audit-218160c9-0-featured-e514"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "recovery-shot:library-audit-218160c9-0-featured-e514"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    },
+    "evaluation_trace": [
+      {
+        "stage": "draft",
+        "draft": {
+          "en": "At 62:00, Enzo Fernandez recovered the ball for Manchester City and quickly passed to Rayan Cherki, who then found Ruben Dias. Dias connected with Mateo Kovacic, who delivered a precise ball to Erling Haaland, allowing Haaland to take a shot at 62:10. Despite this sequence, the score remains 0-0 between Manchester United and Manchester City as the match continues past the 62nd minute.",
+          "es": "A los 62:00, Enzo Fernandez recuperó el balón para el Manchester City y rápidamente se la pasó a Rayan Cherki, quien encontró a Ruben Dias. Dias conectó con Mateo Kovacic, que entregó un pase preciso a Erling Haaland, permitiendo a Haaland rematar a los 62:10. A pesar de esta secuencia, el marcador sigue 0-0 entre Manchester United y Manchester City mientras el partido continúa más allá del minuto 62.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:recovery-shot:library-audit-218160c9-0-featured-e514"
+          ]
+        }
+      },
+      {
+        "stage": "draft_rejected",
+        "error": "unsupported_interpretation",
+        "details": {
+          "wording": "pase preciso",
+          "language": "es",
+          "issues": [
+            {
+              "code": "unsupported_interpretation",
+              "details": {
+                "wording": "pase preciso",
+                "language": "es"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "revision",
+        "draft": {
+          "en": "At 62:00, Enzo Fernandez recovered the ball for Manchester City and passed to Rayan Cherki, who then found Ruben Dias. Dias passed to Mateo Kovacic, who sent the ball to Erling Haaland, leading to Haaland's shot at 62:10. The score remains 0-0 between Manchester United and Manchester City as the match passes the 62nd minute.",
+          "es": "A los 62:00, Enzo Fernandez recuperó el balón para el Manchester City y se la pasó a Rayan Cherki, quien encontró a Ruben Dias. Dias pasó a Mateo Kovacic, que envió el balón a Erling Haaland, quien remató a los 62:10. El marcador sigue 0-0 entre Manchester United y Manchester City mientras el partido supera el minuto 62.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:recovery-shot:library-audit-218160c9-0-featured-e514"
+          ]
+        }
+      },
+      {
+        "stage": "revision_validation_rejected",
+        "error": "ambiguous_statistic_window",
+        "details": {
+          "sentence_index": 2,
+          "language": "en",
+          "issues": [
+            {
+              "code": "ambiguous_statistic_window",
+              "details": {
+                "sentence_index": 2,
+                "language": "en"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "case": "quiet_derby",
+    "audience": "advanced",
+    "writer_mode": "azure",
+    "text": {
+      "en": "At 62:00, Enzo Fernandez recovered possession for Manchester City and quickly passed to Rayan Cherki, who then found Ruben Dias. Dias connected with Mateo Kovacic, who delivered the ball to Erling Haaland, leading to a shot at 62:10. Despite this coordinated sequence, the score remains 0-0 between Manchester United and Manchester City at 62:30, with no goals scored yet in this playing phase. The recovery-to-shot event lasted 10 seconds, within the 30-second threshold for this analysis.",
+      "es": "A los 62:00, Enzo Fernandez recuperó la posesión para el Manchester City y rápidamente pasó a Rayan Cherki, quien luego encontró a Ruben Dias. Dias conectó con Mateo Kovacic, que entregó el balón a Erling Haaland, quien realizó un remate a los 62:10. A pesar de esta secuencia coordinada, el marcador sigue 0-0 entre Manchester United y Manchester City a los 62:30, sin goles en esta fase de juego. El evento de recuperación a remate duró 10 segundos, dentro del umbral de 30 segundos para este análisis."
+    },
+    "evidence": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Manchester United",
+              "away": "Manchester City"
+            },
+            "score": {
+              "home": 0,
+              "away": 0
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e515"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 0,
+              "away": 0
+            },
+            "transitions": [],
+            "lead_acquisitions": {
+              "home": 0,
+              "away": 0
+            },
+            "equalizers": {
+              "home": 0,
+              "away": 0
+            },
+            "evidence_event_ids": [],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e515"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "62:30",
+            "match_second": 3750,
+            "has_new_goals": false
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e515"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-218160c9-0-featured-e514",
+          "data": {
+            "story_id": "recovery-shot:library-audit-218160c9-0-featured-e514",
+            "kind": "recovery_shot",
+            "match_second": 3730,
+            "evidence_event_ids": [
+              "library-audit-218160c9-0-featured-e509",
+              "library-audit-218160c9-0-featured-e510",
+              "library-audit-218160c9-0-featured-e511",
+              "library-audit-218160c9-0-featured-e512",
+              "library-audit-218160c9-0-featured-e513",
+              "library-audit-218160c9-0-featured-e514"
+            ],
+            "metric": {
+              "team_id": "away",
+              "recovery_event_id": "library-audit-218160c9-0-featured-e509",
+              "shot_event_id": "library-audit-218160c9-0-featured-e514",
+              "shot_sequence": 514,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-218160c9-0-featured:p125",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-218160c9-0-featured-e509",
+                "library-audit-218160c9-0-featured-e510",
+                "library-audit-218160c9-0-featured-e511",
+                "library-audit-218160c9-0-featured-e512",
+                "library-audit-218160c9-0-featured-e513",
+                "library-audit-218160c9-0-featured-e514"
+              ],
+              "rule_version": "recovery-shot-v1"
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 514
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-0-featured-e509",
+            "library-audit-218160c9-0-featured-e510",
+            "library-audit-218160c9-0-featured-e511",
+            "library-audit-218160c9-0-featured-e512",
+            "library-audit-218160c9-0-featured-e513",
+            "library-audit-218160c9-0-featured-e514"
+          ],
+          "window_labels": [],
+          "point_clock": "62:10",
+          "participants": {
+            "recoverer": "Enzo Fernandez",
+            "shooter": "Erling Haaland"
+          },
+          "action_clocks": {
+            "recovery": "62:00",
+            "shot": "62:10"
+          },
+          "ordered_actions": [
+            {
+              "action": "recovery",
+              "player": "Enzo Fernandez",
+              "clock": "62:00"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Enzo Fernandez",
+              "recipient": "Rayan Cherki",
+              "clock": "62:02"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Rayan Cherki",
+              "recipient": "Ruben Dias",
+              "clock": "62:04"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Ruben Dias",
+              "recipient": "Mateo Kovacic",
+              "clock": "62:06"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Mateo Kovacic",
+              "recipient": "Erling Haaland",
+              "clock": "62:09"
+            },
+            {
+              "action": "shot",
+              "player": "Erling Haaland",
+              "clock": "62:10"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-218160c9-0-featured-e508",
+          "sequence": 508,
+          "match_second": 3698,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Rayan Cherki",
+          "recipient_player_name": "Enzo Fernandez",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p124",
+          "related_event_id": null,
+          "x": 58.0,
+          "y": 33.0,
+          "end_x": 63.0,
+          "end_y": 25.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e509",
+          "sequence": 509,
+          "match_second": 3720,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 61.0,
+          "y": 73.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e510",
+          "sequence": 510,
+          "match_second": 3722,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": "Rayan Cherki",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 61.0,
+          "y": 73.0,
+          "end_x": 55.0,
+          "end_y": 78.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e511",
+          "sequence": 511,
+          "match_second": 3724,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Rayan Cherki",
+          "recipient_player_name": "Ruben Dias",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 55.0,
+          "y": 78.0,
+          "end_x": 52.0,
+          "end_y": 83.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e512",
+          "sequence": 512,
+          "match_second": 3726,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Ruben Dias",
+          "recipient_player_name": "Mateo Kovacic",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 52.0,
+          "y": 83.0,
+          "end_x": 46.0,
+          "end_y": 88.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e513",
+          "sequence": 513,
+          "match_second": 3729,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Mateo Kovacic",
+          "recipient_player_name": "Erling Haaland",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 46.0,
+          "y": 88.0,
+          "end_x": 18.0,
+          "end_y": 88.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e514",
+          "sequence": 514,
+          "match_second": 3730,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Erling Haaland",
+          "recipient_player_name": null,
+          "outcome": "saved",
+          "possession_id": "library-audit-218160c9-0-featured:p125",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 88.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-0-featured-e515",
+          "sequence": 515,
+          "match_second": 3750,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Enzo Fernandez",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-0-featured:p126",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:recovery-shot:library-audit-218160c9-0-featured-e514"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "recovery-shot:library-audit-218160c9-0-featured-e514"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    },
+    "evaluation_trace": [
+      {
+        "stage": "draft",
+        "draft": {
+          "en": "At 62:00, Enzo Fernandez recovered possession for Manchester City and quickly passed to Rayan Cherki, who then found Ruben Dias. Dias connected with Mateo Kovacic, who delivered the ball to Erling Haaland, leading to a shot at 62:10. Despite this coordinated sequence, the score remains 0-0 between Manchester United and Manchester City at 62:30, with no goals scored yet in this playing phase. The recovery-to-shot event lasted 10 seconds, within the 30-second threshold for this analysis.",
+          "es": "A los 62:00, Enzo Fernandez recuperó la posesión para el Manchester City y rápidamente pasó a Rayan Cherki, quien luego encontró a Ruben Dias. Dias conectó con Mateo Kovacic, que entregó el balón a Erling Haaland, quien realizó un remate a los 62:10. A pesar de esta secuencia coordinada, el marcador sigue 0-0 entre Manchester United y Manchester City a los 62:30, sin goles en esta fase de juego. El evento de recuperación a remate duró 10 segundos, dentro del umbral de 30 segundos para este análisis.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:recovery-shot:library-audit-218160c9-0-featured-e514"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "case": "no_new_goal_palace",
+    "audience": "casual",
+    "writer_mode": "azure",
+    "text": {
+      "en": "Crystal Palace leads 2-0 against Newcastle United at 75:00, with Jean-Philippe Mateta scoring at 10:11 and Ismaila Sarr extending the lead at 30:11. At 55:00, Yoane Wissa recovered the ball for Newcastle and passed to Joe Willock, who then moved it to Tino Livramento, followed by Anthony Elanga, before Harvey Barnes took a shot at 55:10.",
+      "es": "Crystal Palace gana 2-0 a Newcastle United a los 75:00, con Jean-Philippe Mateta anotando a los 10:11 e Ismaila Sarr ampliando la ventaja a los 30:11. A los 55:00, Yoane Wissa recuperó el balón para Newcastle y lo pasó a Joe Willock, quien luego lo envió a Tino Livramento, seguido por Anthony Elanga, antes de que Harvey Barnes realizara un remate a los 55:10."
+    },
+    "evidence": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Crystal Palace",
+              "away": "Newcastle United"
+            },
+            "score": {
+              "home": 2,
+              "away": 0
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e94",
+            "library-audit-218160c9-26-comeback-e257"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 2,
+              "away": 0
+            },
+            "transitions": [
+              {
+                "type": "lead_acquisition",
+                "team_id": "home",
+                "player_id": "home-10",
+                "match_second": 611,
+                "sequence": 94,
+                "before": {
+                  "home": 0,
+                  "away": 0
+                },
+                "after": {
+                  "home": 1,
+                  "away": 0
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-26-comeback-e94"
+                ],
+                "goal_clock": "10:11",
+                "scorer": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "shot_clock": "10:10"
+              },
+              {
+                "type": "lead_extension",
+                "team_id": "home",
+                "player_id": "home-9",
+                "match_second": 1811,
+                "sequence": 257,
+                "before": {
+                  "home": 1,
+                  "away": 0
+                },
+                "after": {
+                  "home": 2,
+                  "away": 0
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-26-comeback-e257"
+                ],
+                "goal_clock": "30:11",
+                "scorer": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "shot_clock": "30:10"
+              }
+            ],
+            "lead_acquisitions": {
+              "home": 1,
+              "away": 0
+            },
+            "equalizers": {
+              "home": 0,
+              "away": 0
+            },
+            "evidence_event_ids": [
+              "library-audit-218160c9-26-comeback-e94",
+              "library-audit-218160c9-26-comeback-e257"
+            ],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e94",
+            "library-audit-218160c9-26-comeback-e257"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "75:00",
+            "match_second": 4500,
+            "has_new_goals": false
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e622"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-218160c9-26-comeback-e470",
+          "data": {
+            "story_id": "recovery-shot:library-audit-218160c9-26-comeback-e470",
+            "kind": "recovery_shot",
+            "match_second": 3310,
+            "evidence_event_ids": [
+              "library-audit-218160c9-26-comeback-e465",
+              "library-audit-218160c9-26-comeback-e466",
+              "library-audit-218160c9-26-comeback-e467",
+              "library-audit-218160c9-26-comeback-e468",
+              "library-audit-218160c9-26-comeback-e469",
+              "library-audit-218160c9-26-comeback-e470"
+            ],
+            "metric": {
+              "team_id": "away",
+              "recovery_event_id": "library-audit-218160c9-26-comeback-e465",
+              "shot_event_id": "library-audit-218160c9-26-comeback-e470",
+              "shot_sequence": 470,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-218160c9-26-comeback:p111",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-218160c9-26-comeback-e465",
+                "library-audit-218160c9-26-comeback-e466",
+                "library-audit-218160c9-26-comeback-e467",
+                "library-audit-218160c9-26-comeback-e468",
+                "library-audit-218160c9-26-comeback-e469",
+                "library-audit-218160c9-26-comeback-e470"
+              ],
+              "rule_version": "recovery-shot-v1"
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 470
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e465",
+            "library-audit-218160c9-26-comeback-e466",
+            "library-audit-218160c9-26-comeback-e467",
+            "library-audit-218160c9-26-comeback-e468",
+            "library-audit-218160c9-26-comeback-e469",
+            "library-audit-218160c9-26-comeback-e470"
+          ],
+          "window_labels": [],
+          "point_clock": "55:10",
+          "participants": {
+            "recoverer": "Yoane Wissa",
+            "shooter": "Harvey Barnes"
+          },
+          "action_clocks": {
+            "recovery": "55:00",
+            "shot": "55:10"
+          },
+          "ordered_actions": [
+            {
+              "action": "recovery",
+              "player": "Yoane Wissa",
+              "clock": "55:00"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Yoane Wissa",
+              "recipient": "Joe Willock",
+              "clock": "55:02"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Joe Willock",
+              "recipient": "Tino Livramento",
+              "clock": "55:04"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Tino Livramento",
+              "recipient": "Anthony Elanga",
+              "clock": "55:06"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Anthony Elanga",
+              "recipient": "Harvey Barnes",
+              "clock": "55:09"
+            },
+            {
+              "action": "shot",
+              "player": "Harvey Barnes",
+              "clock": "55:10"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e94",
+          "sequence": 94,
+          "match_second": 611,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Jean-Philippe Mateta",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-26-comeback:p21",
+          "related_event_id": "library-audit-218160c9-26-comeback-e93",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e257",
+          "sequence": 257,
+          "match_second": 1811,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-26-comeback:p61",
+          "related_event_id": "library-audit-218160c9-26-comeback-e256",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e465",
+          "sequence": 465,
+          "match_second": 3300,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e466",
+          "sequence": 466,
+          "match_second": 3302,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": "Joe Willock",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": 51.0,
+          "end_y": 35.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e467",
+          "sequence": 467,
+          "match_second": 3304,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joe Willock",
+          "recipient_player_name": "Tino Livramento",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 51.0,
+          "y": 35.0,
+          "end_x": 45.0,
+          "end_y": 27.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e468",
+          "sequence": 468,
+          "match_second": 3306,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Tino Livramento",
+          "recipient_player_name": "Anthony Elanga",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 45.0,
+          "y": 27.0,
+          "end_x": 42.0,
+          "end_y": 15.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e469",
+          "sequence": 469,
+          "match_second": 3309,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Anthony Elanga",
+          "recipient_player_name": "Harvey Barnes",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 42.0,
+          "y": 15.0,
+          "end_x": 18.0,
+          "end_y": 15.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e470",
+          "sequence": 470,
+          "match_second": 3310,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": "saved",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 15.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e615",
+          "sequence": 615,
+          "match_second": 4440,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p149",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 61.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e616",
+          "sequence": 616,
+          "match_second": 4442,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p149",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 61.0,
+          "end_x": 42.0,
+          "end_y": 71.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e617",
+          "sequence": 617,
+          "match_second": 4444,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": "Dwight McNeil",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p149",
+          "related_event_id": null,
+          "x": 42.0,
+          "y": 71.0,
+          "end_x": 45.0,
+          "end_y": 59.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e618",
+          "sequence": 618,
+          "match_second": 4470,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 73.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e619",
+          "sequence": 619,
+          "match_second": 4472,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": "Joelinton",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 73.0,
+          "end_x": 49.0,
+          "end_y": 83.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e620",
+          "sequence": 620,
+          "match_second": 4474,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joelinton",
+          "recipient_player_name": "Joe Willock",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 49.0,
+          "y": 83.0,
+          "end_x": 43.0,
+          "end_y": 88.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e621",
+          "sequence": 621,
+          "match_second": 4476,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joe Willock",
+          "recipient_player_name": "Anthony Elanga",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 43.0,
+          "y": 88.0,
+          "end_x": 40.0,
+          "end_y": 80.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e622",
+          "sequence": 622,
+          "match_second": 4500,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p151",
+          "related_event_id": null,
+          "x": 35.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:recovery-shot:library-audit-218160c9-26-comeback-e470"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "recovery-shot:library-audit-218160c9-26-comeback-e470"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    },
+    "evaluation_trace": [
+      {
+        "stage": "draft",
+        "draft": {
+          "en": "Crystal Palace leads 2-0 against Newcastle United at 75:00, with goals by Jean-Philippe Mateta at 10:11 and Ismaila Sarr at 30:11. At 55:00, Yoane Wissa recovered the ball for Newcastle and passed to Joe Willock, who quickly moved it to Tino Livramento, then Anthony Elanga, and finally Harvey Barnes took a shot at 55:10, keeping the pressure on despite the scoreline.",
+          "es": "Crystal Palace gana 2-0 a Newcastle United a los 75:00, con goles de Jean-Philippe Mateta a los 10:11 e Ismaila Sarr a los 30:11. A los 55:00, Yoane Wissa recuperó el balón para Newcastle y pasó a Joe Willock, quien rápidamente lo envió a Tino Livramento, luego a Anthony Elanga, y finalmente Harvey Barnes realizó un remate a los 55:10, manteniendo la presión a pesar del marcador.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:recovery-shot:library-audit-218160c9-26-comeback-e470"
+          ]
+        }
+      },
+      {
+        "stage": "draft_rejected",
+        "error": "unsupported_interpretation",
+        "details": {
+          "wording": "pressure",
+          "language": "en",
+          "issues": [
+            {
+              "code": "unsupported_interpretation",
+              "details": {
+                "wording": "pressure",
+                "language": "en"
+              }
+            },
+            {
+              "code": "unsupported_interpretation",
+              "details": {
+                "wording": "presion",
+                "language": "es"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stage": "revision",
+        "draft": {
+          "en": "Crystal Palace leads 2-0 against Newcastle United at 75:00, with Jean-Philippe Mateta scoring at 10:11 and Ismaila Sarr extending the lead at 30:11. At 55:00, Yoane Wissa recovered the ball for Newcastle and passed to Joe Willock, who then moved it to Tino Livramento, followed by Anthony Elanga, before Harvey Barnes took a shot at 55:10.",
+          "es": "Crystal Palace gana 2-0 a Newcastle United a los 75:00, con Jean-Philippe Mateta anotando a los 10:11 e Ismaila Sarr ampliando la ventaja a los 30:11. A los 55:00, Yoane Wissa recuperó el balón para Newcastle y lo pasó a Joe Willock, quien luego lo envió a Tino Livramento, seguido por Anthony Elanga, antes de que Harvey Barnes realizara un remate a los 55:10.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:recovery-shot:library-audit-218160c9-26-comeback-e470"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "case": "no_new_goal_palace",
+    "audience": "advanced",
+    "writer_mode": "azure",
+    "text": {
+      "en": "Crystal Palace leads Newcastle United 2-0 at 75:00, with Jean-Philippe Mateta scoring at 10:11 and Ismaila Sarr extending the lead at 30:11. At 55:00, Yoane Wissa recovered the ball and initiated a sequence of passes through Joe Willock, Tino Livramento, and Anthony Elanga, culminating in Harvey Barnes' shot at 55:10 for Newcastle. This recovery-to-shot event lasted 10 seconds, within the 30-second threshold for such sequences. No new goals have been scored since.",
+      "es": "Crystal Palace gana a Newcastle United 2-0 a los 75:00, con goles de Jean-Philippe Mateta a los 10:11 e Ismaila Sarr ampliando la ventaja a los 30:11. A los 55:00, Yoane Wissa recuperó el balón y comenzó una serie de pases por Joe Willock, Tino Livramento y Anthony Elanga, que terminó con un remate de Harvey Barnes a los 55:10 para Newcastle. Esta secuencia de recuperación a remate duró 10 segundos, dentro del umbral de 30 segundos para tales jugadas. No se han marcado nuevos goles desde entonces."
+    },
+    "evidence": {
+      "source": "synthetic",
+      "facts": [
+        {
+          "fact_id": "score",
+          "data": {
+            "names": {
+              "home": "Crystal Palace",
+              "away": "Newcastle United"
+            },
+            "score": {
+              "home": 2,
+              "away": 0
+            }
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e94",
+            "library-audit-218160c9-26-comeback-e257"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "trajectory",
+          "data": {
+            "score": {
+              "home": 2,
+              "away": 0
+            },
+            "transitions": [
+              {
+                "type": "lead_acquisition",
+                "team_id": "home",
+                "player_id": "home-10",
+                "match_second": 611,
+                "sequence": 94,
+                "before": {
+                  "home": 0,
+                  "away": 0
+                },
+                "after": {
+                  "home": 1,
+                  "away": 0
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-26-comeback-e94"
+                ],
+                "goal_clock": "10:11",
+                "scorer": "Jean-Philippe Mateta",
+                "team_name": "Crystal Palace",
+                "shot_clock": "10:10"
+              },
+              {
+                "type": "lead_extension",
+                "team_id": "home",
+                "player_id": "home-9",
+                "match_second": 1811,
+                "sequence": 257,
+                "before": {
+                  "home": 1,
+                  "away": 0
+                },
+                "after": {
+                  "home": 2,
+                  "away": 0
+                },
+                "rapid_response": null,
+                "evidence_event_ids": [
+                  "library-audit-218160c9-26-comeback-e257"
+                ],
+                "goal_clock": "30:11",
+                "scorer": "Ismaila Sarr",
+                "team_name": "Crystal Palace",
+                "shot_clock": "30:10"
+              }
+            ],
+            "lead_acquisitions": {
+              "home": 1,
+              "away": 0
+            },
+            "equalizers": {
+              "home": 0,
+              "away": 0
+            },
+            "evidence_event_ids": [
+              "library-audit-218160c9-26-comeback-e94",
+              "library-audit-218160c9-26-comeback-e257"
+            ],
+            "rule_version": "score-trajectory-v1"
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e94",
+            "library-audit-218160c9-26-comeback-e257"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "phase",
+          "data": {
+            "phase": "playing",
+            "clock": "75:00",
+            "match_second": 4500,
+            "has_new_goals": false
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e622"
+          ],
+          "window_labels": []
+        },
+        {
+          "fact_id": "story:recovery-shot:library-audit-218160c9-26-comeback-e470",
+          "data": {
+            "story_id": "recovery-shot:library-audit-218160c9-26-comeback-e470",
+            "kind": "recovery_shot",
+            "match_second": 3310,
+            "evidence_event_ids": [
+              "library-audit-218160c9-26-comeback-e465",
+              "library-audit-218160c9-26-comeback-e466",
+              "library-audit-218160c9-26-comeback-e467",
+              "library-audit-218160c9-26-comeback-e468",
+              "library-audit-218160c9-26-comeback-e469",
+              "library-audit-218160c9-26-comeback-e470"
+            ],
+            "metric": {
+              "team_id": "away",
+              "recovery_event_id": "library-audit-218160c9-26-comeback-e465",
+              "shot_event_id": "library-audit-218160c9-26-comeback-e470",
+              "shot_sequence": 470,
+              "elapsed_seconds": 10,
+              "possession_id": "library-audit-218160c9-26-comeback:p111",
+              "threshold_seconds": 30,
+              "evidence_event_ids": [
+                "library-audit-218160c9-26-comeback-e465",
+                "library-audit-218160c9-26-comeback-e466",
+                "library-audit-218160c9-26-comeback-e467",
+                "library-audit-218160c9-26-comeback-e468",
+                "library-audit-218160c9-26-comeback-e469",
+                "library-audit-218160c9-26-comeback-e470"
+              ],
+              "rule_version": "recovery-shot-v1"
+            },
+            "rule_version": "recovery-shot-v1",
+            "sequence": 470
+          },
+          "evidence_event_ids": [
+            "library-audit-218160c9-26-comeback-e465",
+            "library-audit-218160c9-26-comeback-e466",
+            "library-audit-218160c9-26-comeback-e467",
+            "library-audit-218160c9-26-comeback-e468",
+            "library-audit-218160c9-26-comeback-e469",
+            "library-audit-218160c9-26-comeback-e470"
+          ],
+          "window_labels": [],
+          "point_clock": "55:10",
+          "participants": {
+            "recoverer": "Yoane Wissa",
+            "shooter": "Harvey Barnes"
+          },
+          "action_clocks": {
+            "recovery": "55:00",
+            "shot": "55:10"
+          },
+          "ordered_actions": [
+            {
+              "action": "recovery",
+              "player": "Yoane Wissa",
+              "clock": "55:00"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Yoane Wissa",
+              "recipient": "Joe Willock",
+              "clock": "55:02"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Joe Willock",
+              "recipient": "Tino Livramento",
+              "clock": "55:04"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Tino Livramento",
+              "recipient": "Anthony Elanga",
+              "clock": "55:06"
+            },
+            {
+              "action": "completed_pass",
+              "passer": "Anthony Elanga",
+              "recipient": "Harvey Barnes",
+              "clock": "55:09"
+            },
+            {
+              "action": "shot",
+              "player": "Harvey Barnes",
+              "clock": "55:10"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e94",
+          "sequence": 94,
+          "match_second": 611,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Jean-Philippe Mateta",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-26-comeback:p21",
+          "related_event_id": "library-audit-218160c9-26-comeback-e93",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e257",
+          "sequence": 257,
+          "match_second": 1811,
+          "type": "goal",
+          "team_id": "home",
+          "player_name": "Ismaila Sarr",
+          "recipient_player_name": null,
+          "outcome": "goal",
+          "possession_id": "library-audit-218160c9-26-comeback:p61",
+          "related_event_id": "library-audit-218160c9-26-comeback-e256",
+          "x": 100.0,
+          "y": 50.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e465",
+          "sequence": 465,
+          "match_second": 3300,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e466",
+          "sequence": 466,
+          "match_second": 3302,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Yoane Wissa",
+          "recipient_player_name": "Joe Willock",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 25.0,
+          "end_x": 51.0,
+          "end_y": 35.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e467",
+          "sequence": 467,
+          "match_second": 3304,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joe Willock",
+          "recipient_player_name": "Tino Livramento",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 51.0,
+          "y": 35.0,
+          "end_x": 45.0,
+          "end_y": 27.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e468",
+          "sequence": 468,
+          "match_second": 3306,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Tino Livramento",
+          "recipient_player_name": "Anthony Elanga",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 45.0,
+          "y": 27.0,
+          "end_x": 42.0,
+          "end_y": 15.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e469",
+          "sequence": 469,
+          "match_second": 3309,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Anthony Elanga",
+          "recipient_player_name": "Harvey Barnes",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 42.0,
+          "y": 15.0,
+          "end_x": 18.0,
+          "end_y": 15.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e470",
+          "sequence": 470,
+          "match_second": 3310,
+          "type": "shot",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": "saved",
+          "possession_id": "library-audit-218160c9-26-comeback:p111",
+          "related_event_id": null,
+          "x": 18.0,
+          "y": 15.0,
+          "end_x": 0.0,
+          "end_y": 50.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e615",
+          "sequence": 615,
+          "match_second": 4440,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p149",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 61.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e616",
+          "sequence": 616,
+          "match_second": 4442,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Daichi Kamada",
+          "recipient_player_name": "Adam Wharton",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p149",
+          "related_event_id": null,
+          "x": 39.0,
+          "y": 61.0,
+          "end_x": 42.0,
+          "end_y": 71.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e617",
+          "sequence": 617,
+          "match_second": 4444,
+          "type": "pass",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": "Dwight McNeil",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p149",
+          "related_event_id": null,
+          "x": 42.0,
+          "y": 71.0,
+          "end_x": 45.0,
+          "end_y": 59.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e618",
+          "sequence": 618,
+          "match_second": 4470,
+          "type": "recovery",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 73.0,
+          "end_x": null,
+          "end_y": null
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e619",
+          "sequence": 619,
+          "match_second": 4472,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Harvey Barnes",
+          "recipient_player_name": "Joelinton",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 57.0,
+          "y": 73.0,
+          "end_x": 49.0,
+          "end_y": 83.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e620",
+          "sequence": 620,
+          "match_second": 4474,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joelinton",
+          "recipient_player_name": "Joe Willock",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 49.0,
+          "y": 83.0,
+          "end_x": 43.0,
+          "end_y": 88.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e621",
+          "sequence": 621,
+          "match_second": 4476,
+          "type": "pass",
+          "team_id": "away",
+          "player_name": "Joe Willock",
+          "recipient_player_name": "Anthony Elanga",
+          "outcome": "complete",
+          "possession_id": "library-audit-218160c9-26-comeback:p150",
+          "related_event_id": null,
+          "x": 43.0,
+          "y": 88.0,
+          "end_x": 40.0,
+          "end_y": 80.0
+        },
+        {
+          "event_id": "library-audit-218160c9-26-comeback-e622",
+          "sequence": 622,
+          "match_second": 4500,
+          "type": "recovery",
+          "team_id": "home",
+          "player_name": "Adam Wharton",
+          "recipient_player_name": null,
+          "outcome": null,
+          "possession_id": "library-audit-218160c9-26-comeback:p151",
+          "related_event_id": null,
+          "x": 35.0,
+          "y": 25.0,
+          "end_x": null,
+          "end_y": null
+        }
+      ],
+      "required_fact_ids": [
+        "score",
+        "trajectory",
+        "phase",
+        "story:recovery-shot:library-audit-218160c9-26-comeback-e470"
+      ],
+      "editorial_plan": {
+        "story_ids": [
+          "recovery-shot:library-audit-218160c9-26-comeback-e470"
+        ],
+        "status": "change_detected"
+      },
+      "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+    },
+    "evaluation_trace": [
+      {
+        "stage": "draft",
+        "draft": {
+          "en": "Crystal Palace leads Newcastle United 2-0 at 75:00, with Jean-Philippe Mateta scoring at 10:11 and Ismaila Sarr extending the lead at 30:11. At 55:00, Yoane Wissa recovered the ball and initiated a sequence of passes through Joe Willock, Tino Livramento, and Anthony Elanga, culminating in Harvey Barnes' shot at 55:10 for Newcastle. This recovery-to-shot event lasted 10 seconds, within the 30-second threshold for such sequences. No new goals have been scored since.",
+          "es": "Crystal Palace gana a Newcastle United 2-0 a los 75:00, con goles de Jean-Philippe Mateta a los 10:11 e Ismaila Sarr ampliando la ventaja a los 30:11. A los 55:00, Yoane Wissa recuperó el balón y comenzó una serie de pases por Joe Willock, Tino Livramento y Anthony Elanga, que terminó con un remate de Harvey Barnes a los 55:10 para Newcastle. Esta secuencia de recuperación a remate duró 10 segundos, dentro del umbral de 30 segundos para tales jugadas. No se han marcado nuevos goles desde entonces.",
+          "fact_ids": [
+            "score",
+            "trajectory",
+            "phase",
+            "story:recovery-shot:library-audit-218160c9-26-comeback-e470"
+          ]
+        }
+      }
+    ]
+  }
+]
