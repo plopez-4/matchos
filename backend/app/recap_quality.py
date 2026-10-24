@@ -74,6 +74,55 @@ def clock_ranges(text):
     return result
 
 
+def enumerated_shot_points(sentence, facts, packet):
+    """Verify a named, counted outcome list against cited shot events.
+
+    An enumeration of exact event times is not a rolling statistic. Only the
+    recognized EN/ES construction gets this exception; other claims keep their
+    existing scope checks and model review. Do not infer outcomes from clocks.
+    """
+    plain=normalized(sentence)
+    clock=r'\d{1,3}:\d{2}'
+    claim=re.search(
+        r'\b(?P<count>\w+)\s+(?:(?:later|additional|further)\s+)?'
+        r'(?:(?P<en>saved|blocked|missed)\s+shots?(?:\s+by\s+(?P<en_actor>[^.!?;,:\d]{1,80}?))?|'
+        r'remates?\s+(?P<es>detenidos?|bloqueados?|desviados?)(?:\s+de\s+(?P<es_actor>[^.!?;,:\d]{1,80}?))?)\s+'
+        r'(?:at|a los)\s+(?P<clocks>'+clock+r'(?:\s*(?:,|and|y)\s*(?:(?:at|a los)\s+)?'+clock+r')+)\b',plain)
+    if not claim or not count_digits(claim['count']): return False
+    actions={action['shot_event_id']:action for fact in facts
+             for action in fact.get('chronology',{}).get('actions',[])}
+    names={normalized(row[key]) for row in packet.get('events',[])
+           for key in ('player_name','recipient_player_name') if row.get(key)}
+    names.update(normalized(action['recipient_player_name']) for action in actions.values())
+    prefix=plain[:claim.start()]
+    actors=set()
+    for name in names:
+        surname=name.split()[-1]
+        aliases={name}
+        if len(surname)>=3 and not any(surname in other.split() for other in names-{name}):
+            aliases.add(surname)
+        if any(re.search(r'\b'+re.escape(alias)+r"(?:'s)?\s+(?:(?:had|took|recorded|tuvo|registro|realizo)\s+)?$",prefix)
+               for alias in aliases) or (claim['en_actor'] or claim['es_actor']) in aliases:
+            actors.add(name)
+    if len(actors)!=1 or not actions: return False
+    actor=next(iter(actors))
+    clocks=re.findall(clock,claim['clocks'])
+    count=int(count_digits(claim['count'])[0])
+    outcome=claim['en'] or {'detenido':'saved','bloqueado':'blocked','desviado':'missed'}[claim['es'].rstrip('s')]
+    supported=(count==len(clocks)==len(set(clocks)))
+    for point in clocks:
+        matching=[action for action in actions.values()
+                  if normalized(action['recipient_player_name'])==actor
+                  and (action.get('shot_clock') or f"{action['shot_second']//60}:{action['shot_second']%60:02d}")==point]
+        supported=supported and len(matching)==1 and matching[0]['shot_outcome']==outcome
+    if not supported:
+        raise RecapQualityError('wrong_enumerated_shots',player=actor,claimed_count=count,
+                                claimed_clocks=clocks,claimed_outcome=outcome)
+    # This exception cannot lend scope to a second number, action or window.
+    return (count_digits(sentence)==[str(count)] and re.findall(clock,plain)==clocks
+            and not re.search(r'\b(?:between|from|entre|desde|last|past|ultimos)\b',plain))
+
+
 def pass_partition(text, link):
     """Recognize a measured individual pass followed by the remaining team passes.
 
@@ -190,11 +239,13 @@ def validate(text, packet, cited):
             expected = next(iter(clock_ranges(scope)))
             if not any(expected in scoped_ranges(sentence, fact, now) for sentence in sentences):
                 raise RecapQualityError('missing_metric_window', fact_id=fact['fact_id'], expected_window=scope)
+    shot_pattern=r'\b(?:shots?|attempts?|remates?|tiros?)\b'
     groups = {
         r'\b(?:pass(?:es|ing)?|pases?)\b': [fact for fact in facts if fact['fact_id'] == 'passing' or fact['data'].get('kind') in ('progressive_pass', 'player_forward_passing', 'player_shot_creation') or fact['data'].get('metric', {}).get('goal_link')],
-        r'\b(?:shots?|attempts?|remates?|tiros?)\b': [fact for fact in facts if fact['fact_id'] == 'shots' or fact['data'].get('kind') in ('shot_activity', 'player_shooting', 'player_shot_creation', 'recovery_shot')],
+        shot_pattern: [fact for fact in facts if fact['fact_id'] == 'shots' or fact['data'].get('kind') in ('shot_activity', 'player_shooting', 'player_shot_creation', 'recovery_shot')],
     }
     for index, sentence in enumerate(sentences):
+        verified_shot_list=enumerated_shot_points(sentence,facts,packet)
         for pattern, metrics in groups.items():
             if not re.search(pattern, sentence, re.I):
                 continue
@@ -226,9 +277,22 @@ def validate(text, packet, cited):
                     plain_sentence=normalized(sentence)
                     mentioned=lambda name: any(re.search(r'(?<!\w)'+re.escape(alias)+r'(?!\w)',plain_sentence)
                         for alias in (normalized(name),normalized(name).split()[-1]) if alias)
-                    return any((action.get('pass_clock') or label(action['pass_second'],action['pass_second']).split('–')[0]) in sentence
-                               and mentioned(metric['player_name']) and mentioned(action['recipient_player_name'])
-                               for action in fact.get('chronology',{}).get('actions',[]))
+                    actions=fact.get('chronology',{}).get('actions',[])
+                    matching=[action for action in actions
+                              if (action.get('pass_clock') or label(action['pass_second'],action['pass_second']).split('–')[0]) in sentence
+                              and mentioned(action['recipient_player_name'])]
+                    # An unnamed passer need not be invented or repeated: the
+                    # recipient plus exact clock must identify one cited pass.
+                    # Do not grant this exception if another named actor competes.
+                    if len(matching)!=1: return False
+                    if not mentioned(metric['player_name']):
+                        point=matching[0].get('pass_clock') or label(matching[0]['pass_second'],matching[0]['pass_second']).split('–')[0]
+                        if not re.search(r'\b(?:a pass|un pase)\s+(?:at|a los|al|a las)\s+'+re.escape(point)+r'\b',plain_sentence):
+                            return False
+                    allowed_people={normalized(metric['player_name']),normalized(matching[0]['recipient_player_name'])}
+                    known={normalized(row[key]) for row in packet.get('events',[])
+                           for key in ('player_name','recipient_player_name') if row.get(key)}
+                    return not any(mentioned(name) for name in known-allowed_people)
                 if fact['data'].get('kind') != 'recovery_shot':
                     return False
                 point = fact.get('point_clock')
@@ -273,7 +337,7 @@ def validate(text, packet, cited):
                     and re.search(r'\b(?:within|inside|meets?|cumple|dentro)\b',plain_sentence)
                     and not re.search(r'\b(?:outside|fuera)\b|\b(?:not|no)\s+(?:\w+\s+){0,2}(?:within|inside|meet\w*|cumple)\b',plain_sentence)
                     and fact.get('point_clock') in ' '.join(sentences[:index]))
-            if not any(allowed & contextual_ranges(fact) or point_supported(fact) or definition_supported(fact) for fact in metrics):
+            if not (pattern==shot_pattern and verified_shot_list) and not any(allowed & contextual_ranges(fact) or point_supported(fact) or definition_supported(fact) for fact in metrics):
                 raise RecapQualityError('ambiguous_statistic_window', sentence_index=sentences.index(sentence))
 
 
@@ -311,6 +375,8 @@ def validate_selected_claims(text, packet):
         for sentence in sentences:
             plain=normalized(sentence)
             for claim in re.finditer(r'\b(?:goal|gol)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})',plain):
+                if re.search(r'\bintento de\s+$',plain[:claim.start()]):
+                    continue  # "intento de gol" denotes a shot, checked separately below.
                 if claim.group(1) not in goal_clocks:
                     raise RecapQualityError('wrong_explicit_goal_clock',claimed_clock=claim.group(1),recorded_goal_clocks=sorted(goal_clocks))
             for claim in re.finditer(r'\b(?:equalized?|levelled?|leveled?|empato|igualo)\b[^.!?;:]{0,70}?\b(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})',plain):
@@ -336,7 +402,7 @@ def validate_selected_claims(text, packet):
             shot_clocks.add(fact['point_clock'])
     for sentence in sentences:
         plain=normalized(sentence)
-        explicit_shot=r'\b(?:goal attempt|shot|remate|tiro|disparo)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})'
+        explicit_shot=r'\b(?:goal attempt|intento de gol|shot|remate|tiro|disparo)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})'
         combined=r'\b(?:shot|remato|disparo)\s+(?:and|y)\s+(?:goal|scored|anoto|marco)\s+(?:at|a los|al|a las)\s+(\d{1,3}:\d{2})'
         for pattern in (explicit_shot,combined):
             for claim in re.finditer(pattern,plain):
