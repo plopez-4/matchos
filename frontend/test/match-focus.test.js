@@ -176,6 +176,23 @@ const { PitchReplay } = await component('pitch');
 const { App } = await component('app');
 const { DevelopmentInspector } = await component('inspector');
 
+test('a capacity fallback stays labeled as recorded events in both languages', () => {
+  const briefing = {
+    clock: '62:30',
+    evidence_event_ids: [],
+    spoken_recap: { en: 'The score is level.', es: 'El marcador está empatado.' },
+    narrative: { mode: 'deterministic', fallback_reason: 'provider_cooldown' },
+  };
+  for (const [language, label] of [
+    ['en', 'AI temporarily busy'],
+    ['es', 'IA temporalmente ocupada'],
+  ]) {
+    const html = renderToStaticMarkup(React.createElement(FocusedRecap, { briefing, language }));
+    assert.match(html, new RegExp(label));
+    assert.doesNotMatch(html, /AI-written recap|Resumen con IA|provider_cooldown/);
+  }
+});
+
 test('focused recap keeps evidence accessible without experimental controls or duplicate sections', () => {
   const briefing = {
     clock: '75:30',

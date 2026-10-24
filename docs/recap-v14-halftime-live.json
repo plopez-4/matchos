@@ -1,0 +1,141 @@
+{
+  "scope": "One focused halftime request on 24 October, not a benchmark or fan study",
+  "snapshot": {
+    "match_id": "editorial-eval-0e634f5e05-featured",
+    "through_sequence": 291,
+    "since_sequence": 258,
+    "match_second": 2700
+  },
+  "narrative": {
+    "mode": "azure",
+    "text": {
+      "en": "Manchester United took the lead at 15:11, but Manchester City equalized at 40:11. Rico Lewis recovered the ball at 40:00 and made one completed pass to Phil Foden. The team completed three passes total, including those from Foden to Jeremy Doku and then to Erling Haaland, who scored the equalizer at 40:11, making the score 1-1 by halftime.",
+      "es": "Manchester United se adelantó en el marcador a los 15:11, pero Manchester City igualó a los 40:11. Rico Lewis recuperó el balón a los 40:00 y completó un pase a Phil Foden. El equipo completó tres pases en total, incluyendo los de Foden a Jeremy Doku y luego a Erling Haaland, quien anotó el empate a los 40:11, dejando el marcador 1-1 al descanso."
+    },
+    "id": "ec771b1bfff43973967b6803f593196f43097746dd73485d20d9f985e4813d19",
+    "fact_ids": [
+      "score",
+      "trajectory",
+      "phase",
+      "story:goal:editorial-eval-0e634f5e05-featured-e263",
+      "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+    ],
+    "evidence_event_ids": [
+      "editorial-eval-0e634f5e05-featured-e100",
+      "editorial-eval-0e634f5e05-featured-e263",
+      "editorial-eval-0e634f5e05-featured-e291",
+      "editorial-eval-0e634f5e05-featured-e262",
+      "editorial-eval-0e634f5e05-featured-e258",
+      "editorial-eval-0e634f5e05-featured-e259",
+      "editorial-eval-0e634f5e05-featured-e260",
+      "editorial-eval-0e634f5e05-featured-e261"
+    ],
+    "version": "fan-narrative-v14-capacity-and-connection-feedback",
+    "prompt_hash": "a3036689a87c95d67e3d0a2eb7809b088aef0bb08308e5e938715fbc0900155b",
+    "model": "matchos-explainer",
+    "review": "model_review_passed",
+    "metric_rendering": "model_reviewed",
+    "revision_used": true,
+    "fallback_reason": null
+  },
+  "selected_stories": [
+    {
+      "story_id": "goal:editorial-eval-0e634f5e05-featured-e263",
+      "kind": "goal",
+      "text": "Away scored at 40:11.",
+      "evidence_event_ids": [
+        "editorial-eval-0e634f5e05-featured-e262",
+        "editorial-eval-0e634f5e05-featured-e263"
+      ],
+      "rule_version": "goal-v1",
+      "sequence": 263
+    },
+    {
+      "story_id": "recovery-shot:editorial-eval-0e634f5e05-featured-e262",
+      "kind": "recovery_shot",
+      "match_second": 2410,
+      "text": "Away recorded a shot 10 seconds after recovering the ball in the same possession.",
+      "evidence_event_ids": [
+        "editorial-eval-0e634f5e05-featured-e258",
+        "editorial-eval-0e634f5e05-featured-e259",
+        "editorial-eval-0e634f5e05-featured-e260",
+        "editorial-eval-0e634f5e05-featured-e261",
+        "editorial-eval-0e634f5e05-featured-e262",
+        "editorial-eval-0e634f5e05-featured-e263"
+      ],
+      "metric": {
+        "team_id": "away",
+        "recovery_event_id": "editorial-eval-0e634f5e05-featured-e258",
+        "shot_event_id": "editorial-eval-0e634f5e05-featured-e262",
+        "shot_sequence": 262,
+        "elapsed_seconds": 10,
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "threshold_seconds": 30,
+        "evidence_event_ids": [
+          "editorial-eval-0e634f5e05-featured-e258",
+          "editorial-eval-0e634f5e05-featured-e259",
+          "editorial-eval-0e634f5e05-featured-e260",
+          "editorial-eval-0e634f5e05-featured-e261",
+          "editorial-eval-0e634f5e05-featured-e262",
+          "editorial-eval-0e634f5e05-featured-e263"
+        ],
+        "rule_version": "recovery-shot-v1",
+        "goal_link": {
+          "version": "recovery-goal-v1",
+          "goal_event_id": "editorial-eval-0e634f5e05-featured-e263",
+          "goal_sequence": 263,
+          "goal_second": 2411,
+          "goal_clock": "40:11",
+          "shot_clock": "40:10",
+          "recovery_clock": "40:00",
+          "recoverer": "Rico Lewis",
+          "scorer": "Erling Haaland",
+          "team_name": "Manchester City",
+          "score_change": "equalization",
+          "score_before": {
+            "home": 1,
+            "away": 0
+          },
+          "score_after": {
+            "home": 1,
+            "away": 1
+          },
+          "completed_pass_count": 3,
+          "completed_passes": [
+            {
+              "player_name": "Rico Lewis",
+              "recipient_player_name": "Phil Foden",
+              "match_second": 2403
+            },
+            {
+              "player_name": "Phil Foden",
+              "recipient_player_name": "Jeremy Doku",
+              "match_second": 2406
+            },
+            {
+              "player_name": "Jeremy Doku",
+              "recipient_player_name": "Erling Haaland",
+              "match_second": 2408
+            }
+          ],
+          "seconds_before_snapshot": 289,
+          "evidence_event_ids": [
+            "editorial-eval-0e634f5e05-featured-e258",
+            "editorial-eval-0e634f5e05-featured-e259",
+            "editorial-eval-0e634f5e05-featured-e260",
+            "editorial-eval-0e634f5e05-featured-e261",
+            "editorial-eval-0e634f5e05-featured-e262",
+            "editorial-eval-0e634f5e05-featured-e263"
+          ]
+        }
+      },
+      "rule_version": "recovery-shot-v1",
+      "sequence": 263
+    }
+  ],
+  "developer_review": {
+    "by": "Codex source inspection",
+    "finding": "Correct recovery, actual individual pass count of one, team total of three, scorer, goal time and tied halftime score. The goal is still repeated across sentences.",
+    "fan_study": "not_run"
+  }
+}

@@ -17,7 +17,7 @@ Built for Inside the Game: Developer Hackathon. Independent prototype; no sponso
 - Optional Azure AI selects verified stories and writes the complete bilingual paragraph from structured observations. Local checks and a separate fallible model review can reject it in favor of a labeled factual fallback.
 - Optional Azure Speech reads the displayed recap. Device speech remains available separately. Pronunciation hints address reported names and club-name joins; human listening acceptance is still needed.
 
-The latest focused live check returned two AI recaps, one content fallback and one Azure rate-limit fallback across four requests. **Consistent AI prose quality remains unresolved.** The [editorial quality review](docs/recap-quality-v13-review.md) preserves the failed twenty-request run and subsequent corrections separately. No five-person human study has been completed.
+The latest focused v14 halftime check returned a source-correct bilingual AI recap after one revision, with repeated goal wording still present. **Consistent AI prose quality remains unresolved.** Shared Azure cooldown handling now prevents repeated provider calls during rate limits. The [24 October report](docs/recap-capacity-oct24.md) records this limited check; the [earlier editorial review](docs/recap-quality-v13-review.md) preserves the failed twenty-request run separately. No five-person human study has been completed.
 
 ## Core architecture
 
@@ -78,13 +78,13 @@ npm.cmd --prefix frontend test
 npm.cmd --prefix frontend run build
 ```
 
-Latest local backend checks: **368 tests passed**, with formatting and credential scan passing too. The unchanged frontend previously passed 61 tests and production build. Provider unit calls are mocked; live checks and failures are recorded separately. Check GitHub Actions for hosted CI results. The [five-fan test](docs/fan-evaluation.md) is prepared, with no participant results claimed.
+Latest local checks: **391 backend tests and 62 frontend tests passed**, along with production frontend build, formatting and credential scan. Provider unit calls are mocked; live checks and failures are recorded separately. Check GitHub Actions for hosted CI and container build results. The [five-fan test](docs/fan-evaluation.md) is prepared, with no participant results claimed.
 
 ## Scope and limitations
 
 FastAPI and React/Vite run locally with optional Azure model and Speech services. There is no deployed Foundry Agent Service hierarchy, real match feed, full player tracking, production cloud persistence or confirmed hosted judging URL. Use one backend worker. See [security controls and limits](docs/security.md).
 
-Next: improve AI acceptance without relaxing evidence requirements, then conduct the real fan test. A public video and judging access remain separate submission work.
+The [Azure hosting package and access checker](docs/judging-deployment.md) are prepared; no public deployment is claimed. Next: verify the container, inspect Azure capacity, deploy and test external judging access, then conduct the real fan test. A public video remains separate submission work.
 
 ## Code and license
 
