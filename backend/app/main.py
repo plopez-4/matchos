@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException, Query, Request, Response
 from pydantic import BaseModel, ConfigDict, Field
 from fastapi.staticfiles import StaticFiles
 from app import security
+from app import ai_capacity
 from app import matchday
 from app.simulation import generate, get_catalog
 from app.models import MatchEvent, CatchUpRequest
@@ -83,8 +84,9 @@ def narration_status():
 @app.get('/api/ai/status')
 def ai_status():
     # Configuration presence is not a successful connection or quality check.
-    return {'configured': story_writer.configuration() is not None,
-            'writer_version': story_writer.VERSION}
+    config = story_writer.configuration()
+    return {'configured': config is not None, 'writer_version': story_writer.VERSION,
+            'retry_after_seconds': ai_capacity.remaining(config[0],config[2]) if config else 0}
 
 
 @app.post('/api/narration')
@@ -477,9 +479,10 @@ def catch_up(match_id: str, request: CatchUpRequest):
                 return security.catch_cache[cache_key]
         result = build_catch_up(all_items, request)
         with security.LOCK:
-            security.catch_cache[cache_key] = result
-            while len(security.catch_cache) > 32:
-                security.catch_cache.popitem(last=False)
+            if ai_capacity.cacheable(result):
+                security.catch_cache[cache_key] = result
+                while len(security.catch_cache) > 32:
+                    security.catch_cache.popitem(last=False)
         return result
     finally:
         CATCH_LOCK.release()

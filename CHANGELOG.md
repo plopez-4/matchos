@@ -1,5 +1,12 @@
 # Patch notes
 
+## 24 October — shared provider cooldown and judging container preparation
+
+- Selection and writing share Azure wait headers and stop new calls during throttling. A transient capacity fallback no longer poisons a snapshot cache; both language labels remain truthful about factual authorship.
+- Added a captured unsupported momentum conclusion as a regression and enriched structured connection feedback. One live halftime pair correctly distinguishes individual/team passes after revision; repetition and general reliability remain open.
+- Prepared a non-root, single-worker container, explicit managed-ingress trust boundary, container CI and fresh-session judging checker. No Azure resource or public judging URL is claimed.
+- Local validation: 391 backend tests, 62 frontend tests, production build, formatting and credential scan passed. See [capacity report](docs/recap-capacity-oct24.md) and [deployment preparation](docs/judging-deployment.md).
+
 ## In progress — recap quality without new features
 
 - Separated concrete scoring-move instructions from rolling statistics and corrected conditional Spanish lead/tie wording.

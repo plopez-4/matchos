@@ -3,6 +3,7 @@ import os
 import secrets
 import threading
 import time
+import ipaddress
 from collections import OrderedDict
 
 from fastapi import HTTPException, Request
@@ -25,6 +26,26 @@ ai_active = 0
 
 def production():
     return os.getenv("MATCHOS_ENV", "local") == "production"
+
+
+def azure_ingress_scope(scope):
+    """Opt-in only behind Container Apps HTTP ingress, with no extra TCP ports.
+
+    Azure overwrites X-Forwarded-Proto and appends the rightmost client IP.
+    Never use this mode on a directly reachable ASGI listener or another host.
+    """
+    if not (os.getenv('CONTAINER_APP_NAME') and
+            os.getenv('CONTAINER_APP_ENV_DNS_SUFFIX','').lower().endswith('.azurecontainerapps.io')):
+        raise ValueError('Azure Container Apps environment metadata is required')
+    request = Request(scope)
+    scheme = request.headers.get('x-forwarded-proto')
+    if scheme not in ('https','http'):
+        raise ValueError('Invalid managed ingress headers')
+    try:
+        client_ip = str(ipaddress.ip_address(request.headers.get('x-forwarded-for','').split(',')[-1].strip()))
+    except ValueError:
+        raise ValueError('Invalid managed ingress headers') from None
+    return {**scope, 'scheme':scheme, 'client':(client_ip,0)}
 
 
 def allowed_hosts():
@@ -153,6 +174,14 @@ class SecurityMiddleware:
                     headers.append((b"permissions-policy", b"camera=(), microphone=(), geolocation=()"))
                 message = dict(message, headers=headers)
             await send(message)
+        if production() and os.getenv('MATCHOS_PROXY_MODE','none')!='none':
+            if os.getenv('MATCHOS_PROXY_MODE')!='azure-container-apps':
+                return await respond(503,'Unsupported proxy configuration')
+            try:
+                scope = azure_ingress_scope(scope)
+                request = Request(scope)
+            except ValueError as error:
+                return await respond(400,str(error))
         if request.url.hostname not in allowed_hosts():
             return await respond(400, "Host is not allowed")
         if production() and scope.get("scheme") != "https":

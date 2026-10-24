@@ -1,0 +1,16 @@
+.git
+.venv
+.reviews
+sources
+docs
+data
+simulator
+backend/tests
+**/node_modules
+**/__pycache__
+**/.pytest_cache
+**/*.log
+**/.env
+**/.env.*
+frontend/dist
+.npm-cache

@@ -110,6 +110,7 @@ def validate(text, packet, cited):
         r'\b(?:intense|thrilling|lively|frenetic)\s+(?:(?:first|second|opening|closing)\s+)?(?:half|match|game)\b',
         r'\b(?:(?:primera|segunda)\s+)?(?:mitad|parte|partido)\s+(?:intens[oa]|vibrante|emocionante)\b',
         r'\bbalanced (?:contest|match|game)\b|\bpartido equilibrado\b',
+        r'\bmomentum shifts?\b|\bshifts? in momentum\b|\bcambios? de ritmo\b',
         r'\b(?:gol|disparo|remate) (?:preciso|brillante|magistral)|\b(?:vision|se combinaron perfectamente)\b',
         r'\b(?:assists?|asistencias?|asistio|asistid[oa]s?|asistiendo)\b',
         r'\b(?:headers?|headed shots?|dribbl(?:es?|ing)|take[- ]?ons?|line[- ]breaking|broke (?:the )?lines|beat (?:his|their|the) (?:man|defender))\b',
@@ -286,7 +287,11 @@ def validate_selected_claims(text, packet):
                            'lead_extension':r'extend|increase|ampli|aument',
                            'deficit_reduction':r'deficit|reduce|back|recort|desventaj'}
                 if not any(re.search(effects[link['score_change']], normalized(sentence)) for sentence in connected):
-                    raise RecapQualityError('missing_recovery_goal_connection', fact_id=fact['fact_id'])
+                    raise RecapQualityError('missing_recovery_goal_connection', fact_id=fact['fact_id'],
+                        recoverer=link['recoverer'], scorer=link['scorer'], recovery_clock=link['recovery_clock'],
+                        shot_clock=link['shot_clock'], goal_clock=link['goal_clock'],
+                        team_completed_passes=link['completed_pass_count'], seconds_recovery_to_shot=metric['elapsed_seconds'],
+                        required_score_change=link['score_change'])
                 for sentence in connected:
                     plain=normalized(sentence)
                     for clock_match in re.finditer(re.escape(link['shot_clock']),plain):

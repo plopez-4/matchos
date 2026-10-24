@@ -2,6 +2,8 @@
 
 Latest AI work: [recap quality checks and recorded failures](recap-quality-v13-review.md).
 
+24 October update: [shared Azure cooldown and live recap check](recap-capacity-oct24.md), [judging deployment preparation](judging-deployment.md).
+
 Start here for the current application. The root README contains the supported setup and validation commands.
 
 | Topic                                        | Current reference                                     |

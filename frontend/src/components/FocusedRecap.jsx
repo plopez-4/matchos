@@ -115,17 +115,23 @@ export function FocusedRecap({
             ? es
               ? 'Resumen con IA a partir de las acciones registradas'
               : 'AI-written recap from recorded match action'
-            : briefing.narrative?.fallback_reason === 'limited_coverage'
+            : ['provider_http_429', 'provider_cooldown'].includes(
+                  briefing.narrative?.fallback_reason,
+                )
               ? es
-                ? 'Resumen de acciones registradas · cobertura limitada'
-                : 'Summary from recorded events · limited coverage'
-              : briefing.narrative?.fallback_reason === 'no_selected_story'
+                ? 'Resumen de acciones registradas · IA temporalmente ocupada'
+                : 'Summary from recorded events · AI temporarily busy'
+              : briefing.narrative?.fallback_reason === 'limited_coverage'
                 ? es
-                  ? 'Resumen de acciones registradas · sin cambios relevantes'
-                  : 'Summary from recorded events · no qualifying change'
-                : es
-                  ? 'Resumen de acciones registradas · sin redacción con IA'
-                  : 'Summary from recorded events · AI writing unavailable'}
+                  ? 'Resumen de acciones registradas · cobertura limitada'
+                  : 'Summary from recorded events · limited coverage'
+                : briefing.narrative?.fallback_reason === 'no_selected_story'
+                  ? es
+                    ? 'Resumen de acciones registradas · sin cambios relevantes'
+                    : 'Summary from recorded events · no qualifying change'
+                  : es
+                    ? 'Resumen de acciones registradas · sin redacción con IA'
+                    : 'Summary from recorded events · AI writing unavailable'}
         </span>
       )}
       {error && (

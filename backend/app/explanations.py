@@ -4,6 +4,7 @@ import os
 import time
 from urllib.parse import urlparse
 import httpx
+from app import ai_capacity
 from app.player_impact import KINDS as PLAYER_KINDS
 from app.security import take_ai_budget, release_ai
 
@@ -240,6 +241,10 @@ def explain(stories, audience, client=None):
     if len(json.dumps(evidence).encode()) > 32768:
         result['fallback_reason'] = 'evidence_payload_limit'
         return finish()
+    wait = ai_capacity.remaining(endpoint, deployment)
+    if wait:
+        result.update(fallback_reason='provider_cooldown', retry_after_seconds=wait)
+        return finish()
     if not take_ai_budget():
         result['fallback_reason'] = 'ai_budget_or_concurrency_limit'
         return finish()
@@ -261,11 +266,12 @@ def explain(stories, audience, client=None):
     client = client or httpx.Client(timeout=8.0, follow_redirects=False)
 
     def complete(tool):
+        ai_capacity.require_ready(endpoint, deployment)
         response = client.post(endpoint + '/chat/completions', headers={'api-key': key},
                                json={'model': deployment, 'messages': messages, 'tools': [tool],
                                      'tool_choice': {'type': 'function', 'function': {'name': tool['function']['name']}},
                                      'parallel_tool_calls': False, 'max_completion_tokens': 512})
-        response.raise_for_status()
+        ai_capacity.check_response(response, endpoint, deployment)
         if len(response.content) > 65536:
             raise ValueError('Provider response exceeds limit')
         return response.json()['choices'][0]['message']
@@ -297,10 +303,16 @@ def explain(stories, audience, client=None):
         trace.append({'step': 'verify_selection', 'status': 'ok', 'story_ids': ids})
         result.update(mode='azure', selected_story_ids=ids, text=' '.join(known[s]['text'] for s in ids),
                       model=deployment)
+    except ai_capacity.CoolingDown as error:
+        result.update(fallback_reason='provider_cooldown', retry_after_seconds=error.seconds)
+        trace.append({'step':'fallback','status':'used'})
     except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError, AttributeError):
         # Never return raw provider errors, which may expose resource/configuration details.
         trace.append({'step': 'fallback', 'status': 'used'})
         result['fallback_reason'] = 'provider_or_validation_failure'
+        wait = ai_capacity.remaining(endpoint, deployment)
+        if wait:
+            result.update(fallback_reason='provider_http_429', retry_after_seconds=wait)
     finally:
         release_ai()
         if owned:

@@ -107,6 +107,14 @@ def test_one_ai_revision_receives_all_issues_then_its_entire_paragraph_is_review
 ACCEPTED_BAD = json.loads((Path(__file__).parent/'fixtures/v13-accepted-pass-credit-error.json').read_text(encoding='utf-8'))
 
 
+def test_captured_generic_momentum_claim_is_rejected_in_both_languages():
+    record = json.loads((Path(__file__).parent/'fixtures/oct24-momentum-embellishment.json').read_text(encoding='utf-8'))
+    with pytest.raises(recap_quality.RecapQualityError) as failure:
+        story_writer.validate_draft(record['draft'],record['packet'])
+    issues=failure.value.details['issues']
+    assert {row['details']['language'] for row in issues if row['code']=='unsupported_interpretation'}=={'en','es'}
+
+
 def test_model_reviewed_pass_credit_error_is_rejected_in_both_languages():
     for language in ('en','es'):
         with pytest.raises(recap_quality.RecapQualityError,match='wrong_scoring_sequence_pass_credit'):

@@ -1,0 +1,496 @@
+{
+  "scope": "Synthetic model-reviewed draft with unsupported generic momentum conclusion.",
+  "draft": {
+    "en": "Manchester United took the lead at 15:11 with a goal, but Manchester City equalized at 40:11 through Erling Haaland. The equalizer came after Rico Lewis recovered the ball at 40:00, and City completed three passes involving Lewis, Phil Foden, and Jeremy Doku before Haaland's shot found the net. The score was tied 1-1 at halftime, reflecting a match with momentum shifts and a crucial response from City.",
+    "es": "Manchester United se adelantó en el marcador a los 15:11 con un gol, pero Manchester City empató a los 40:11 gracias a Erling Haaland. El empate llegó tras una recuperación de Rico Lewis a los 40:00, y el City completó tres pases entre Lewis, Phil Foden y Jeremy Doku antes del disparo de Haaland que terminó en gol. El marcador estaba empatado 1-1 al descanso, mostrando un partido con cambios de ritmo y una respuesta clave del City.",
+    "fact_ids": [
+      "score",
+      "trajectory",
+      "phase",
+      "story:goal:editorial-eval-0e634f5e05-featured-e263",
+      "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+    ]
+  },
+  "packet": {
+    "source": "synthetic",
+    "facts": [
+      {
+        "fact_id": "score",
+        "data": {
+          "names": {
+            "home": "Manchester United",
+            "away": "Manchester City"
+          },
+          "score": {
+            "home": 1,
+            "away": 1
+          }
+        },
+        "evidence_event_ids": [
+          "editorial-eval-0e634f5e05-featured-e100",
+          "editorial-eval-0e634f5e05-featured-e263"
+        ],
+        "window_labels": []
+      },
+      {
+        "fact_id": "trajectory",
+        "data": {
+          "score": {
+            "home": 1,
+            "away": 1
+          },
+          "transitions": [
+            {
+              "type": "lead_acquisition",
+              "team_id": "home",
+              "player_id": "home-9",
+              "match_second": 911,
+              "sequence": 100,
+              "before": {
+                "home": 0,
+                "away": 0
+              },
+              "after": {
+                "home": 1,
+                "away": 0
+              },
+              "rapid_response": null,
+              "evidence_event_ids": [
+                "editorial-eval-0e634f5e05-featured-e100"
+              ]
+            },
+            {
+              "type": "equalization",
+              "team_id": "away",
+              "player_id": "away-10",
+              "match_second": 2411,
+              "sequence": 263,
+              "before": {
+                "home": 1,
+                "away": 0
+              },
+              "after": {
+                "home": 1,
+                "away": 1
+              },
+              "rapid_response": null,
+              "evidence_event_ids": [
+                "editorial-eval-0e634f5e05-featured-e263"
+              ]
+            }
+          ],
+          "lead_acquisitions": {
+            "home": 1,
+            "away": 0
+          },
+          "equalizers": {
+            "home": 0,
+            "away": 1
+          },
+          "evidence_event_ids": [
+            "editorial-eval-0e634f5e05-featured-e100",
+            "editorial-eval-0e634f5e05-featured-e263"
+          ],
+          "rule_version": "score-trajectory-v1"
+        },
+        "evidence_event_ids": [
+          "editorial-eval-0e634f5e05-featured-e100",
+          "editorial-eval-0e634f5e05-featured-e263"
+        ],
+        "window_labels": []
+      },
+      {
+        "fact_id": "phase",
+        "data": {
+          "phase": "halftime",
+          "clock": "45:00",
+          "match_second": 2700,
+          "has_new_goals": true
+        },
+        "evidence_event_ids": [
+          "editorial-eval-0e634f5e05-featured-e291"
+        ],
+        "window_labels": []
+      },
+      {
+        "fact_id": "story:goal:editorial-eval-0e634f5e05-featured-e263",
+        "data": {
+          "story_id": "goal:editorial-eval-0e634f5e05-featured-e263",
+          "kind": "goal",
+          "evidence_event_ids": [
+            "editorial-eval-0e634f5e05-featured-e262",
+            "editorial-eval-0e634f5e05-featured-e263"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 263,
+          "goal": {
+            "player_name": "Erling Haaland",
+            "team_name": "Manchester City",
+            "clock": "40:11",
+            "match_second": 2411
+          }
+        },
+        "evidence_event_ids": [
+          "editorial-eval-0e634f5e05-featured-e262",
+          "editorial-eval-0e634f5e05-featured-e263"
+        ],
+        "window_labels": []
+      },
+      {
+        "fact_id": "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262",
+        "data": {
+          "story_id": "recovery-shot:editorial-eval-0e634f5e05-featured-e262",
+          "kind": "recovery_shot",
+          "match_second": 2410,
+          "evidence_event_ids": [
+            "editorial-eval-0e634f5e05-featured-e258",
+            "editorial-eval-0e634f5e05-featured-e259",
+            "editorial-eval-0e634f5e05-featured-e260",
+            "editorial-eval-0e634f5e05-featured-e261",
+            "editorial-eval-0e634f5e05-featured-e262",
+            "editorial-eval-0e634f5e05-featured-e263"
+          ],
+          "metric": {
+            "team_id": "away",
+            "recovery_event_id": "editorial-eval-0e634f5e05-featured-e258",
+            "shot_event_id": "editorial-eval-0e634f5e05-featured-e262",
+            "shot_sequence": 262,
+            "elapsed_seconds": 10,
+            "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+            "threshold_seconds": 30,
+            "evidence_event_ids": [
+              "editorial-eval-0e634f5e05-featured-e258",
+              "editorial-eval-0e634f5e05-featured-e259",
+              "editorial-eval-0e634f5e05-featured-e260",
+              "editorial-eval-0e634f5e05-featured-e261",
+              "editorial-eval-0e634f5e05-featured-e262",
+              "editorial-eval-0e634f5e05-featured-e263"
+            ],
+            "rule_version": "recovery-shot-v1",
+            "goal_link": {
+              "version": "recovery-goal-v1",
+              "goal_event_id": "editorial-eval-0e634f5e05-featured-e263",
+              "goal_sequence": 263,
+              "goal_second": 2411,
+              "goal_clock": "40:11",
+              "shot_clock": "40:10",
+              "recovery_clock": "40:00",
+              "recoverer": "Rico Lewis",
+              "scorer": "Erling Haaland",
+              "team_name": "Manchester City",
+              "score_change": "equalization",
+              "score_before": {
+                "home": 1,
+                "away": 0
+              },
+              "score_after": {
+                "home": 1,
+                "away": 1
+              },
+              "completed_pass_count": 3,
+              "completed_passes": [
+                {
+                  "player_name": "Rico Lewis",
+                  "recipient_player_name": "Phil Foden",
+                  "match_second": 2403
+                },
+                {
+                  "player_name": "Phil Foden",
+                  "recipient_player_name": "Jeremy Doku",
+                  "match_second": 2406
+                },
+                {
+                  "player_name": "Jeremy Doku",
+                  "recipient_player_name": "Erling Haaland",
+                  "match_second": 2408
+                }
+              ],
+              "seconds_before_snapshot": 289,
+              "evidence_event_ids": [
+                "editorial-eval-0e634f5e05-featured-e258",
+                "editorial-eval-0e634f5e05-featured-e259",
+                "editorial-eval-0e634f5e05-featured-e260",
+                "editorial-eval-0e634f5e05-featured-e261",
+                "editorial-eval-0e634f5e05-featured-e262",
+                "editorial-eval-0e634f5e05-featured-e263"
+              ]
+            }
+          },
+          "rule_version": "recovery-shot-v1",
+          "sequence": 263
+        },
+        "evidence_event_ids": [
+          "editorial-eval-0e634f5e05-featured-e258",
+          "editorial-eval-0e634f5e05-featured-e259",
+          "editorial-eval-0e634f5e05-featured-e260",
+          "editorial-eval-0e634f5e05-featured-e261",
+          "editorial-eval-0e634f5e05-featured-e262",
+          "editorial-eval-0e634f5e05-featured-e263"
+        ],
+        "window_labels": [],
+        "point_clock": "40:10",
+        "participants": {
+          "recoverer": "Rico Lewis",
+          "shooter": "Erling Haaland"
+        }
+      }
+    ],
+    "events": [
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e100",
+        "sequence": 100,
+        "match_second": 911,
+        "type": "goal",
+        "team_id": "home",
+        "player_name": "Bryan Mbeumo",
+        "recipient_player_name": null,
+        "outcome": "goal",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p31",
+        "related_event_id": "editorial-eval-0e634f5e05-featured-e99",
+        "x": 100.0,
+        "y": 50.0,
+        "end_x": null,
+        "end_y": null
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e258",
+        "sequence": 258,
+        "match_second": 2400,
+        "type": "recovery",
+        "team_id": "away",
+        "player_name": "Rico Lewis",
+        "recipient_player_name": null,
+        "outcome": null,
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "related_event_id": null,
+        "x": 57.0,
+        "y": 25.0,
+        "end_x": null,
+        "end_y": null
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e259",
+        "sequence": 259,
+        "match_second": 2403,
+        "type": "pass",
+        "team_id": "away",
+        "player_name": "Rico Lewis",
+        "recipient_player_name": "Phil Foden",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "related_event_id": null,
+        "x": 57.0,
+        "y": 25.0,
+        "end_x": 49.0,
+        "end_y": 17.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e260",
+        "sequence": 260,
+        "match_second": 2406,
+        "type": "pass",
+        "team_id": "away",
+        "player_name": "Phil Foden",
+        "recipient_player_name": "Jeremy Doku",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "related_event_id": null,
+        "x": 49.0,
+        "y": 17.0,
+        "end_x": 41.0,
+        "end_y": 10.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e261",
+        "sequence": 261,
+        "match_second": 2408,
+        "type": "pass",
+        "team_id": "away",
+        "player_name": "Jeremy Doku",
+        "recipient_player_name": "Erling Haaland",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "related_event_id": null,
+        "x": 41.0,
+        "y": 10.0,
+        "end_x": 18.0,
+        "end_y": 10.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e262",
+        "sequence": 262,
+        "match_second": 2410,
+        "type": "shot",
+        "team_id": "away",
+        "player_name": "Erling Haaland",
+        "recipient_player_name": null,
+        "outcome": "goal",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "related_event_id": null,
+        "x": 18.0,
+        "y": 10.0,
+        "end_x": 0.0,
+        "end_y": 50.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e263",
+        "sequence": 263,
+        "match_second": 2411,
+        "type": "goal",
+        "team_id": "away",
+        "player_name": "Erling Haaland",
+        "recipient_player_name": null,
+        "outcome": "goal",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p81",
+        "related_event_id": "editorial-eval-0e634f5e05-featured-e262",
+        "x": 0.0,
+        "y": 50.0,
+        "end_x": null,
+        "end_y": null
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e284",
+        "sequence": 284,
+        "match_second": 2616,
+        "type": "pass",
+        "team_id": "away",
+        "player_name": "Enzo Fernandez",
+        "recipient_player_name": "Jeremy Doku",
+        "outcome": "intercepted",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p88",
+        "related_event_id": null,
+        "x": 59.0,
+        "y": 57.0,
+        "end_x": 53.0,
+        "end_y": 65.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e285",
+        "sequence": 285,
+        "match_second": 2640,
+        "type": "recovery",
+        "team_id": "home",
+        "player_name": "Kobbie Mainoo",
+        "recipient_player_name": null,
+        "outcome": null,
+        "possession_id": "editorial-eval-0e634f5e05-featured:p89",
+        "related_event_id": null,
+        "x": 39.0,
+        "y": 61.0,
+        "end_x": null,
+        "end_y": null
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e286",
+        "sequence": 286,
+        "match_second": 2643,
+        "type": "pass",
+        "team_id": "home",
+        "player_name": "Kobbie Mainoo",
+        "recipient_player_name": "Carlos Baleba",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p89",
+        "related_event_id": null,
+        "x": 39.0,
+        "y": 61.0,
+        "end_x": 46.0,
+        "end_y": 53.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e287",
+        "sequence": 287,
+        "match_second": 2646,
+        "type": "pass",
+        "team_id": "home",
+        "player_name": "Carlos Baleba",
+        "recipient_player_name": "Matheus Cunha",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p89",
+        "related_event_id": null,
+        "x": 46.0,
+        "y": 53.0,
+        "end_x": 53.0,
+        "end_y": 45.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e288",
+        "sequence": 288,
+        "match_second": 2670,
+        "type": "recovery",
+        "team_id": "away",
+        "player_name": "Phil Foden",
+        "recipient_player_name": null,
+        "outcome": null,
+        "possession_id": "editorial-eval-0e634f5e05-featured:p90",
+        "related_event_id": null,
+        "x": 57.0,
+        "y": 73.0,
+        "end_x": null,
+        "end_y": null
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e289",
+        "sequence": 289,
+        "match_second": 2673,
+        "type": "pass",
+        "team_id": "away",
+        "player_name": "Phil Foden",
+        "recipient_player_name": "Enzo Fernandez",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p90",
+        "related_event_id": null,
+        "x": 57.0,
+        "y": 73.0,
+        "end_x": 49.0,
+        "end_y": 81.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e290",
+        "sequence": 290,
+        "match_second": 2676,
+        "type": "pass",
+        "team_id": "away",
+        "player_name": "Enzo Fernandez",
+        "recipient_player_name": "Erling Haaland",
+        "outcome": "complete",
+        "possession_id": "editorial-eval-0e634f5e05-featured:p90",
+        "related_event_id": null,
+        "x": 49.0,
+        "y": 81.0,
+        "end_x": 41.0,
+        "end_y": 89.0
+      },
+      {
+        "event_id": "editorial-eval-0e634f5e05-featured-e291",
+        "sequence": 291,
+        "match_second": 2700,
+        "type": "half_end",
+        "team_id": "home",
+        "player_name": "Diogo Dalot",
+        "recipient_player_name": null,
+        "outcome": null,
+        "possession_id": "editorial-eval-0e634f5e05-featured:p91",
+        "related_event_id": null,
+        "x": 35.0,
+        "y": 25.0,
+        "end_x": null,
+        "end_y": null
+      }
+    ],
+    "required_fact_ids": [
+      "score",
+      "trajectory",
+      "phase",
+      "story:goal:editorial-eval-0e634f5e05-featured-e263",
+      "story:recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+    ],
+    "editorial_plan": {
+      "story_ids": [
+        "goal:editorial-eval-0e634f5e05-featured-e263",
+        "recovery-shot:editorial-eval-0e634f5e05-featured-e262"
+      ],
+      "status": "change_detected"
+    },
+    "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+  }
+}

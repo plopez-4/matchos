@@ -8,6 +8,32 @@ on:
 permissions:
   contents: read
 jobs:
+  container:
+    name: Container build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the single-worker judging image
+        run: docker build -t matchos-judge-check .
+      - name: Check production startup through simulated managed ingress
+        run: |
+          docker run -d --name matchos-check -p 127.0.0.1:8000:8000 \
+            -e MATCHOS_ALLOWED_HOSTS=127.0.0.1 \
+            -e MATCHOS_ALLOWED_ORIGINS=https://127.0.0.1 \
+            -e MATCHOS_PROXY_MODE=azure-container-apps \
+            -e CONTAINER_APP_NAME=ci-check \
+            -e CONTAINER_APP_ENV_DNS_SUFFIX=test.azurecontainerapps.io \
+            matchos-judge-check
+          for attempt in $(seq 1 30); do
+            if curl -fsS -H 'X-Forwarded-Proto: https' -H 'X-Forwarded-For: 203.0.113.8' http://127.0.0.1:8000/api/health; then break; fi
+            sleep 2
+          done
+          curl -fsS -H 'X-Forwarded-Proto: https' -H 'X-Forwarded-For: 203.0.113.8' http://127.0.0.1:8000/ | grep 'id="root"'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/api/health)" = 400
+          test "$(curl -s -o /dev/null -w '%{http_code}' -H 'X-Forwarded-Proto: https' -H 'X-Forwarded-For: 203.0.113.8' http://127.0.0.1:8000/docs)" = 404
+      - name: Container diagnostics
+        if: failure()
+        run: docker logs matchos-check
   backend:
     name: Backend
     runs-on: ubuntu-latest

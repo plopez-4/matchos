@@ -39,7 +39,7 @@ npm.cmd --prefix frontend ci
 | Azure call reservation               | Two requests reserved per selection attempt, including failures              |
 | Azure selection concurrency          | Two maximum, including direct adapter callers                                |
 | Evidence payload / provider response | 32 KiB / 64 KiB; oversized responses discarded                               |
-| Model output                         | 512 completion tokens per request                                            |
+| Model output                         | Selector: 512 completion tokens; writer/reviewer: 1,400 per request          |
 | Provider timeout                     | Eight seconds per HTTP operation; redirects disabled                         |
 
 Response sizes and computation are also bounded by the event cap, bounded event fields, and fixed candidate limit. The provider response check discards oversized responses after receipt; it is not a streaming transport byte cap. Requests to missing matches return an empty public view; arbitrary catch-up cache keys cannot grow beyond the cache limit.
@@ -55,6 +55,14 @@ Use **one API worker**. Storage, sessions, quotas, and caches are process-local 
 5. Verify real HTTPS responses/cookies, proxy client-address handling, unauthorized writes, cross-session ownership, quota rejection, and Azure fallback before advertising the public URL. Vite dev/preview and Uvicorn reload are local development tools.
 
 No public deployment was performed by this change. Application controls cannot verify Azure RBAC, leaked keys outside this repository, DNS/TLS configuration, or repository settings. No user accounts or private fan data are stored in the current demo.
+
+### Container Apps HTTP ingress
+
+The prepared container can use the explicit `azure-container-apps` proxy mode described in [judging deployment](judging-deployment.md). This mode requires Azure environment metadata and managed HTTP ingress with no directly reachable/additional TCP listener. It accepts the platform-overwritten protocol and only the platform-provided rightmost client IP, validating both. Host/origin checks and production Secure cookies remain enforced. Other environments retain the default proxy behavior; arbitrary forwarded headers are not trusted. This mode has local tests, but real Azure ingress is not yet verified.
+
+### Model provider cooldown
+
+Selection and writing share a bounded deployment cooldown on 429 responses, honor valid wait headers, and return factual fallback without automatic retries. Throttled results do not permanently occupy a snapshot cache. This is process-local backoff, not a quota increase or a billing cap. See [capacity verification](recap-capacity-oct24.md).
 
 ## Collaboration rules
 

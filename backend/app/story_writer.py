@@ -14,9 +14,10 @@ import httpx
 from app import security
 from app.intelligence import match_stories
 from app import recap_quality
+from app import ai_capacity
 from app.recap_context import creator_chronology
 
-VERSION = 'fan-narrative-v13.2-pass-subject-validation'
+VERSION = 'fan-narrative-v14-capacity-and-connection-feedback'
 CACHE = OrderedDict()
 LOCK = threading.Lock()
 
@@ -211,11 +212,12 @@ def writer_evidence(packet):
 
 def complete(client, config, messages, name, schema):
     endpoint, key, model = config
+    ai_capacity.require_ready(endpoint, model)
     with client.stream('POST', endpoint+'/chat/completions', headers={'api-key': key}, json={
         'model': model, 'messages': messages, 'max_completion_tokens': 1400, 'temperature': 0.2,
         'response_format': {'type': 'json_schema', 'json_schema': {'name': name, 'strict': True, 'schema': schema}},
     }) as response:
-        response.raise_for_status()
+        ai_capacity.check_response(response, endpoint, model)
         body = bytearray()
         for chunk in response.iter_bytes(chunk_size=8192):
             body.extend(chunk)
@@ -468,6 +470,9 @@ def write(briefing, events, client=None):
     existing = cached(briefing, events)
     if existing:
         return existing
+    wait = ai_capacity.remaining(config[0], config[2])
+    if wait:
+        return {**fallback, 'fallback_reason':'provider_cooldown','retry_after_seconds':wait}
     packet = evidence_packet(briefing, events)
     data = json.dumps(writer_evidence(packet) if plan is not None else packet, ensure_ascii=False)
     if len(json.dumps(packet, ensure_ascii=False).encode()) > 32768:
@@ -533,9 +538,14 @@ def write(briefing, events, client=None):
     except recap_quality.RecapQualityError as error:
         result = {**fallback, 'fallback_reason': str(error), 'validation_stage': stage,
                   'validation_details': error.details}
+    except ai_capacity.CoolingDown as error:
+        result = {**fallback, 'fallback_reason':'provider_cooldown', 'retry_after_seconds':error.seconds,
+                  'validation_stage':stage}
     except httpx.HTTPStatusError as error:
         result = {**fallback, 'fallback_reason': f'provider_http_{error.response.status_code}',
                   'validation_stage': stage}
+        if error.response.status_code==429:
+            result['retry_after_seconds'] = ai_capacity.remaining(config[0], config[2])
     except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError, AttributeError):
         result = {**result, 'validation_stage': stage}  # Never expose provider bodies or credentials.
     finally:
