@@ -1,6 +1,6 @@
 # Judging deployment preparation
 
-Status: container packaging and checks prepared; **no public deployment or judging URL is confirmed**. The local website still depends on your computer.
+Status: container packaging and checks prepared; **no public deployment or judging URL is confirmed**. The local website still depends on your computer. Deployment is on hold while the user reviews credit protection and the [publication quality gates](publish-readiness.md).
 
 ## Prepared Azure request — 24 October
 
@@ -46,4 +46,4 @@ Then use a fresh/incognito browser and a phone on mobile data. Start replay, req
 
 ## Outstanding deployment inputs
 
-Azure account access, chosen resource group/region, credit-use approval, image registry/revision and assigned hostname remain to be supplied/confirmed. Once available, deploy the tested image, attach secrets privately and save the real public check result. The public video and hackathon portal entry are separate.
+Account access, the existing student resource group, North Central US and the published image digest are confirmed. Remaining: complete the private billing verification, obtain explicit acceptance of Azure deployment terms/usage billing, create the resources, attach runtime model/Speech secrets privately, and save public access results for the assigned hostname. The public video and hackathon portal entry are separate. Plan availability through the end of judging, not only the submission deadline; see the [dated readiness review](publish-readiness.md).
