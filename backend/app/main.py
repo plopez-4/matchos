@@ -1,4 +1,5 @@
 import os
+import ipaddress
 import re
 import threading
 from pathlib import Path
@@ -24,6 +25,7 @@ from app.briefing import full_feed_briefing
 from app.fan_briefing import fan_briefing
 from app import narration
 from app import story_writer
+from app import recap_diagnostics
 from app import story_plan
 from app.rosters import ROSTER_DATA
 from typing import Literal
@@ -463,6 +465,27 @@ def stories(match_id: str):
 @app.get("/api/matches/{match_id}/graph")
 def graph(match_id: str):
     return story_graph(events_for(match_id))
+
+
+@app.post('/api/development/matches/{match_id}/catch-up')
+def audit_catch_up(match_id: str, http_request: Request, payload: CatchUpRequest):
+    if security.production():
+        raise HTTPException(404,'Not found')
+    try:
+        local=http_request.client is not None and ipaddress.ip_address(http_request.client.host).is_loopback
+    except ValueError:
+        local=False
+    if not local:
+        raise HTTPException(404,'Not found')
+    with security.LOCK:
+        owner=security.session(http_request)
+        meta=security.matches.get(match_id)
+        if not meta or meta['owner']!=owner:
+            raise HTTPException(403,'Evaluation requires a replay owned by this session')
+    with recap_diagnostics.capture() as trace:
+        result=catch_up(match_id,payload)
+    return {'result':result,'evaluation_trace':trace,
+            'trace_note':'Local developer evaluation only; an empty trace can mean a cached or unattempted writer.'}
 
 
 @app.post("/api/matches/{match_id}/catch-up")

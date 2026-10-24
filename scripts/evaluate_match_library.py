@@ -88,15 +88,19 @@ def offline(path):
     print(f"Saved {len(result['cases'])} deterministic EN/ES pairs",flush=True)
 
 
-def live(path, base_url, cooldown, case_names=None):
+def live(path, base_url, cooldown, case_names=None, capture_rejections=False):
     result=report('Eleven situations across nine versions x two audiences; both languages per request')
     situations=[s for s in SITUATIONS if not case_names or s[4] in case_names]
     if case_names and set(case_names)-{s[4] for s in SITUATIONS}:
         raise ValueError('Unknown evaluation case')
     result['selected_cases']=[s[4] for s in situations]
+    coverage={(s[0]+1,s[1]) for s in situations}
+    result['version_coverage']=[{'variant_id':v,'role':role} for v,role in sorted(coverage)]
     result['planned_requests']=len(situations)*2
     if case_names: result['evaluation']='Focused follow-up: '+str(len(situations))+' situations x two audiences; both languages'
+    if len(coverage)==9: result['evaluation']=f'All nine versions; {len(situations)} situations x two audiences; both languages'
     result['temporary_groups']=[]
+    result['capture_rejections']=capture_rejections
     last_request=None
     prefix='library-audit-'+uuid.uuid4().hex[:8]
     with httpx.Client(base_url=base_url,headers={'X-MatchOS-Client':'replay'},timeout=120) as browser:
@@ -139,13 +143,18 @@ def live(path, base_url, cooldown, case_names=None):
                                 wait=cooldown-(time.monotonic()-last_request)
                                 if wait>0: time.sleep(wait)
                             started=time.monotonic()
-                            response=browser.post(f'/api/matches/{mid}/catch-up',json={'since_sequence':cursor,'audience':audience})
+                            route=f'/api/development/matches/{mid}/catch-up' if capture_rejections else f'/api/matches/{mid}/catch-up'
+                            response=browser.post(route,json={'since_sequence':cursor,'audience':audience})
                             last_request=time.monotonic()
                             row={'case':name,'role':role,'variant_id':variant+1,'second':now,
                                  'cursor_second':cursor_second,'audience':audience,'http_status':response.status_code,
                                  'seconds':round(last_request-started,2)}
                             if response.is_success:
-                                fan=response.json()['fan_briefing']
+                                body=response.json()
+                                if capture_rejections:
+                                    row['evaluation_trace']=body['evaluation_trace']
+                                    body=body['result']
+                                fan=body['fan_briefing']
                                 narrative=fan['narrative']
                                 if narrative.get('version')!=result['writer_version']:
                                     raise RuntimeError('Backend writer changed during evaluation')
@@ -176,6 +185,7 @@ if __name__=='__main__':
     parser.add_argument('--cooldown',type=float,default=30)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--case',action='append',dest='case_names')
+    parser.add_argument('--capture-rejections',action='store_true',help='Opt-in loopback-only owned-session developer trace; never a fan response')
     args=parser.parse_args()
     if not 0<=args.cooldown<=60: parser.error('cooldown must be within 0..60 seconds')
-    (live(args.output,args.base_url,args.cooldown,args.case_names) if args.live else offline(args.output))
+    (live(args.output,args.base_url,args.cooldown,args.case_names,args.capture_rejections) if args.live else offline(args.output))

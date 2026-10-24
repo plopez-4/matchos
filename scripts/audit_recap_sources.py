@@ -20,6 +20,15 @@ def check(row):
     assert [e['event_id'] for e in goals]==[e['event_id'] for e in row['source_goals']], 'goal chronology'
     facts=row['evidence']['facts']
     assert next(f['data']['score'] for f in facts if f['fact_id']=='score')==score, 'score recount'
+    trajectory=next(f['data'] for f in facts if f['fact_id']=='trajectory')
+    for transition in trajectory['transitions']:
+        if 'goal_clock' not in transition: continue  # Historical captures predate the named ledger.
+        goal=next(e for e in goals if e['sequence']==transition['sequence'])
+        clock=lambda e:f"{e['match_second']//60}:{e['match_second']%60:02d}"
+        assert transition['scorer']==goal['player_name'] and transition['team_name']==goal['team_name'], 'timeline scorer/team'
+        assert transition['goal_clock']==clock(goal), 'timeline goal clock'
+        if 'shot_clock' in transition:
+            assert transition['shot_clock']==clock(by_id[goal['related_event_id']]), 'timeline shot clock'
     for fact in facts:
         assert set(fact['evidence_event_ids'])<=by_id.keys(), 'unobserved evidence'
     kinds=[]
