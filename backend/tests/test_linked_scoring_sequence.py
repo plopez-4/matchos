@@ -1,15 +1,18 @@
 import copy
+import json
+from pathlib import Path
 from xml.etree import ElementTree as ET
 import pytest
 from app import main, narration, recap_quality, story_writer
 from app.models import MatchEvent, CatchUpRequest
-from app.matchday import fixture, PROFILES
 from app.intelligence import match_stories, story_graph
 from test_story_writer import configured, provider
 
 
 def feed(now=3750):
-    return [MatchEvent(**raw) for raw in fixture(PROFILES[1], 'linked-palace') if raw['match_second'] <= now]
+    # Fixed observed examples keep the bilingual contracts independent of generator changes.
+    rows = json.loads((Path(__file__).parent/'fixtures/linked_scoring_reference.json').read_text())
+    return [MatchEvent(**raw) for raw in rows if raw['match_second'] <= now]
 
 
 def transition(events):

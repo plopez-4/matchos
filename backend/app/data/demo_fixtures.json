@@ -5,7 +5,7 @@
     "home": "Manchester United",
     "away": "Manchester City",
     "name": "Manchester United vs Manchester City",
-    "description": "An authored derby with a repeated player combination. Reference player identities; fictional match action."
+    "description": "Three authored derby versions with synthetic elevens and varied player sequences. Reference identities; fictional match action."
   },
   {
     "id": "palace-newcastle-90",
@@ -13,7 +13,7 @@
     "home": "Crystal Palace",
     "away": "Newcastle United",
     "name": "Crystal Palace vs Newcastle United",
-    "description": "An authored match with changing score situations. Reference player identities; fictional match action."
+    "description": "Three authored versions with synthetic elevens and different match trajectories. Reference identities; fictional match action."
   },
   {
     "id": "brighton-fulham-90",
@@ -21,6 +21,6 @@
     "home": "Brighton",
     "away": "Fulham",
     "name": "Brighton vs Fulham",
-    "description": "An authored quieter match with limited attacking activity. Reference player identities; fictional match action."
+    "description": "Three authored versions with synthetic elevens and different activity patterns. Reference identities; fictional match action."
   }
 ]

@@ -11,6 +11,7 @@ Built for Inside the Game: Developer Hackathon. Independent prototype; no sponso
 `main` is the canonical version to clone and submit after release integration. Older commits and evaluation reports are development history, not alternate applications. Start with [current documentation](docs/README.md), [submission notes](docs/hackathon-submission.md) and [patch notes](CHANGELOG.md).
 
 - One fan page: score, important moment, recorded build-up and one Catch Me Up paragraph.
+- Nine prepared synthetic matches: three versions per fixture, eleven active players per side. New matchday chooses one version of each pairing; switching preserves all three streams. Radar compares observed action and explains why another match is hot now.
 - Connected explanations: verified recovery, team passes, goal-producing shot and equalizer form one move. A nearby goal is never linked by proximity alone.
 - Named replay actions, such as “Watch Ismaila Sarr's equalizer.”
 - Casual and Analyst perspectives, English and Spanish, using the same source facts.
@@ -54,7 +55,7 @@ npm.cmd ci
 npm.cmd run dev
 ```
 
-Open [the fan page](http://127.0.0.1:5173), or the actual port Vite prints. Choose a fixture and start replay. Demo settings contain speed (0.5×–80×) and reset. Catch Me Up pauses replay and drains the in-flight request before taking its snapshot. Backend restart clears in-memory matches.
+Open [the fan page](http://127.0.0.1:5173), or the actual port Vite prints. Start replay to advance all three fixtures together. New matchday picks a fresh combination and resets the shared clock; switching fixtures keeps progress. Demo settings contain speed (0.5×–80×). Starting lineups shows each synthetic eleven. Catch Me Up pauses all three and drains the in-flight request before taking its snapshot. Backend restart clears in-memory matches.
 
 On macOS/Linux use `python3 -m venv .venv`, `.venv/bin/python` and `npm`.
 

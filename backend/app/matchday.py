@@ -9,7 +9,7 @@ import json
 from importlib.resources import files
 from hashlib import sha256
 
-VERSION = "match-radar-v3-player-spells"
+VERSION = "match-radar-v4-nine-matches"
 DURATION = 5580
 TICK_SECONDS = 30
 PROFILES = [
@@ -36,13 +36,35 @@ for profile in PROFILES:
     metadata = next(item for item in DEMO_FIXTURES if item['role'] == profile['role'])
     profile.update({key: metadata[key] for key in ('home', 'away', 'description')})
 
+VARIANTS = json.loads(files('app').joinpath('data/match_variants.json').read_text(encoding='utf-8'))
+
+
+def selected_variant(match_id):
+    """Independent uniform-style selection from a random matchday UUID; stable on reopen."""
+    return int.from_bytes(sha256(match_id.encode()).digest()[:8], 'big') % 3
+
+
+def versioned_profile(profile, variant):
+    if variant not in range(3):
+        raise ValueError('Unknown match version')
+    config = VARIANTS[profile['role']][variant]
+    return {**profile, **config, 'shots': {int(t):side for t,side in config['shots'].items()},
+            'goals': set(config['goals']), 'varied_routes': True}
+
+
+def library_fixture(profile, match_id, variant):
+    config = versioned_profile(profile, variant)
+    return fixture(config, match_id, seed=config['seed'])
+
 
 def fixture(profile, match_id, seed=None):
     """Sparse 93-minute authored possessions; not a complete tracking feed."""
     result = []
     rng = random.Random(seed if seed is not None else int.from_bytes(sha256(match_id.encode()).digest()[:8], 'big'))
     clubs = {team: club_for_name(profile[team]) for team in ('home', 'away')}
-    active = {team: list(clubs[team].get('demo_lineup', [2, 7, 9, 10])) for team in clubs}
+    active = {team: list(clubs[team]['demo_lineup']) for team in clubs}
+    if any(len(set(lineup)) != 11 for lineup in active.values()):
+        raise ValueError('Synthetic fixtures require eleven distinct starting players per side')
     benches = {team: list(clubs[team].get('demo_bench', [])) for team in clubs}
     replacements = {team: 0 for team in clubs}
 
@@ -113,15 +135,23 @@ def fixture(profile, match_id, seed=None):
         # Keep the halftime boundary observable before the second-half kickoff.
         emit(slot+1 if slot == 2700 or replacements[team] > used else slot, "kickoff" if previous_goal else "recovery", holder)
         previous_goal = False
-        for pass_index, (sender, recipient) in enumerate(((holder, middle), (middle, final))):
+        # Two to four linked passes per possession, including safe circulation.
+        route = [holder, middle]
+        for _ in range(rng.randrange(3) if profile.get('varied_routes') else 0):
+            route.append(choose(team, {route[-1], final}, ('DEF', 'MID')))
+        route.append(final)
+        for pass_index, (sender, recipient) in enumerate(zip(route, route[1:])):
             # Routine circulation is not automatically progressive. Authored busy
             # spells have longer forward passes; quiet fixtures retain shorter moves.
             busy_spell = any(start <= slot < stop for start, stop in profile.get('activity_windows', []))
-            gain = (15 + slot//30 % 2 * 3) if busy_spell else (6 + slot//30 % 3)
+            gain = ((rng.choice((15, 18)) if busy_spell else rng.choice((-5, 3, 6, 8)))
+                    if profile.get('varied_routes') else
+                    ((15 + slot//30 % 2 * 3) if busy_spell else (6 + slot//30 % 3)))
             end_x = max(5, min(95, x+direction*gain))
-            end_y = max(10, min(90, y + (8 if slot//30 % 2 else -8)))
-            intercepted = pass_index == 1 and slot//30 % 7 == 3 and slot not in profile['shots']
-            emit(slot+3 if pass_index == 0 else slot+6, "pass", sender,
+            end_y = max(10, min(90, y + (rng.choice((-12, -8, 5, 10)) if profile.get('varied_routes')
+                                       else (8 if slot//30 % 2 else -8))))
+            intercepted = pass_index == len(route)-2 and slot//30 % 7 == 3 and slot not in profile['shots']
+            emit(slot+(2+pass_index*2 if profile.get('varied_routes') else 3+pass_index*3), "pass", sender,
                  end_x=end_x, end_y=end_y, outcome="intercepted" if intercepted else "complete",
                  recipient_player_id=f"{team}-{recipient}",
                  **player_fields(profile[team], recipient, "recipient_player"))
@@ -130,7 +160,7 @@ def fixture(profile, match_id, seed=None):
             # An authored attacking sequence brings the same holder forward.
             attack_x = 82 if team == "home" else 18
             shooter = finisher if finisher in active[team] and finisher != final else choose(team, {final}, ('FWD',))
-            emit(slot+8, "pass", final, end_x=attack_x, end_y=y, outcome="complete",
+            emit(slot+(9 if profile.get('varied_routes') else 8), "pass", final, end_x=attack_x, end_y=y, outcome="complete",
                  recipient_player_id=f"{team}-{shooter}", **player_fields(profile[team], shooter, "recipient_player"))
             x = attack_x
             goal = slot in profile["goals"]

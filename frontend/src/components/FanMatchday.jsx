@@ -34,6 +34,7 @@ export function FanMatchday({ initialScenarioId }) {
   const matchId = `${view?.matchday_id ?? dayId}-${fixture.role}`;
   if (!cursors.current[matchId]) cursors.current[matchId] = { current: 0 };
   const es = language === 'es';
+  const selected = view?.matches.find((entry) => entry.role === fixture.role);
 
   function accept(next) {
     latest.current = next;
@@ -215,12 +216,12 @@ export function FanMatchday({ initialScenarioId }) {
         >
           {playing ? 'Pause' : view?.tick ? 'Resume' : 'Start replay'}
         </button>
+        <button className="replay-reset" onClick={reset} disabled={loading}>
+          {es ? 'Nueva jornada' : 'New matchday'}
+        </button>
         <details className="fan-demo-settings">
           <summary>Demo settings</summary>
           <div>
-            <button className="replay-reset" onClick={reset} disabled={loading}>
-              Reset
-            </button>
             <label className="replay-speed">
               Speed
               <select
@@ -236,11 +237,35 @@ export function FanMatchday({ initialScenarioId }) {
               </select>
             </label>
             <p>
-              One shared clock for three fictional matches. Catch Me Up and Listen pause all three.
+              {es
+                ? 'Cada nueva jornada elige una de tres versiones por partido. Los tres se pausan al pedir el resumen o escucharlo.'
+                : 'Each new matchday picks one of three versions per fixture. Catch Me Up and Listen pause all three.'}
             </p>
           </div>
         </details>
       </div>
+      {selected?.starting_lineups && (
+        <details className="fan-demo-settings">
+          <summary>
+            {es ? 'Alineaciones iniciales · 11 contra 11' : 'Starting lineups · 11 v 11'}
+          </summary>
+          <p>
+            {es
+              ? 'Alineaciones ficticias para esta simulación.'
+              : 'Fictional starting lineups for this simulation.'}
+          </p>
+          {['home', 'away'].map((side) => (
+            <div key={side}>
+              <strong>{selected[side]}</strong>
+              <p>
+                {selected.starting_lineups[side]
+                  .map((player) => `#${player.player_shirt_number} ${player.player_name}`)
+                  .join(' · ')}
+              </p>
+            </div>
+          ))}
+        </details>
+      )}
       {error && (
         <p className="focus-error" role="alert">
           {error}

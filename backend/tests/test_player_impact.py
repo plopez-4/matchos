@@ -149,6 +149,8 @@ def test_current_window_includes_the_latest_shot_and_keeps_boundaries_explicit()
 
 
 def test_snapshot_identity_and_raw_provenance_survive_narration_reconstruction(monkeypatch):
+    from app import matchday
+    monkeypatch.setattr(matchday, 'selected_variant', lambda _: 0)
     from fastapi.testclient import TestClient
     heard = []
     monkeypatch.setattr(narration,'synthesize',lambda fan,*args:(heard.append(fan) or b'ID3mock','test','measured'))

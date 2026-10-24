@@ -1,9 +1,9 @@
 {
-  "version": "2026-27-manchester-squads-v2",
+  "version": "2026-27-six-demo-elevens-v3",
   "competition": "English Premier League",
   "season": "2026–27",
-  "scope": "Manchester squads expanded to published squad-number entries; other clubs remain curated subsets",
-  "checked_on": "2026-10-11",
+  "scope": "Six demo clubs have synthetic starting elevens; Manchester has expanded published squads; other clubs remain curated subsets",
+  "checked_on": "2026-10-24",
   "source_published_on": "2026-09-22",
   "source": "https://www.premierleague.com/en/news/4725682/all-20-premier-league-clubs-squad-numbers-for-202627-season",
   "source_sha256": "2a1f845b2b2fe62855b2164733a36e6c94152694b2d0828a8d8244d0ae0c9e81",
@@ -124,6 +124,12 @@
       "short": "BHA",
       "players": [
         {
+          "id": "bartverbruggen",
+          "number": 1,
+          "name": "Bart Verbruggen",
+          "position": "GK"
+        },
+        {
           "id": "lewisdunk",
           "number": 5,
           "name": "Lewis Dunk",
@@ -142,19 +148,66 @@
           "position": "MID"
         },
         {
+          "id": "stefanostzimas",
+          "number": 9,
+          "name": "Stefanos Tzimas",
+          "position": "FWD"
+        },
+        {
           "id": "georginiorutter",
           "number": 10,
           "name": "Georginio Rutter",
           "position": "FWD"
+        },
+        {
+          "id": "yankubaminteh",
+          "number": 11,
+          "name": "Yankuba Minteh",
+          "position": "FWD"
+        },
+        {
+          "id": "costinha",
+          "number": 20,
+          "name": "Costinha",
+          "position": "DEF"
+        },
+        {
+          "id": "olivierboscagli",
+          "number": 21,
+          "name": "Olivier Boscagli",
+          "position": "DEF"
+        },
+        {
+          "id": "ferdikadioglu",
+          "number": 24,
+          "name": "Ferdi Kadioglu",
+          "position": "DEF"
+        },
+        {
+          "id": "matswieffer",
+          "number": 27,
+          "name": "Mats Wieffer",
+          "position": "MID"
         }
       ],
       "aliases": ["Brighton"],
       "demo_slots": {
+        "1": "bartverbruggen",
         "2": "lewisdunk",
+        "3": "costinha",
+        "4": "olivierboscagli",
+        "5": "ferdikadioglu",
+        "6": "matswieffer",
         "7": "jackhinshelwood",
+        "8": "stefanostzimas",
         "9": "kaorumitoma",
-        "10": "georginiorutter"
-      }
+        "10": "georginiorutter",
+        "11": "yankubaminteh"
+      },
+      "demo_lineup": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "demo_bench": [],
+      "reference_scope": "Curated reference squad with a synthetic eleven; not a confirmed match lineup",
+      "checked_on": "2026-10-24"
     },
     "chelsea": {
       "name": "Chelsea",
@@ -245,10 +298,28 @@
           "position": "GK"
         },
         {
+          "id": "tyrickmitchell",
+          "number": 3,
+          "name": "Tyrick Mitchell",
+          "position": "DEF"
+        },
+        {
+          "id": "chadiriad",
+          "number": 4,
+          "name": "Chadi Riad",
+          "position": "DEF"
+        },
+        {
           "id": "ismailasarr",
           "number": 7,
           "name": "Ismaila Sarr",
           "position": "FWD"
+        },
+        {
+          "id": "jeffersonlerma",
+          "number": 8,
+          "name": "Jefferson Lerma",
+          "position": "MID"
         },
         {
           "id": "dwightmcneil",
@@ -285,14 +356,31 @@
           "number": 23,
           "name": "Quinten Timber",
           "position": "MID"
+        },
+        {
+          "id": "chrisrichards",
+          "number": 26,
+          "name": "Chris Richards",
+          "position": "DEF"
         }
       ],
       "demo_slots": {
+        "1": "deanhenderson",
         "2": "takehirotomiyasu",
+        "3": "chrisrichards",
+        "4": "chadiriad",
+        "5": "tyrickmitchell",
+        "6": "daichikamada",
         "7": "adamwharton",
+        "8": "jeffersonlerma",
         "9": "ismailasarr",
-        "10": "jeanphilippemateta"
-      }
+        "10": "jeanphilippemateta",
+        "11": "dwightmcneil"
+      },
+      "demo_lineup": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "demo_bench": [],
+      "reference_scope": "Curated reference squad with a synthetic eleven; not a confirmed match lineup",
+      "checked_on": "2026-10-24"
     },
     "everton": {
       "name": "Everton",
@@ -323,9 +411,45 @@
       "short": "FUL",
       "players": [
         {
+          "id": "berndleno",
+          "number": 1,
+          "name": "Bernd Leno",
+          "position": "GK"
+        },
+        {
+          "id": "kennytete",
+          "number": 2,
+          "name": "Kenny Tete",
+          "position": "DEF"
+        },
+        {
+          "id": "calvinbassey",
+          "number": 3,
+          "name": "Calvin Bassey",
+          "position": "DEF"
+        },
+        {
+          "id": "joachimandersen",
+          "number": 5,
+          "name": "Joachim Andersen",
+          "position": "DEF"
+        },
+        {
           "id": "rodrigomuniz",
           "number": 9,
           "name": "Rodrigo Muniz",
+          "position": "FWD"
+        },
+        {
+          "id": "tomcairney",
+          "number": 10,
+          "name": "Tom Cairney",
+          "position": "MID"
+        },
+        {
+          "id": "kevin",
+          "number": 11,
+          "name": "Kevin",
           "position": "FWD"
         },
         {
@@ -354,11 +478,22 @@
         }
       ],
       "demo_slots": {
+        "1": "berndleno",
         "2": "antoneerobinson",
+        "3": "kennytete",
+        "4": "joachimandersen",
+        "5": "calvinbassey",
+        "6": "tomcairney",
         "7": "sanderberge",
+        "8": "emilesmithrowe",
         "9": "alexiwobi",
-        "10": "rodrigomuniz"
-      }
+        "10": "rodrigomuniz",
+        "11": "kevin"
+      },
+      "demo_lineup": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "demo_bench": [],
+      "reference_scope": "Curated reference squad with a synthetic eleven; not a confirmed match lineup",
+      "checked_on": "2026-10-24"
     },
     "hull": {
       "name": "Hull City",
@@ -859,6 +994,12 @@
       "short": "NEW",
       "players": [
         {
+          "id": "nickpope",
+          "number": 1,
+          "name": "Nick Pope",
+          "position": "GK"
+        },
+        {
           "id": "tinolivramento",
           "number": 2,
           "name": "Tino Livramento",
@@ -868,6 +1009,18 @@
           "id": "lewishall",
           "number": 3,
           "name": "Lewis Hall",
+          "position": "DEF"
+        },
+        {
+          "id": "svenbotman",
+          "number": 4,
+          "name": "Sven Botman",
+          "position": "DEF"
+        },
+        {
+          "id": "fabianschar",
+          "number": 5,
+          "name": "Fabian Schar",
           "position": "DEF"
         },
         {
@@ -899,14 +1052,37 @@
           "number": 11,
           "name": "Harvey Barnes",
           "position": "FWD"
+        },
+        {
+          "id": "anthonyelanga",
+          "number": 19,
+          "name": "Anthony Elanga",
+          "position": "FWD"
+        },
+        {
+          "id": "joewillock",
+          "number": 28,
+          "name": "Joe Willock",
+          "position": "MID"
         }
       ],
       "demo_slots": {
+        "1": "nickpope",
         "2": "tinolivramento",
+        "3": "svenbotman",
+        "4": "fabianschar",
+        "5": "lewishall",
+        "6": "nicogonzalez",
         "7": "joelinton",
+        "8": "joewillock",
         "9": "harveybarnes",
-        "10": "yoanewissa"
-      }
+        "10": "yoanewissa",
+        "11": "anthonyelanga"
+      },
+      "demo_lineup": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "demo_bench": [],
+      "reference_scope": "Curated reference squad with a synthetic eleven; not a confirmed match lineup",
+      "checked_on": "2026-10-24"
     },
     "nottingham-forest": {
       "name": "Nottingham Forest",

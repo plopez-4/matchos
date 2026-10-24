@@ -73,7 +73,9 @@ def test_unfinished_and_unobserved_comparisons_are_not_backfilled():
     assert 'shots:home:1200' not in shots([event for event in feed if 601 <= event.match_second <= 1500])
 
 
-def test_browser_matchday_catchup_remembers_spell_after_live_activity_cools():
+def test_browser_matchday_catchup_remembers_spell_after_live_activity_cools(monkeypatch):
+    from app import matchday
+    monkeypatch.setattr(matchday, 'selected_variant', lambda _: 0)
     with client() as browser:
         view = tick_to(browser, start(browser, 'history-day'), 900)
         mid = 'history-day-featured'

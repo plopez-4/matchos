@@ -8,7 +8,8 @@ Decision: the core prototype is implemented, but the submission is not ready to 
 - The three current authored fixtures share roster identities and recorded locations. The replay is schematic; it does not claim continuous player tracking or real match performances.
 - English/Spanish and Casual/Analyst recaps, named replay actions, source inspection and optional Azure narration are implemented.
 - Shared provider cooldown, retryable capacity fallback caching and truthful fallback labels are implemented. Azure's model allocation was saved at the user-approved 50,000 TPM; that is throughput, not a billing cap or a writing-quality improvement.
-- Latest validated application checks: 391 backend tests, 62 frontend tests, frontend build, credential scan, dependency audit and container startup. These do not establish human comprehension, pronunciation or public availability.
+- The nine-match library adds three fixed versions per pairing and eleven active starters per team. New matchday selects three versions; all 27 combinations are covered by regression checks, including no-recommendation and each-fixture-can-lead cases. Re-run the editorial matrix and listening checks on this expanded data before publication; earlier AI results do not establish quality across the new library.
+- Validated application checks before the library expansion: 391 backend tests, 62 frontend tests, frontend build, credential scan, dependency audit and container startup. The library adds dedicated legal-lineup, continuity, selection, exported-feed and bounded-recap checks. These do not establish human comprehension, pronunciation or public availability.
 - The Linux image is published and anonymously readable. The explicit Azure template passed portal validation: Consumption, 0.25 CPU/0.5 GiB, zero-to-one replicas, HTTPS, TCP probes, exact derived hosts/origins, two resources and no log workspace. Its initial AI/Speech settings are off until private runtime configuration is attached.
 
 ## Before deployment: release gates
@@ -26,6 +27,8 @@ The latest v14 evidence is one source-correct halftime pair after a model revisi
 The strongest current category argument is grounded Foundry-powered storytelling, based on the application-orchestrated selection/writer/reviewer workflow. A hosted multi-agent hierarchy and enterprise readiness are not demonstrated. Adding agents or tracking now would expand the problem without closing the remaining quality gaps.
 
 ## After those gates
+
+Rebuild and publish the final judging image before creating the Azure resources: the previously published image predates the shared main-page playback repair and nine-match library.
 
 1. Obtain explicit approval for Azure's deployment terms and usage billing; create the already reviewed resources.
 2. Verify public HTTPS and fresh-session isolation with the judging-access checker, then attach existing model/Speech secrets privately and repeat the real main-page flow from an external browser and phone. Check cold starts, session resets, several independent viewers and behavior when app/provider limits are reached.
