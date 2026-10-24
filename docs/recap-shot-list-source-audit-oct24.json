@@ -1,0 +1,89 @@
+{
+  "scope": "Source facts and selected contribution recount; not a proof of model prose correctness",
+  "reports": [
+    {
+      "file": "recap-v20-shot-lists-live-oct24.json",
+      "complete": true,
+      "checked_cases": 2,
+      "selected_kinds": {
+        "goal": 2,
+        "player_shot_creation": 2
+      },
+      "failures": 0,
+      "cases": [
+        {
+          "case": "early_derby_contribution",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "early_derby_contribution",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        }
+      ]
+    },
+    {
+      "file": "recap-v21-shot-lists-live-oct24.json",
+      "complete": true,
+      "checked_cases": 2,
+      "selected_kinds": {
+        "goal": 2,
+        "player_shot_creation": 2
+      },
+      "failures": 0,
+      "cases": [
+        {
+          "case": "early_derby_contribution",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "early_derby_contribution",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        }
+      ]
+    },
+    {
+      "file": "recap-v22-event-scopes-live-oct24.json",
+      "complete": true,
+      "checked_cases": 2,
+      "selected_kinds": {
+        "goal": 2,
+        "player_shot_creation": 2
+      },
+      "failures": 0,
+      "cases": [
+        {
+          "case": "early_derby_contribution",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "early_derby_contribution",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        }
+      ]
+    }
+  ]
+}

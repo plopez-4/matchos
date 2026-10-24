@@ -1,0 +1,1497 @@
+{
+  "evaluation": "Focused follow-up: 1 situations x two audiences; both languages",
+  "started_utc": "2026-10-24T20:54:13.932370+00:00",
+  "writer_version": "fan-narrative-v22-verified-event-scopes",
+  "generator_version": "match-radar-v4-nine-matches",
+  "source_hashes": {
+    "backend/app/matchday.py": "bc0cc8adb722725f7c1a2fc5149f91dd51b99909205eb5d785fd7e761c7456e4",
+    "backend/app/story_writer.py": "fd94ac7465fe4e3719d6ee2ac22fd8ba1d9eed50618ff890d85bba549d3165d1",
+    "backend/app/recap_context.py": "fa61368e5d451495c16b1eb91fb483a2ec9de80a91bd7f60a0f9cf311f0b6a03",
+    "backend/app/recap_quality.py": "9de66bf9a93dfe96a632b027cdc0ddc94886c5cbc591b51da74513f9625f29ad",
+    "backend/app/story_plan.py": "d02a588879b0a97addc7851bd92a8e1b2e6a06cae0d50f20c47bec52108fee5e",
+    "backend/app/data/match_variants.json": "2c2bd808c0c1f89786aa1be1b690fc5f92b933341199d009db4e2567b9335e46",
+    "backend/app/data/players_2026.json": "ec25314d6906fc69074d44b594cca8338f769d92b37af74cd8ff6738811f074a"
+  },
+  "cases": [
+    {
+      "case": "early_derby_contribution",
+      "role": "featured",
+      "variant_id": 1,
+      "second": 1500,
+      "cursor_second": 0,
+      "audience": "casual",
+      "http_status": 200,
+      "seconds": 7.47,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Manchester United leads 1-0 against Manchester City at 25:00, thanks to Bryan Mbeumo's goal at 15:11, which followed a precise pass from Bruno Fernandes at 15:09. Between 15:00 and 25:00, Fernandes completed three passes directly setting up Mbeumo's shots, including the goal. Manchester City has yet to respond as the match continues with United holding the advantage.",
+            "es": "Manchester United va por delante 1-0 contra Manchester City a los 25:00, gracias al gol de Bryan Mbeumo a los 15:11, tras un pase preciso de Bruno Fernandes a los 15:09. Entre 15:00 y 25:00, Fernandes completó tres pases que llevaron directamente a remates de Mbeumo, incluido el gol. Manchester City aún no ha respondido mientras el partido sigue con la ventaja para United.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-222f9a47-2-featured-e124",
+              "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "draft_rejected",
+          "error": "unsupported_interpretation",
+          "details": {
+            "wording": "precise pass",
+            "language": "en",
+            "issues": [
+              {
+                "code": "unsupported_interpretation",
+                "details": {
+                  "wording": "precise pass",
+                  "language": "en"
+                }
+              },
+              {
+                "code": "unsupported_interpretation",
+                "details": {
+                  "wording": "pase preciso",
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "stage": "revision",
+          "draft": {
+            "en": "Manchester United leads 1-0 against Manchester City at 25:00, with Bryan Mbeumo scoring at 15:11 after receiving a pass from Bruno Fernandes at 15:09. Between 15:00 and 25:00, Fernandes completed three passes that immediately preceded Mbeumo's shots, including the goal. Manchester City has not scored as the match continues with United ahead.",
+            "es": "Manchester United va por delante 1-0 contra Manchester City a los 25:00, con Bryan Mbeumo anotando a los 15:11 tras recibir un pase de Bruno Fernandes a los 15:09. Entre 15:00 y 25:00, Fernandes completó tres pases que precedieron inmediatamente a los remates de Mbeumo, incluido el gol. Manchester City no ha anotado mientras el partido sigue con United ganando.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-222f9a47-2-featured-e124",
+              "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-222f9a47-2-featured",
+        "through_sequence": 210,
+        "since_sequence": 1,
+        "match_second": 1500
+      },
+      "text": {
+        "en": "Manchester United leads 1-0 against Manchester City at 25:00, with Bryan Mbeumo scoring at 15:11 after receiving a pass from Bruno Fernandes at 15:09. Between 15:00 and 25:00, Fernandes completed three passes that immediately preceded Mbeumo's shots, including the goal. Manchester City has not scored as the match continues with United ahead.",
+        "es": "Manchester United va por delante 1-0 contra Manchester City a los 25:00, con Bryan Mbeumo anotando a los 15:11 tras recibir un pase de Bruno Fernandes a los 15:09. Entre 15:00 y 25:00, Fernandes completó tres pases que precedieron inmediatamente a los remates de Mbeumo, incluido el gol. Manchester City no ha anotado mientras el partido sigue con United ganando."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-222f9a47-2-featured-e124",
+          "kind": "goal",
+          "text": "Home scored at 15:11.",
+          "evidence_event_ids": [
+            "library-audit-222f9a47-2-featured-e123",
+            "library-audit-222f9a47-2-featured-e124"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 124
+        },
+        {
+          "story_id": "player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+          "kind": "player_shot_creation",
+          "metric": {
+            "match_id": "library-audit-222f9a47-2-featured",
+            "team_id": "home",
+            "team_name": "Manchester United",
+            "period": 1,
+            "player_id": "home-7",
+            "player_name": "Bruno Fernandes",
+            "start_second": 900,
+            "end_second": 1500,
+            "count": 3,
+            "team_total": 3,
+            "min_gain": 15.0,
+            "max_link_seconds": 10,
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e122",
+              "library-audit-222f9a47-2-featured-e123",
+              "library-audit-222f9a47-2-featured-e140",
+              "library-audit-222f9a47-2-featured-e141",
+              "library-audit-222f9a47-2-featured-e159",
+              "library-audit-222f9a47-2-featured-e160"
+            ],
+            "rule_version": "player-shot-creation-v1",
+            "coverage": "recorded_events_only",
+            "window_mode": "snapshot",
+            "start_inclusive": false,
+            "end_inclusive": true,
+            "links": [
+              {
+                "pass_event_id": "library-audit-222f9a47-2-featured-e122",
+                "shot_event_id": "library-audit-222f9a47-2-featured-e123",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-222f9a47-2-featured-e140",
+                "shot_event_id": "library-audit-222f9a47-2-featured-e141",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-222f9a47-2-featured-e159",
+                "shot_event_id": "library-audit-222f9a47-2-featured-e160",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              }
+            ],
+            "goal_shot_count": 1
+          },
+          "evidence_event_ids": [
+            "library-audit-222f9a47-2-featured-e122",
+            "library-audit-222f9a47-2-featured-e123",
+            "library-audit-222f9a47-2-featured-e140",
+            "library-audit-222f9a47-2-featured-e141",
+            "library-audit-222f9a47-2-featured-e159",
+            "library-audit-222f9a47-2-featured-e160"
+          ],
+          "sequence": 160,
+          "available_second": 1500,
+          "rule_version": "player-shot-creation-v1",
+          "text": "Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00."
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 1,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 1,
+                "away": 0
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 911,
+                  "sequence": 124,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-222f9a47-2-featured-e124"
+                  ],
+                  "goal_clock": "15:11",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "15:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 1,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-222f9a47-2-featured-e124"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "25:00",
+              "match_second": 1500,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e210"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-222f9a47-2-featured-e124",
+            "data": {
+              "story_id": "goal:library-audit-222f9a47-2-featured-e124",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-222f9a47-2-featured-e123",
+                "library-audit-222f9a47-2-featured-e124"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 124,
+              "goal": {
+                "player_name": "Bryan Mbeumo",
+                "team_name": "Manchester United",
+                "clock": "15:11",
+                "match_second": 911
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e123",
+              "library-audit-222f9a47-2-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+            "data": {
+              "story_id": "player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+              "kind": "player_shot_creation",
+              "metric": {
+                "match_id": "library-audit-222f9a47-2-featured",
+                "team_id": "home",
+                "team_name": "Manchester United",
+                "period": 1,
+                "player_id": "home-7",
+                "player_name": "Bruno Fernandes",
+                "start_second": 900,
+                "end_second": 1500,
+                "count": 3,
+                "team_total": 3,
+                "min_gain": 15.0,
+                "max_link_seconds": 10,
+                "evidence_event_ids": [
+                  "library-audit-222f9a47-2-featured-e122",
+                  "library-audit-222f9a47-2-featured-e123",
+                  "library-audit-222f9a47-2-featured-e140",
+                  "library-audit-222f9a47-2-featured-e141",
+                  "library-audit-222f9a47-2-featured-e159",
+                  "library-audit-222f9a47-2-featured-e160"
+                ],
+                "rule_version": "player-shot-creation-v1",
+                "coverage": "recorded_events_only",
+                "window_mode": "snapshot",
+                "start_inclusive": false,
+                "end_inclusive": true,
+                "links": [
+                  {
+                    "pass_event_id": "library-audit-222f9a47-2-featured-e122",
+                    "shot_event_id": "library-audit-222f9a47-2-featured-e123",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-222f9a47-2-featured-e140",
+                    "shot_event_id": "library-audit-222f9a47-2-featured-e141",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-222f9a47-2-featured-e159",
+                    "shot_event_id": "library-audit-222f9a47-2-featured-e160",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  }
+                ],
+                "goal_shot_count": 1
+              },
+              "evidence_event_ids": [
+                "library-audit-222f9a47-2-featured-e122",
+                "library-audit-222f9a47-2-featured-e123",
+                "library-audit-222f9a47-2-featured-e140",
+                "library-audit-222f9a47-2-featured-e141",
+                "library-audit-222f9a47-2-featured-e159",
+                "library-audit-222f9a47-2-featured-e160"
+              ],
+              "sequence": 160,
+              "available_second": 1500,
+              "rule_version": "player-shot-creation-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e122",
+              "library-audit-222f9a47-2-featured-e123",
+              "library-audit-222f9a47-2-featured-e140",
+              "library-audit-222f9a47-2-featured-e141",
+              "library-audit-222f9a47-2-featured-e159",
+              "library-audit-222f9a47-2-featured-e160"
+            ],
+            "window_labels": [
+              "15:00–25:00"
+            ],
+            "chronology": {
+              "actions": [
+                {
+                  "pass_event_id": "library-audit-222f9a47-2-featured-e122",
+                  "shot_event_id": "library-audit-222f9a47-2-featured-e123",
+                  "pass_second": 909,
+                  "shot_second": 910,
+                  "pass_clock": "15:09",
+                  "shot_clock": "15:10",
+                  "shot_sequence": 123,
+                  "shot_outcome": "goal",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-222f9a47-2-featured-e140",
+                  "shot_event_id": "library-audit-222f9a47-2-featured-e141",
+                  "pass_second": 999,
+                  "shot_second": 1000,
+                  "pass_clock": "16:39",
+                  "shot_clock": "16:40",
+                  "shot_sequence": 141,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-222f9a47-2-featured-e159",
+                  "shot_event_id": "library-audit-222f9a47-2-featured-e160",
+                  "pass_second": 1119,
+                  "shot_second": 1120,
+                  "pass_clock": "18:39",
+                  "shot_clock": "18:40",
+                  "shot_sequence": 160,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                }
+              ],
+              "goal_relationships": [
+                {
+                  "goal_event_id": "library-audit-222f9a47-2-featured-e124",
+                  "goal_second": 911,
+                  "goal_clock": "15:11",
+                  "goal_team_id": "home",
+                  "scorer": "Bryan Mbeumo",
+                  "goal_attempt_shot_ids": [
+                    "library-audit-222f9a47-2-featured-e123"
+                  ],
+                  "goal_attempt_count": 1,
+                  "other_earlier_shot_ids": [],
+                  "other_earlier_count": 0,
+                  "later_shot_ids": [
+                    "library-audit-222f9a47-2-featured-e141",
+                    "library-audit-222f9a47-2-featured-e160"
+                  ],
+                  "later_count": 2,
+                  "whole_pattern_precedes_goal": false
+                }
+              ],
+              "missing_link_count": 0,
+              "meaning": "repeated_completed_pass_followed_by_shot",
+              "does_not_measure": [
+                "vision",
+                "finishing_quality",
+                "tactical_causality",
+                "assists"
+              ]
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e122",
+            "sequence": 122,
+            "match_second": 909,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p31",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e123",
+            "sequence": 123,
+            "match_second": 910,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-222f9a47-2-featured:p31",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e124",
+            "sequence": 124,
+            "match_second": 911,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-222f9a47-2-featured:p31",
+            "related_event_id": "library-audit-222f9a47-2-featured-e123",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e140",
+            "sequence": 140,
+            "match_second": 999,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p34",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 69.0,
+            "end_x": 82.0,
+            "end_y": 69.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e141",
+            "sequence": 141,
+            "match_second": 1000,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-222f9a47-2-featured:p34",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 69.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e159",
+            "sequence": 159,
+            "match_second": 1119,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p38",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 17.0,
+            "end_x": 82.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e160",
+            "sequence": 160,
+            "match_second": 1120,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-222f9a47-2-featured:p38",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 17.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e203",
+            "sequence": 203,
+            "match_second": 1442,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Kobbie Mainoo",
+            "recipient_player_name": "Bruno Fernandes",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p49",
+            "related_event_id": null,
+            "x": 35.0,
+            "y": 61.0,
+            "end_x": 41.0,
+            "end_y": 53.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e204",
+            "sequence": 204,
+            "match_second": 1444,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Matthijs de Ligt",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p49",
+            "related_event_id": null,
+            "x": 41.0,
+            "y": 53.0,
+            "end_x": 36.0,
+            "end_y": 58.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e205",
+            "sequence": 205,
+            "match_second": 1446,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Matthijs de Ligt",
+            "recipient_player_name": "Matheus Cunha",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p49",
+            "related_event_id": null,
+            "x": 36.0,
+            "y": 58.0,
+            "end_x": 39.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e206",
+            "sequence": 206,
+            "match_second": 1470,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e207",
+            "sequence": 207,
+            "match_second": 1472,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": "Elliot Anderson",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": 66.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e208",
+            "sequence": 208,
+            "match_second": 1474,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Elliot Anderson",
+            "recipient_player_name": "Rico Lewis",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 66.0,
+            "y": 83.0,
+            "end_x": 60.0,
+            "end_y": 75.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e209",
+            "sequence": 209,
+            "match_second": 1476,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rico Lewis",
+            "recipient_player_name": "Enzo Fernandez",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 60.0,
+            "y": 75.0,
+            "end_x": 57.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e210",
+            "sequence": 210,
+            "match_second": 1500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-222f9a47-2-featured:p51",
+            "related_event_id": null,
+            "x": 43.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-222f9a47-2-featured-e124",
+          "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-222f9a47-2-featured-e124",
+            "player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-222f9a47-2-featured-e124",
+          "second": 911,
+          "team": "Manchester United",
+          "scorer": "Bryan Mbeumo",
+          "shot_id": "library-audit-222f9a47-2-featured-e123"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "azure",
+      "fallback_reason": null,
+      "validation_stage": null,
+      "validation_details": null,
+      "model_review": "model_review_passed",
+      "revision_used": true,
+      "prompt_hash": "428ad78d5458a735e7c5ba3b0d688d5bded7041863f921ae0b42c53320990d11"
+    },
+    {
+      "case": "early_derby_contribution",
+      "role": "featured",
+      "variant_id": 1,
+      "second": 1500,
+      "cursor_second": 0,
+      "audience": "advanced",
+      "http_status": 200,
+      "seconds": 6.92,
+      "evaluation_trace": [
+        {
+          "stage": "draft",
+          "draft": {
+            "en": "Manchester United leads 1-0 at 25:00 after Bryan Mbeumo scored at 15:11 following a pass from Bruno Fernandes at 15:09, marking one of three completed passes from Fernandes to Mbeumo between 15:00 and 25:00 that immediately preceded shots. Mbeumo's goal came just after his shot at 15:10, confirming the lead. Despite two later saved shots by Mbeumo at 16:40 and 18:40, the score remains unchanged as the match continues.",
+            "es": "Manchester United va por delante 1-0 a los 25:00 tras un gol de Bryan Mbeumo a los 15:11, que remató tras un pase de Bruno Fernandes a los 15:09, parte de tres pases completados de Fernandes a Mbeumo entre 15:00 y 25:00 que precedieron inmediatamente a remates. El gol de Mbeumo llegó justo después de su remate a los 15:10. A pesar de dos remates detenidos de Mbeumo a los 16:40 y 18:40, el marcador sigue igual mientras continúa el partido.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-222f9a47-2-featured-e124",
+              "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "draft_rejected",
+          "error": "ambiguous_statistic_window",
+          "details": {
+            "sentence_index": 2,
+            "language": "en",
+            "issues": [
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 2,
+                  "language": "en"
+                }
+              },
+              {
+                "code": "ambiguous_statistic_window",
+                "details": {
+                  "sentence_index": 2,
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "stage": "revision",
+          "draft": {
+            "en": "Manchester United leads 1-0 at 25:00 after Bryan Mbeumo scored at 15:11 following a pass from Bruno Fernandes at 15:09, one of three completed passes from Fernandes to Mbeumo between 15:09 and 18:39 that immediately preceded shots. Mbeumo's goal came just after his shot at 15:10, confirming the lead. Despite two later saved shots by Mbeumo at 16:40 and 18:40, the score remains unchanged as the match continues.",
+            "es": "Manchester United va por delante 1-0 a los 25:00 tras un gol de Bryan Mbeumo a los 15:11, que remató tras un pase de Bruno Fernandes a los 15:09, uno de tres pases completados de Fernandes a Mbeumo entre 15:09 y 18:39 que precedieron inmediatamente a remates. El gol de Mbeumo llegó justo después de su remate a los 15:10. A pesar de dos remates detenidos de Mbeumo a los 16:40 y 18:40, el marcador sigue igual mientras continúa el partido.",
+            "fact_ids": [
+              "score",
+              "trajectory",
+              "phase",
+              "story:goal:library-audit-222f9a47-2-featured-e124",
+              "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+            ]
+          }
+        },
+        {
+          "stage": "revision_validation_rejected",
+          "error": "missing_metric_window",
+          "details": {
+            "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+            "expected_window": "15:00–25:00",
+            "language": "en",
+            "issues": [
+              {
+                "code": "missing_metric_window",
+                "details": {
+                  "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+                  "expected_window": "15:00–25:00",
+                  "language": "en"
+                }
+              },
+              {
+                "code": "missing_selected_contribution",
+                "details": {
+                  "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+                  "named_scope_found": false,
+                  "count_found": true,
+                  "language": "en"
+                }
+              },
+              {
+                "code": "missing_metric_window",
+                "details": {
+                  "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+                  "expected_window": "15:00–25:00",
+                  "language": "es"
+                }
+              },
+              {
+                "code": "missing_selected_contribution",
+                "details": {
+                  "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+                  "named_scope_found": false,
+                  "count_found": true,
+                  "language": "es"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "match_id": "library-audit-222f9a47-2-featured",
+        "through_sequence": 210,
+        "since_sequence": 1,
+        "match_second": 1500
+      },
+      "text": {
+        "en": "Manchester United lead Manchester City 1 to 0. Bryan Mbeumo scored for Manchester United at 15:11. Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00. Each recipient shot on the next recorded action, in the same possession and within ten seconds; this is not a chance-quality rating. There are 65 minutes until ninety, plus added time.",
+        "es": "Manchester United va por delante de Manchester City, 1 a 0. Bryan Mbeumo marcó para Manchester United a los 15:11. Bruno Fernandes encontró repetidamente a Bryan Mbeumo: sus pases completados precedieron directamente 3 de los 3 remates de Manchester United en 15:00–25:00. El receptor remató en la siguiente acción registrada, en la misma posesión y en un máximo de diez segundos; no es una valoración de la ocasión. Faltan 65 minutos para los noventa, más el añadido."
+      },
+      "selected_stories": [
+        {
+          "story_id": "goal:library-audit-222f9a47-2-featured-e124",
+          "kind": "goal",
+          "text": "Home scored at 15:11.",
+          "evidence_event_ids": [
+            "library-audit-222f9a47-2-featured-e123",
+            "library-audit-222f9a47-2-featured-e124"
+          ],
+          "rule_version": "goal-v1",
+          "sequence": 124
+        },
+        {
+          "story_id": "player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+          "kind": "player_shot_creation",
+          "metric": {
+            "match_id": "library-audit-222f9a47-2-featured",
+            "team_id": "home",
+            "team_name": "Manchester United",
+            "period": 1,
+            "player_id": "home-7",
+            "player_name": "Bruno Fernandes",
+            "start_second": 900,
+            "end_second": 1500,
+            "count": 3,
+            "team_total": 3,
+            "min_gain": 15.0,
+            "max_link_seconds": 10,
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e122",
+              "library-audit-222f9a47-2-featured-e123",
+              "library-audit-222f9a47-2-featured-e140",
+              "library-audit-222f9a47-2-featured-e141",
+              "library-audit-222f9a47-2-featured-e159",
+              "library-audit-222f9a47-2-featured-e160"
+            ],
+            "rule_version": "player-shot-creation-v1",
+            "coverage": "recorded_events_only",
+            "window_mode": "snapshot",
+            "start_inclusive": false,
+            "end_inclusive": true,
+            "links": [
+              {
+                "pass_event_id": "library-audit-222f9a47-2-featured-e122",
+                "shot_event_id": "library-audit-222f9a47-2-featured-e123",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-222f9a47-2-featured-e140",
+                "shot_event_id": "library-audit-222f9a47-2-featured-e141",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              },
+              {
+                "pass_event_id": "library-audit-222f9a47-2-featured-e159",
+                "shot_event_id": "library-audit-222f9a47-2-featured-e160",
+                "recipient_player_id": "home-9",
+                "recipient_player_name": "Bryan Mbeumo",
+                "elapsed_seconds": 1
+              }
+            ],
+            "goal_shot_count": 1
+          },
+          "evidence_event_ids": [
+            "library-audit-222f9a47-2-featured-e122",
+            "library-audit-222f9a47-2-featured-e123",
+            "library-audit-222f9a47-2-featured-e140",
+            "library-audit-222f9a47-2-featured-e141",
+            "library-audit-222f9a47-2-featured-e159",
+            "library-audit-222f9a47-2-featured-e160"
+          ],
+          "sequence": 160,
+          "available_second": 1500,
+          "rule_version": "player-shot-creation-v1",
+          "text": "Bruno Fernandes repeatedly found Bryan Mbeumo: his completed passes directly preceded 3 of Manchester United's 3 shots in 15:00–25:00."
+        }
+      ],
+      "evidence": {
+        "source": "synthetic",
+        "facts": [
+          {
+            "fact_id": "score",
+            "data": {
+              "names": {
+                "home": "Manchester United",
+                "away": "Manchester City"
+              },
+              "score": {
+                "home": 1,
+                "away": 0
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "trajectory",
+            "data": {
+              "score": {
+                "home": 1,
+                "away": 0
+              },
+              "transitions": [
+                {
+                  "type": "lead_acquisition",
+                  "team_id": "home",
+                  "player_id": "home-9",
+                  "match_second": 911,
+                  "sequence": 124,
+                  "before": {
+                    "home": 0,
+                    "away": 0
+                  },
+                  "after": {
+                    "home": 1,
+                    "away": 0
+                  },
+                  "rapid_response": null,
+                  "evidence_event_ids": [
+                    "library-audit-222f9a47-2-featured-e124"
+                  ],
+                  "goal_clock": "15:11",
+                  "scorer": "Bryan Mbeumo",
+                  "team_name": "Manchester United",
+                  "shot_clock": "15:10"
+                }
+              ],
+              "lead_acquisitions": {
+                "home": 1,
+                "away": 0
+              },
+              "equalizers": {
+                "home": 0,
+                "away": 0
+              },
+              "evidence_event_ids": [
+                "library-audit-222f9a47-2-featured-e124"
+              ],
+              "rule_version": "score-trajectory-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "phase",
+            "data": {
+              "phase": "playing",
+              "clock": "25:00",
+              "match_second": 1500,
+              "has_new_goals": true
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e210"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:goal:library-audit-222f9a47-2-featured-e124",
+            "data": {
+              "story_id": "goal:library-audit-222f9a47-2-featured-e124",
+              "kind": "goal",
+              "evidence_event_ids": [
+                "library-audit-222f9a47-2-featured-e123",
+                "library-audit-222f9a47-2-featured-e124"
+              ],
+              "rule_version": "goal-v1",
+              "sequence": 124,
+              "goal": {
+                "player_name": "Bryan Mbeumo",
+                "team_name": "Manchester United",
+                "clock": "15:11",
+                "match_second": 911
+              }
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e123",
+              "library-audit-222f9a47-2-featured-e124"
+            ],
+            "window_labels": []
+          },
+          {
+            "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+            "data": {
+              "story_id": "player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+              "kind": "player_shot_creation",
+              "metric": {
+                "match_id": "library-audit-222f9a47-2-featured",
+                "team_id": "home",
+                "team_name": "Manchester United",
+                "period": 1,
+                "player_id": "home-7",
+                "player_name": "Bruno Fernandes",
+                "start_second": 900,
+                "end_second": 1500,
+                "count": 3,
+                "team_total": 3,
+                "min_gain": 15.0,
+                "max_link_seconds": 10,
+                "evidence_event_ids": [
+                  "library-audit-222f9a47-2-featured-e122",
+                  "library-audit-222f9a47-2-featured-e123",
+                  "library-audit-222f9a47-2-featured-e140",
+                  "library-audit-222f9a47-2-featured-e141",
+                  "library-audit-222f9a47-2-featured-e159",
+                  "library-audit-222f9a47-2-featured-e160"
+                ],
+                "rule_version": "player-shot-creation-v1",
+                "coverage": "recorded_events_only",
+                "window_mode": "snapshot",
+                "start_inclusive": false,
+                "end_inclusive": true,
+                "links": [
+                  {
+                    "pass_event_id": "library-audit-222f9a47-2-featured-e122",
+                    "shot_event_id": "library-audit-222f9a47-2-featured-e123",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-222f9a47-2-featured-e140",
+                    "shot_event_id": "library-audit-222f9a47-2-featured-e141",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  },
+                  {
+                    "pass_event_id": "library-audit-222f9a47-2-featured-e159",
+                    "shot_event_id": "library-audit-222f9a47-2-featured-e160",
+                    "recipient_player_id": "home-9",
+                    "recipient_player_name": "Bryan Mbeumo",
+                    "elapsed_seconds": 1
+                  }
+                ],
+                "goal_shot_count": 1
+              },
+              "evidence_event_ids": [
+                "library-audit-222f9a47-2-featured-e122",
+                "library-audit-222f9a47-2-featured-e123",
+                "library-audit-222f9a47-2-featured-e140",
+                "library-audit-222f9a47-2-featured-e141",
+                "library-audit-222f9a47-2-featured-e159",
+                "library-audit-222f9a47-2-featured-e160"
+              ],
+              "sequence": 160,
+              "available_second": 1500,
+              "rule_version": "player-shot-creation-v1"
+            },
+            "evidence_event_ids": [
+              "library-audit-222f9a47-2-featured-e122",
+              "library-audit-222f9a47-2-featured-e123",
+              "library-audit-222f9a47-2-featured-e140",
+              "library-audit-222f9a47-2-featured-e141",
+              "library-audit-222f9a47-2-featured-e159",
+              "library-audit-222f9a47-2-featured-e160"
+            ],
+            "window_labels": [
+              "15:00–25:00"
+            ],
+            "chronology": {
+              "actions": [
+                {
+                  "pass_event_id": "library-audit-222f9a47-2-featured-e122",
+                  "shot_event_id": "library-audit-222f9a47-2-featured-e123",
+                  "pass_second": 909,
+                  "shot_second": 910,
+                  "pass_clock": "15:09",
+                  "shot_clock": "15:10",
+                  "shot_sequence": 123,
+                  "shot_outcome": "goal",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-222f9a47-2-featured-e140",
+                  "shot_event_id": "library-audit-222f9a47-2-featured-e141",
+                  "pass_second": 999,
+                  "shot_second": 1000,
+                  "pass_clock": "16:39",
+                  "shot_clock": "16:40",
+                  "shot_sequence": 141,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                },
+                {
+                  "pass_event_id": "library-audit-222f9a47-2-featured-e159",
+                  "shot_event_id": "library-audit-222f9a47-2-featured-e160",
+                  "pass_second": 1119,
+                  "shot_second": 1120,
+                  "pass_clock": "18:39",
+                  "shot_clock": "18:40",
+                  "shot_sequence": 160,
+                  "shot_outcome": "saved",
+                  "recipient_player_name": "Bryan Mbeumo"
+                }
+              ],
+              "goal_relationships": [
+                {
+                  "goal_event_id": "library-audit-222f9a47-2-featured-e124",
+                  "goal_second": 911,
+                  "goal_clock": "15:11",
+                  "goal_team_id": "home",
+                  "scorer": "Bryan Mbeumo",
+                  "goal_attempt_shot_ids": [
+                    "library-audit-222f9a47-2-featured-e123"
+                  ],
+                  "goal_attempt_count": 1,
+                  "other_earlier_shot_ids": [],
+                  "other_earlier_count": 0,
+                  "later_shot_ids": [
+                    "library-audit-222f9a47-2-featured-e141",
+                    "library-audit-222f9a47-2-featured-e160"
+                  ],
+                  "later_count": 2,
+                  "whole_pattern_precedes_goal": false
+                }
+              ],
+              "missing_link_count": 0,
+              "meaning": "repeated_completed_pass_followed_by_shot",
+              "does_not_measure": [
+                "vision",
+                "finishing_quality",
+                "tactical_causality",
+                "assists"
+              ]
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e122",
+            "sequence": 122,
+            "match_second": 909,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p31",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 10.0,
+            "end_x": 82.0,
+            "end_y": 10.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e123",
+            "sequence": 123,
+            "match_second": 910,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-222f9a47-2-featured:p31",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 10.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e124",
+            "sequence": 124,
+            "match_second": 911,
+            "type": "goal",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "goal",
+            "possession_id": "library-audit-222f9a47-2-featured:p31",
+            "related_event_id": "library-audit-222f9a47-2-featured-e123",
+            "x": 100.0,
+            "y": 50.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e140",
+            "sequence": 140,
+            "match_second": 999,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p34",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 69.0,
+            "end_x": 82.0,
+            "end_y": 69.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e141",
+            "sequence": 141,
+            "match_second": 1000,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-222f9a47-2-featured:p34",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 69.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e159",
+            "sequence": 159,
+            "match_second": 1119,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Bryan Mbeumo",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p38",
+            "related_event_id": null,
+            "x": 95.0,
+            "y": 17.0,
+            "end_x": 82.0,
+            "end_y": 17.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e160",
+            "sequence": 160,
+            "match_second": 1120,
+            "type": "shot",
+            "team_id": "home",
+            "player_name": "Bryan Mbeumo",
+            "recipient_player_name": null,
+            "outcome": "saved",
+            "possession_id": "library-audit-222f9a47-2-featured:p38",
+            "related_event_id": null,
+            "x": 82.0,
+            "y": 17.0,
+            "end_x": 100.0,
+            "end_y": 50.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e203",
+            "sequence": 203,
+            "match_second": 1442,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Kobbie Mainoo",
+            "recipient_player_name": "Bruno Fernandes",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p49",
+            "related_event_id": null,
+            "x": 35.0,
+            "y": 61.0,
+            "end_x": 41.0,
+            "end_y": 53.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e204",
+            "sequence": 204,
+            "match_second": 1444,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": "Matthijs de Ligt",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p49",
+            "related_event_id": null,
+            "x": 41.0,
+            "y": 53.0,
+            "end_x": 36.0,
+            "end_y": 58.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e205",
+            "sequence": 205,
+            "match_second": 1446,
+            "type": "pass",
+            "team_id": "home",
+            "player_name": "Matthijs de Ligt",
+            "recipient_player_name": "Matheus Cunha",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p49",
+            "related_event_id": null,
+            "x": 36.0,
+            "y": 58.0,
+            "end_x": 39.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e206",
+            "sequence": 206,
+            "match_second": 1470,
+            "type": "recovery",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": null,
+            "end_y": null
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e207",
+            "sequence": 207,
+            "match_second": 1472,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Phil Foden",
+            "recipient_player_name": "Elliot Anderson",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 61.0,
+            "y": 73.0,
+            "end_x": 66.0,
+            "end_y": 83.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e208",
+            "sequence": 208,
+            "match_second": 1474,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Elliot Anderson",
+            "recipient_player_name": "Rico Lewis",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 66.0,
+            "y": 83.0,
+            "end_x": 60.0,
+            "end_y": 75.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e209",
+            "sequence": 209,
+            "match_second": 1476,
+            "type": "pass",
+            "team_id": "away",
+            "player_name": "Rico Lewis",
+            "recipient_player_name": "Enzo Fernandez",
+            "outcome": "complete",
+            "possession_id": "library-audit-222f9a47-2-featured:p50",
+            "related_event_id": null,
+            "x": 60.0,
+            "y": 75.0,
+            "end_x": 57.0,
+            "end_y": 63.0
+          },
+          {
+            "event_id": "library-audit-222f9a47-2-featured-e210",
+            "sequence": 210,
+            "match_second": 1500,
+            "type": "recovery",
+            "team_id": "home",
+            "player_name": "Bruno Fernandes",
+            "recipient_player_name": null,
+            "outcome": null,
+            "possession_id": "library-audit-222f9a47-2-featured:p51",
+            "related_event_id": null,
+            "x": 43.0,
+            "y": 25.0,
+            "end_x": null,
+            "end_y": null
+          }
+        ],
+        "required_fact_ids": [
+          "score",
+          "trajectory",
+          "phase",
+          "story:goal:library-audit-222f9a47-2-featured-e124",
+          "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+        ],
+        "editorial_plan": {
+          "story_ids": [
+            "goal:library-audit-222f9a47-2-featured-e124",
+            "player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot"
+          ],
+          "status": "change_detected"
+        },
+        "limits": "Recent raw events are a bounded sample, not a complete tracking feed."
+      },
+      "source_goals": [
+        {
+          "event_id": "library-audit-222f9a47-2-featured-e124",
+          "second": 911,
+          "team": "Manchester United",
+          "scorer": "Bryan Mbeumo",
+          "shot_id": "library-audit-222f9a47-2-featured-e123"
+        }
+      ],
+      "editorial_review": "pending",
+      "writer_mode": "deterministic",
+      "fallback_reason": "missing_metric_window",
+      "validation_stage": "revision_validation",
+      "validation_details": {
+        "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+        "expected_window": "15:00–25:00",
+        "language": "en",
+        "issues": [
+          {
+            "code": "missing_metric_window",
+            "details": {
+              "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+              "expected_window": "15:00–25:00",
+              "language": "en"
+            }
+          },
+          {
+            "code": "missing_selected_contribution",
+            "details": {
+              "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+              "named_scope_found": false,
+              "count_found": true,
+              "language": "en"
+            }
+          },
+          {
+            "code": "missing_metric_window",
+            "details": {
+              "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+              "expected_window": "15:00–25:00",
+              "language": "es"
+            }
+          },
+          {
+            "code": "missing_selected_contribution",
+            "details": {
+              "fact_id": "story:player:player_shot_creation:library-audit-222f9a47-2-featured:home-7:1500:snapshot",
+              "named_scope_found": false,
+              "count_found": true,
+              "language": "es"
+            }
+          }
+        ]
+      },
+      "model_review": null,
+      "revision_used": true,
+      "prompt_hash": "ef0a50b700700419541b10e9dfdd4729c312af1a7df5268add2ca077ff3eb9f6"
+    }
+  ],
+  "complete": true,
+  "independent_fan_study": "not_run",
+  "editorial_verdict": "pending_source_review",
+  "selected_cases": [
+    "early_derby_contribution"
+  ],
+  "version_coverage": [
+    {
+      "variant_id": 1,
+      "role": "featured"
+    }
+  ],
+  "planned_requests": 2,
+  "temporary_groups": [
+    {
+      "id": "library-audit-222f9a47-2",
+      "variant_id": 1,
+      "released": true
+    }
+  ],
+  "capture_rejections": true,
+  "mode_counts": {
+    "azure": 1,
+    "deterministic": 1
+  },
+  "fallback_counts": {
+    "missing_metric_window": 1
+  },
+  "finished_utc": "2026-10-24T20:54:58.992486+00:00"
+}

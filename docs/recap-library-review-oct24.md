@@ -2,6 +2,8 @@
 
 This is a developer source review by Codex, not a human fan study, a pronunciation audition or proof of general factual accuracy. No website was deployed and no Azure resource/quota was changed.
 
+Follow-up: the [targeted shot-list correction](recap-shot-list-fix-oct24.md) addresses the enumerated-shot false rejection and the subsequently captured Spanish goal-attempt classification. Results below retain their original writer versions; they are not replaced by later checks.
+
 ## Frozen protocol
 
 The deterministic report covers all nine versions at 20:00, halftime, 75:30 and full-time, in Casual and Analyst: 72 English/Spanish pairs. A separate recount rebuilds the seeded feeds and checks current scores, observed evidence IDs, goal chronology, linked recoveries/shots/goals, team passing totals and selected player contributions. These checks verify the structured facts; they do not establish that AI prose expresses those facts correctly.

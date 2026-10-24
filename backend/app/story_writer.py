@@ -18,7 +18,7 @@ from app import ai_capacity
 from app import recap_diagnostics
 from app.recap_context import creator_chronology, score_chronology
 
-VERSION = 'fan-narrative-v19-named-scoring-timeline'
+VERSION = 'fan-narrative-v23-verified-shot-list-forms'
 CACHE = OrderedDict()
 LOCK = threading.Lock()
 
