@@ -5,23 +5,29 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "backend"))
-from app.full_match import FULL_MATCHES, full_match_catalog, generate_full_match
+from app.full_match import FULL_MATCHES, generate_full_match
 from app.models import MatchEvent
-from app.matchday import VERSION
+from app.matchday import VERSION, VARIANTS
 
 
 def main():
     output = root / "data" / "synthetic"
     output.mkdir(parents=True, exist_ok=True)
-    catalog = full_match_catalog()
+    catalog = []
     for sid in FULL_MATCHES:
-        events = generate_full_match(sid, match_id=sid)
-        for event in events:
-            MatchEvent(**event)
-        path = output / f"{sid}.jsonl"
-        path.write_text("".join(json.dumps(e) + "\n" for e in events), encoding="utf-8")
-        print(f"{sid}: {len(events)} synthetic events")
-    manifest = {"data_origin": "synthetic", "seed": 7,
+        for variant in range(3):
+            identifier = sid if variant == 0 else f'{sid}-v{variant+1}'
+            events = generate_full_match(sid, match_id=identifier, variant=variant)
+            for event in events:
+                MatchEvent(**event)
+            path = output / f"{identifier}.jsonl"
+            path.write_text("".join(json.dumps(e) + "\n" for e in events), encoding="utf-8")
+            config = VARIANTS[FULL_MATCHES[sid]['role']][variant]
+            catalog.append({'id':identifier, 'fixture_id':sid, 'variant_id':variant+1,
+                            'seed':config['seed'], 'event_count':len(events),
+                            'duration_seconds':5580, 'file':path.name})
+            print(f"{identifier}: {len(events)} synthetic events")
+    manifest = {"data_origin": "synthetic", "selection": "One of three versions per fixture, fixed when a matchday starts",
                 "generator": "backend/app/full_match.py", "version": VERSION,
                 "purpose": "Match analytics and grounded narrative evaluation; no model training performed",
                 "real_fixture_reconstruction": False, "fictional_players": False, "reference_player_identities": True,

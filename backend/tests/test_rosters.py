@@ -16,7 +16,7 @@ def test_shared_roster_has_unique_identities_and_resolvable_demo_slots():
         assert len({p['number'] for p in players.values()}) == len(players)
         identities.extend(players)
         assert all(identity in players for identity in club.get('demo_slots', {}).values())
-    assert len(identities) == len(set(identities)) == 133
+    assert len(identities) == len(set(identities)) == 155
 
 
 def test_actor_slots_are_not_actual_shirt_numbers():

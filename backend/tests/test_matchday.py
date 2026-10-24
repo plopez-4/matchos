@@ -19,6 +19,12 @@ def start(c, day='test-day'):
     return response.json()
 
 
+@pytest.fixture(autouse=True)
+def fixed_matchday_library(monkeypatch):
+    # These clock-boundary regressions intentionally use the first version of each pairing.
+    monkeypatch.setattr(matchday, 'selected_variant', lambda _: 0)
+
+
 def tick_to(c, view, second):
     while view['clock_second'] < second:
         response = c.post(f'/api/matchdays/{view["matchday_id"]}/tick', json={'tick':view['tick']+1})

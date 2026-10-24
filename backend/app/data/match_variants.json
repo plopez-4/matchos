@@ -1,0 +1,211 @@
+{
+  "featured": [
+    {
+      "name": "Early derby pressure",
+      "seed": 7,
+      "shots": {
+        "300": "home",
+        "600": "away",
+        "900": "home",
+        "930": "away",
+        "990": "home",
+        "1050": "away",
+        "1110": "home",
+        "1170": "away",
+        "2400": "away",
+        "4800": "home"
+      },
+      "goals": [900, 2400, 4800],
+      "activity_windows": [[900, 1200]],
+      "creative_spells": {
+        "home": 7,
+        "away": 7
+      },
+      "finishing_spells": {
+        "home": 9,
+        "away": 10
+      }
+    },
+    {
+      "name": "Patient goalless derby",
+      "seed": 41,
+      "shots": {
+        "1500": "home",
+        "3720": "away"
+      },
+      "goals": [],
+      "activity_windows": [],
+      "creative_spells": {},
+      "finishing_spells": {}
+    },
+    {
+      "name": "Late derby comeback",
+      "seed": 83,
+      "shots": {
+        "600": "away",
+        "3000": "home",
+        "4140": "away",
+        "4200": "home",
+        "4260": "away",
+        "4320": "home",
+        "4380": "away",
+        "4440": "home",
+        "4500": "home",
+        "4560": "away",
+        "4620": "home",
+        "4680": "away"
+      },
+      "goals": [600, 3000, 4140, 4500],
+      "activity_windows": [[4200, 4710]],
+      "creative_spells": {
+        "home": 7,
+        "away": 7
+      },
+      "finishing_spells": {
+        "home": 9,
+        "away": 10
+      }
+    }
+  ],
+  "comeback": [
+    {
+      "name": "Palace answer twice",
+      "seed": 17,
+      "shots": {
+        "900": "away",
+        "3600": "home",
+        "3960": "away",
+        "4200": "home",
+        "4230": "away",
+        "4290": "home",
+        "4350": "away",
+        "4410": "home",
+        "4470": "away",
+        "4500": "home",
+        "4560": "away",
+        "4620": "home",
+        "4680": "away",
+        "4740": "home",
+        "4770": "away"
+      },
+      "goals": [900, 3600, 3960, 4500],
+      "activity_windows": [[4200, 4800]],
+      "creative_spells": {
+        "home": 7,
+        "away": 7
+      },
+      "finishing_spells": {
+        "home": 10,
+        "away": 10
+      }
+    },
+    {
+      "name": "First-half exchange",
+      "seed": 53,
+      "shots": {
+        "600": "home",
+        "1800": "home",
+        "1860": "away",
+        "1920": "home",
+        "1980": "away",
+        "2040": "home",
+        "2100": "away",
+        "2160": "home",
+        "2220": "away",
+        "3900": "home"
+      },
+      "goals": [1800, 2100],
+      "activity_windows": [[1800, 2250]],
+      "creative_spells": {
+        "home": 7,
+        "away": 8
+      },
+      "finishing_spells": {
+        "home": 10,
+        "away": 10
+      }
+    },
+    {
+      "name": "Palace control a quiet finish",
+      "seed": 97,
+      "shots": {
+        "600": "home",
+        "1500": "home",
+        "1800": "home",
+        "3300": "away"
+      },
+      "goals": [600, 1800],
+      "activity_windows": [],
+      "creative_spells": {},
+      "finishing_spells": {}
+    }
+  ],
+  "quiet": [
+    {
+      "name": "Patient scoreless contest",
+      "seed": 23,
+      "shots": {
+        "1200": "home",
+        "3300": "away"
+      },
+      "goals": [],
+      "activity_windows": [],
+      "creative_spells": {},
+      "finishing_spells": {}
+    },
+    {
+      "name": "Open first-half contest",
+      "seed": 67,
+      "shots": {
+        "300": "away",
+        "900": "home",
+        "960": "home",
+        "1020": "away",
+        "1080": "home",
+        "1140": "away",
+        "1200": "away",
+        "1260": "home",
+        "1320": "away",
+        "3900": "home"
+      },
+      "goals": [960, 1200],
+      "activity_windows": [[900, 1350]],
+      "creative_spells": {
+        "home": 7,
+        "away": 8
+      },
+      "finishing_spells": {
+        "home": 10,
+        "away": 10
+      }
+    },
+    {
+      "name": "Late Fulham turnaround and reply",
+      "seed": 101,
+      "shots": {
+        "900": "home",
+        "3600": "away",
+        "4200": "away",
+        "4440": "home",
+        "4500": "away",
+        "4560": "home",
+        "4620": "away",
+        "4680": "home",
+        "4740": "home",
+        "4800": "away",
+        "4860": "home",
+        "4920": "away"
+      },
+      "goals": [900, 3600, 4200, 4740],
+      "activity_windows": [[4440, 4950]],
+      "creative_spells": {
+        "home": 7,
+        "away": 8
+      },
+      "finishing_spells": {
+        "home": 10,
+        "away": 10
+      }
+    }
+  ]
+}

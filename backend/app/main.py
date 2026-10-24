@@ -184,6 +184,10 @@ def matchday_view(day_id, members):
         brief_ids = set(briefing['evidence_event_ids']) if briefing else set()
         entries.append({"match_id":mid, "role":profile["role"], "home":profile["home"],
                         "away":profile["away"], "event_count":len(events),
+                        "variant_id":security.matches[mid].get('variant_id', 0)+1,
+                        "starting_lineups":{side:[matchday.player_fields(profile[side], slot)
+                            for slot in matchday.club_for_name(profile[side])['demo_lineup']]
+                            for side in ('home','away')},
                         "pulse":matchday.pulse(events, now),
                         "briefing":briefing,
                         "briefing_events":[e.model_dump() for e in events if e.event_id in brief_ids]})
@@ -221,12 +225,15 @@ def start_matchday(payload: MatchdayStart, request: Request):
                            and security.matches[mid].get('matchday_id') == existing for mid in existing_members):
                         return {**matchday_view(existing, existing_members), 'resumed_due_to_capacity': True}
             raise HTTPException(429, "Not enough demo capacity for three matches")
-        fixtures = [matchday.fixture(profile, mid) for profile, mid in zip(matchday.PROFILES, members)]
+        variants = [matchday.selected_variant(mid) for mid in members]
+        fixtures = [matchday.library_fixture(profile, mid, variant)
+                    for profile, mid, variant in zip(matchday.PROFILES, members, variants)]
         if any(len(feed) > security.MAX_EVENTS for feed in fixtures):
             raise HTTPException(503, "Matchday exceeds event capacity")
-        for mid, profile, feed in zip(members, matchday.PROFILES, fixtures):
+        for mid, profile, feed, variant in zip(members, matchday.PROFILES, fixtures, variants):
             security.claim_match(mid, owner, store, feed, f'matchday-{profile["role"]}')
-            security.matches[mid].update(matchday_id=payload.matchday_id)
+            security.matches[mid].update(matchday_id=payload.matchday_id, variant_id=variant,
+                                        generator_version=matchday.VERSION)
             for raw in feed:
                 if raw["match_second"] > 0:
                     break
