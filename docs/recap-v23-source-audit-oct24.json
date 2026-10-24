@@ -1,0 +1,811 @@
+{
+  "scope": "Source facts and selected contribution recount; not a proof of model prose correctness",
+  "reports": [
+    {
+      "file": "recap-v23-deterministic-oct24.json",
+      "complete": true,
+      "checked_cases": 72,
+      "selected_kinds": {
+        "goal": 114,
+        "recovery_shot": 46,
+        "player_shot_creation": 22
+      },
+      "failures": 0,
+      "cases": [
+        {
+          "case": "featured-v1-1200",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-1200",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-2700",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-2700",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-4530",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-4530",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-5580",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v1-5580",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-1200",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-1200",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-2700",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-2700",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-4530",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-4530",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-5580",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v2-5580",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-1200",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-1200",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-2700",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-2700",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-4530",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-4530",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-5580",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v3-5580",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-1200",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-1200",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-2700",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-2700",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-4530",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-4530",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-5580",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v1-5580",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-1200",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-1200",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-2700",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-2700",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-4530",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-4530",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-5580",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v2-5580",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-1200",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-1200",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-2700",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-2700",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-4530",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-4530",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-5580",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v3-5580",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-1200",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-1200",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-2700",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-2700",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-4530",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-4530",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-5580",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v1-5580",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-1200",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-1200",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-2700",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-2700",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-4530",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-4530",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-5580",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v2-5580",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-1200",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-1200",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-2700",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-2700",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-4530",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-4530",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-5580",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v3-5580",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        }
+      ]
+    },
+    {
+      "file": "recap-v23-nine-version-live-oct24.json",
+      "complete": true,
+      "checked_cases": 18,
+      "selected_kinds": {
+        "goal": 24,
+        "player_shot_creation": 2,
+        "recovery_shot": 16
+      },
+      "failures": 0,
+      "cases": [
+        {
+          "case": "early_derby_contribution",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "early_derby_contribution",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet_brighton",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet_brighton",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "palace_repeated_replies",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "palace_repeated_replies",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "open_brighton",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "open_brighton",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 2,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "first_half_exchange",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "first_half_exchange",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 2,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet_derby",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet_derby",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "no_new_goal_palace",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "no_new_goal_palace",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "late_derby_equalizer",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "late_derby_equalizer",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "late_fulham_turnaround_and_reply",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "late_fulham_turnaround_and_reply",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        }
+      ]
+    },
+    {
+      "file": "recap-v24-focused-live-oct24.json",
+      "complete": true,
+      "checked_cases": 6,
+      "selected_kinds": {
+        "goal": 6,
+        "recovery_shot": 6
+      },
+      "failures": 0,
+      "cases": [
+        {
+          "case": "palace_repeated_replies",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "palace_repeated_replies",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 1,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet_derby",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet_derby",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 2,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "no_new_goal_palace",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        },
+        {
+          "case": "no_new_goal_palace",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 3,
+          "writer_mode": "azure",
+          "source_check": "pass"
+        }
+      ]
+    }
+  ]
+}

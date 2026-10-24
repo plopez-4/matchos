@@ -1,0 +1,144 @@
+{
+  "candidate": "fan-narrative-v23-verified-shot-list-forms",
+  "source_report": "recap-v23-nine-version-live-oct24.json",
+  "review_scope": "Developer EN/ES source review of every displayed pair and relevant rejected drafts; not a human fan study, pronunciation audition, or proof of general entailment.",
+  "reviewed_pairs": 18,
+  "verdict": "not_ready_for_full_reliability_signoff",
+  "counts": {
+    "no_source_error_found": 17,
+    "ambiguous_pass_attribution": 1
+  },
+  "cases": [
+    {
+      "case": "early_derby_contribution",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Score 1-0 at 25:00; Mbeumo goal 15:11 after Fernandes pass 15:09. Three recorded final-pass/shot links in 15:00-25:00, with one goal-producing shot and two saved shots. No claim the entire later pattern preceded the goal.",
+      "editorial": "Generic closing repeats City's failure to equalize."
+    },
+    {
+      "case": "early_derby_contribution",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "Same scorer, pass clock, goal clock, three links and 15:00-25:00 window. Ten-second link rule matches the supplied rule; no unsupported quality claim.",
+      "editorial": "Final sentence restates the pattern while adding its rule and limitation."
+    },
+    {
+      "case": "quiet_brighton",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Muniz recovery 55:00, recorded route Muniz-Cairney-Kevin-Muniz, final pass 55:09 and shot 55:10. Score 0-0 at 55:10 and 75:00. No invented goal or momentum.",
+      "editorial": "Two consecutive scoreless-state sentences are repetitive."
+    },
+    {
+      "case": "quiet_brighton",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "Every action clock matches the recorded Muniz-Cairney-Kevin-Muniz route (55:00,55:02,55:04,55:09,55:10). Score 0-0 at 75:00. No inferred shot quality or momentum.",
+      "editorial": "More timestamps than Casual; no explicit threshold explanation. Closing paraphrases the score."
+    },
+    {
+      "case": "palace_repeated_replies",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Displayed factual fallback: Sarr60:11, Barnes66:11, Mateta75:11, two Newcastle leads answered twice, 2-2 at75:30; Kamada75:00 to Mateta shot75:10 and goal75:11; nine-minute last-goal gap and14:30 regulation remainder are correct.",
+      "editorial": "Fallback remains longer and more formulaic than AI prose.",
+      "rejection_assessment": "Original wrongly credited Kamada all three passes. Revision is source-correct: Kamada made one completed pass and Lerma/Wharton completed two more. Both EN/ES partition wordings are still falsely rejected by the missing-connection guard."
+    },
+    {
+      "case": "palace_repeated_replies",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "All four observed scorers and clocks are correct: Wissa15:11, Sarr60:11, Barnes66:11, Mateta75:11. Kamada recovery75:00; three team passes with Lerma/Wharton; Mateta equalizes2-2; snapshot75:30. Explicit team subject avoids individual-credit error.",
+      "editorial": "Connected chronological explanation; final current clock/score is useful context rather than another goal explanation."
+    },
+    {
+      "case": "open_brighton",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Rutter shot16:10 and goal16:11; Bassey recovery20:00, four collective passes by Bassey(twice), Berge and Smith Rowe, Muniz equalizer20:11; 1-1 at22:30. Shot/goal are not assigned one explicit shared clock.",
+      "editorial": "Compact scoring story with source-linked build-up; no unsupported chance-quality claim."
+    },
+    {
+      "case": "open_brighton",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "Same verified Rutter16:11 and Muniz20:11 goals; Bassey20:00 recovery; four collective passes by the three recorded passers; 1-1 at22:30. No wrong individual count or shared explicit shot/goal timestamp.",
+      "editorial": "Almost the same detail as Casual; audience differentiation is small, not a factual error."
+    },
+    {
+      "case": "first_half_exchange",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Displayed fallback correctly gives Mateta30:11, Wissa recovery35:00/shot35:10/goal35:11,1-1 at37:30,five-minute goal gap and52:30 until90.",
+      "editorial": "Repeating Wissa as recoverer and shooter is clumsy but accurate.",
+      "rejection_assessment": "Original had unsupported precise-shot praise. Revision omits the required team-pass total or shot-duration detail and ambiguously credits Wissa with multiple completed passes; source gives him one, plus one each by Joelinton and Willock. Not accepted as a clean false-rejection example."
+    },
+    {
+      "case": "first_half_exchange",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "Mateta30:11 opens1-0; Wissa35:00 recovery and one pass, Joelinton/Willock two more collectively; Wissa shot35:10 and goal35:11 equalizes1-1; current37:30. Exact recorded partition and distinct action clocks.",
+      "editorial": "Clear, compact explanation. Final current clock is useful."
+    },
+    {
+      "case": "quiet_derby",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Displayed fallback: score0-0, City shot62:10 ten seconds after recovery62:00, one shot in the lastfive minutes versuszero in previousfive;27:30 until90 is correct for62:30snapshot.",
+      "editorial": "Formulaic fallback; repeated goalless state.",
+      "rejection_assessment": "Original Spanish correctly separates recovery62:00 from shot62:10 but 'tras' and noun 'remate' evade the relative-time guard. Revision correctly names the full Enzo-Cherki-Dias-Kovacic-Haaland route. English clock wording 'the match passes 62 minutes' is falsely treated as quantified football passes."
+    },
+    {
+      "case": "quiet_derby",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "Displayed fallback has the correct0-0 score,62:00 recovery/62:10 shot,10-second duration,30-second rule,1-vs0shot comparison,62:30snapshot and27:30 regulation remainder.",
+      "editorial": "Fallback repeats goalless state.",
+      "rejection_assessment": "Both captured drafts correctly timestamp every recorded pass and say the recovery-to-shot sequence lasted10 seconds within the30-second threshold. The duration-plus-threshold continuation is falsely treated as an unscoped shot statistic; the fully timed-route coverage also rejects the additional valid10-second duration."
+    },
+    {
+      "case": "no_new_goal_palace",
+      "audience": "casual",
+      "verdict": "ambiguous_pass_attribution",
+      "notes": "Score2-0at75:00 and Mateta10:11/Sarr30:11 goals are correct. Recovery55:00 and Barnes shot55:10 are correct. Material ambiguity: 'Wissa...quickly passing to Joe Willock, then Tino Livramento, Anthony Elanga, and finally Harvey Barnes' (and ES 'pasando...luego...finalmente') grammatically assigns multiple recipients to Wissa. Actual path is Wissa->Willock->Livramento->Elanga->Barnes, with Wissa making only the first pass.",
+      "editorial": "Pass-owner ambiguity is not approved as factually clear, even though every named player belongs to the route."
+    },
+    {
+      "case": "no_new_goal_palace",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "Displayed fallback correctly reports Palace2-0,no new goals since45:00cursor,Wissa55:00 recovery/Barnes55:10shot,ten-second duration,30-second rule,no shots70:00-75:00,and15minutes until90.",
+      "editorial": "Formulaic but contextually accurate.",
+      "rejection_assessment": "Original EN/ES draft describes the recorded route as a collective sequence through Willock/Livramento/Elanga and correctly states10 seconds within30; duration/threshold continuation is falsely rejected. Revision introduces Spanish 'asistio' for a pass with no recorded assist and is rejected by the assist guard."
+    },
+    {
+      "case": "late_derby_equalizer",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Doku10:11,Amad50:11,Haaland69:11,Mbeumo75:11 and2-2at75:30 are correct. Mount recovery75:01 and the three-pass sequence involving Ugarte/Fernandes matches the source.",
+      "editorial": "'Mount...completed a sequence of three passes involving...' can imply individual ownership; because it explicitly names a collective sequence, no definite false count is asserted. Prefer an explicit team subject for clarity."
+    },
+    {
+      "case": "late_derby_equalizer",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "All four historical/current scorer-clock pairs correct. Mount75:01 recovery; explicit United team subject owns three passes with Ugarte/Fernandes; Mbeumo75:11equalizer2-2; snapshot75:30.",
+      "editorial": "Explicit team subject is clearer than Casual. 'Quick shot' is unnecessary, but no measured skill/quality or tactic is claimed."
+    },
+    {
+      "case": "late_fulham_turnaround_and_reply",
+      "audience": "casual",
+      "verdict": "no_source_error_found",
+      "notes": "Mitoma shot15:10/goal15:11; Kevin60:11equalizer and70:11lead; Minteh79:00 recovery; Brighton four passes by Minteh/Wieffer/Boscagli/Hinshelwood; Rutter79:11equalizes2-2at80:00. All historical scorers and score effects match.",
+      "editorial": "Uses older goals as explicit context; long but connected and does not present them as new."
+    },
+    {
+      "case": "late_fulham_turnaround_and_reply",
+      "audience": "advanced",
+      "verdict": "no_source_error_found",
+      "notes": "2-2at80:00; Minteh79:00recovery/four-pass Brighton sequence/Rutter79:11equalizer; Kevin60:11equalizer and70:11lead after Mitoma15:11opening goal. Collective sequence does not claim the named subset made all four passes individually.",
+      "editorial": "Leads with the current state and latest action before clearly labeled earlier context."
+    }
+  ]
+}

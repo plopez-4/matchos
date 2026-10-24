@@ -22,6 +22,8 @@ The [nine-match recap audit](docs/recap-library-review-oct24.md) preserves froze
 
 The [shot-list follow-up](docs/recap-shot-list-fix-oct24.md) fixes the captured rejection of exact saved-shot lists and distinguishes Spanish goal attempts from scored goals, with source-backed positive and negative checks.
 
+The [full v23 nine-match review](docs/recap-v23-nine-match-review-oct24.md) completed all eighteen live requests (thirteen AI recaps, five factual fallbacks). It found one accepted pass-owner ambiguity and four requests containing valid drafts rejected by wording checks. Subsequent validation changes cover those captured cases, with a separate six-request confirmation (four AI recaps, two factual fallbacks). The latest candidate still needs live acceptance and human checks. All 96 deterministic/live source packets passed the independent recount.
+
 ## Core architecture
 
 ```text
