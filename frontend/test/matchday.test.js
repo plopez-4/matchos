@@ -1,6 +1,51 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { playMatchday, createReleaseRecovery, discoveryReason } from '../src/utils/matchday.js';
+import {
+  playMatchday,
+  createReleaseRecovery,
+  discoveryReason,
+  nextRadarNotice,
+} from '../src/utils/matchday.js';
+
+test('a hot-match notice persists across ticks and ranking changes, then expires on source evidence', () => {
+  const entry = {
+    match_id: 'palace',
+    pulse: { eligible: true, why_now: { headline: 'Level', expires_at_second: 3780 } },
+  };
+  const view = {
+    clock_second: 3630,
+    matches: [entry],
+    notification: { id: 'n1', match_id: 'palace' },
+  };
+  const notice = nextRadarNotice(null, view);
+  assert.equal(notice.entry.match_id, 'palace');
+  assert.equal(
+    nextRadarNotice(notice, {
+      ...view,
+      notification: null,
+      recommendation: { match_id: 'other' },
+      clock_second: 3660,
+    }).id,
+    'n1',
+  );
+  assert.equal(nextRadarNotice(notice, { ...view, notification: null, clock_second: 3780 }), null);
+  assert.equal(nextRadarNotice(notice, { ...view, finished: true }), null);
+});
+
+test('dismissed, quiet and missing matches cannot produce a radar notification', () => {
+  const view = {
+    clock_second: 30,
+    matches: [{ match_id: 'quiet', pulse: { eligible: false, why_now: null } }],
+    notification: { id: 'n1', match_id: 'quiet' },
+  };
+  assert.equal(nextRadarNotice(null, view), null);
+  assert.equal(nextRadarNotice(null, { ...view, matches: [] }), null);
+  const hot = {
+    ...view,
+    matches: [{ match_id: 'quiet', pulse: { eligible: true, why_now: { expires_at_second: 60 } } }],
+  };
+  assert.equal(nextRadarNotice(null, hot, new Set(['n1'])), null);
+});
 
 test('older backend recommendations remain readable without the new discovery field', () => {
   const entry = {

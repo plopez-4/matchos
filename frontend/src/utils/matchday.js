@@ -1,5 +1,23 @@
 import { waitForReplay } from './replay.js';
 
+// A notification is only usable while its own match still has the supported reason.
+// Do not tie an already visible notice to the next tick's ranking winner.
+export function nextRadarNotice(current, view, dismissed = new Set()) {
+  const candidate = view?.notification;
+  const notice = candidate && !dismissed.has(candidate.id) ? candidate : current;
+  if (!notice || dismissed.has(notice.id)) return null;
+  const entry = view?.matches.find((item) => item.match_id === notice.match_id);
+  const reason = entry?.pulse?.why_now;
+  if (
+    !entry?.pulse?.eligible ||
+    !reason ||
+    view.finished ||
+    view.clock_second >= reason.expires_at_second
+  )
+    return null;
+  return { ...notice, entry, reason };
+}
+
 // A running tab can receive an older server response during a restart.
 export function discoveryReason(entry, now = 0) {
   if (!entry) return null;

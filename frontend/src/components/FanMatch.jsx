@@ -11,18 +11,31 @@ import { ReplayControls } from './ReplayControls';
 import { PitchReplay } from './PitchReplay';
 import { FocusedRecap } from './FocusedRecap';
 
-export function FanMatch({ matchId, scenarioId, autoStart, onNewMatch, onScenarioChange }) {
+export function FanMatch({
+  matchId,
+  scenarioId,
+  autoStart,
+  onNewMatch,
+  onScenarioChange,
+  sharedPlayback,
+  initialMoment,
+}) {
   const [result, dispatch] = useReducer(catchUpReducer, initialCatchUpState);
   const { summary, busy, error } = result;
   const [audience, setAudience] = useState('casual');
-  const [language, setLanguage] = useState('en');
+  const [localLanguage, setLocalLanguage] = useState('en');
+  const language = sharedPlayback?.language ?? localLanguage;
+  const setLanguage = sharedPlayback?.setLanguage ?? setLocalLanguage;
   const [running, setRunning] = useState(autoStart);
-  const [reviewing, setReviewing] = useState(false);
-  const [pitchRequest, setPitchRequest] = useState(null);
+  const [reviewing, setReviewing] = useState(Boolean(initialMoment));
+  const [pitchRequest, setPitchRequest] = useState(
+    initialMoment ? { id: initialMoment.event_id, nonce: Date.now() } : null,
+  );
   const playback = useRef(null);
   const request = useRef(null);
   const generation = useRef(0);
-  const cursor = useRef(0);
+  const localCursor = useRef(0);
+  const cursor = sharedPlayback?.cursor ?? localCursor;
   const es = language === 'es';
   const reset = useCallback(() => {
     request.current?.abort();
@@ -49,6 +62,8 @@ export function FanMatch({ matchId, scenarioId, autoStart, onNewMatch, onScenari
   } = useMatchData(matchId, {
     onReset: reset,
     includeGraph: false,
+    enabled: !sharedPlayback || sharedPlayback.ready,
+    pollInterval: sharedPlayback ? 750 : 2000,
   });
   const briefing = summary?.fan_briefing;
   const teams = teamsForScenario(scenarioId);
@@ -59,12 +74,12 @@ export function FanMatch({ matchId, scenarioId, autoStart, onNewMatch, onScenari
   const important = featuredMoment(events);
   const second = events.at(-1)?.match_second ?? 0;
   const finished = events.at(-1)?.type === 'match_end';
-  const inspectorUrl = `/?view=development&match=${encodeURIComponent(matchId)}&scenario=${encodeURIComponent(scenarioId)}`;
+  const inspectorUrl = `/?view=development&match=${encodeURIComponent(matchId)}&scenario=${encodeURIComponent(scenarioId)}${sharedPlayback?.dayId ? `&day=${encodeURIComponent(sharedPlayback.dayId)}` : ''}`;
 
   async function pause() {
     setRunning(false);
     setReviewing(true);
-    await playback.current?.pause();
+    await (sharedPlayback ? sharedPlayback.pause() : playback.current?.pause());
   }
   async function catchUp(style = audience, sinceOverride) {
     if (request.current) return;
@@ -106,12 +121,18 @@ export function FanMatch({ matchId, scenarioId, autoStart, onNewMatch, onScenari
     setReviewing(false);
     setPitchRequest({ latest: true, nonce: Date.now() });
   }
+  useEffect(() => {
+    if (sharedPlayback?.running) clearReview();
+  }, [sharedPlayback?.running]);
   function changeRunning(next) {
     if (next) clearReview();
     setRunning(next);
   }
   function continueMatch() {
-    if (finished) clearReview();
+    if (sharedPlayback) {
+      clearReview();
+      if (!finished) sharedPlayback.resume();
+    } else if (finished) clearReview();
     else playback.current?.resume();
   }
   async function replay(event) {
@@ -125,20 +146,24 @@ export function FanMatch({ matchId, scenarioId, autoStart, onNewMatch, onScenari
       <MatchHeader compact status={status} error={connectionError} lastUpdated={lastUpdated} />
       <main className="fan-match-flow">
         <Scoreboard compact analytics={data.analytics} events={events} fixtureTeams={teams} />
-        <ReplayControls
-          compact
-          controlsRef={playback}
-          running={running}
-          onRunningChange={changeRunning}
-          matchId={matchId}
-          scenarioId={scenarioId}
-          hasEvents={data.events.length > 0}
-          observedSequence={data.events.at(-1)?.sequence ?? 0}
-          loading={status === 'loading'}
-          autoStart={autoStart}
-          onNewMatch={onNewMatch}
-          onScenarioChange={onScenarioChange}
-        />
+        {sharedPlayback ? (
+          sharedPlayback.controls
+        ) : (
+          <ReplayControls
+            compact
+            controlsRef={playback}
+            running={running}
+            onRunningChange={changeRunning}
+            matchId={matchId}
+            scenarioId={scenarioId}
+            hasEvents={data.events.length > 0}
+            observedSequence={data.events.at(-1)?.sequence ?? 0}
+            loading={status === 'loading'}
+            autoStart={autoStart}
+            onNewMatch={onNewMatch}
+            onScenarioChange={onScenarioChange}
+          />
+        )}
         {reviewing && (
           <div className="fan-review-state" role="status">
             <span>
@@ -147,8 +172,12 @@ export function FanMatch({ matchId, scenarioId, autoStart, onNewMatch, onScenari
                 : `Reviewing action up to ${formatMatchSecond(second)}.`}
               <small>
                 {es
-                  ? 'El partido está en pausa mientras repasas lo ocurrido.'
-                  : 'The match is paused while you look back.'}
+                  ? sharedPlayback
+                    ? 'Los tres partidos están en pausa mientras repasas lo ocurrido.'
+                    : 'El partido está en pausa mientras repasas lo ocurrido.'
+                  : sharedPlayback
+                    ? 'All three matches are paused while you look back.'
+                    : 'The match is paused while you look back.'}
               </small>
             </span>
             <button className="btn-primary" onClick={continueMatch}>
