@@ -60,6 +60,11 @@ test('speech reads the supplied snapshot, sets its language, and supports comple
   assert.equal(f.cancels(), 1);
   assert.equal(f.spoken[1].onend, null);
 });
+test('device voice pronounces English match clocks ending in :00 as minutes', () => {
+  const f = fixture();
+  f.controller.listen('Goal at 15:00. At 20:00 minutes, United led. Window 10:00–20:00. Kickoff at 1:00.', 'en');
+  assert.equal(f.spoken[0].text, 'Goal at 15 minutes. At 20 minutes, United led. Window 10 minutes–20 minutes. Kickoff at 1 minute.');
+});
 test('two story cards cannot queue overlapping recaps; old cleanup cannot cancel the new one', () => {
   const a = fixture(),
     b = fixture();

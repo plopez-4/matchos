@@ -41,15 +41,18 @@ VARIANTS = json.loads(files('app').joinpath('data/match_variants.json').read_tex
 
 def selected_variant(match_id):
     """Independent uniform-style selection from a random matchday UUID; stable on reopen."""
-    return int.from_bytes(sha256(match_id.encode()).digest()[:8], 'big') % 3
+    if 'red-card' in match_id or 'red_card' in match_id:
+        return 3
+    return int.from_bytes(sha256(match_id.encode()).digest()[:8], 'big') % len(VARIANTS['featured'])
 
 
 def versioned_profile(profile, variant):
-    if variant not in range(3):
+    if variant not in range(len(VARIANTS[profile['role']])):
         raise ValueError('Unknown match version')
     config = VARIANTS[profile['role']][variant]
     return {**profile, **config, 'shots': {int(t):side for t,side in config['shots'].items()},
-            'goals': set(config['goals']), 'varied_routes': True}
+            'goals': set(config['goals']), 'varied_routes': True,
+            'red_card': config.get('red_card')}
 
 
 def library_fixture(profile, match_id, variant):
@@ -88,16 +91,25 @@ def fixture(profile, match_id, seed=None):
         direction = 1 if team == "home" else -1
         possession = f"{match_id}:p{slot//30+1}"
 
-        def emit(second, kind, player, **fields):
+        def emit(second, kind, player, event_team=None, **fields):
+            t = event_team or team
             sequence = len(result)+1
             raw = dict(schema_version="1.2", event_id=f"{match_id}-e{sequence}",
                        match_id=match_id, sequence=sequence, period=period,
-                       match_second=second, team_id=team, team_name=profile[team],
-                       player_id=f"{team}-{player}", **player_fields(profile[team], player),
+                       match_second=second, team_id=t, team_name=profile[t],
+                       player_id=f"{t}-{player}", **player_fields(profile[t], player),
                        roster_version=ROSTER_DATA["version"],
                        type=kind, x=x, y=y, possession_id=possession, source="synthetic", **fields)
             result.append(MatchEvent(**raw).model_dump())
             return raw["event_id"]
+
+        red_card_cfg = profile.get("red_card")
+        if red_card_cfg and slot == red_card_cfg.get("second"):
+            card_team = red_card_cfg["team"]
+            card_player = red_card_cfg.get("player") or red_card_cfg.get("player_slot")
+            if card_player in active[card_team]:
+                emit(slot, "red_card", card_player, event_team=card_team)
+                active[card_team].remove(card_player)
 
         if slot == 2700:
             period = 1
@@ -109,12 +121,18 @@ def fixture(profile, match_id, seed=None):
         # reappear as senders or recipients after their authored substitution.
         used = replacements[team]
         if used < len(benches[team]) and slot >= 3600 + used * 300 and not previous_goal:
-            outgoing = [11, 8, 2, 6, 9][used]
-            incoming = benches[team][used]
-            emit(slot, 'substitution', outgoing, recipient_player_id=f'{team}-{incoming}',
-                 **player_fields(profile[team], incoming, 'recipient_player'))
-            active[team][active[team].index(outgoing)] = incoming
-            replacements[team] += 1
+            candidate_outgoing = [11, 8, 2, 6, 9][used]
+            if candidate_outgoing in active[team]:
+                outgoing = candidate_outgoing
+            else:
+                candidates = [p for p in active[team] if player_for_slot(profile[team], p)['position'] != 'GK']
+                outgoing = candidates[0] if candidates else None
+            if outgoing:
+                incoming = benches[team][used]
+                emit(slot, 'substitution', outgoing, recipient_player_id=f'{team}-{incoming}',
+                     **player_fields(profile[team], incoming, 'recipient_player'))
+                active[team][active[team].index(outgoing)] = incoming
+                replacements[team] += 1
         outfield = [actor for actor in active[team] if player_for_slot(profile[team], actor)['position'] != 'GK']
         holder = outfield[(slot//60 + (3 if team == 'away' else 0)) % len(outfield)]
         keepers = [actor for actor in active[team] if player_for_slot(profile[team], actor)['position'] == 'GK']
@@ -183,8 +201,11 @@ def pulse(events, now):
     current = [e for e in events if max(-1, now-300) < e.match_second <= now and e.type == "shot"]
     previous = [e for e in events if max(-1, now-600) < e.match_second <= now-300 and e.type == "shot"]
     goals = [e for e in events if e.type == "goal" and e.match_second <= now]
+    red_cards = [e for e in events if e.type == "red_card" and e.match_second <= now]
+    recent_red_cards = [e for e in red_cards if now-180 < e.match_second <= now]
     score = {team: sum(e.team_id == team for e in goals) for team in ("home", "away")}
     shots = {team: sum(e.team_id == team for e in current) for team in ("home", "away")}
+    card_counts = {team: sum(e.team_id == team for e in red_cards) for team in ("home", "away")}
     close = abs(score["home"]-score["away"]) <= 1
     two_way = min(shots.values()) >= 1 and len(current) >= 4
     increasing = len(current) >= len(previous)+2
@@ -194,12 +215,14 @@ def pulse(events, now):
                   "two_way_shots":30 if two_way else 0,
                   "rising_shot_activity":20 if increasing else 0,
                   "late_close_match":15 if close and late else 0,
-                  "recent_goal":10 if close and recent_goals else 0}
+                  "recent_goal":10 if close and recent_goals else 0,
+                  "recent_red_card":35 if recent_red_cards else 0}
     rating = sum(components.values())
-    why_now = watch_reason(events, now, score, current, previous, close and two_way and rating >= 65)
+    why_now = watch_reason(events, now, score, current, previous, close and two_way and rating >= 65, recent_red_cards=recent_red_cards)
     eligible = why_now is not None
-    evidence = {e.event_id:e for e in current+previous+goals}
+    evidence = {e.event_id:e for e in current+previous+goals+red_cards}
     return {"score":score, "shots_last_five":shots, "shots_previous_five":len(previous),
+            "red_cards":card_counts,
             "rating":rating, "components":components, "eligible":eligible, "why_now":why_now,
             "reason": f'{shots["home"]} home and {shots["away"]} away shots in the last five minutes; {len(previous)} total in the previous five.',
             "evidence_event_ids":list(evidence),
@@ -209,7 +232,7 @@ def pulse(events, now):
             "suppression_reason": None if eligible else "finished" if now >= DURATION else "not_enough_recent_two_way_activity" if not two_way else "not_a_close_contest" if not close else "below_threshold"}
 
 
-def watch_reason(events, now, score, current, previous, activity_eligible):
+def watch_reason(events, now, score, current, previous, activity_eligible, recent_red_cards=None):
     """A short discovery reason; eligibility and wording use observed facts only."""
     if now >= DURATION or (events and events[-1].type in ("half_end", "match_end")):
         return None
@@ -229,7 +252,10 @@ def watch_reason(events, now, score, current, previous, activity_eligible):
         # Only the latest goal can describe the current score change.
         trigger = (kind, goal) if kind and now-180 < goal.match_second <= now else None
     scoreline = f'{names["home"]} {score["home"]}–{score["away"]} {names["away"]}'
-    if trigger:
+    card_event = recent_red_cards[-1] if recent_red_cards else None
+    card_is_newer = (card_event is not None and (trigger is None or card_event.match_second >= trigger[1].match_second))
+
+    if trigger and not card_is_newer:
         kind, goal = trigger
         headline = (f'{names[goal.team_id]} have just drawn level.' if kind == "equalizer"
                     else f'{names[goal.team_id]} have turned the lead around.')
@@ -240,6 +266,15 @@ def watch_reason(events, now, score, current, previous, activity_eligible):
             reason += f'The equalizer came {minutes}:{seconds:02d} after the previous goal. '
         expires = goal.match_second+180
         ids = [e.event_id for e in goals]
+    elif card_event:
+        kind = "red_card"
+        player_name = card_event.player_name or f"Player {card_event.player_id}"
+        team_name = names[card_event.team_id]
+        headline = f'{team_name} down to 10 men after {player_name} was sent off.'
+        c_min, c_sec = divmod(card_event.match_second, 60)
+        reason = f'{scoreline}. {player_name} was shown a red card at {c_min}:{c_sec:02d}. '
+        expires = card_event.match_second+180
+        ids = [e.event_id for e in goals] + [card_event.event_id]
     elif activity_eligible:
         kind = "shot_activity"
         headline = 'Both sides are recording shots in a close match.'
@@ -258,9 +293,12 @@ def watch_reason(events, now, score, current, previous, activity_eligible):
         reason += f'{minutes}:{seconds:02d} until ninety, plus added time.'
     else:
         reason += 'The match is in added time.'
-    return {"trigger":kind, "headline":headline, "text":reason,
-            "observed_second":now, "expires_at_second":min(expires, DURATION),
-            "evidence_event_ids":list(dict.fromkeys(ids))}
+    result_dict = {"trigger":kind, "headline":headline, "text":reason,
+                   "observed_second":now, "expires_at_second":min(expires, DURATION),
+                   "evidence_event_ids":list(dict.fromkeys(ids))}
+    if card_event and kind == "red_card":
+        result_dict["card_event_id"] = card_event.event_id
+    return result_dict
 
 
 def rank(entries):

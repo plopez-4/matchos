@@ -31,6 +31,12 @@ export function FanMatch({
   const [pitchRequest, setPitchRequest] = useState(
     initialMoment ? { id: initialMoment.event_id, nonce: Date.now() } : null,
   );
+  useEffect(() => {
+    if (initialMoment) {
+      setReviewing(true);
+      setPitchRequest({ id: initialMoment.event_id, nonce: Date.now() });
+    }
+  }, [initialMoment]);
   const playback = useRef(null);
   const request = useRef(null);
   const generation = useRef(0);
@@ -208,9 +214,13 @@ export function FanMatch({
                 ? es
                   ? 'Ver el gol'
                   : 'See the goal'
-                : es
-                  ? 'Ver la ocasión'
-                  : 'See the chance'}
+                : important.type === 'red_card'
+                  ? es
+                    ? 'Ver la tarjeta roja'
+                    : 'See the red card'
+                  : es
+                    ? 'Ver la ocasión'
+                    : 'See the chance'}
             </button>
           )}
         </section>

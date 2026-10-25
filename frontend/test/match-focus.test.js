@@ -101,6 +101,18 @@ test('goal alerts select the promised goal instead of a later ordinary action', 
   assert.equal(alertMoment(null), null);
 });
 
+test('red card alerts select the red card event and moment title describes it', () => {
+  const events = [
+    event(1, 'pass'),
+    event(2, 'red_card', { player_name: 'Elliot Anderson' }),
+    event(3, 'shot'),
+  ];
+  const entry = { pulse: { why_now: { trigger: 'red_card' }, evidence_events: events } };
+  assert.equal(alertMoment(entry).event_id, 'e2');
+  assert.equal(momentTitle(events[1]), 'Elliot Anderson: red card shown.');
+  assert.equal(featuredMoment(events).event_id, 'e2');
+});
+
 test('moment titles describe the selected historical goal using its own transition', () => {
   const briefing = {
     trajectory: {

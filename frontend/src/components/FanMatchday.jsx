@@ -319,7 +319,11 @@ export function FanMatchday({ initialScenarioId }) {
               <p>{notice.reason.text}</p>
             </div>
             <button className="btn-primary" onClick={openNotice}>
-              {es ? 'Ver la jugada →' : 'See the moment →'}
+              {notice.reason.trigger === 'red_card'
+                ? (es ? 'Ver la tarjeta roja →' : 'See the red card →')
+                : ['equalizer', 'lead_reversal'].includes(notice.reason.trigger)
+                ? (es ? 'Ver el gol →' : 'See the goal →')
+                : (es ? 'Ver la jugada →' : 'See the moment →')}
             </button>
           </aside>,
           document.body,

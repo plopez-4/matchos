@@ -6,7 +6,7 @@ The optional Azure Speech integration is implemented and tested with mocked prov
 
 The main fan page defaults to **Automatic (Azure when connected)**. Once the server reports Speech availability, Listen uses the Matchday Azure profile in the selected recap language, including Spanish on computers with only English voices installed. Without Speech configuration, Automatic uses an installed matching device voice; it remains disabled when neither provider can serve that language. Explicit voice choices are preserved, and a failed Azure request never silently switches providers. After connecting Speech, reload the page or use **Voice options → Check voice connection**.
 
-Each Match Story card offers **Matchday narrator**, **Warm storyteller** and **Device voice (basic)**. **Listen** reads the selected match snapshot. **Preview voice** compares profiles on the same verified, synthetic Palace–Newcastle 2–2 recap at 75:30. Preview is separate from the selected fixture's recap.
+Both the main fan screen and the Match Story dev view offer two voice choices: **Automatic (Azure when connected)** and **Warm storyteller**. Both views default to Automatic. **Listen** reads the selected match snapshot. **Preview voice** compares profiles on the same verified, synthetic Palace–Newcastle 2–2 recap at 75:30. Preview is separate from the selected fixture's recap.
 
 | Profile           | English               | Spanish                | Measured / recent-goal styles                    |
 | ----------------- | --------------------- | ---------------------- | ------------------------------------------------ |

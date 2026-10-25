@@ -122,3 +122,17 @@ def test_roster_audition_requires_session_is_bounded_and_rejects_text(monkeypatc
         with pytest.raises(HTTPException) as error:
             audition_voice(VoiceAuditionRequest(roster_batch=0), None)
         assert error.value.status_code == 404
+
+
+def test_english_clock_pronunciation_uses_minutes_alias_and_preserves_text():
+    text = 'Goal at 15:00. At 20:00 minutes, United led. Window 10:00–20:00. Kickoff at 1:00. Later at 15:30.'
+    ssml = '<p>' + speech_markup(text, 'en') + '</p>'
+    root = ET.fromstring(ssml)
+    assert ''.join(root.itertext()) == text
+    subs = root.findall('sub')
+    assert len(subs) == 5
+    assert subs[0].text == '15:00' and subs[0].attrib['alias'] == '15 minutes'
+    assert subs[1].text == '20:00' and subs[1].attrib['alias'] == '20'
+    assert subs[2].text == '10:00' and subs[2].attrib['alias'] == '10 minutes'
+    assert subs[3].text == '20:00' and subs[3].attrib['alias'] == '20 minutes'
+    assert subs[4].text == '1:00' and subs[4].attrib['alias'] == '1 minute'

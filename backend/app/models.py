@@ -11,7 +11,7 @@ class MatchEvent(BaseModel):
     match_second: int = Field(ge=0, le=9000)
     team_id: Literal["home", "away"]
     player_id: str = Field(min_length=1, max_length=100)
-    type: Literal["kickoff", "pass", "shot", "goal", "recovery", "substitution", "half_end", "match_end"]
+    type: Literal["kickoff", "pass", "shot", "goal", "recovery", "substitution", "red_card", "half_end", "match_end"]
     x: float = Field(ge=0, le=100)
     y: float = Field(ge=0, le=100)
     source: Literal["synthetic"] = "synthetic"

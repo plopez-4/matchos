@@ -117,6 +117,7 @@ export function PitchReplay({
     setPlaying(true);
     onMomentSelect?.(
       target.events.find((e) => e.type === 'goal') ??
+        target.events.find((e) => e.type === 'red_card') ??
         target.events.find((e) => e.type === 'shot') ??
         target.events.at(-1),
     );
@@ -131,7 +132,7 @@ export function PitchReplay({
   const ballX = event ? x(isVector ? event.end_x : event.x) : 600;
   const ballY = event ? y(isVector ? event.end_y : event.y) : 390;
   const moments = moves
-    .filter((m) => m.events.some((e) => e.type === 'shot' || e.type === 'goal'))
+    .filter((m) => m.events.some((e) => ['shot', 'goal', 'red_card'].includes(e.type)))
     .slice(-6)
     .reverse();
   return (
@@ -414,10 +415,14 @@ export function PitchReplay({
           <div className="pitch-moments" aria-label="Replay key moments">
             {moments.map((m) => {
               const key =
-                m.events.find((e) => e.type === 'goal') ?? m.events.find((e) => e.type === 'shot');
+                m.events.find((e) => e.type === 'goal') ??
+                m.events.find((e) => e.type === 'red_card') ??
+                m.events.find((e) => e.type === 'shot');
+              const isCard = key.type === 'red_card';
               return (
                 <button
                   key={m.id}
+                  className={isCard ? 'moment-red-card' : ''}
                   aria-pressed={!latest && m.id === move?.id}
                   onClick={() => replay(m)}
                 >
@@ -426,9 +431,13 @@ export function PitchReplay({
                       ? es
                         ? '⚽ Gol'
                         : '⚽ Goal'
-                      : es
-                        ? '↗ Ocasión'
-                        : '↗ Chance'}{' '}
+                      : isCard
+                        ? es
+                          ? '🟥 Tarjeta roja'
+                          : '🟥 Red card'
+                        : es
+                          ? '↗ Ocasión'
+                          : '↗ Chance'}{' '}
                     · {formatMatchSecond(key.match_second)}
                   </span>
                   <small>{key.team_name || key.team_id}</small>

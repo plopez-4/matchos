@@ -768,6 +768,12 @@ body {
   color: var(--accent-purple-light);
 }
 
+.type-red_card {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
 .evidence-outcome {
   font-size: 11px;
   color: var(--text-muted);
@@ -1082,6 +1088,12 @@ body {
   background: var(--accent-gold-bg);
   border: 1px solid rgba(245, 158, 11, 0.4);
   color: var(--accent-gold-light);
+}
+
+.badge-red-card {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
 }
 
 .badge-activity {

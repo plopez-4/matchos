@@ -27,6 +27,7 @@ export function EvidenceList({ evidenceIds = [], events = [], onSelectEvent, lan
     recovery: 'Recuperación',
     kickoff: 'Saque inicial',
     substitution: 'Sustitución',
+    red_card: 'Tarjeta roja',
     half_end: 'Fin de la primera parte',
     match_end: 'Final',
   };

@@ -32,6 +32,39 @@ test('a hot-match notice persists across ticks and ranking changes, then expires
   assert.equal(nextRadarNotice(notice, { ...view, finished: true }), null);
 });
 
+test('red-card notification for a non-leader match persists across ticks and expires at 180s', () => {
+  const cardEntry = {
+    match_id: 'quiet-card',
+    pulse: {
+      eligible: true,
+      why_now: { trigger: 'red_card', headline: 'Fulham down to 10 men', expires_at_second: 3780 },
+    },
+  };
+  const leaderEntry = {
+    match_id: 'featured-leader',
+    pulse: {
+      eligible: true,
+      why_now: { trigger: 'shot_activity', headline: 'Both sides recording shots', expires_at_second: 3900 },
+    },
+  };
+  const view = {
+    clock_second: 3600,
+    matches: [leaderEntry, cardEntry],
+    recommendation: leaderEntry,
+    notification: { id: 'rc-notice-1', match_id: 'quiet-card' },
+  };
+  const notice = nextRadarNotice(null, view);
+  assert.equal(notice.entry.match_id, 'quiet-card');
+  assert.equal(notice.reason.headline, 'Fulham down to 10 men');
+
+  const tickPlus1 = nextRadarNotice(notice, { ...view, clock_second: 3630 });
+  assert.equal(tickPlus1.id, 'rc-notice-1');
+  assert.equal(tickPlus1.entry.match_id, 'quiet-card');
+
+  const expired = nextRadarNotice(notice, { ...view, clock_second: 3780 });
+  assert.equal(expired, null);
+});
+
 test('dismissed, quiet and missing matches cannot produce a radar notification', () => {
   const view = {
     clock_second: 30,

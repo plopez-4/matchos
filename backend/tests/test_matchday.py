@@ -176,18 +176,35 @@ def test_notifications_are_transition_based_and_idempotent():
     c = client()
     view = start(c)
     alerts = []
+    retained_alerts = []
     while not view['finished']:
         response = c.post('/api/matchdays/test-day/tick', json={'tick':view['tick']+1})
         assert response.status_code == 200
         view = response.json()
         if view['notification']:
+            # Idempotent: repeated tick request returns the identical notification
             assert c.post('/api/matchdays/test-day/tick', json={'tick':view['tick']}).json()['notification'] == view['notification']
-            alerts.append(view['notification'])
+            if not alerts or alerts[-1]['id'] != view['notification']['id']:
+                alerts.append(view['notification'])
+            else:
+                retained_alerts.append(view['notification'])
+                # Persistent alert retains identity and attributes across ticks
+                assert view['notification']['id'] == alerts[-1]['id']
+                assert view['notification']['match_id'] == alerts[-1]['match_id']
+                assert view['notification']['clock_second'] == alerts[-1]['clock_second']
     assert len(alerts) >= 2
+    assert len(retained_alerts) > 0
+    # Alerts aren't dispatched twice: every newly dispatched alert ID is globally unique
     assert len({alert['id'] for alert in alerts}) == len(alerts)
-    for a,b in zip(alerts,alerts[1:]):
-        if a['match_id'] == b['match_id']:
-            assert b['clock_second']-a['clock_second'] >= 600
+    # Alerts aren't dispatched twice for the same match within the 600s cooldown
+    by_match = {}
+    for alert in alerts:
+        by_match.setdefault(alert['match_id'], []).append(alert)
+    for mid, match_alerts in by_match.items():
+        for a, b in zip(match_alerts, match_alerts[1:]):
+            assert b['clock_second'] - a['clock_second'] >= 600
+        # No alert is dispatched twice with the same title for the same match
+        assert len({a['title'] for a in match_alerts}) == len(match_alerts)
 
 
 def test_ranking_rejects_one_sided_volume_and_is_deterministic():

@@ -23,6 +23,10 @@ export function formatEventType(type) {
       return 'Goal';
     case 'recovery':
       return 'Recovery';
+    case 'red_card':
+      return 'Red Card';
+    case 'substitution':
+      return 'Substitution';
     default:
       return type ? type.charAt(0).toUpperCase() + type.slice(1) : '';
   }

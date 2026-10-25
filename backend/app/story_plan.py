@@ -95,6 +95,18 @@ def bind(briefing, selected, audience):
                 f"{goal['player_name']} scored for {names[goal['team_id']]} at {goal['clock']}."
                 for goal in goals if not linked_goal or goal['event_id'] != linked_goal['goal_event_id']]
             parts[1:1] = named_goals
+        red_cards = briefing['locale_facts'].get('red_cards', [])
+        finished = briefing['locale_facts']['phase'] == 'finished'
+        named_cards = [
+            (f"{names[card['team_id']]} jugó con 10 hombres tras la expulsión con tarjeta roja de {card['player_name']} a los {card['clock']}." if finished else
+             f"{names[card['team_id']]} juega con 10 hombres tras la expulsión con tarjeta roja de {card['player_name']} a los {card['clock']}.") if language == 'es' else
+            (f"{names[card['team_id']]} played with 10 men after {card['player_name']} was sent off with a red card at {card['clock']}." if finished else
+             f"{names[card['team_id']]} are down to 10 men after {card['player_name']} was sent off with a red card at {card['clock']}.")
+            for card in red_cards
+        ]
+        if named_cards:
+            insert_pos = 1 + (len(named_goals) if goals else 0)
+            parts[insert_pos:insert_pos] = named_cards
         if (plan['player_story_id'] or linked_goal) and briefing['locale_facts']['phase'] == 'playing':
             # Let the player contribution carry the story instead of appending another team-shot report.
             parts = parts[:-2] + parts[-1:]
@@ -110,6 +122,7 @@ def bind(briefing, selected, audience):
         texts[language] = ' '.join(parts)
     plan['change_text'] = {language: change_text(change, names, audience, language) for language in ('en', 'es')} if change else {}
     briefing.update(story_plan=plan, audience=audience, spoken_recap=texts)
+    card_eids = [card['event_id'] for card in briefing['locale_facts'].get('red_cards', [])]
     briefing['evidence_event_ids'] = list(dict.fromkeys(briefing['evidence_event_ids'] +
-        [eid for story in covered for eid in story['evidence_event_ids']]))
+        [eid for story in covered for eid in story['evidence_event_ids']] + card_eids))
     return briefing

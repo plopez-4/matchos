@@ -476,6 +476,18 @@ def validate_selected_claims(text, packet):
                 raise RecapQualityError('missing_selected_goal', fact_id=fact['fact_id'],
                                         required_scorer=goal['player_name'], required_goal_clock=goal['clock'],
                                         required_scope='scorer_and_goal_clock_in_same_sentence')
+        if data.get('kind') == 'red_card':
+            card_terms = r'\b(?:red card|sent off|sending-off|tarjeta roja|expulsad[oa]|expulsion)\b'
+            card_explained = any(
+                named(data['player_name'], sentence)
+                and data['clock'] in sentence
+                and re.search(card_terms, normalized(sentence))
+                for sentence in sentences
+            )
+            if not card_explained:
+                raise RecapQualityError('missing_selected_red_card', fact_id=fact['fact_id'],
+                                        required_player=data['player_name'], required_clock=data['clock'],
+                                        required_scope='player_and_card_clock_in_same_sentence')
         metric = data.get('metric', {})
         kind = data.get('kind')
         counts = []

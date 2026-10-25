@@ -18,7 +18,7 @@ export function connectedActions(previous, next) {
     next.sequence !== previous.sequence + 1 ||
     next.match_second < previous.match_second ||
     next.match_second - previous.match_second > 10 ||
-    ['recovery', 'kickoff'].includes(next.type)
+    ['recovery', 'kickoff', 'red_card'].includes(next.type)
   )
     return false;
   const endpoint = vector(previous) ? [previous.end_x, previous.end_y] : [previous.x, previous.y];
@@ -82,7 +82,9 @@ export function actionParticipants(event, previous) {
         ? 'Shooter'
         : event.type === 'pass'
           ? 'Passer'
-          : 'On the ball',
+          : event.type === 'red_card'
+            ? 'Sent off'
+            : 'On the ball',
     },
   ];
   if (event.type === 'pass' && event.outcome === 'complete' && event.recipient_player_id) {
@@ -104,7 +106,7 @@ export function pitchMoves(events = []) {
   const ordered = [...events].sort((a, b) => a.sequence - b.sequence);
   let group;
   for (const event of ordered) {
-    if (!['kickoff', 'recovery', 'pass', 'shot', 'goal'].includes(event.type)) {
+    if (!['kickoff', 'recovery', 'pass', 'shot', 'goal', 'red_card'].includes(event.type)) {
       group = null;
       continue;
     }
@@ -121,7 +123,7 @@ export function pitchMoves(events = []) {
       group.team_id !== event.team_id ||
       group.period !== event.period ||
       group.possession_id !== event.possession_id ||
-      ['kickoff', 'recovery'].includes(event.type)
+      ['kickoff', 'recovery', 'red_card'].includes(event.type)
     ) {
       group = {
         id: event.event_id,
@@ -142,6 +144,8 @@ export function actionCaption(event) {
   if (!event) return 'Waiting for the first recorded move.';
   const player = event.player_name || event.player_id || 'Player';
   const recipient = event.recipient_player_name || event.recipient_player_id;
+  if (event.type === 'red_card')
+    return `${player} is sent off with a red card for ${event.team_name || event.team_id}.`;
   if (event.type === 'pass')
     return `${player} ${event.outcome === 'complete' ? 'finds' : 'passes toward'} ${recipient || 'a teammate'}.`;
   if (event.type === 'goal') return `${player} scores for ${event.team_name || event.team_id}.`;

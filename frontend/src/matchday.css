@@ -292,6 +292,14 @@
   border-color: #00ff85;
   background: #00ff8512;
 }
+.pitch-moments button.moment-red-card {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.1);
+}
+.pitch-moments button.moment-red-card[aria-pressed='true'] {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.25);
+}
 .pitch-moments small {
   display: block;
   color: #d2bdd7;

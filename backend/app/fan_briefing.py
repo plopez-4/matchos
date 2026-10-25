@@ -62,6 +62,12 @@ def fan_briefing(events, new_events, *, now=None):
         headline, timing = 'Half-time: the story so far', 'The first half has finished.'
     if finished:
         headline, timing = 'The final whistle: here is how it ended', 'The synthetic match has finished.'
+    cards = [e for e in observed if e.type == 'red_card']
+    card_ids = [e.event_id for e in cards]
+    if cards:
+        cards_text = ' '.join(f"{name(e.team_id)} down to 10 men after {e.player_name or e.player_id} was sent off with a red card at {clock(e.match_second)}." for e in cards)
+        swing += f" {cards_text}"
+        score_ids = list(dict.fromkeys(score_ids + card_ids))
     sections = [
         {'title':'The score story', 'text':swing, 'evidence_event_ids':score_ids},
         {'title':'Recent action', 'text':tempo, 'evidence_event_ids':[e.event_id for e in current+previous]},
@@ -76,6 +82,10 @@ def fan_briefing(events, new_events, *, now=None):
                             'goals':[{'event_id':event.event_id, 'player_name':event.player_name or event.player_id,
                                       'team_id':event.team_id, 'clock':clock(event.match_second)}
                                      for event in observed if event.type == 'goal'],
+                            'red_cards':[{'event_id':event.event_id, 'player_name':event.player_name or event.player_id,
+                                          'team_id':event.team_id, 'clock':clock(event.match_second),
+                                          'match_second':event.match_second}
+                                         for event in cards],
                             'phase':'finished' if finished else 'halftime' if halftime else 'playing',
                             'shots':{'home':counts['home'],'away':counts['away']},
                             'previous_shots':len(previous), 'has_new_goals':any(e.type == 'goal' and e.match_second <= now for e in new_events)},
@@ -83,7 +93,15 @@ def fan_briefing(events, new_events, *, now=None):
             'window':{'start_exclusive':current_start,'end_inclusive':now},
             'previous_window':{'start_exclusive':previous_start,'end_inclusive':now-300} if now >= 300 else None,
             'comparison_available':comparison_ready, 'rule_version':'fan-briefing-v2',
-            'evidence_event_ids':list(dict.fromkeys(eid for section in sections for eid in section['evidence_event_ids']))}
+            'evidence_event_ids':list(dict.fromkeys(eid for section in sections for eid in section['evidence_event_ids'] + card_ids))}
 
     briefing['spoken_recap'] = {language: recap_text(briefing, language) for language in ('en', 'es')}
+    if cards:
+        for language in ('en', 'es'):
+            c_text = ' '.join(
+                (f"{name(e.team_id)} {'jugó' if finished else 'juega'} con 10 hombres tras la expulsión con tarjeta roja de {e.player_name or e.player_id} a los {clock(e.match_second)}." if language == 'es' else
+                 f"{name(e.team_id)} {'played with' if finished else 'are down to'} 10 men after {e.player_name or e.player_id} was sent off with a red card at {clock(e.match_second)}.")
+                for e in cards
+            )
+            briefing['spoken_recap'][language] += f" {c_text}"
     return briefing

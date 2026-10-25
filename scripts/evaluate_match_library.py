@@ -32,6 +32,9 @@ SITUATIONS = [
     (2, 'featured', 4530, 3900, 'late_derby_equalizer'),
     (2, 'comeback', 4500, 2700, 'no_new_goal_palace'),
     (2, 'quiet', 4800, 3900, 'late_fulham_turnaround_and_reply'),
+    (3, 'featured', 3750, 2700, 'city_red_card_derby'),
+    (3, 'comeback', 2700, 1500, 'palace_red_card_first_half'),
+    (3, 'quiet', 4500, 2700, 'fulham_red_card_second_half'),
 ]
 
 
@@ -67,9 +70,9 @@ def source_record(events, fan):
 
 def offline(path):
     os.environ['MATCHOS_AI_MODE']='off'
-    result=report('Nine versions x four snapshots x two audiences; deterministic source audit')
+    result=report('Twelve versions x four snapshots x two audiences; deterministic source audit')
     for profile in matchday.PROFILES:
-        for variant in range(3):
+        for variant in range(4):
             feed=[MatchEvent(**e) for e in matchday.library_fixture(profile,'offline-'+profile['role'],variant)]
             for now in (1200,2700,4530,5580):
                 events=[e for e in feed if e.match_second<=now]
@@ -89,7 +92,7 @@ def offline(path):
 
 
 def live(path, base_url, cooldown, case_names=None, capture_rejections=False):
-    result=report('Eleven situations across nine versions x two audiences; both languages per request')
+    result=report('Fourteen situations across twelve versions x two audiences; both languages per request')
     situations=[s for s in SITUATIONS if not case_names or s[4] in case_names]
     if case_names and set(case_names)-{s[4] for s in SITUATIONS}:
         raise ValueError('Unknown evaluation case')
@@ -98,7 +101,7 @@ def live(path, base_url, cooldown, case_names=None, capture_rejections=False):
     result['version_coverage']=[{'variant_id':v,'role':role} for v,role in sorted(coverage)]
     result['planned_requests']=len(situations)*2
     if case_names: result['evaluation']='Focused follow-up: '+str(len(situations))+' situations x two audiences; both languages'
-    if len(coverage)==9: result['evaluation']=f'All nine versions; {len(situations)} situations x two audiences; both languages'
+    if len(coverage)==12: result['evaluation']=f'All twelve versions; {len(situations)} situations x two audiences; both languages'
     result['temporary_groups']=[]
     result['capture_rejections']=capture_rejections
     last_request=None
@@ -109,7 +112,7 @@ def live(path, base_url, cooldown, case_names=None, capture_rejections=False):
             raise RuntimeError('Configured backend writer does not match the frozen source')
         browser.post('/api/session',json={}).raise_for_status()
         try:
-            for variant in range(3):
+            for variant in range(4):
                 if not any(s[0]==variant for s in situations): continue
                 # Select an ordinary random-ID-compatible session with a known combination.
                 # No public API override, provider keys or future schedule are sent to Radar.

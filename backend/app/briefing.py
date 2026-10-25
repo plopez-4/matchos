@@ -28,11 +28,14 @@ def full_feed_briefing(all_events, new_events, audience):
     substitutions = [e for e in new_events if e.type == "substitution"]
     for e in substitutions:
         sentences.append(f"{e.recipient_player_name} replaced {e.player_name} for {names.get(e.team_id, e.team_id)}.")
+    red_cards = [e for e in new_events if e.type == "red_card"]
+    for e in red_cards:
+        sentences.append(f"{e.player_name or e.player_id} was sent off with a red card for {names.get(e.team_id, e.team_id)} at {clock(e.match_second)}.")
     if new_events[-1].type == "match_end":
         sentences.append("The synthetic match has finished.")
     elif new_events[-1].type == "half_end":
         sentences.append("The first half has finished.")
-    evidence = {e.event_id for e in all_events if e.type == "goal"}
-    evidence.update(e.event_id for e in new_events if e.type in ("pass", "shot", "substitution", "half_end", "match_end"))
+    evidence = {e.event_id for e in all_events if e.type in ("goal", "red_card")}
+    evidence.update(e.event_id for e in new_events if e.type in ("pass", "shot", "substitution", "red_card", "half_end", "match_end"))
     return {"text": " ".join(sentences), "rule_version": "full-feed-briefing-v1",
             "evidence_event_ids": [e.event_id for e in all_events if e.event_id in evidence]}

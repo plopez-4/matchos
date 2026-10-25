@@ -35,9 +35,32 @@ TEAM_ALTERNATIVES = '|'.join(re.escape(name) for name in sorted(TEAM_NAMES, key=
 TEAM_JOIN = re.compile(r'\b(?P<first>' + TEAM_ALTERNATIVES + r')\s+(?:y|e)\s+'
                        r'(?=(?:' + TEAM_ALTERNATIVES + r')\b)', re.IGNORECASE)
 
+EN_CLOCK_PATTERN = re.compile(
+    r'(?<!:\d{2}:)(?<!\d:)\b(?P<min>\d{1,3}):00(?!:\d{2})\b(?=(?P<already_min>\s+minutes?\b)?)'
+)
+
 
 def speech_markup(text, language):
     if language != 'es':
+        if language == 'en':
+            tokens = []
+            for match in EN_CLOCK_PATTERN.finditer(text):
+                minutes = int(match.group('min'))
+                if match.group('already_min'):
+                    alias = str(minutes)
+                else:
+                    alias = '1 minute' if minutes == 1 else f'{minutes} minutes'
+                tokens.append((match.start(), match.end(),
+                               f'<sub alias="{alias}">{escape(match.group(0))}</sub>'))
+            if tokens:
+                parts = []
+                cursor = 0
+                for start, end, markup in sorted(tokens, key=lambda token: token[0]):
+                    parts.append(escape(text[cursor:start]))
+                    parts.append(markup)
+                    cursor = end
+                parts.append(escape(text[cursor:]))
+                return ''.join(parts)
         return escape(text)
     parts = []
     cursor = 0

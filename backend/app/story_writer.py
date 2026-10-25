@@ -18,7 +18,7 @@ from app import ai_capacity
 from app import recap_diagnostics
 from app.recap_context import creator_chronology, score_chronology
 
-VERSION = 'fan-narrative-v25-route-and-clock-wording'
+VERSION = 'fan-narrative-v26-red-card-and-ten-men'
 CACHE = OrderedDict()
 LOCK = threading.Lock()
 
@@ -134,6 +134,19 @@ def evidence_packet(briefing, events):
         add(identifier, {key: value for key, value in pattern.items() if key != 'text'}, pattern['evidence_event_ids'])
         if plan is not None:
             required.append(identifier)
+    red_cards = briefing.get('locale_facts', {}).get('red_cards', [])
+    for card in red_cards:
+        card_id = f"red_card:{card['event_id']}"
+        add(card_id, {
+            'kind': 'red_card',
+            'event_id': card['event_id'],
+            'player_name': card['player_name'],
+            'team_name': briefing['locale_facts']['names'][card['team_id']],
+            'team_id': card['team_id'],
+            'clock': card['clock'],
+            'match_second': card['match_second'],
+        }, [card['event_id']])
+        required.append(card_id)
     recent = [e for e in observed if now-300 < e.match_second <= now][-(8 if plan is not None else 30):]
     relevant = set(e.event_id for e in recent)
     relevant.update(eid for f in facts for eid in f['evidence_event_ids'])
@@ -331,6 +344,11 @@ def writer_prompt(briefing):
         'Match clocks describe elapsed minutes: use a los 16:11, never a las 16:11 as a time of day. '
         'No headings, links, markup, IDs or technical field names in prose. '
     )
+    if briefing.get('locale_facts', {}).get('red_cards'):
+        instruction += (
+            'RED CARD: explain every required red card in BOTH languages with the sent-off player name '
+            'and the exact card clock in the SAME sentence. Describe the team as playing with or down to 10 men. '
+        )
     if linked:
         instruction += (
             'SELECTED CONTRIBUTION: a verified_scoring_sequence, a SINGLE observed scoring move, not a rolling statistic. '
@@ -439,7 +457,8 @@ def review_prompt():
                 'supported by the cited fact_ids, exact score and team order, goal trajectory, quiet/new goal '
                 'scope, shot windows, incomplete coverage, passing context and no future facts. '
                 'The score must be stated in BOTH languages, and both must convey the same facts. '
-                'Reject if either paragraph omits a selected editorial-plan story or conflates its historical window with current activity. '
+                'Reject if either paragraph omits a selected editorial-plan story or required red card, or conflates its historical window with current activity. '
+                'When a red card fact is required, verify that the carded player, team, and exact card clock are accurately stated in BOTH languages, and that the side is correctly described as playing with or down to 10 men. '
                 'Reject any positive threat, pressure, dominance or chance-quality interpretation based only on counts. '
                 'A player_shot_creation metric explicitly establishes the final completed pass before the recipient shot next '
                 'in the same possession within ten seconds. That recorded link may be described, but is not a goal assist or a quality rating. '

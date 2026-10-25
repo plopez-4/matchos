@@ -244,7 +244,7 @@ def start_matchday(payload: MatchdayStart, request: Request):
         for mid in members:
             security.matches[mid]["expires"] = expiry
         security.matches[members[0]].update(clock=0, tick=0, previous_leader=None,
-                                          last_notified={}, notification=None)
+                                          last_notified={}, notified_red_cards={}, notification=None)
         return matchday_view(payload.matchday_id, members)
 
 
@@ -292,16 +292,64 @@ def tick_matchday(day_id: str, payload: MatchdayTick, request: Request):
                 if raw["match_second"] > now:
                     break
                 append_event(MatchEvent(**raw))
-        state.update(clock=now, tick=payload.tick, notification=None)
+        state.update(clock=now, tick=payload.tick)
         view = matchday_view(day_id, members)
         leader = view["recommendation"]
         leader_id = leader["match_id"] if leader else None
-        if leader_id and leader_id != state["previous_leader"] and now-state["last_notified"].get(leader_id, -600) >= 600:
+        why_now = leader['pulse']['why_now'] if leader and leader.get('pulse') else None
+
+        # Check ALL matches for unnotified red cards so sending-offs anywhere are never missed
+        notified_cards = state.setdefault("notified_red_cards", {})
+        red_card_candidate = None
+        for entry in sorted(view["matches"], key=lambda m: -m["pulse"]["rating"]):
+            why = entry.get("pulse", {}).get("why_now")
+            if why and why.get("trigger") == "red_card":
+                cid = why.get("card_event_id")
+                if cid and cid not in notified_cards:
+                    red_card_candidate = (entry, why, cid)
+                    break
+
+        regular_trigger = (leader_id is not None
+                           and leader_id != state["previous_leader"]
+                           and now - state["last_notified"].get(leader_id, -600) >= 600
+                           and why_now is not None)
+
+        if red_card_candidate:
+            entry, why, cid = red_card_candidate
+            mid = entry["match_id"]
+            notified_cards[cid] = now
+            state["last_notified"][mid] = now
+            state["notification"] = {
+                "id": f'{state["generation"]}:{payload.tick}:{mid}',
+                "match_id": mid,
+                "clock_second": now,
+                "expires_at_second": why.get("expires_at_second", now + 180),
+                "trigger": "red_card",
+                "title": why["headline"],
+                "reason": why["text"],
+            }
+        elif regular_trigger:
             state["last_notified"][leader_id] = now
-            state["notification"] = {"id":f'{state["generation"]}:{payload.tick}:{leader_id}',
-                                     "match_id":leader_id, "clock_second":now,
-                                     "title":leader['pulse']['why_now']['headline'],
-                                     "reason":leader['pulse']['why_now']['text']}
+            state["notification"] = {
+                "id": f'{state["generation"]}:{payload.tick}:{leader_id}',
+                "match_id": leader_id,
+                "clock_second": now,
+                "expires_at_second": why_now.get("expires_at_second", now + 300),
+                "trigger": why_now.get("trigger", "shot_activity"),
+                "title": why_now["headline"],
+                "reason": why_now["text"],
+            }
+        else:
+            # Check if active notification has expired or match finished
+            active_notice = state.get("notification")
+            if active_notice:
+                target_entry = next((m for m in view["matches"] if m["match_id"] == active_notice.get("match_id")), None)
+                if (not target_entry
+                    or not target_entry.get("pulse", {}).get("eligible")
+                    or now >= active_notice.get("expires_at_second", 0)
+                    or now >= matchday.DURATION):
+                    state["notification"] = None
+
         state["previous_leader"] = leader_id
         view["notification"] = state["notification"]
         return view

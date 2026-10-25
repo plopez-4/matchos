@@ -9,7 +9,7 @@ import {
   postCatchUp,
   fetchMatchData,
 } from '../api';
-import { playMatchday, createReleaseRecovery, discoveryReason } from '../utils/matchday';
+import { playMatchday, createReleaseRecovery, discoveryReason, nextRadarNotice } from '../utils/matchday';
 import { alertMoment, featuredMoment, momentTitle, retainCatchUp } from '../utils/matchFocus';
 import { PitchReplay } from './PitchReplay';
 import { FocusedRecap } from './FocusedRecap';
@@ -48,11 +48,13 @@ export function Matchday() {
   const briefRequest = useRef(null);
   const lastCatchUp = useRef({ matchId: null, sequence: 0 });
   const seenNotice = useRef(null);
+  const dismissed = useRef(new Set());
   const releaseRecovery = useRef(createReleaseRecovery(releaseMatchday));
 
   function accept(next) {
     latest.current = next;
     setView(next);
+    setNotice((current) => nextRadarNotice(current, next, dismissed.current));
   }
 
   useEffect(() => {
@@ -95,15 +97,6 @@ export function Matchday() {
     return () => controller.abort();
   }, [playing, speed, dayId]);
 
-  useEffect(() => {
-    if (view?.notification && view.notification.id !== seenNotice.current) {
-      seenNotice.current = view.notification.id;
-      setNotice(view.notification);
-    } else
-      setNotice((current) =>
-        current?.match_id === view?.recommendation?.match_id ? current : null,
-      );
-  }, [view?.tick]);
 
   useEffect(() => {
     if (!selected && view?.matches.length) follow(view.recommendation ?? view.matches[0], false);
@@ -192,6 +185,7 @@ export function Matchday() {
     setSummary(null);
     seenNotice.current = null;
     lastCatchUp.current = { matchId: null, sequence: 0 };
+    dismissed.current.clear();
     setNotice(null);
     setEvents([]);
     setEventsError('');
@@ -281,6 +275,7 @@ export function Matchday() {
     // Opening a promised moment holds its score/context steady during the build-up.
     if (moment) setPlaying(false);
     if (switcher.current) switcher.current.open = false;
+    dismissed.current.clear();
     setNotice(null);
     if (moment) catchUp(entry.match_id, true);
     else {
@@ -559,27 +554,41 @@ export function Matchday() {
       </footer>
 
       {notice &&
-        notice.match_id === recommended?.match_id &&
-        reason &&
         createPortal(
           <aside className="radar-notice radar-toast" aria-label="Match Radar notification">
             <button
               className="radar-dismiss"
               aria-label="Dismiss Radar notification"
-              onClick={() => setNotice(null)}
+              onClick={() => {
+                dismissed.current.add(notice.id);
+                setNotice(null);
+              }}
             >
               ×
             </button>
             <div role="status">
               <span className="radar-eyebrow">
-                {recommended.home} · {recommended.away}
+                {notice.entry.home} · {notice.entry.away}
               </span>
-              <strong>{reason.headline}</strong>
+              <strong>{notice.reason.headline}</strong>
+              <p>
+                {notice.entry.home} {notice.entry.pulse.score.home}–{notice.entry.pulse.score.away}{' '}
+                {notice.entry.away}
+              </p>
+              <p>{notice.reason.text}</p>
             </div>
-            <button className="btn-primary" onClick={() => follow(recommended)}>
-              {['equalizer', 'lead_reversal'].includes(recommended.pulse.why_now?.trigger)
-                ? 'See the goal →'
-                : 'See the moment →'}
+            <button
+              className="btn-primary"
+              onClick={() => {
+                dismissed.current.add(notice.id);
+                follow(notice.entry);
+              }}
+            >
+              {notice.reason.trigger === 'red_card'
+                ? (es ? 'Ver la tarjeta roja →' : 'See the red card →')
+                : ['equalizer', 'lead_reversal'].includes(notice.reason.trigger)
+                ? (es ? 'Ver el gol →' : 'See the goal →')
+                : (es ? 'Ver la jugada →' : 'See the moment →')}
             </button>
           </aside>,
           document.body,

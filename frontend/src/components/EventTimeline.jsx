@@ -30,7 +30,7 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
   const filteredEvents = useMemo(() => {
     switch (filter) {
       case 'key':
-        return sortedEvents.filter((e) => e.type === 'goal' || e.type === 'shot');
+        return sortedEvents.filter((e) => e.type === 'goal' || e.type === 'shot' || e.type === 'red_card');
       case 'pass':
         return sortedEvents.filter((e) => e.type === 'pass');
       case 'recovery':
@@ -49,6 +49,8 @@ export function EventTimeline({ events = [], highlightedEventId = null, onClearH
         return 'badge-goal';
       case 'shot':
         return 'badge-shot';
+      case 'red_card':
+        return 'badge-red-card';
       case 'recovery':
         return 'badge-recovery';
       case 'pass':

@@ -62,6 +62,17 @@ test('failed passes do not claim the recipient received the ball', () => {
   assert.equal(actionCaption(pass(1, { outcome: 'incomplete' })), 'Alex passes toward Sam.');
 });
 
+test('red cards form their own move and participants show Sent off role', () => {
+  const card = pass(1, { type: 'red_card', player_name: 'Elliot Anderson' });
+  const moves = pitchMoves([card]);
+  assert.equal(moves.length, 1);
+  assert.equal(moves[0].events[0].type, 'red_card');
+  assert.equal(actionCaption(card), 'Elliot Anderson is sent off with a red card for Palace.');
+  const people = actionParticipants(card);
+  assert.equal(people.length, 1);
+  assert.equal(people[0].role, 'Sent off');
+});
+
 test('a connected build-up requires matching recipient, position, scope and time', () => {
   const first = pass(1);
   const second = pass(2, { player_id: 'h7', x: 40, y: 60 });

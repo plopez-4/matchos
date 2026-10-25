@@ -10,7 +10,7 @@ from app.rosters import club_for_name
 
 
 @pytest.mark.parametrize('profile', matchday.PROFILES, ids=lambda p:p['role'])
-@pytest.mark.parametrize('variant', range(3))
+@pytest.mark.parametrize('variant', range(4))
 def test_each_library_match_has_legal_elevens_and_connected_varied_actions(profile, variant):
     mid = 'library-'+profile['role']
     raw = matchday.library_fixture(profile, mid, variant)
@@ -25,6 +25,8 @@ def test_each_library_match_has_legal_elevens_and_connected_varied_actions(profi
                for side in active)
     passing = {side:set() for side in active}
     chains, previous = {}, None
+    cfg = matchday.versioned_profile(profile, variant)
+    card_cfg = cfg.get('red_card')
     for index, row in enumerate(raw, 1):
         event = MatchEvent(**row)
         assert event.sequence == index
@@ -41,6 +43,9 @@ def test_each_library_match_has_legal_elevens_and_connected_varied_actions(profi
             assert event.recipient_player_id not in active[event.team_id]
             active[event.team_id].remove(event.player_id)
             active[event.team_id].add(event.recipient_player_id)
+        if event.type == 'red_card':
+            assert event.player_id in active[event.team_id]
+            active[event.team_id].remove(event.player_id)
         if event.type == 'pass':
             assert event.recipient_player_id in active[event.team_id]
             assert event.recipient_player_id != event.player_id
@@ -52,7 +57,8 @@ def test_each_library_match_has_legal_elevens_and_connected_varied_actions(profi
         if event.type == 'goal':
             assert previous.type == 'shot' and previous.outcome == 'goal'
             assert event.related_event_id == previous.event_id
-        assert all(len(players)==11 for players in active.values())
+        carded_side = card_cfg['team'] if card_cfg and event.match_second >= card_cfg['second'] else None
+        assert all(len(players) == (10 if side == carded_side else 11) for side, players in active.items())
         previous = event
     assert all(starters[side] <= passing[side] for side in starters)
     assert {2,3,4} <= set(chains.values())
@@ -82,10 +88,10 @@ def test_bundled_exports_match_all_nine_prepared_versions():
         assert rows==matchday.library_fixture(profile,row['id'],row['variant_id']-1)
 
 
-def test_selection_covers_all_27_combinations_and_reopening_does_not_reroll():
+def test_selection_covers_all_64_combinations_and_reopening_does_not_reroll():
     combinations={tuple(matchday.selected_variant(f'day-{i}-{p["role"]}') for p in matchday.PROFILES)
                   for i in range(1000)}
-    assert combinations==set(itertools.product(range(3),repeat=3))
+    assert combinations==set(itertools.product(range(4),repeat=3))
     with TestClient(main.app, headers={'X-MatchOS-Client':'replay'}) as client:
         client.post('/api/session',json={}).raise_for_status()
         first=client.post('/api/matchdays/start',json={'matchday_id':'library-session'}).json()
@@ -128,7 +134,7 @@ def test_all_combinations_rank_observed_action_allow_quiet_and_each_fixture_can_
 
 
 @pytest.mark.parametrize('profile', matchday.PROFILES, ids=lambda p:p['role'])
-@pytest.mark.parametrize('variant', range(3))
+@pytest.mark.parametrize('variant', range(4))
 def test_new_library_keeps_recap_evidence_bounded_and_source_linked(profile,variant):
     events=[MatchEvent(**e) for e in matchday.library_fixture(profile,'recap-'+profile['role'],variant)]
     for now in (1200,2700,4530,5580):

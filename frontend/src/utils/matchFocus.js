@@ -4,10 +4,22 @@ import { recapText } from './speechRecap.js';
 export function featuredMoment(events = [], preferGoal = true) {
   const playable = pitchMoves(events).flatMap((move) => move.events);
   const newest = (type) => [...playable].reverse().find((event) => event.type === type);
-  return (preferGoal ? newest('goal') : null) ?? newest('shot') ?? newest('goal') ?? null;
+  const newestGoal = newest('goal');
+  const newestCard = newest('red_card');
+  const newestShot = newest('shot');
+  if (newestCard && (!newestGoal || newestCard.match_second >= newestGoal.match_second)) {
+    return newestCard;
+  }
+  return (preferGoal ? newestGoal : null) ?? newestShot ?? newestGoal ?? newestCard ?? null;
 }
 
 export function alertMoment(entry) {
+  if (entry?.pulse?.why_now?.trigger === 'red_card') {
+    const cardEvent = [...(entry?.pulse?.evidence_events ?? [])]
+      .reverse()
+      .find((e) => e.type === 'red_card');
+    if (cardEvent) return cardEvent;
+  }
   const goalTrigger = entry?.pulse?.why_now?.trigger !== 'shot_activity';
   return featuredMoment(entry?.pulse?.evidence_events ?? [], goalTrigger);
 }
@@ -15,6 +27,9 @@ export function alertMoment(entry) {
 export function momentTitle(event, briefing) {
   if (!event) return 'Follow the match.';
   const team = event.team_name || (event.team_id === 'home' ? 'Home' : 'Away');
+  if (event.type === 'red_card') {
+    return `${event.player_name || team}: red card shown.`;
+  }
   if (event.type !== 'goal') return `${team}: a chance to revisit.`;
   const transition = briefing?.trajectory?.transitions?.find(
     (step) => step.sequence === event.sequence,

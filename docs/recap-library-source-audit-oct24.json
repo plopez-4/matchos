@@ -4,11 +4,12 @@
     {
       "file": "recap-library-deterministic-oct24.json",
       "complete": true,
-      "checked_cases": 72,
+      "checked_cases": 96,
       "selected_kinds": {
-        "goal": 114,
-        "recovery_shot": 46,
-        "player_shot_creation": 22
+        "goal": 140,
+        "recovery_shot": 66,
+        "player_shot_creation": 22,
+        "player_forward_passing": 2
       },
       "failures": 0,
       "cases": [
@@ -205,6 +206,70 @@
           "source_check": "pass"
         },
         {
+          "case": "featured-v4-1200",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-1200",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-2700",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-2700",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-4530",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-4530",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-5580",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "featured-v4-5580",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
           "case": "comeback-v1-1200",
           "audience": "casual",
           "role": "comeback",
@@ -393,6 +458,70 @@
           "audience": "advanced",
           "role": "comeback",
           "variant_id": 3,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-1200",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-1200",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-2700",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-2700",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-4530",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-4530",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-5580",
+          "audience": "casual",
+          "role": "comeback",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "comeback-v4-5580",
+          "audience": "advanced",
+          "role": "comeback",
+          "variant_id": 4,
           "writer_mode": "deterministic",
           "source_check": "pass"
         },
@@ -587,17 +716,81 @@
           "variant_id": 3,
           "writer_mode": "deterministic",
           "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-1200",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-1200",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-2700",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-2700",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-4530",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-4530",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-5580",
+          "audience": "casual",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "quiet-v4-5580",
+          "audience": "advanced",
+          "role": "quiet",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
         }
       ]
     },
     {
-      "file": "recap-library-v14-live-oct24.json",
+      "file": "recap-library-v26-live-oct24.json",
       "complete": true,
-      "checked_cases": 22,
+      "checked_cases": 28,
       "selected_kinds": {
         "goal": 28,
         "player_shot_creation": 2,
-        "recovery_shot": 20
+        "recovery_shot": 26
       },
       "failures": 0,
       "cases": [
@@ -606,7 +799,7 @@
           "audience": "casual",
           "role": "featured",
           "variant_id": 1,
-          "writer_mode": "azure",
+          "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
@@ -614,7 +807,7 @@
           "audience": "advanced",
           "role": "featured",
           "variant_id": 1,
-          "writer_mode": "deterministic",
+          "writer_mode": "azure",
           "source_check": "pass"
         },
         {
@@ -630,7 +823,7 @@
           "audience": "advanced",
           "role": "featured",
           "variant_id": 1,
-          "writer_mode": "azure",
+          "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
@@ -670,7 +863,7 @@
           "audience": "casual",
           "role": "comeback",
           "variant_id": 1,
-          "writer_mode": "deterministic",
+          "writer_mode": "azure",
           "source_check": "pass"
         },
         {
@@ -678,7 +871,7 @@
           "audience": "advanced",
           "role": "comeback",
           "variant_id": 1,
-          "writer_mode": "deterministic",
+          "writer_mode": "azure",
           "source_check": "pass"
         },
         {
@@ -687,195 +880,6 @@
           "role": "quiet",
           "variant_id": 2,
           "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "open_brighton",
-          "audience": "advanced",
-          "role": "quiet",
-          "variant_id": 2,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "first_half_exchange",
-          "audience": "casual",
-          "role": "comeback",
-          "variant_id": 2,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "first_half_exchange",
-          "audience": "advanced",
-          "role": "comeback",
-          "variant_id": 2,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "quiet_derby",
-          "audience": "casual",
-          "role": "featured",
-          "variant_id": 2,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "quiet_derby",
-          "audience": "advanced",
-          "role": "featured",
-          "variant_id": 2,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "no_new_goal_palace",
-          "audience": "casual",
-          "role": "comeback",
-          "variant_id": 3,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "no_new_goal_palace",
-          "audience": "advanced",
-          "role": "comeback",
-          "variant_id": 3,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "late_derby_equalizer",
-          "audience": "casual",
-          "role": "featured",
-          "variant_id": 3,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "late_derby_equalizer",
-          "audience": "advanced",
-          "role": "featured",
-          "variant_id": 3,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "late_fulham_turnaround_and_reply",
-          "audience": "casual",
-          "role": "quiet",
-          "variant_id": 3,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "late_fulham_turnaround_and_reply",
-          "audience": "advanced",
-          "role": "quiet",
-          "variant_id": 3,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        }
-      ]
-    },
-    {
-      "file": "recap-library-v15-live-oct24.json",
-      "complete": true,
-      "checked_cases": 22,
-      "selected_kinds": {
-        "goal": 28,
-        "player_shot_creation": 2,
-        "recovery_shot": 20
-      },
-      "failures": 0,
-      "cases": [
-        {
-          "case": "early_derby_contribution",
-          "audience": "casual",
-          "role": "featured",
-          "variant_id": 1,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "early_derby_contribution",
-          "audience": "advanced",
-          "role": "featured",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "halftime_goal_connection",
-          "audience": "casual",
-          "role": "featured",
-          "variant_id": 1,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "halftime_goal_connection",
-          "audience": "advanced",
-          "role": "featured",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "palace_equalizer_build_up",
-          "audience": "casual",
-          "role": "comeback",
-          "variant_id": 1,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "palace_equalizer_build_up",
-          "audience": "advanced",
-          "role": "comeback",
-          "variant_id": 1,
-          "writer_mode": "azure",
-          "source_check": "pass"
-        },
-        {
-          "case": "quiet_brighton",
-          "audience": "casual",
-          "role": "quiet",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "quiet_brighton",
-          "audience": "advanced",
-          "role": "quiet",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "palace_repeated_replies",
-          "audience": "casual",
-          "role": "comeback",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "palace_repeated_replies",
-          "audience": "advanced",
-          "role": "comeback",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "open_brighton",
-          "audience": "casual",
-          "role": "quiet",
-          "variant_id": 2,
-          "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
@@ -891,7 +895,7 @@
           "audience": "casual",
           "role": "comeback",
           "variant_id": 2,
-          "writer_mode": "azure",
+          "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
@@ -965,64 +969,52 @@
           "variant_id": 3,
           "writer_mode": "deterministic",
           "source_check": "pass"
-        }
-      ]
-    },
-    {
-      "file": "recap-library-v16-focused-oct24.json",
-      "complete": true,
-      "checked_cases": 6,
-      "selected_kinds": {
-        "goal": 6,
-        "recovery_shot": 6
-      },
-      "failures": 0,
-      "cases": [
+        },
         {
-          "case": "palace_equalizer_build_up",
+          "case": "palace_red_card_first_half",
           "audience": "casual",
           "role": "comeback",
-          "variant_id": 1,
-          "writer_mode": "azure",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
-          "case": "palace_equalizer_build_up",
+          "case": "palace_red_card_first_half",
           "audience": "advanced",
           "role": "comeback",
-          "variant_id": 1,
-          "writer_mode": "azure",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
-          "case": "quiet_brighton",
+          "case": "city_red_card_derby",
+          "audience": "casual",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "city_red_card_derby",
+          "audience": "advanced",
+          "role": "featured",
+          "variant_id": 4,
+          "writer_mode": "deterministic",
+          "source_check": "pass"
+        },
+        {
+          "case": "fulham_red_card_second_half",
           "audience": "casual",
           "role": "quiet",
-          "variant_id": 1,
+          "variant_id": 4,
           "writer_mode": "deterministic",
           "source_check": "pass"
         },
         {
-          "case": "quiet_brighton",
+          "case": "fulham_red_card_second_half",
           "audience": "advanced",
           "role": "quiet",
-          "variant_id": 1,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "first_half_exchange",
-          "audience": "casual",
-          "role": "comeback",
-          "variant_id": 2,
-          "writer_mode": "deterministic",
-          "source_check": "pass"
-        },
-        {
-          "case": "first_half_exchange",
-          "audience": "advanced",
-          "role": "comeback",
-          "variant_id": 2,
+          "variant_id": 4,
           "writer_mode": "deterministic",
           "source_check": "pass"
         }

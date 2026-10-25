@@ -65,6 +65,33 @@
         "home": 9,
         "away": 10
       }
+    },
+    {
+      "name": "Derby drama with City red card",
+      "seed": 137,
+      "shots": {
+        "600": "home",
+        "1200": "away",
+        "2400": "away",
+        "3600": "home",
+        "4200": "home",
+        "4800": "home"
+      },
+      "goals": [2400, 4800],
+      "activity_windows": [[3600, 4200]],
+      "creative_spells": {
+        "home": 7,
+        "away": 7
+      },
+      "finishing_spells": {
+        "home": 9,
+        "away": 10
+      },
+      "red_card": {
+        "second": 3300,
+        "team": "away",
+        "player": 6
+      }
     }
   ],
   "comeback": [
@@ -138,6 +165,33 @@
       "activity_windows": [],
       "creative_spells": {},
       "finishing_spells": {}
+    },
+    {
+      "name": "Ten-man Palace battle Newcastle",
+      "seed": 149,
+      "shots": {
+        "900": "away",
+        "1800": "home",
+        "2700": "away",
+        "3600": "home",
+        "4200": "away",
+        "4500": "home"
+      },
+      "goals": [900, 3600, 4500],
+      "activity_windows": [[4200, 4800]],
+      "creative_spells": {
+        "home": 7,
+        "away": 7
+      },
+      "finishing_spells": {
+        "home": 10,
+        "away": 10
+      },
+      "red_card": {
+        "second": 2100,
+        "team": "home",
+        "player": 5
+      }
     }
   ],
   "quiet": [
@@ -205,6 +259,25 @@
       "finishing_spells": {
         "home": 10,
         "away": 10
+      }
+    },
+    {
+      "name": "Seaside clash with Fulham red card",
+      "seed": 163,
+      "shots": {
+        "1200": "home",
+        "2400": "away",
+        "3900": "home",
+        "4800": "home"
+      },
+      "goals": [4800],
+      "activity_windows": [],
+      "creative_spells": {},
+      "finishing_spells": {},
+      "red_card": {
+        "second": 3600,
+        "team": "away",
+        "player": 4
       }
     }
   ]

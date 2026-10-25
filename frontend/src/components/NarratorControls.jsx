@@ -5,7 +5,7 @@ import { narratorVoice } from '../utils/narratorVoice';
 import { fetchNarrationStatus, fetchNarration, auditionNarrator } from '../api';
 
 export function NarratorControls({ story, language, compact = false, onListen }) {
-  const [voice, setVoice] = useState(compact ? 'auto' : 'matchday');
+  const [voice, setVoice] = useState('auto');
   const [cloud, setCloud] = useState(false);
   const [local, setLocal] = useState(false);
   const [state, setState] = useState('idle');
@@ -86,7 +86,7 @@ export function NarratorControls({ story, language, compact = false, onListen })
   const status =
     state === 'error'
       ? spanish
-        ? 'No se pudo reproducir la narración. Inténtalo de nuevo o elige la voz del dispositivo.'
+        ? 'No se pudo reproducir la narración. Inténtalo de nuevo o comprueba la conexión de voz.'
         : message || 'Narration could not be played'
       : active
         ? `${state === 'loading' ? (spanish ? 'Preparando narración' : 'Preparing narration') : spanish ? 'Leyendo instantánea' : 'Reading snapshot'} ${snapshotClock}`
@@ -96,7 +96,7 @@ export function NarratorControls({ story, language, compact = false, onListen })
               ? 'Voz básica del dispositivo'
               : 'Basic device voice'
             : spanish
-              ? 'No hay una voz en español instalada. Elige la voz automática y conecta Azure Speech.'
+              ? 'No hay una voz en español instalada. Elige Automática y conecta Azure Speech.'
               : 'No voice is installed for this language. Choose Automatic and connect Azure Speech.'
           : cloud
             ? spanish
@@ -105,7 +105,7 @@ export function NarratorControls({ story, language, compact = false, onListen })
             : spanish
               ? 'Azure Speech no está conectado en este servidor. La traducción del texto funciona por separado.'
               : 'Azure Speech is not connected on this server. Text translation works separately.';
-  const choice = (
+  const voiceDropdown = (
     <label className="narrator-choice">
       {spanish ? 'Voz' : 'Voice'}
       <select
@@ -113,13 +113,9 @@ export function NarratorControls({ story, language, compact = false, onListen })
         value={voice}
         onChange={(event) => setVoice(event.target.value)}
       >
-        {compact && (
-          <option value="auto">
-            {spanish ? 'Automática (Azure si está conectado)' : 'Automatic (Azure when connected)'}
-          </option>
-        )}
-        <option value="device">{spanish ? 'Dispositivo (básica)' : 'Device voice (basic)'}</option>
-        <option value="matchday">{spanish ? 'Narrador de partido' : 'Matchday narrator'}</option>
+        <option value="auto">
+          {spanish ? 'Automática (Azure si está conectado)' : 'Automatic (Azure when connected)'}
+        </option>
         <option value="warm">{spanish ? 'Narrador cercano' : 'Warm storyteller'}</option>
       </select>
     </label>
@@ -139,31 +135,16 @@ export function NarratorControls({ story, language, compact = false, onListen })
         <small role="status">{status}</small>
         <details>
           <summary>{spanish ? 'Opciones de voz' : 'Voice options'}</summary>
-          {choice}
-          {voice !== 'device' && (
-            <button type="button" onClick={refreshVoice}>
-              {spanish ? 'Comprobar conexión de voz' : 'Check voice connection'}
-            </button>
-          )}
+          {voiceDropdown}
+          <button type="button" onClick={refreshVoice}>
+            {spanish ? 'Comprobar conexión de voz' : 'Check voice connection'}
+          </button>
         </details>
       </div>
     );
   return (
     <span className="listen-recap">
-      <label className="narrator-choice">
-        {spanish ? 'Voz' : 'Voice'}
-        <select
-          aria-label={spanish ? 'Voz del narrador' : 'Narrator voice'}
-          value={voice}
-          onChange={(event) => setVoice(event.target.value)}
-        >
-          <option value="matchday">{spanish ? 'Narrador de partido' : 'Matchday narrator'}</option>
-          <option value="warm">{spanish ? 'Narrador cercano' : 'Warm storyteller'}</option>
-          <option value="device">
-            {spanish ? 'Dispositivo (básica)' : 'Device voice (basic)'}
-          </option>
-        </select>
-      </label>
+      {voiceDropdown}
       <span className="narrator-actions">
         <button type="button" disabled={!active && (!ready || !text)} onClick={() => listen()}>
           {active ? (spanish ? '■ Detener' : '■ Stop') : spanish ? '🔊 Escuchar' : '🔊 Listen'}
