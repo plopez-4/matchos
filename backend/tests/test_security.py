@@ -145,6 +145,10 @@ def test_production_requires_https_and_secure_cookie(monkeypatch):
     cookie = response.headers['set-cookie']
     assert 'Secure' in cookie and 'HttpOnly' in cookie and 'SameSite=strict' in cookie
     assert "script-src 'self'" in response.headers['content-security-policy']
+    policy = dict(part.strip().split(' ', 1) for part in response.headers['content-security-policy'].split(';'))
+    # Narration is fetched with the session cookie, then played from a local Blob URL.
+    assert policy['media-src'].split() == ["'self'", 'blob:']
+    assert policy['default-src'] == policy['script-src'] == policy['connect-src'] == "'self'"
     assert client.get('/docs').status_code == 404
 
 

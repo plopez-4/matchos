@@ -170,7 +170,7 @@ class SecurityMiddleware:
                                 (b"cache-control", b"no-store")])
                 if production():
                     headers.append((b"strict-transport-security", b"max-age=31536000"))
-                    headers.append((b"content-security-policy", b"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"))
+                    headers.append((b"content-security-policy", b"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"))
                     headers.append((b"permissions-policy", b"camera=(), microphone=(), geolocation=()"))
                 message = dict(message, headers=headers)
             await send(message)
