@@ -241,6 +241,24 @@ test('latest halftime and full-time views do not leave an active attack indicato
   }
 });
 
+test('recorded moves pulse toward the attacking goal and uncertain passes do not animate a push', () => {
+  for (const [team_id, distance] of [
+    ['home', '140px'],
+    ['away', '-140px'],
+  ]) {
+    const html = renderToStaticMarkup(
+      React.createElement(PitchReplay, { events: [pass(1, { team_id })] }),
+    );
+    assert.equal((html.match(/class="pitch-push-pulse"/g) ?? []).length, 3);
+    assert.ok(html.includes(`--pitch-push-distance:${distance}`));
+    assert.ok(html.includes('animation-play-state:running'));
+  }
+  const html = renderToStaticMarkup(
+    React.createElement(PitchReplay, { events: [pass(1, { outcome: 'intercepted' })] }),
+  );
+  assert.ok(!html.includes('class="pitch-push-pulse"'));
+});
+
 test('fan and development pitches explain the recorded participants in English and Spanish', () => {
   for (const compact of [true, false]) {
     for (const language of ['en', 'es']) {

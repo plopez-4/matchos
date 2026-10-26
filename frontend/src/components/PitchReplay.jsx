@@ -306,6 +306,25 @@ export function PitchReplay({
                 fill="white"
                 fillOpacity="0.07"
               />
+              <g key={`${event.event_id}-${playbackId}`} className="pitch-push-flow">
+                {[0, 1, 2].map((pulse) => (
+                  <path
+                    key={pulse}
+                    className="pitch-push-pulse"
+                    d={
+                      attack.direction === 'right'
+                        ? 'M420 90L700 390L420 690L560 690L840 390L560 90Z'
+                        : 'M780 90L500 390L780 690L640 690L360 390L640 90Z'
+                    }
+                    fill="white"
+                    style={{
+                      '--pitch-push-distance': attack.direction === 'right' ? '140px' : '-140px',
+                      animationDelay: `${pulse * 0.4}s`,
+                      animationPlayState: playing && !pending ? 'running' : 'paused',
+                    }}
+                  />
+                ))}
+              </g>
             </g>
           )}
           <g stroke="#ffffff88" strokeWidth="3" fill="none">
