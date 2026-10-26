@@ -1,4 +1,5 @@
 """One verified editorial plan shared by recap prose, evidence and narration."""
+from app.discipline import card_text
 from app.explanations import strongest_change
 from app.narration_text import recap_parts
 from app.player_impact import player_story_text, KINDS as PLAYER_KINDS
@@ -97,13 +98,7 @@ def bind(briefing, selected, audience):
             parts[1:1] = named_goals
         red_cards = briefing['locale_facts'].get('red_cards', [])
         finished = briefing['locale_facts']['phase'] == 'finished'
-        named_cards = [
-            (f"{names[card['team_id']]} jugó con 10 hombres tras la expulsión con tarjeta roja de {card['player_name']} a los {card['clock']}." if finished else
-             f"{names[card['team_id']]} juega con 10 hombres tras la expulsión con tarjeta roja de {card['player_name']} a los {card['clock']}.") if language == 'es' else
-            (f"{names[card['team_id']]} played with 10 men after {card['player_name']} was sent off with a red card at {card['clock']}." if finished else
-             f"{names[card['team_id']]} are down to 10 men after {card['player_name']} was sent off with a red card at {card['clock']}.")
-            for card in red_cards
-        ]
+        named_cards = [card_text(card, names, language, finished) for card in red_cards]
         if named_cards:
             insert_pos = 1 + (len(named_goals) if goals else 0)
             parts[insert_pos:insert_pos] = named_cards

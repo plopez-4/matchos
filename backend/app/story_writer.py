@@ -18,7 +18,7 @@ from app import ai_capacity
 from app import recap_diagnostics
 from app.recap_context import creator_chronology, score_chronology
 
-VERSION = 'fan-narrative-v26-red-card-and-ten-men'
+VERSION = 'fan-narrative-v27-recorded-card-reasons'
 CACHE = OrderedDict()
 LOCK = threading.Lock()
 
@@ -145,13 +145,17 @@ def evidence_packet(briefing, events):
             'team_id': card['team_id'],
             'clock': card['clock'],
             'match_second': card['match_second'],
+            'card_phase': card.get('card_phase', 'during_match'),
+            'card_reason': card.get('card_reason'),
+            'reason_text': card.get('reason_text'),
+            'players_remaining': card.get('players_remaining', 10),
         }, [card['event_id']])
         required.append(card_id)
     recent = [e for e in observed if now-300 < e.match_second <= now][-(8 if plan is not None else 30):]
     relevant = set(e.event_id for e in recent)
     relevant.update(eid for f in facts for eid in f['evidence_event_ids'])
     fields = ('event_id', 'sequence', 'match_second', 'type', 'team_id', 'player_name',
-              'recipient_player_name', 'outcome', 'possession_id', 'related_event_id', 'x', 'y', 'end_x', 'end_y')
+              'recipient_player_name', 'outcome', 'possession_id', 'related_event_id', 'x', 'y', 'end_x', 'end_y', 'card_reason', 'card_phase')
     supporting = [event for event in observed if event.event_id in relevant]
     # Aggregates retain their full source IDs; raw rows are a labeled sample, not inferred tracking.
     if plan is not None:
@@ -347,7 +351,9 @@ def writer_prompt(briefing):
     if briefing.get('locale_facts', {}).get('red_cards'):
         instruction += (
             'RED CARD: explain every required red card in BOTH languages with the sent-off player name '
-            'and the exact card clock in the SAME sentence. Describe the team as playing with or down to 10 men. '
+            'and the exact card clock in the SAME sentence. Use only recorded reason_text; never invent a foul or reason. '
+            'Use players_remaining for during-match dismissals. For card_phase post_match explicitly say AFTER FULL TIME '
+            'or DESPUÉS DEL PITIDO FINAL; never say this dismissal reduced playing numbers or changed the result. '
         )
     if linked:
         instruction += (
@@ -458,7 +464,9 @@ def review_prompt():
                 'scope, shot windows, incomplete coverage, passing context and no future facts. '
                 'The score must be stated in BOTH languages, and both must convey the same facts. '
                 'Reject if either paragraph omits a selected editorial-plan story or required red card, or conflates its historical window with current activity. '
-                'When a red card fact is required, verify that the carded player, team, and exact card clock are accurately stated in BOTH languages, and that the side is correctly described as playing with or down to 10 men. '
+                'For required red cards, verify player, team, exact clock and recorded reason in BOTH languages. '
+                'During-match cards use players_remaining. Post-match cards MUST say after full time and MUST NOT '
+                'imply the team played short because of that card, changed the result, or that losing is a disciplinary offence. '
                 'Reject any positive threat, pressure, dominance or chance-quality interpretation based only on counts. '
                 'A player_shot_creation metric explicitly establishes the final completed pass before the recipient shot next '
                 'in the same possession within ten seconds. That recorded link may be described, but is not a goal assist or a quality rating. '

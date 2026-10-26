@@ -17,7 +17,7 @@ def test_red_card_variant_profiles_and_active_ten_men():
         assert isinstance(player_slot, int)
 
         feed = matchday.library_fixture(profile, f"test-rc-{profile['role']}", variant=3)
-        card_events = [e for e in feed if e["type"] == "red_card"]
+        card_events = [e for e in feed if e["type"] == "red_card" and e.get('card_phase') != 'post_match']
         assert len(card_events) == 1
         card = card_events[0]
         assert card["match_second"] == rc["second"]

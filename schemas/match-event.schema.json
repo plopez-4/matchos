@@ -299,6 +299,54 @@
       ],
       "default": null,
       "title": "Roster Version"
+    },
+    "card_reason": {
+      "anyOf": [
+        {
+          "maxLength": 80,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "enum": [
+        "serious_foul_play",
+        "violent_punch",
+        "violent_push",
+        "violent_conduct",
+        "biting_spitting",
+        "dogso_handball",
+        "dogso_foul",
+        "abusive_language",
+        "second_caution",
+        "video_operation_room",
+        "dogso_non_deliberate_handball",
+        "dogso_non_ball_foul",
+        "unauthorized_entry_dogso",
+        "covered_mouth_provocation",
+        "protest_walk_off",
+        "encouraging_protest_walk_off",
+        null
+      ],
+      "title": "Card Reason"
+    },
+    "card_phase": {
+      "anyOf": [
+        {
+          "enum": [
+            "during_match",
+            "post_match"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Card Phase"
     }
   },
   "required": [

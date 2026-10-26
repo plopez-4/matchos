@@ -1,6 +1,7 @@
 param(
     [switch]$Speech,
     [switch]$AI,
+    [string]$PhoneAddress = '',
     [int]$ReplaceServerPid = 0,
     [string]$ModelEndpoint = 'https://matchos-ai.services.ai.azure.com/openai/v1',
     [string]$ModelDeployment = 'matchos-explainer',
@@ -18,6 +19,7 @@ $previousAiMode = $env:MATCHOS_AI_MODE
 $previousModelEndpoint = $env:AZURE_OPENAI_BASE_URL
 $previousDeployment = $env:AZURE_OPENAI_DEPLOYMENT
 $previousModelKey = $env:AZURE_OPENAI_API_KEY
+$previousAllowedOrigins = $env:MATCHOS_ALLOWED_ORIGINS
 
 function Read-PrivateKey([string]$Prompt) {
     $secureValue = Read-Host $Prompt -AsSecureString
@@ -27,6 +29,16 @@ function Read-PrivateKey([string]$Prompt) {
 }
 
 try {
+    if ($PhoneAddress) {
+        $phoneIp = $null
+        if (-not [System.Net.IPAddress]::TryParse($PhoneAddress, [ref]$phoneIp) -or
+            $phoneIp.AddressFamily -ne [System.Net.Sockets.AddressFamily]::InterNetwork) { throw 'Use this computer''s private IPv4 address from ipconfig.' }
+        $phoneBytes = $phoneIp.GetAddressBytes()
+        if (-not ($phoneBytes[0] -eq 10 -or ($phoneBytes[0] -eq 172 -and $phoneBytes[1] -ge 16 -and $phoneBytes[1] -le 31) -or ($phoneBytes[0] -eq 192 -and $phoneBytes[1] -eq 168))) { throw 'Phone testing requires a private network address.' }
+        $baseOrigins = if ($previousAllowedOrigins) { $previousAllowedOrigins } else { 'http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5175,http://127.0.0.1:5175' }
+        $env:MATCHOS_ALLOWED_ORIGINS = "$baseOrigins,http://${PhoneAddress}:5176"
+        Write-Host "Phone preview origin allowed: http://${PhoneAddress}:5176 (backend stays on loopback)."
+    }
     if ($AI) {
         $parsedEndpoint = [Uri]$ModelEndpoint
         if ($parsedEndpoint.Scheme -ne 'https' -or $parsedEndpoint.Host -notmatch '\.(openai|services\.ai)\.azure\.com$' -or $parsedEndpoint.AbsolutePath.TrimEnd('/') -ne '/openai/v1' -or $parsedEndpoint.Query -or $parsedEndpoint.Fragment -or $parsedEndpoint.UserInfo -or -not $parsedEndpoint.IsDefaultPort) {
@@ -66,4 +78,5 @@ finally {
     $env:AZURE_OPENAI_BASE_URL = $previousModelEndpoint
     $env:AZURE_OPENAI_DEPLOYMENT = $previousDeployment
     $env:AZURE_OPENAI_API_KEY = $previousModelKey
+    $env:MATCHOS_ALLOWED_ORIGINS = $previousAllowedOrigins
 }

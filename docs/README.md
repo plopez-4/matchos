@@ -1,28 +1,26 @@
 # Current documentation
 
-Publication decision and remaining gates: [24 October readiness review](publish-readiness.md). Deployment is on hold until the quality and billing checks are resolved.
+Updated 25 October 2026. The root [README](../README.md) describes the current setup and source to submit. Feature development is frozen while release verification and submission delivery are completed.
 
-Latest AI work: [recap quality checks and recorded failures](recap-quality-v13-review.md).
+| Topic                                             | Current reference                                                                                                      |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Product, startup and demo path                    | [Root README](../README.md)                                                                                            |
+| Submission materials and remaining delivery work  | [Submission package](hackathon-submission.md)                                                                          |
+| Twelve match versions and reference data          | [Full-match data](full-match-data.md)                                                                                  |
+| Repeatable cases and Android setup                | [Fixed cases and phone testing](phone-and-fixed-testing.md)                                                            |
+| Recorded sending-off reasons and post-match cards | [Sending-off data](sending-off-data.md)                                                                                |
+| Screenshot-questionnaire feedback                 | [Aggregated findings](fan-study-oct24/findings.md), [questionnaire protocol](fan-study-oct24/screenshot-test-guide.md) |
+| Connected recovery-to-goal recap                  | [Linked scoring sequence](linked-scoring-sequence.md)                                                                  |
+| Whole-paragraph AI and fallback                   | [Fan narrative](fan-narrative.md)                                                                                      |
+| Azure configuration                               | [Azure AI](azure-ai.md), [Azure Speech](azure-narration.md)                                                            |
+| Architecture and endpoints                        | [Architecture](architecture.md), [API](api.md)                                                                         |
+| Demo limits and production setup                  | [Security](security.md), [judging deployment](judging-deployment.md)                                                   |
+| Asset credits and permissions                     | [Visual assets](visual-assets.md)                                                                                      |
 
-24 October update: [shared Azure cooldown and live recap check](recap-capacity-oct24.md), [judging deployment preparation](judging-deployment.md).
+## Historical evidence
 
-Start here for the current application. The root README contains the supported setup and validation commands.
+The [24 October readiness review](publish-readiness.md) and versioned AI audit reports preserve their original evidence. They do not establish that the latest writer passed a fresh live evaluation. The current source has twelve versions and a fixed test hub; older nine-match reports describe the earlier library.
 
-| Topic                                        | Current reference                                     |
-| -------------------------------------------- | ----------------------------------------------------- |
-| Submission pitch, testing and remaining work | [Submission package](hackathon-submission.md)         |
-| Connected recovery-to-goal recap             | [Linked scoring sequence](linked-scoring-sequence.md) |
-| Whole-paragraph AI writing and fallback      | [Fan narrative](fan-narrative.md)                     |
-| Azure model configuration                    | [Azure AI](azure-ai.md)                               |
-| Azure narration                              | [Azure Speech](azure-narration.md)                    |
-| Fixture catalog and provenance               | [Full-match data](full-match-data.md)                 |
-| Architecture and endpoints                   | [Architecture](architecture.md), [API](api.md)        |
-| Demo limits and production setup             | [Security](security.md)                               |
-| Real participant testing                     | [Five-fan evaluation](fan-evaluation.md)              |
-| Asset credits and permissions                | [Visual assets](visual-assets.md)                     |
+The [five-fan hands-on protocol](fan-evaluation.md) remains distinct from the completed screenshot questionnaire. Do not present questionnaire answers as observed use of the app. The owner tested the computer and phone layouts; broader hands-on testing and a complete live AI acceptance matrix are not claimed.
 
-## Historical material
-
-Older previews, Gemini reviews, versioned live reports and milestone plans record earlier states. They are not instructions to run another application or evidence that the current version passed their tests. The code in `main`, current README and linked-sequence report take precedence for the present release.
-
-Generated speech auditions, runtime logs and private conversation copies stay local and are excluded from publication. The audit scripts and pronunciation tables remain source-controlled so auditions can be regenerated with private Azure configuration.
+Private conversations, generated speech auditions, keys and runtime logs stay local. No public judging host or final submission video is claimed. Start from canonical `main`, rather than an older feature branch or screenshot.

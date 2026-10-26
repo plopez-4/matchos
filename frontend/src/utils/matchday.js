@@ -11,7 +11,7 @@ export function nextRadarNotice(current, view, dismissed = new Set()) {
   if (
     !entry?.pulse?.eligible ||
     !reason ||
-    view.finished ||
+    (view.finished && !reason.post_match) ||
     view.clock_second >= reason.expires_at_second
   )
     return null;

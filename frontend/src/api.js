@@ -161,7 +161,10 @@ export function startMatchday(matchdayId, options = {}) {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ matchday_id: matchdayId, resume_on_capacity: true }),
+    body: JSON.stringify({
+      matchday_id: matchdayId,
+      resume_on_capacity: !/^test-v[1-4]-/.test(matchdayId),
+    }),
   });
 }
 

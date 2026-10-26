@@ -90,7 +90,8 @@
       "red_card": {
         "second": 3300,
         "team": "away",
-        "player": 6
+        "player": 6,
+        "reason": "serious_foul_play"
       }
     }
   ],
@@ -190,7 +191,8 @@
       "red_card": {
         "second": 2100,
         "team": "home",
-        "player": 5
+        "player": 5,
+        "reason": "violent_punch"
       }
     }
   ],
@@ -277,7 +279,13 @@
       "red_card": {
         "second": 3600,
         "team": "away",
-        "player": 4
+        "player": 4,
+        "reason": "violent_push"
+      },
+      "post_match_red_card": {
+        "team": "away",
+        "player": 7,
+        "reason": "abusive_language"
       }
     }
   ]

@@ -1,42 +1,47 @@
 # MatchOS — current submission package
 
-Updated 2026-10-24. This repository package is not a completed hackathon portal entry. See the [publication readiness review](publish-readiness.md) for current release gates.
+Updated 25 October 2026. This repository package is not a completed hackathon portal entry.
 
-## Pitch
+## Project description
 
-MatchOS helps football fans return to a match and understand what they missed. Synthetic passes, recoveries and shots feed deterministic analytics and an evidence graph. An optional Azure-hosted model selects verified stories and writes a bilingual recap from structured observations. A fan can watch how a scoring move unfolded, listen in English or Spanish, and inspect the recorded events behind the explanation. Rejected prose produces a labeled factual fallback.
+MatchOS helps returning football fans understand what they missed and decide what to follow next. Synthetic passes, recoveries and shots feed deterministic analytics and an event-to-metric-to-story evidence graph. Optional Azure AI selects verified stories and writes a bilingual Catch Me Up paragraph from structured observations. Fans can follow recorded scoring moves, listen in English or Spanish, and inspect the supporting events. Match Radar compares three simultaneous streams using observed activity. Red cards open concise recorded explanations, including a dismissal after full time that leaves the result and playing numbers unchanged.
 
 ## Implemented technology
 
-- Python/FastAPI: validated replay, rolling analytics, player contributions, score trajectory and event-to-story evidence.
-- React/Vite: focused fan page, schematic pitch replay, named replay actions and separate development inspector.
-- Azure OpenAI-compatible Foundry deployment: tool-based selection, whole-paragraph EN/ES writing, model review and bounded revision.
-- Azure AI Speech: optional server-generated narration, pronunciation hints and club-name pauses.
+- Python/FastAPI: validated synthetic replay, rolling analytics, player contributions, score trajectory, disciplinary metadata and linked evidence.
+- React/Vite: mobile fan page, schematic build-up replay, fixed-case test hub and separate development inspector.
+- Azure OpenAI-compatible Foundry deployment: verified-ID selection, whole-paragraph EN/ES writing, model review, bounded revision and factual fallback.
+- Azure AI Speech: optional server-generated narration, pronunciation hints and club-name pauses. Automatic and Warm storyteller are the visible voice choices.
 
-These are application-orchestrated calls. Hosted Foundry Agent Service, a distributed multi-agent deployment, Event Hubs and Cosmos DB are not implemented. A verified image and Azure Container Apps template are prepared; no public hosting deployment is claimed.
+Orchestration runs in the application. Hosted Foundry Agent Service, Event Hubs, Cosmos DB and full player tracking are not implemented. A Container Apps deployment package exists; no public hosting deployment is claimed. The current source and CI image must be verified before any deployment.
 
-## Official requirements
+## Submission checklist
 
-Source: [Microsoft official rules](https://github.com/microsoft/insidethegamehackathon/blob/main/OFFICIAL%20RULES.md), re-read 2026-10-23, sections 4.1–4.9 and 6.
+The [official Microsoft rules](https://github.com/microsoft/insidethegamehackathon/blob/main/OFFICIAL%20RULES.md) remain the authority; the earlier requirements review was recorded on 23 October. Check them and the entry portal before final submission.
 
-The rules require synthetic football-realistic data, a project description, functioning demo footage under two minutes, a public supported video URL, public GitHub code, judging access, and English submission materials or translations. Third-party assets need permission. Judging weighs implementation, agentic innovation, impact, experience and category fit equally. Publishing GitHub alone does not complete the entry.
+- Public source: [plopez-4/matchos](https://github.com/plopez-4/matchos), canonical branch `main` after release integration.
+- Project description: provided above; refine only for the portal's actual fields.
+- Demo video: final public link still needed. Use the [1:45 storyboard](demo-storyboard.md), showing the actual app and its synthetic-data disclosure.
+- Judging access: public website or accepted runnable build/access instructions still need confirmation. Localhost links are not external access.
+- English materials: root README and this description; the app also supports Spanish.
+- Assets: confirm [asset permissions and attribution](visual-assets.md) in recorded footage. Unlicensed Premier League/Microsoft logos have been removed.
 
-## Judge testing path
+Publishing code alone does not submit the entry. Deployment remains separate from this GitHub update and requires an agreed cost/access setup.
 
-1. Clone canonical `main` and follow the root README. Open `/`, select Palace–Newcastle and start a fresh replay.
-2. Use Demo settings to advance; pause just after Sarr's 60:11 equalizer and before the next goal at 66:11.
-3. Request Catch Me Up. Inspect the connection from Tomiyasu's recovery to Sarr's equalizer, then open its named replay and supporting events.
-4. Switch EN/ES and Casual/Analyst. State whether each paragraph is AI-written or factual fallback; configured Azure alone does not prove authorship.
-5. Optionally demonstrate Listen with private Azure Speech configuration. Never disclose resource keys in public testing instructions.
+## Repeatable judge walkthrough
 
-## Evidence and remaining work
+1. Clone `main` and follow the root README. Open `/testing.html` and select a fixed version; do not rely on random matchday selection.
+2. Use Normal/Fast demo pace, pause after a listed goal, and request Catch Me Up. All three match streams pause for the snapshot.
+3. Check the current score, actual named participants, separate shot/goal clocks and source evidence. Open the explicitly linked goal build-up.
+4. Switch English/Spanish and Casual/Analyst. Identify whether the paragraph is AI-written or factual fallback; Azure configuration alone does not establish authorship.
+5. In version 4, inspect Palace's 35:00 card, City's 55:00 card, Fulham's 60:00 card, then the losing Fulham player's post-match dismissal at 93:00. Card reasons are fictional authored data, not claims about actual incidents.
+6. Optionally demonstrate Listen with private Azure Speech configuration. Never show keys in footage or provide them in public instructions.
 
-- Latest validated checks: 391 backend tests, 62 frontend tests, frontend build, formatting, credential scan, dependency audit and container startup passed.
-- [Linked sequence report](linked-scoring-sequence.md): exact chronology, strict linking, live failures and fallback behavior.
-- [Five-fan evaluation](fan-evaluation.md): prepared; real sessions remain unrun.
-- Latest v14 live check: one source-correct bilingual halftime recap after revision, with repeated equalizer wording still present. The [24 October evidence](recap-capacity-oct24.md) and [earlier editorial review](recap-quality-v13-review.md) preserve the limited success and failures separately. Consistent accurate, engaging AI prose remains unresolved.
-- Public code: https://github.com/plopez-4/matchos. Canonical release branch: `main` after integration.
-- Public demo video: not provided. Hosted judging access/test build: not confirmed. Complete these before portal submission.
-- Confirm [asset permissions](visual-assets.md) for footage. No permission is inferred from hackathon branding.
+## Evidence and remaining quality work
 
-Use the [1:45 storyboard](demo-storyboard.md). Demonstrate the actual app and name only services implemented. Do not claim guaranteed accuracy, continuous tracking or measured engagement improvements.
+- Current local checks: **597 backend tests, 72 frontend tests and production build passed** on 25 October. CI adds formatting, credential/dependency scans and container build/startup checks. Automated providers are mocked.
+- Ten screenshot-questionnaire submissions were reviewed; see [aggregated findings](fan-study-oct24/findings.md). This is comprehension feedback, not ten hands-on sessions or proof of engagement uplift. The owner confirmed the current phone and computer presentation.
+- The [v23 live audit](recap-v23-nine-match-review-oct24.md) preserves eighteen live requests, accepted errors, rejected drafts and later focused confirmations. Those historical results do not certify writer v27 or all twelve current match versions.
+- Remaining delivery: confirm hosted judging access, record/upload the final video, check final portal requirements and submit. A fresh live AI matrix and broader hands-on/listening checks remain separate quality evidence.
+
+Do not claim guaranteed factual accuracy, real-time production feeds, continuous tracking, trained recommendations or measured engagement improvements.

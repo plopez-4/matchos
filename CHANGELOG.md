@@ -1,5 +1,17 @@
 # Patch notes
 
+## 25 October — mobile demo and recorded sending-off explanations
+
+- Added a fixed-case test hub for all twelve authored match versions and preserved normal independent random selection across 64 combinations.
+- Replaced slow whole-match speed options with labeled Normal/Fast accelerated demo pacing; retained independent build-up replay controls.
+- Compacted fan and development layouts for phones, kept controls touch-friendly and removed page-width overflow from long evidence identifiers.
+- Added private-network phone preview scripts, API proxy handling and replay IDs that work on local HTTP. Development draft diagnostics stay blocked through the phone proxy.
+- Made Catch Me Up more visible, clarified goal build-up labels and identified notifications from other fixtures following ten screenshot-questionnaire submissions.
+- Replaced sending-off pitch replays with localized recorded reasons and evidence. Added a losing-team dismissal after the final whistle without changing the result or in-match player count.
+- Grounded card reasons and phase in recaps and AI packets; bumped the writer to v27 and retained unknown-reason fallback for legacy events.
+- Updated the README, current documentation and submission status. No public hosting or final video is claimed.
+- Validation: 597 backend tests, 72 frontend tests and production frontend build passed. Automated providers are mocked; historical AI audits do not certify the latest writer.
+
 ## 24 October — shared provider cooldown and judging container preparation
 
 - Selection and writing share Azure wait headers and stop new calls during throttling. A transient capacity fallback no longer poisons a snapshot cache; both language labels remain truthful about factual authorship.

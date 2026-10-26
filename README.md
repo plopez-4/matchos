@@ -1,98 +1,122 @@
 # MatchOS
 
-**Missed the action? See how it happened and understand what changed.**
+**Missed the action? Understand what happened, what changed, and which match to follow next.**
 
-MatchOS turns synthetic football events into a returning fan's recap, recorded pitch replay and inspectable evidence. The main page focuses on one match; `/?view=development` opens the separate analytics inspector.
+MatchOS turns synthetic football events into an evidence-backed Catch Me Up recap. Follow a recorded goal build-up, listen in English or Spanish, and inspect the events behind a claim. Three matches advance together; Match Radar surfaces noteworthy action elsewhere using only events already observed.
 
-Built for Inside the Game: Developer Hackathon. Independent prototype; no sponsorship or endorsement claimed. Real club and reference player names identify actors in fictional action, not real performances.
+Built for Inside the Game: Developer Hackathon. Independent prototype; no sponsorship or endorsement claimed. Club and reference player names identify actors in **fictional match action**, including fictional disciplinary incidents. Pitch replays are schematic, not video or continuous player tracking.
 
-## Current version
+[Current documentation](docs/README.md) · [Submission package](docs/hackathon-submission.md) · [CI](https://github.com/plopez-4/matchos/actions/workflows/ci.yml) · [Patch notes](CHANGELOG.md)
 
-`main` is the canonical version to clone and submit after release integration. Older commits and evaluation reports are development history, not alternate applications. Start with [current documentation](docs/README.md), [submission notes](docs/hackathon-submission.md) and [patch notes](CHANGELOG.md).
+## What the demo does
 
-- One fan page: score, important moment, recorded build-up and one Catch Me Up paragraph.
-- Nine prepared synthetic matches: three versions per fixture, eleven active players per side. New matchday chooses one version of each pairing; switching preserves all three streams. Radar compares observed action and explains why another match is hot now.
-- Connected explanations: verified recovery, team passes, goal-producing shot and equalizer form one move. A nearby goal is never linked by proximity alone.
-- Named replay actions, such as “Watch Ismaila Sarr's equalizer.”
-- Casual and Analyst perspectives, English and Spanish, using the same source facts.
-- Optional Azure AI selects verified stories and writes the complete bilingual paragraph from structured observations. Local checks and a separate fallible model review can reject it in favor of a labeled factual fallback.
-- Optional Azure Speech reads the displayed recap. Device speech remains available separately. Pronunciation hints address reported names and club-name joins; human listening acceptance is still needed.
-
-The [nine-match recap audit](docs/recap-library-review-oct24.md) preserves frozen deterministic baselines, failed live matrices, rejected drafts and focused follow-ups. Captured defects include wrong action clocks, historical scorers, individual/team pass credit and pass recipients. The current writer receives a named scoring timeline with separate shot/goal clocks and individual pass totals. Source-correct Spanish wording and verified pass decompositions have regression coverage alongside actual model errors. **Consistent AI prose quality remains unresolved:** successful model review is not proof of correctness, and focused fixes do not establish all-nine reliability. App budgets and Azure allocation were not raised. No five-person human study has been completed.
-
-The [shot-list follow-up](docs/recap-shot-list-fix-oct24.md) fixes the captured rejection of exact saved-shot lists and distinguishes Spanish goal attempts from scored goals, with source-backed positive and negative checks.
-
-The [full v23 nine-match review](docs/recap-v23-nine-match-review-oct24.md) completed all eighteen live requests (thirteen AI recaps, five factual fallbacks). It found one accepted pass-owner ambiguity and four requests containing valid drafts rejected by wording checks. Subsequent validation changes cover those captured cases, with a separate six-request confirmation (four AI recaps, two factual fallbacks). The latest candidate still needs live acceptance and human checks. All 96 deterministic/live source packets passed the independent recount.
+- **Catch Me Up:** a viewer cursor separates what happened during your absence from what changed in the match. Casual and Analyst perspectives use the same underlying facts.
+- **Grounded AI:** optional Azure AI selects verified story IDs and writes the complete bilingual paragraph from structured observations. Local validation and a separate model review can reject it in favor of a clearly labeled factual fallback. The model review is fallible; accuracy is not guaranteed.
+- **Recorded build-ups:** follow the recovery, completed team passes, shot and explicitly linked goal. The app does not infer an assist or connect a nearby goal by proximity alone.
+- **Match Radar:** compare all three observed streams and open a relevant goal, chance or sending-off. This is a deterministic ranking, not a trained recommendation model or prediction.
+- **Sending-off explanations:** recorded player, time and reason replace a pitch animation. A dismissal after full time is explicitly separate from the result and playing numbers.
+- **Bilingual narration:** Automatic uses Azure when connected, with a matching installed device voice when unconfigured; Warm storyteller is the other visible choice. A failed cloud request does not silently switch providers.
+- **Phone and development views:** compact fan layout, a separate evidence/analytics dashboard, and a fixed-case test hub.
 
 ## Core architecture
 
-```text
-Synthetic events: passes, shots, recoveries, coordinates
-  -> deterministic analytics over observed windows and possessions
-  -> Match Story Graph: events -> metrics -> stories
-  -> grounded AI selection, whole-paragraph writing and validation
-  -> fan recap, recorded replay and inspectable evidence
+```mermaid
+flowchart TD
+    A[Raw synthetic events: passes, shots, recoveries, coordinates] --> B[Deterministic analytics over observed windows and possessions]
+    B --> C[Match Story Graph: events support metrics; metrics support stories]
+    C --> D[Grounded selection, audience filter and bilingual AI writing]
+    D --> E[Validation and independent model review]
+    E --> F[Fan recap, narration, schematic replay and inspectable evidence]
+    E --> G[Labeled factual fallback when AI is unavailable or rejected]
 ```
 
-Metrics retain rule versions and source event IDs. AI receives observations and relationships, not prewritten commentary sentences. Rejected output is replaced as a whole; the server does not patch model prose. Pitch replay is schematic interpolation between recorded locations, not continuous player tracking.
+The FastAPI backend calculates facts; React/Vite presents them. Source event IDs, rule versions, possession links and shot-to-goal references remain inspectable. Azure receives structured evidence rather than a list of prewritten commentary lines. Rejected AI prose is replaced as a whole, not patched sentence by sentence.
 
-The shared catalog contains United–City, Palace–Newcastle and Brighton–Fulham. Both views use `backend/app/data/demo_fixtures.json`; the Hull feed is retired. Earlier small scenarios survive only as isolated analytics test fixtures. See [data provenance](docs/full-match-data.md).
+## Twelve synthetic match versions
+
+| Fixture                           | Versions | Starting players |
+| --------------------------------- | -------: | ---------------- |
+| Manchester United–Manchester City |        4 | 11 vs 11         |
+| Crystal Palace–Newcastle United   |        4 | 11 vs 11         |
+| Brighton–Fulham                   |        4 | 11 vs 11         |
+
+New matchday independently selects one version per pairing: **64 possible combinations**, with three concurrent matches. Scores, participants, passing routes and activity patterns vary across authored versions. Switching fixtures preserves progress. During-match dismissals reduce the active side; post-match dismissals do not retrospectively change it.
+
+Both experiences share the same [fixture manifest](backend/app/data/demo_fixtures.json), [version definitions](backend/app/data/match_variants.json) and backend generator. See [data provenance](docs/full-match-data.md) and [sending-off data](docs/sending-off-data.md). The nine exported JSONL evaluation feeds under `data/synthetic/` cover versions 1–3; the running generator and fixed test hub also include version 4.
 
 ## Run locally
 
-Requirements: Python 3.11+, Node.js 22.12+, npm and Git. In Windows Command Prompt:
+Requirements: Python 3.11+, Node.js 22.12+, npm and Git. From Windows Command Prompt:
 
-```bat
+```cmd
 git clone https://github.com/plopez-4/matchos.git
 cd matchos
 py -3 -m venv .venv
 .venv\Scripts\python.exe -m pip install --upgrade pip==26.2.1
 .venv\Scripts\python.exe -m pip install -c backend/constraints.txt -e ".\backend[dev]"
-.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
+.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
 
-Keep it running. Open a second Command Prompt in `matchos`:
+Keep that window open. In a second CMD window, from the cloned `matchos` folder:
 
-```bat
+```cmd
 cd frontend
-npm.cmd ci
-npm.cmd run dev
+npm ci
+npm run dev -- --port 5173 --strictPort
 ```
 
-Open [the fan page](http://127.0.0.1:5173), or the actual port Vite prints. Start replay to advance all three fixtures together. New matchday picks a fresh combination and resets the shared clock; switching fixtures keeps progress. Demo settings contain speed (0.5×–80×). Starting lineups shows each synthetic eleven. Catch Me Up pauses all three and drains the in-flight request before taking its snapshot. Backend restart clears in-memory matches.
+| View                  | Local address                                                               |
+| --------------------- | --------------------------------------------------------------------------- |
+| Main fan page         | [127.0.0.1:5173](http://127.0.0.1:5173/)                                    |
+| Fixed test cases      | [127.0.0.1:5173/testing.html](http://127.0.0.1:5173/testing.html)           |
+| Development dashboard | [127.0.0.1:5173/?view=development](http://127.0.0.1:5173/?view=development) |
 
-On macOS/Linux use `python3 -m venv .venv`, `.venv/bin/python` and `npm`.
+These links work on the computer running the app; they are not a public judging site. Without Azure configuration, recorded-event summaries still work. On macOS/Linux, use `python3 -m venv .venv` and `.venv/bin/python` in place of the Windows Python commands.
 
-### Private Azure connections
+### Optional Azure AI and Speech
 
-Instead of the plain backend command above, this Windows launcher prompts for keys without displaying or saving them:
+Replace the plain backend command with the private launcher, from the repository root:
 
-```bat
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\start_backend.ps1 -AI -Speech
+```cmd
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\start_backend.ps1" -AI -Speech
 ```
 
-Supply your own endpoint, deployment and region if they differ from the launcher's defaults. See [model setup](docs/azure-ai.md) and [Speech setup](docs/azure-narration.md). Keys belong only on the backend, never in React or GitHub. An unconfigured clone uses deterministic summaries.
+Keys are entered through hidden local prompts and are not saved. Supply your own endpoint, deployment and region if different from the launcher's defaults. See [Azure AI setup](docs/azure-ai.md) and [Speech setup](docs/azure-narration.md). Never put keys in the frontend, repository or demonstration footage. Hosted Foundry Agent Service is not implemented; orchestration runs in the application.
 
-## Verification
+### Try a repeatable demo
 
-```bat
+1. Open the **fixed test hub** and choose a fixture/version. This avoids random selection when checking a particular incident.
+2. Start playback. Normal advances 30 match seconds roughly every 1.5 seconds; Fast does so roughly every 0.375 seconds, plus request time. Both are labeled accelerated synthetic replay.
+3. Pause just after a listed goal, then request **Catch Me Up**. All three fixtures pause while the recap snapshot is taken. Inspect the AI/fallback label, EN/ES text and supporting events.
+4. Open the named goal build-up, or view a sending-off explanation. Version 4 has Palace's card at 35:00, City's at 55:00, Fulham's at 60:00 and a losing Fulham player's dismissal after full time at 93:00.
+5. Resume to continue all three matches. New matchday returns to random selection; backend restart clears in-memory sessions.
+
+[Android/private-network instructions and checkpoints](docs/phone-and-fixed-testing.md). Phone access is optional and requires a reachable private network; the normal computer setup above needs no phone configuration.
+
+## Verification and feedback
+
+```cmd
 .venv\Scripts\python.exe -m pytest backend/tests
 .venv\Scripts\python.exe scripts/check_secrets.py
-npm.cmd --prefix frontend run format:check
-npm.cmd --prefix frontend test
-npm.cmd --prefix frontend run build
+npm --prefix frontend run format:check
+npm --prefix frontend test
+npm --prefix frontend run build
 ```
 
-Latest local checks: **391 backend tests and 62 frontend tests passed**, along with production frontend build, formatting and credential scan. Provider unit calls are mocked; live checks and failures are recorded separately. Check GitHub Actions for hosted CI and container build results. The [five-fan test](docs/fan-evaluation.md) is prepared, with no participant results claimed.
+The 25 October local release checks passed **597 backend tests and 72 frontend tests**, plus the production frontend build. CI separately checks formatting, credentials, dependencies and the container. Provider unit calls are mocked; automated checks do not establish live AI accuracy or pronunciation quality.
 
-## Scope and limitations
+Ten screenshot-questionnaire submissions were reviewed on 25 October. They identified useful clarity issues, including finding Catch Me Up and expecting real video from a replay button. Those findings informed stronger action labels, clearer schematic-replay wording and factual sending-off details. This was screenshot comprehension feedback, not ten hands-on app sessions or evidence of engagement uplift. See [aggregated findings](docs/fan-study-oct24/findings.md).
 
-FastAPI and React/Vite run locally with optional Azure model and Speech services. There is no deployed Foundry Agent Service hierarchy, real match feed, full player tracking, production cloud persistence or confirmed hosted judging URL. Use one backend worker. See [security controls and limits](docs/security.md).
+Earlier [live recap audits](docs/recap-v23-nine-match-review-oct24.md) preserve real successes, rejected drafts and accepted errors. The current writer is `fan-narrative-v27-recorded-card-reasons`; earlier live results do not prove reliability across all twelve current versions. The owner has checked the latest computer/phone presentation; a fresh complete live AI matrix remains separate work.
 
-The [Azure hosting package and access checker](docs/judging-deployment.md) are prepared; no public deployment is claimed. Next: verify the container, inspect Azure capacity, deploy and test external judging access, then conduct the real fan test. A public video remains separate submission work.
+## Submission status and limits
+
+`main` is the canonical source to clone and submit. There is no confirmed public judging website or final public submission video yet. Publishing this repository does not complete the hackathon portal entry. See [submission materials and remaining work](docs/hackathon-submission.md).
+
+The prototype uses bounded in-memory replay sessions and one backend worker. It has no real match feed, full-player tracking, production persistence or learned entertainment score. Azure usage is optional and subject to configured budgets, capacity and account billing. See [security controls](docs/security.md) and [deployment preparation](docs/judging-deployment.md).
 
 ## Code and license
 
-Backend: `backend/app/` · frontend: `frontend/src/` · fixtures: `data/synthetic/` · contracts: `schemas/` · tools: `scripts/` · [contributing](CONTRIBUTING.md).
+Backend: `backend/app/` · frontend: `frontend/src/` · synthetic definitions: `backend/app/data/` · exported evaluation feeds: `data/synthetic/` · event contract: `schemas/` · tools: `scripts/`.
 
-[MIT](LICENSE) covers application code. Artwork, photography and fonts have separate terms in [visual assets](docs/visual-assets.md). Confirm permissions before including third-party marks in submitted footage. Player references and historical aggregates have separate provenance. All match actions are fictional.
+[MIT](LICENSE) covers application code. Photography, fonts and reference data have separate provenance in [visual assets](docs/visual-assets.md) and [full-match data](docs/full-match-data.md). Unlicensed Premier League and Microsoft logos have been removed; the broadcast theme does not imply endorsement. All match actions are fictional.

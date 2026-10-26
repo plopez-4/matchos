@@ -213,6 +213,9 @@ def scoped_ranges(sentence, fact, now):
 
 def validate(text, packet, cited):
     plain = normalized(text)
+    recorded_reasons = [normalized(reason) for fact in packet.get('facts', [])
+                        if fact['fact_id'] in cited and fact['data'].get('kind') == 'red_card'
+                        for reason in (fact['data'].get('reason_text') or {}).values()]
     # Target known positive interpretations; do not reject factual disclaimers
     # such as "these counts do not establish control or chance quality".
     unsupported = (
@@ -245,6 +248,11 @@ def validate(text, packet, cited):
     )
     for pattern in unsupported:
         for match in re.finditer(pattern, plain):
+            # An exact recorded disciplinary explanation may describe danger to
+            # an opponent's safety; it is not a claim of attacking threat.
+            if any(start <= match.start() < start+len(reason)
+                   for reason in recorded_reasons for start in [plain.find(reason)] if start >= 0):
+                continue
             prefix = plain[max(0, match.start()-100):match.start()]
             # Explicit limitations are not positive claims of dominance or threat.
             if re.search(r'\b(?:do not|does not|cannot|no)\s+(?:prove|establish|imply|show|demuestran?|indican?|prueban?|significan?|establecen?)\s+(?:[a-z]+\s+){0,7}$|\bsin\s+(?:[a-z]+\s+){0,3}$', prefix):
@@ -488,6 +496,12 @@ def validate_selected_claims(text, packet):
                 raise RecapQualityError('missing_selected_red_card', fact_id=fact['fact_id'],
                                         required_player=data['player_name'], required_clock=data['clock'],
                                         required_scope='player_and_card_clock_in_same_sentence')
+            if data.get('card_phase') == 'post_match':
+                card_sentences = [normalized(s) for s in sentences if named(data['player_name'], s) and data['clock'] in s]
+                if not any(re.search(r'after (?:the )?(?:final whistle|full[ -]time)|post[ -]match|despues del (?:pitido|silbatazo) final|tras el pitido final', s) for s in card_sentences):
+                    raise RecapQualityError('missing_post_match_card_phase', fact_id=fact['fact_id'])
+                if any(re.search(r'down to|played with|reduced to|jugo con|juega con|quedo con', s) for s in card_sentences):
+                    raise RecapQualityError('post_match_card_changed_playing_numbers', fact_id=fact['fact_id'])
         metric = data.get('metric', {})
         kind = data.get('kind')
         counts = []

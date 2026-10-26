@@ -9,6 +9,7 @@ import {
 } from '../utils/pitchReplay';
 import { formatMatchSecond } from '../utils/formatters';
 import { clubByName } from '../utils/teams';
+import { SendingOffDetails } from './SendingOffDetails';
 
 export function PitchReplay({
   events = [],
@@ -24,7 +25,9 @@ export function PitchReplay({
   const es = language === 'es';
   const moves = useMemo(() => pitchMoves(events), [events]);
   const newestMove = useRef(null);
-  newestMove.current = moves.at(-1);
+  newestMove.current = [...moves]
+    .reverse()
+    .find((m) => !m.events.some((e) => e.type === 'red_card'));
   const [moveId, setMoveId] = useState(null);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -33,11 +36,15 @@ export function PitchReplay({
   const [pending, setPending] = useState(null);
   const [transitionLabel, setTransitionLabel] = useState('');
   const [playbackId, setPlaybackId] = useState(0);
+  const [dismissedCard, setDismissedCard] = useState(null);
   const panel = useRef(null);
   const marker = `replay-${useId().replaceAll(':', '')}`;
   const move = moves.find((m) => m.id === moveId) ?? moves.at(-1);
   const safeStep = Math.min(step, (move?.events.length ?? 1) - 1);
   const event = move?.events[safeStep];
+  const requestedCard = events.find((e) => e.event_id === request?.id && e.type === 'red_card');
+  const selectedCard = requestedCard ?? (event?.type === 'red_card' ? event : null);
+  const detailsCard = selectedCard?.event_id !== dismissedCard ? selectedCard : null;
   const end = safeStep >= (move?.events.length ?? 0) - 1;
   const duration = event ? actionDuration(event, move?.events[safeStep + 1], speed) : 1400;
   const requestMoveId = request
@@ -90,6 +97,18 @@ export function PitchReplay({
     }
     const target = moves.find((m) => m.events.some((e) => e.event_id === request.id));
     if (!target) return;
+    const cardIndex = target.events.findIndex(
+      (e) => e.event_id === request.id && e.type === 'red_card',
+    );
+    if (cardIndex >= 0) {
+      setDismissedCard(null);
+      setMoveId(target.id);
+      setStep(cardIndex);
+      setPending(null);
+      setPlaying(false);
+      setLatest(false);
+      return;
+    }
     goTo(target, 0, `Build-up begins · ${formatMatchSecond(target.events[0].match_second)}`);
     setPlaying(true);
     setLatest(false);
@@ -100,7 +119,7 @@ export function PitchReplay({
   }, [request, requestMoveId]);
 
   useEffect(() => {
-    if (!playing || !move || pending) return;
+    if (!playing || !move || pending || detailsCard) return;
     const timer = setInterval(() => {
       if (!end) {
         goTo(move, safeStep + 1);
@@ -109,7 +128,17 @@ export function PitchReplay({
       } else if (!latest) setPlaying(false);
     }, duration);
     return () => clearInterval(timer);
-  }, [playing, move?.id, safeStep, move?.events.length, latest, speed, pending, duration]);
+  }, [
+    playing,
+    move?.id,
+    safeStep,
+    move?.events.length,
+    latest,
+    speed,
+    pending,
+    duration,
+    detailsCard,
+  ]);
 
   function replay(target) {
     goTo(target, 0, `Build-up begins · ${formatMatchSecond(target.events[0].match_second)}`);
@@ -135,6 +164,23 @@ export function PitchReplay({
     .filter((m) => m.events.some((e) => ['shot', 'goal', 'red_card'].includes(e.type)))
     .slice(-6)
     .reverse();
+  if (detailsCard) {
+    return (
+      <SendingOffDetails
+        card={detailsCard}
+        events={events}
+        language={language}
+        onContinue={() => {
+          setDismissedCard(detailsCard.event_id);
+          setMoveId(newestMove.current?.id ?? null);
+          setStep(0);
+          setLatest(true);
+          setPlaying(true);
+          onLatest?.();
+        }}
+      />
+    );
+  }
   return (
     <section
       className={`dashboard-card pitch-replay ${compact ? 'pitch-replay-compact' : ''}`}
@@ -396,7 +442,7 @@ export function PitchReplay({
         )}
         {!compact && (
           <label>
-            Move speed{' '}
+            {es ? 'Velocidad de repetición de la jugada' : 'Build-up replay speed'}{' '}
             <select
               aria-label="Pitch replay speed"
               value={speed}
