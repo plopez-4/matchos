@@ -216,6 +216,23 @@
   flex-shrink: 0;
   font-size: 1.2em;
 }
+.pitch-push-pulse {
+  opacity: 0;
+  animation: pitch-recorded-push 2s ease-out 2 both;
+}
+@keyframes pitch-recorded-push {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.16;
+  }
+  100% {
+    transform: translateX(var(--pitch-push-distance));
+    opacity: 0;
+  }
+}
 .pitch-move-context p {
   margin: 0;
   text-align: right;
@@ -381,6 +398,10 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .pitch-push-pulse {
+    animation: none;
+    opacity: 0;
+  }
   .pitch-action-layer {
     transition: none;
   }

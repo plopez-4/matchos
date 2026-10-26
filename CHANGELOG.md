@@ -1,5 +1,11 @@
 # Patch notes
 
+## 26 October — animated recorded attack direction
+
+- Added staggered moving chevrons behind the recorded action, flowing toward the acting team's attacking goal while keeping the existing labels, area shading and pitch layout.
+- Pulses restart for each displayed action or replay, pause with the pitch controls, and finish after a short burst. Reduced-motion mode keeps the static direction indicator without the moving pulse.
+- Validation: 89 frontend tests and production build passed. No extra model or speech requests are made by the animation.
+
 ## 26 October — recorded attack direction and field area
 
 - Added an English/Spanish team and direction indicator with a highlighted area for each displayed recorded move. Completed passes use their recorded destination; shots and recoveries use their action location. Home/away directions follow this synthetic feed in both halves.
