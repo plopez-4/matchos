@@ -1,5 +1,12 @@
 # Patch notes
 
+## 26 October — narration pace and pitch clarity
+
+- Added Normal and 0.75× narration speed in English and Spanish on both fan and development views. Azure playback changes speed on the existing clip, including a selection made during loading; matching device voices apply the selected rate on Listen.
+- Kept action captions and clarified above the pitch that only players involved in the recorded move are shown. Localized the ball-trail legend in Spanish.
+- Preserved a source ZIP and local backup branch before the feedback changes. The backup excludes credentials, dependencies and private runtime files.
+- Validation: 83 frontend tests and the production build passed; hosted adoption and owner listening remain separate checks.
+
 ## 25 October — mobile demo and recorded sending-off explanations
 
 - Added a fixed-case test hub for all twelve authored match versions and preserved normal independent random selection across 64 combinations.

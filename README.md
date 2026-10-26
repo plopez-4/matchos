@@ -15,7 +15,7 @@ Built for Inside the Game: Developer Hackathon. Independent prototype; no sponso
 - **Recorded build-ups:** follow the recovery, completed team passes, shot and explicitly linked goal. The app does not infer an assist or connect a nearby goal by proximity alone.
 - **Match Radar:** compare all three observed streams and open a relevant goal, chance or sending-off. This is a deterministic ranking, not a trained recommendation model or prediction.
 - **Sending-off explanations:** recorded player, time and reason replace a pitch animation. A dismissal after full time is explicitly separate from the result and playing numbers.
-- **Bilingual narration:** Automatic uses Azure when connected, with a matching installed device voice when unconfigured; Warm storyteller is the other visible choice. A failed cloud request does not silently switch providers.
+- **Bilingual narration:** Automatic uses Azure when connected, with a matching installed device voice when unconfigured; Warm storyteller is the other visible choice. Choose Normal or 0.75× narration speed. Azure clip speed changes locally without another synthesis request. A failed cloud request does not silently switch providers.
 - **Phone and development views:** compact fan layout, a separate evidence/analytics dashboard, and a fixed-case test hub.
 
 ## Core architecture

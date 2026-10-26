@@ -568,6 +568,38 @@
   padding: 0.35rem;
   font: inherit;
 }
+.focus-listen-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+.narration-speed {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 100%;
+  font-size: 0.8rem;
+}
+.narration-speed select {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 0.5rem;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid #795785;
+  border-radius: 0.45rem;
+}
+.narration-speed option {
+  color: #1a0022;
+  background: white;
+}
+.narration-speed select:focus-visible {
+  outline: 2px solid #38a866;
+  outline-offset: 2px;
+}
 .focus-voice {
   display: flex;
   align-items: center;

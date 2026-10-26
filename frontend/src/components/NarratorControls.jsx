@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createSpeechRecap, localVoice, recapText } from '../utils/speechRecap';
 import { createAudioPlayback } from '../utils/audioPlayback';
-import { narratorVoice } from '../utils/narratorVoice';
+import { narratorVoice, narrationRate } from '../utils/narratorVoice';
 import { fetchNarrationStatus, fetchNarration, auditionNarrator } from '../api';
 
 export function NarratorControls({ story, language, compact = false, onListen }) {
   const [voice, setVoice] = useState('auto');
+  const [rate, setRate] = useState(1);
+  const rateRef = useRef(1);
   const [cloud, setCloud] = useState(false);
   const [local, setLocal] = useState(false);
   const [state, setState] = useState('idle');
@@ -30,6 +32,7 @@ export function NarratorControls({ story, language, compact = false, onListen })
       urlApi: window.URL,
       onState,
     });
+    audio.setRate(rateRef.current);
     const synth = window.speechSynthesis;
     const speech =
       synth && typeof window.SpeechSynthesisUtterance === 'function'
@@ -69,7 +72,7 @@ export function NarratorControls({ story, language, compact = false, onListen })
     setSnapshotClock(audition ? '75:30' : story.clock);
     onListen?.();
     if (playbackVoice === 'device') {
-      controls.current?.speech?.listen(text, language);
+      controls.current?.speech?.listen(text, language, rateRef.current);
       return;
     }
     controls.current?.audio.play((options) =>
@@ -120,18 +123,41 @@ export function NarratorControls({ story, language, compact = false, onListen })
       </select>
     </label>
   );
+  const speedDropdown = (
+    <label className="narration-speed">
+      {spanish ? 'Velocidad de narración' : 'Narration speed'}
+      <select
+        aria-label={spanish ? 'Velocidad de narración' : 'Narration speed'}
+        value={rate}
+        onChange={(event) => {
+          const next = narrationRate(event.target.value);
+          rateRef.current = next;
+          setRate(next);
+          controls.current?.audio.setRate(next);
+          // Device voices apply their rate when an utterance starts; let Listen restart it.
+          if (playbackVoice === 'device') controls.current?.speech?.stop();
+        }}
+      >
+        <option value={1}>1× · Normal</option>
+        <option value={0.75}>{spanish ? '0,75× · Más lento' : '0.75× · Slower'}</option>
+      </select>
+    </label>
+  );
   if (compact)
     return (
       <div className="focus-voice">
-        <button type="button" disabled={!active && (!ready || !text)} onClick={() => listen()}>
-          {active
-            ? spanish
-              ? '■ Detener'
-              : '■ Stop'
-            : spanish
-              ? '🔊 Escuchar resumen'
-              : '🔊 Listen to recap'}
-        </button>
+        <div className="focus-listen-actions">
+          <button type="button" disabled={!active && (!ready || !text)} onClick={() => listen()}>
+            {active
+              ? spanish
+                ? '■ Detener'
+                : '■ Stop'
+              : spanish
+                ? '🔊 Escuchar resumen'
+                : '🔊 Listen to recap'}
+          </button>
+          {speedDropdown}
+        </div>
         <small role="status">{status}</small>
         <details>
           <summary>{spanish ? 'Opciones de voz' : 'Voice options'}</summary>
@@ -145,6 +171,7 @@ export function NarratorControls({ story, language, compact = false, onListen })
   return (
     <span className="listen-recap">
       {voiceDropdown}
+      {speedDropdown}
       <span className="narrator-actions">
         <button type="button" disabled={!active && (!ready || !text)} onClick={() => listen()}>
           {active ? (spanish ? '■ Detener' : '■ Stop') : spanish ? '🔊 Escuchar' : '🔊 Listen'}
