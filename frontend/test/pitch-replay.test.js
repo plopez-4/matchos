@@ -11,6 +11,7 @@ import {
   actionTrail,
   actionParticipants,
   actionDuration,
+  recordedAttackContext,
 } from '../src/utils/pitchReplay.js';
 
 const pass = (sequence, fields = {}) => ({
@@ -33,6 +34,54 @@ const pass = (sequence, fields = {}) => ({
   end_y: 60,
   outcome: 'complete',
   ...fields,
+});
+
+test('recorded attack areas mirror each side and follow this feed direction in both halves', () => {
+  for (const period of [1, 2]) {
+    const home = recordedAttackContext(pass(1, { period, end_x: 80 }));
+    const away = recordedAttackContext(
+      pass(1, { period, team_id: 'away', team_name: 'Newcastle', end_x: 20 }),
+    );
+    assert.equal(home.direction, 'right');
+    assert.equal(away.direction, 'left');
+    assert.equal(home.zone, 'attacking');
+    assert.equal(away.zone, 'attacking');
+    assert.deepEqual(home.bounds, [70, 100]);
+    assert.deepEqual(away.bounds, [0, 30]);
+    assert.equal(recordedAttackContext(pass(1, { end_x: 30 })).zone, 'defensive');
+    assert.equal(recordedAttackContext(pass(1, { end_x: 50 })).zone, 'middle');
+    assert.equal(recordedAttackContext(pass(1, { team_id: 'away', end_x: 70 })).zone, 'defensive');
+  }
+});
+
+test('intercepted or unknown passes do not infer the next possessing team or highlight a destination', () => {
+  for (const outcome of ['intercepted', 'incomplete', undefined]) {
+    const context = recordedAttackContext(pass(1, { outcome, end_x: 95 }));
+    assert.equal(context.team, 'Palace');
+    assert.equal(context.direction, null);
+    assert.equal(context.zone, null);
+    assert.equal(context.bounds, null);
+    assert.equal(context.area, 'Next possession unconfirmed');
+  }
+});
+
+test('shots use the recorded strike location and invalid or non-ball events have no attack area', () => {
+  assert.equal(
+    recordedAttackContext(pass(1, { type: 'shot', x: 20, end_x: 100 })).zone,
+    'defensive',
+  );
+  assert.equal(
+    recordedAttackContext(pass(1, { type: 'recovery', x: 75, end_x: 20 })).zone,
+    'attacking',
+  );
+  assert.equal(recordedAttackContext(pass(1, { end_x: NaN })), null);
+  assert.equal(recordedAttackContext(pass(1, { team_id: 'unknown' })), null);
+  for (const type of ['red_card', 'substitution', 'half_end', 'match_end'])
+    assert.equal(recordedAttackContext(pass(1, { type })), null);
+  const goal = recordedAttackContext(pass(1, { type: 'goal' }));
+  assert.equal(goal.action, 'Goal recorded');
+  assert.equal(goal.direction, null);
+  assert.equal(goal.bounds, null);
 });
 
 test('moves preserve observed order and separate possession, team, period and missing-coordinate gaps', () => {
@@ -161,6 +210,36 @@ async function component(name) {
   return import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
 }
 const { PitchReplay } = await component('pitch');
+
+test('both pitch layouts show the acting team direction and localized recorded area without danger claims', () => {
+  for (const compact of [true, false]) {
+    for (const language of ['en', 'es']) {
+      const html = renderToStaticMarkup(
+        React.createElement(PitchReplay, { compact, language, events: [pass(1, { end_x: 80 })] }),
+      );
+      assert.ok(html.includes('Palace</span>'));
+      assert.ok(html.includes('pitch-attack-arrow">→'));
+      assert.ok(html.includes(language === 'es' ? 'Tercio ofensivo' : 'Attacking third'));
+      assert.ok(html.includes('pitch-recorded-area'));
+      assert.doesNotMatch(html, /Dangerous Attack|Ataque peligroso/);
+    }
+  }
+  const intercepted = renderToStaticMarkup(
+    React.createElement(PitchReplay, { events: [pass(1, { outcome: 'intercepted' })] }),
+  );
+  assert.ok(intercepted.includes('Next possession unconfirmed'));
+  assert.ok(!intercepted.includes('class="pitch-recorded-area"'));
+});
+
+test('latest halftime and full-time views do not leave an active attack indicator', () => {
+  for (const type of ['half_end', 'match_end']) {
+    const html = renderToStaticMarkup(
+      React.createElement(PitchReplay, { events: [pass(1), { ...pass(2), type }] }),
+    );
+    assert.ok(!html.includes('class="pitch-move-context"'));
+    assert.ok(!html.includes('class="pitch-recorded-area"'));
+  }
+});
 
 test('fan and development pitches explain the recorded participants in English and Spanish', () => {
   for (const compact of [true, false]) {

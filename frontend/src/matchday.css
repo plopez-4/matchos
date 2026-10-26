@@ -182,6 +182,48 @@
 .pitch-score-strip span:last-child {
   text-align: right;
 }
+.pitch-context-surface {
+  overflow: hidden;
+  border-radius: 12px;
+  background: #103c2e;
+}
+.pitch-move-context {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.85rem;
+  color: #fff;
+  border-bottom: 1px solid #ffffff25;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.pitch-move-context small {
+  display: block;
+  color: #c6dece;
+  font-size: 0.7rem;
+}
+.pitch-move-context strong {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  overflow-wrap: anywhere;
+}
+.pitch-team-name {
+  min-width: 0;
+}
+.pitch-attack-arrow {
+  flex-shrink: 0;
+  font-size: 1.2em;
+}
+.pitch-move-context p {
+  margin: 0;
+  text-align: right;
+}
+.pitch-context-surface .match-pitch {
+  display: block;
+  border-radius: 0;
+}
 .match-pitch {
   display: block;
   width: 100%;
