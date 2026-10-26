@@ -21,6 +21,7 @@ export function FanMatchday({ initialScenarioId }) {
   const [speed, setSpeed] = useState(20);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [sessionMessage, setSessionMessage] = useState('');
   const [notice, setNotice] = useState(null);
   const [moment, setMoment] = useState(null);
   const [language, setLanguage] = useState('en');
@@ -47,11 +48,17 @@ export function FanMatchday({ initialScenarioId }) {
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
+    setError('');
     (async () => {
       await release.current.retry({ signal: controller.signal });
       const next = await startMatchday(dayId, { signal: controller.signal });
       if (!controller.signal.aborted) {
         accept(next);
+        if (next.session_recovered) {
+          setSessionMessage('This link opened a new replay for you. Press Start replay to begin.');
+          if (/^test-v[1-4]-/.test(next.matchday_id))
+            sessionStorage.setItem('matchos-fixed-test-day', next.matchday_id);
+        }
         if (next.matchday_id !== dayId) setDayId(next.matchday_id);
       }
     })()
@@ -148,6 +155,7 @@ export function FanMatchday({ initialScenarioId }) {
     dismissed.current.clear();
     cursors.current = {};
     setError('');
+    setSessionMessage('');
     setDayId(freshDay());
   }
 
@@ -276,6 +284,13 @@ export function FanMatchday({ initialScenarioId }) {
             </div>
           ))}
         </details>
+      )}
+      {sessionMessage && (
+        <p className="focus-caption" role="status">
+          {es
+            ? 'Este enlace abrió una repetición nueva para ti. Pulsa Start replay para empezar.'
+            : sessionMessage}
+        </p>
       )}
       {error && (
         <p className="focus-error" role="alert">
