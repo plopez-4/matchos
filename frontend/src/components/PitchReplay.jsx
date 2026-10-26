@@ -6,6 +6,7 @@ import {
   actionParticipants,
   actionDuration,
   replayTransition,
+  recordedAttackContext,
 } from '../utils/pitchReplay';
 import { formatMatchSecond } from '../utils/formatters';
 import { clubByName } from '../utils/teams';
@@ -160,6 +161,10 @@ export function PitchReplay({
     clubByName(event?.team_name)?.color ?? (event?.team_id === 'away' ? '#ff668c' : '#7dd3fc');
   const ballX = event ? x(isVector ? event.end_x : event.x) : 600;
   const ballY = event ? y(isVector ? event.end_y : event.y) : 390;
+  const stopped =
+    latest &&
+    (events.some((item) => item.type === 'match_end') || events.at(-1)?.type === 'half_end');
+  const attack = pending || stopped ? null : recordedAttackContext(event, language, { home, away });
   const moments = moves
     .filter((m) => m.events.some((e) => ['shot', 'goal', 'red_card'].includes(e.type)))
     .slice(-6)
@@ -230,161 +235,221 @@ export function PitchReplay({
           ? 'Solo se muestran los jugadores que participan en esta jugada registrada.'
           : 'Only players involved in this recorded move are shown.'}
       </p>
-      <svg
-        className="match-pitch"
-        viewBox="0 0 1200 780"
-        role="img"
-        aria-labelledby={`${marker}-title`}
-      >
-        <title id={`${marker}-title`}>
-          {`${actionCaption(event)} Schematic replay between recorded ball locations, not continuous player tracking.`}
-        </title>
-        <defs>
-          <pattern id={`${marker}-grass`} width="180" height="780" patternUnits="userSpaceOnUse">
-            <rect width="180" height="780" fill="#124e3c" />
-            <rect width="90" height="780" fill="#155b43" />
-          </pattern>
-          <marker
-            id={`${marker}-arrow`}
-            viewBox="0 0 10 10"
-            refX="8"
-            refY="5"
-            markerWidth="4"
-            markerHeight="4"
-            orient="auto"
+      <div className="pitch-context-surface">
+        {attack && (
+          <div
+            className="pitch-move-context"
+            aria-label={es ? 'Contexto de la jugada registrada' : 'Recorded move context'}
           >
-            <path d="M0 0L10 5L0 10Z" fill="#e4ffdb" />
-          </marker>
-        </defs>
-        <rect width="1200" height="780" rx="22" fill={`url(#${marker}-grass)`} />
-        <g stroke="#ffffff88" strokeWidth="3" fill="none">
-          <rect x="60" y="50" width="1080" height="680" />
-          <path d="M600 50V730M60 190H225V590H60M1140 190H975V590H1140M60 295H115V485H60M1140 295H1085V485H1140M60 350H30V430H60M1140 350H1170V430H1140" />
-          <circle cx="600" cy="390" r="91" />
-          <circle cx="600" cy="390" r="4" fill="white" />
-          <circle cx="170" cy="390" r="4" fill="white" />
-          <circle cx="1030" cy="390" r="4" fill="white" />
-          <path d="M225 315Q280 390 225 465M975 315Q920 390 975 465" />
-        </g>
-        <g className={`pitch-action-layer${pending ? ' is-cut' : ''}`}>
-          {pathEvents.map((e) => (
-            <g key={e.event_id} opacity={e.event_id === event?.event_id ? 1 : 0.25}>
-              <line
-                x1={x(e.x)}
-                y1={y(e.y)}
-                x2={x(e.end_x)}
-                y2={y(e.end_y)}
-                stroke={e.type === 'shot' ? '#ffe171' : '#e4ffdb'}
-                strokeWidth={e.type === 'shot' ? 6 : 4}
-                strokeDasharray={e.type === 'pass' ? '12 10' : undefined}
-                markerEnd={`url(#${marker}-arrow)`}
-              />
-              <circle className="pitch-trail-point" cx={x(e.x)} cy={y(e.y)} r="5" fill="#d1e5d9" />
-            </g>
-          ))}
-          {participants.map((person) => (
-            <g
-              key={person.id}
-              className="pitch-participant"
-              aria-label={`${person.role}: ${person.name}${person.number ? `, number ${person.number}` : ''}`}
+            <div>
+              <small>{es ? 'Jugada registrada' : 'Recorded move'}</small>
+              <strong>
+                {attack.direction === 'left' && <span className="pitch-attack-arrow">←</span>}
+                <span className="pitch-team-name">{attack.team}</span>
+                {attack.direction === 'right' && <span className="pitch-attack-arrow">→</span>}
+              </strong>
+            </div>
+            <p>
+              {attack.action}
+              {attack.area ? (
+                <>
+                  <br />
+                  <b>{attack.area}</b>
+                </>
+              ) : null}
+            </p>
+          </div>
+        )}
+        <svg
+          className="match-pitch"
+          viewBox="0 0 1200 780"
+          role="img"
+          aria-labelledby={`${marker}-title`}
+        >
+          <title id={`${marker}-title`}>
+            {`${actionCaption(event)} Schematic replay between recorded ball locations, not continuous player tracking.`}
+          </title>
+          <defs>
+            <pattern id={`${marker}-grass`} width="180" height="780" patternUnits="userSpaceOnUse">
+              <rect width="180" height="780" fill="#124e3c" />
+              <rect width="90" height="780" fill="#155b43" />
+            </pattern>
+            <marker
+              id={`${marker}-arrow`}
+              viewBox="0 0 10 10"
+              refX="8"
+              refY="5"
+              markerWidth="4"
+              markerHeight="4"
+              orient="auto"
             >
-              <title>{`${person.role}: ${person.name}`}</title>
-              <circle
-                cx={x(person.x)}
-                cy={y(person.y)}
-                r="23"
-                fill={color}
-                fillOpacity="0.5"
-                stroke="white"
-                strokeWidth="3"
-              />
+              <path d="M0 0L10 5L0 10Z" fill="#e4ffdb" />
+            </marker>
+          </defs>
+          <rect width="1200" height="780" rx="22" fill={`url(#${marker}-grass)`} />
+          {attack?.bounds && (
+            <g className="pitch-recorded-area" aria-hidden="true" pointerEvents="none">
               <rect
-                x={x(person.x) - 21}
-                y={Math.max(8, y(person.y) - 59)}
-                width="42"
-                height="29"
-                rx="8"
-                fill="#082b22"
-                stroke="#ffffff80"
+                x={x(attack.bounds[0])}
+                y="50"
+                width={(attack.bounds[1] - attack.bounds[0]) * 10.8}
+                height="680"
+                fill={color}
+                fillOpacity="0.15"
               />
-              <text
-                x={x(person.x)}
-                y={Math.max(8, y(person.y) - 59) + 21}
-                textAnchor="middle"
+              <path
+                d={
+                  attack.direction === 'right'
+                    ? 'M420 90L700 390L420 690L560 690L840 390L560 90Z'
+                    : 'M780 90L500 390L780 690L640 690L360 390L640 90Z'
+                }
                 fill="white"
-                fontSize="22"
-                fontWeight="800"
-              >
-                {person.number ||
-                  person.name
-                    .split(/\s+/)
-                    .slice(0, 2)
-                    .map((part) => part[0])
-                    .join('')
-                    .toUpperCase()}
-              </text>
+                fillOpacity="0.07"
+              />
             </g>
-          ))}
-          {event && (
-            <g
-              key={`${event.event_id}-${playbackId}`}
-              className={isVector ? 'pitch-moving-event' : ''}
-            >
-              <circle
-                className="pitch-ball-static"
-                cx={ballX}
-                cy={ballY}
-                r="11"
-                fill="white"
-                stroke="#122e27"
-                strokeWidth="4"
-              />
-              {isVector && (
+          )}
+          <g stroke="#ffffff88" strokeWidth="3" fill="none">
+            <rect x="60" y="50" width="1080" height="680" />
+            <path d="M600 50V730M60 190H225V590H60M1140 190H975V590H1140M60 295H115V485H60M1140 295H1085V485H1140M60 350H30V430H60M1140 350H1170V430H1140" />
+            <circle cx="600" cy="390" r="91" />
+            <circle cx="600" cy="390" r="4" fill="white" />
+            <circle cx="170" cy="390" r="4" fill="white" />
+            <circle cx="1030" cy="390" r="4" fill="white" />
+            <path d="M225 315Q280 390 225 465M975 315Q920 390 975 465" />
+          </g>
+          <g className={`pitch-action-layer${pending ? ' is-cut' : ''}`}>
+            {pathEvents.map((e) => (
+              <g key={e.event_id} opacity={e.event_id === event?.event_id ? 1 : 0.25}>
+                <line
+                  x1={x(e.x)}
+                  y1={y(e.y)}
+                  x2={x(e.end_x)}
+                  y2={y(e.end_y)}
+                  stroke={e.type === 'shot' ? '#ffe171' : '#e4ffdb'}
+                  strokeWidth={e.type === 'shot' ? 6 : 4}
+                  strokeDasharray={e.type === 'pass' ? '12 10' : undefined}
+                  markerEnd={`url(#${marker}-arrow)`}
+                />
                 <circle
-                  className="pitch-ball-moving"
+                  className="pitch-trail-point"
+                  cx={x(e.x)}
+                  cy={y(e.y)}
+                  r="5"
+                  fill="#d1e5d9"
+                />
+              </g>
+            ))}
+            {participants.map((person) => (
+              <g
+                key={person.id}
+                className="pitch-participant"
+                aria-label={`${person.role}: ${person.name}${person.number ? `, number ${person.number}` : ''}`}
+              >
+                <title>{`${person.role}: ${person.name}`}</title>
+                <circle
+                  cx={x(person.x)}
+                  cy={y(person.y)}
+                  r="23"
+                  fill={color}
+                  fillOpacity="0.5"
+                  stroke="white"
+                  strokeWidth="3"
+                />
+                <rect
+                  x={x(person.x) - 21}
+                  y={Math.max(8, y(person.y) - 59)}
+                  width="42"
+                  height="29"
+                  rx="8"
+                  fill="#082b22"
+                  stroke="#ffffff80"
+                />
+                <text
+                  x={x(person.x)}
+                  y={Math.max(8, y(person.y) - 59) + 21}
+                  textAnchor="middle"
+                  fill="white"
+                  fontSize="22"
+                  fontWeight="800"
+                >
+                  {person.number ||
+                    person.name
+                      .split(/\s+/)
+                      .slice(0, 2)
+                      .map((part) => part[0])
+                      .join('')
+                      .toUpperCase()}
+                </text>
+              </g>
+            ))}
+            {event && (
+              <g
+                key={`${event.event_id}-${playbackId}`}
+                className={isVector ? 'pitch-moving-event' : ''}
+              >
+                <circle
+                  className="pitch-ball-static"
+                  cx={ballX}
+                  cy={ballY}
                   r="11"
                   fill="white"
                   stroke="#122e27"
                   strokeWidth="4"
-                  style={{
-                    '--pitch-start-x': `${x(event.x)}px`,
-                    '--pitch-start-y': `${y(event.y)}px`,
-                    '--pitch-end-x': `${ballX}px`,
-                    '--pitch-end-y': `${ballY}px`,
-                    animationDuration: `${Math.max(300, duration - 250 / speed)}ms`,
-                    animationPlayState: playing && !pending ? 'running' : 'paused',
-                  }}
                 />
-              )}
-              <rect x="325" y="660" width="550" height="44" rx="22" fill="#082b22e6" />
-              <text x="600" y="689" textAnchor="middle" fill="white" fontSize="22" fontWeight="700">
-                {event.player_name || event.player_id}{' '}
-                {event.recipient_player_id
-                  ? `→ ${event.recipient_player_name || event.recipient_player_id}`
-                  : ''}
+                {isVector && (
+                  <circle
+                    className="pitch-ball-moving"
+                    r="11"
+                    fill="white"
+                    stroke="#122e27"
+                    strokeWidth="4"
+                    style={{
+                      '--pitch-start-x': `${x(event.x)}px`,
+                      '--pitch-start-y': `${y(event.y)}px`,
+                      '--pitch-end-x': `${ballX}px`,
+                      '--pitch-end-y': `${ballY}px`,
+                      animationDuration: `${Math.max(300, duration - 250 / speed)}ms`,
+                      animationPlayState: playing && !pending ? 'running' : 'paused',
+                    }}
+                  />
+                )}
+                <rect x="325" y="660" width="550" height="44" rx="22" fill="#082b22e6" />
+                <text
+                  x="600"
+                  y="689"
+                  textAnchor="middle"
+                  fill="white"
+                  fontSize="22"
+                  fontWeight="700"
+                >
+                  {event.player_name || event.player_id}{' '}
+                  {event.recipient_player_id
+                    ? `→ ${event.recipient_player_name || event.recipient_player_id}`
+                    : ''}
+                </text>
+              </g>
+            )}
+          </g>
+          {pending && (
+            <g className="pitch-cut-overlay" aria-hidden="true">
+              <rect x="100" y="300" width="1000" height="160" rx="22" fill="#082b22f2" />
+              <text x="600" y="370" textAnchor="middle" fill="white" fontSize="29" fontWeight="700">
+                {es ? 'Nueva jugada registrada' : 'A new recorded moment'}
+              </text>
+              <text x="600" y="415" textAnchor="middle" fill="#b9d7c6" fontSize="23">
+                {pending.label}
               </text>
             </g>
           )}
-        </g>
-        {pending && (
-          <g className="pitch-cut-overlay" aria-hidden="true">
-            <rect x="100" y="300" width="1000" height="160" rx="22" fill="#082b22f2" />
-            <text x="600" y="370" textAnchor="middle" fill="white" fontSize="29" fontWeight="700">
-              {es ? 'Nueva jugada registrada' : 'A new recorded moment'}
+          {!event && (
+            <text x="600" y="390" textAnchor="middle" fill="white" fontSize="28">
+              {es
+                ? 'Inicia el partido para ver el balón en movimiento.'
+                : 'Start the match to see the ball move.'}
             </text>
-            <text x="600" y="415" textAnchor="middle" fill="#b9d7c6" fontSize="23">
-              {pending.label}
-            </text>
-          </g>
-        )}
-        {!event && (
-          <text x="600" y="390" textAnchor="middle" fill="white" fontSize="28">
-            {es
-              ? 'Inicia el partido para ver el balón en movimiento.'
-              : 'Start the match to see the ball move.'}
-          </text>
-        )}
-      </svg>
+          )}
+        </svg>
+      </div>
       {participants.length > 0 && (
         <div className="pitch-participant-key" aria-label="Players in this recorded action">
           {participants.map((person) => (

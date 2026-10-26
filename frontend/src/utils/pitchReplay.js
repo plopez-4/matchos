@@ -8,6 +8,61 @@ const samePoint = (a, b) =>
   Math.abs(a[0] - b[0]) < 0.001 &&
   Math.abs(a[1] - b[1]) < 0.001;
 
+// This synthetic feed keeps home attacking right and away attacking left in both halves.
+// A real feed must supply its own direction convention before reusing this view.
+export function recordedAttackContext(event, language = 'en', names = {}) {
+  if (!event || !['home', 'away'].includes(event.team_id) || !point(event.x, event.y)) return null;
+  const es = language === 'es';
+  const team = event.team_name || names[event.team_id] || (es ? 'Equipo' : 'Team');
+  const base = { team, team_id: event.team_id, direction: null, zone: null, bounds: null };
+  if (event.type === 'goal')
+    return { ...base, action: es ? 'Gol registrado' : 'Goal recorded', area: '' };
+  if (!['kickoff', 'recovery', 'pass', 'shot'].includes(event.type)) return null;
+  if (event.type === 'pass' && event.outcome !== 'complete') {
+    return {
+      ...base,
+      action:
+        event.outcome === 'intercepted'
+          ? es
+            ? 'Pase interceptado'
+            : 'Pass intercepted'
+          : es
+            ? 'Pase registrado'
+            : 'Recorded pass',
+      area: es ? 'Siguiente posesión sin confirmar' : 'Next possession unconfirmed',
+    };
+  }
+  const destination = event.type === 'pass';
+  if (destination && !point(event.end_x, event.end_y)) return null;
+  const ballX = destination ? event.end_x : event.x;
+  const progress = event.team_id === 'home' ? ballX : 100 - ballX;
+  const zone = progress >= 70 ? 'attacking' : progress <= 30 ? 'defensive' : 'middle';
+  const labels = es
+    ? { attacking: 'Tercio ofensivo', middle: 'Zona central', defensive: 'Tercio defensivo' }
+    : { attacking: 'Attacking third', middle: 'Middle third', defensive: 'Defensive third' };
+  const action = es
+    ? {
+        pass: 'Pase completado hacia',
+        recovery: 'Recuperación en',
+        kickoff: 'Saque en',
+        shot: 'Remate desde',
+      }
+    : {
+        pass: 'Completed pass to',
+        recovery: 'Recovery in',
+        kickoff: 'Restart in',
+        shot: 'Shot from',
+      };
+  return {
+    ...base,
+    direction: event.team_id === 'home' ? 'right' : 'left',
+    zone,
+    bounds: ballX >= 70 ? [70, 100] : ballX <= 30 ? [0, 30] : [30, 70],
+    action: action[event.type],
+    area: labels[zone],
+  };
+}
+
 // Continuity is conservative: unknown movement/identity is a cut, never a guessed carry.
 export function connectedActions(previous, next) {
   if (

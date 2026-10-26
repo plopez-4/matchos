@@ -1,5 +1,12 @@
 # Patch notes
 
+## 26 October — recorded attack direction and field area
+
+- Added an English/Spanish team and direction indicator with a highlighted area for each displayed recorded move. Completed passes use their recorded destination; shots and recoveries use their action location. Home/away directions follow this synthetic feed in both halves.
+- Intercepted or unknown passes leave the next possession unconfirmed and remove the area highlight. Goals have a goal label without suggesting continued possession; cut transitions and latest halftime/full-time views suppress the indicator.
+- Preserved another pre-change source ZIP and backup branch. The earlier fan-feedback backup remains intact.
+- Validation: 88 frontend tests and production build passed. Hosted adoption remains a separate deployment step.
+
 ## 26 October — narration pace and pitch clarity
 
 - Added Normal and 0.75× narration speed in English and Spanish on both fan and development views. Azure playback changes speed on the existing clip, including a selection made during loading; matching device voices apply the selected rate on Listen.
