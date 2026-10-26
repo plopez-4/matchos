@@ -66,8 +66,18 @@ export function Matchday() {
   useEffect(() => {
     const controller = new AbortController();
     fetchMatchday(dayId, { signal: controller.signal })
-      .then((next) => {
+      .then(async () => {
+        // Public synthetic reads do not establish ownership of playback controls.
+        const next = await startMatchday(dayId, { signal: controller.signal });
         if (!controller.signal.aborted) accept(next);
+        if (!controller.signal.aborted && next.matchday_id !== dayId) {
+          setDayId(next.matchday_id);
+          const url = new URL(window.location.href);
+          url.searchParams.set('day', next.matchday_id);
+          url.searchParams.delete('match');
+          window.history.replaceState(null, '', url);
+          setSessionMessage('This link opened a new replay for you. Press Start demo to begin.');
+        }
       })
       .catch((err) => {
         if (!controller.signal.aborted && err.status !== 404) setError(err.message);

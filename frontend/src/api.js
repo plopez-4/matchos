@@ -1,3 +1,5 @@
+import { replayId } from './utils/replayId.js';
+
 let sessionReady;
 let narrationStatus;
 
@@ -93,6 +95,7 @@ async function request(path, options = {}) {
       : `API request failed (${response.status})`;
     const error = new Error(message);
     error.status = response.status;
+    error.detail = errorDetail;
     throw error;
   }
   return response.json();
@@ -156,16 +159,40 @@ export async function postCatchUp(
   });
 }
 
-export function startMatchday(matchdayId, options = {}) {
-  return request('/matchdays/start', {
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      matchday_id: matchdayId,
-      resume_on_capacity: !/^test-v[1-4]-/.test(matchdayId),
-    }),
-  });
+export async function startMatchday(matchdayId, options = {}) {
+  const start = (id) =>
+    request('/matchdays/start', {
+      ...options,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        matchday_id: id,
+        resume_on_capacity: !/^test-v[1-4]-/.test(id),
+      }),
+    });
+  let renewed = false;
+  try {
+    return await start(matchdayId);
+  } catch (error) {
+    // Renew an expired anonymous cookie once, then check ownership normally.
+    if (error.status !== 401) {
+      if (error.status !== 403 || error.detail !== 'This matchday belongs to another session')
+        throw error;
+    } else renewed = true;
+  }
+  if (renewed) {
+    try {
+      return await start(matchdayId);
+    } catch (error) {
+      if (error.status !== 403 || error.detail !== 'This matchday belongs to another session')
+        throw error;
+    }
+  }
+  // Shared links select a fixture/version, never transfer control of another session.
+  const prefix = /^test-v([1-4])-/.exec(matchdayId);
+  const id = replayId(prefix ? `test-v${prefix[1]}` : 'day');
+  const view = await start(id);
+  return { ...view, session_recovered: true };
 }
 
 export function fetchMatchday(id, options = {}) {
