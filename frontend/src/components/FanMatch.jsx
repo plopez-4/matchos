@@ -79,7 +79,7 @@ export function FanMatch({
       : data.events;
   const important = featuredMoment(events);
   const second = events.at(-1)?.match_second ?? 0;
-  const finished = events.at(-1)?.type === 'match_end';
+  const finished = events.some((event) => event.type === 'match_end');
   const inspectorUrl = `/?view=development&match=${encodeURIComponent(matchId)}&scenario=${encodeURIComponent(scenarioId)}${sharedPlayback?.dayId ? `&day=${encodeURIComponent(sharedPlayback.dayId)}` : ''}`;
 
   async function pause() {
@@ -199,7 +199,15 @@ export function FanMatch({
         )}
         <section className="fan-important-moment" aria-label="Important match moment">
           <div>
-            <span className="feature-pill">{es ? 'En el campo' : 'On the pitch'}</span>
+            <span className="feature-pill">
+              {important?.type === 'red_card'
+                ? es
+                  ? 'Expulsión registrada'
+                  : 'Recorded sending-off'
+                : es
+                  ? 'En el campo'
+                  : 'On the pitch'}
+            </span>
             <h2>
               {important
                 ? `${important.player_name || important.team_name} · ${formatMatchSecond(important.match_second)}`
@@ -209,19 +217,30 @@ export function FanMatch({
             </h2>
           </div>
           {important && (
-            <button className="btn-primary" onClick={() => replay(important)}>
-              {important.type === 'goal'
-                ? es
-                  ? 'Ver el gol'
-                  : 'See the goal'
-                : important.type === 'red_card'
+            <div className="recorded-replay-action">
+              <button className="btn-primary" onClick={() => replay(important)}>
+                {important.type === 'goal'
                   ? es
-                    ? 'Ver la tarjeta roja'
-                    : 'See the red card'
+                    ? 'Repetir la jugada del gol'
+                    : 'Replay the goal build-up'
+                  : important.type === 'red_card'
+                    ? es
+                      ? 'Ver detalles de la expulsión'
+                      : 'View sending-off details'
+                    : es
+                      ? 'Repetir la ocasión'
+                      : 'Replay the chance'}
+              </button>
+              <small className="recorded-replay-note">
+                {important.type === 'red_card'
+                  ? es
+                    ? 'Explicación del incidente ficticio registrado'
+                    : 'Explanation of the recorded fictional incident'
                   : es
-                    ? 'Ver la ocasión'
-                    : 'See the chance'}
-            </button>
+                    ? 'Repetición esquemática a partir de acciones registradas'
+                    : 'Schematic replay from recorded events'}
+              </small>
+            </div>
           )}
         </section>
         <PitchReplay

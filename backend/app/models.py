@@ -1,6 +1,8 @@
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.discipline import REASONS
+
 class MatchEvent(BaseModel):
     model_config = ConfigDict(extra="forbid")
     schema_version: Literal["1.0", "1.1", "1.2"] = "1.1"
@@ -30,8 +32,15 @@ class MatchEvent(BaseModel):
     recipient_player_position: Literal['GK', 'DEF', 'MID', 'FWD'] | None = None
     roster_version: str | None = Field(default=None, min_length=1, max_length=100)
 
+    card_reason: str | None = Field(default=None, max_length=80, json_schema_extra={'enum': [*REASONS, None]})
+    card_phase: Literal['during_match', 'post_match'] | None = None
+
     @model_validator(mode="after")
     def validate_full_feed(self):
+        if self.card_reason is not None and self.card_reason not in REASONS:
+            raise ValueError('Unknown recorded sending-off reason')
+        if self.type != 'red_card' and (self.card_reason is not None or self.card_phase is not None):
+            raise ValueError('Disciplinary details belong only to red-card events')
         if self.schema_version == "1.2" and self.type == "pass":
             if self.end_x is None or self.end_y is None or not self.recipient_player_id:
                 raise ValueError("Full-feed passes require destination coordinates and recipient")

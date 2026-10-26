@@ -9,14 +9,20 @@ import {
   postCatchUp,
   fetchMatchData,
 } from '../api';
-import { playMatchday, createReleaseRecovery, discoveryReason, nextRadarNotice } from '../utils/matchday';
+import {
+  playMatchday,
+  createReleaseRecovery,
+  discoveryReason,
+  nextRadarNotice,
+} from '../utils/matchday';
 import { alertMoment, featuredMoment, momentTitle, retainCatchUp } from '../utils/matchFocus';
 import { PitchReplay } from './PitchReplay';
 import { FocusedRecap } from './FocusedRecap';
 import { clubByName } from '../utils/teams';
 import { formatMatchSecond as clock } from '../utils/formatters';
+import { replayId } from '../utils/replayId';
 
-const freshId = () => `day-${crypto.randomUUID()}`;
+const freshId = () => replayId();
 
 export function Matchday() {
   const [dayId, setDayId] = useState(() => {
@@ -26,7 +32,7 @@ export function Matchday() {
   const [view, setView] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [starting, setStarting] = useState(false);
-  const [speed, setSpeed] = useState(1);
+  const [speed, setSpeed] = useState(20);
   const [error, setError] = useState('');
   const [sessionMessage, setSessionMessage] = useState('');
   const [notice, setNotice] = useState(null);
@@ -80,7 +86,7 @@ export function Matchday() {
     const controller = new AbortController();
     playMatchday({
       initialView: latest.current,
-      intervalMs: 1000 / speed,
+      intervalMs: 30000 / speed,
       signal: controller.signal,
       step: tickMatchday,
       onView: accept,
@@ -96,7 +102,6 @@ export function Matchday() {
       });
     return () => controller.abort();
   }, [playing, speed, dayId]);
-
 
   useEffect(() => {
     if (!selected && view?.matches.length) follow(view.recommendation ?? view.matches[0], false);
@@ -277,7 +282,7 @@ export function Matchday() {
     if (switcher.current) switcher.current.open = false;
     dismissed.current.clear();
     setNotice(null);
-    if (moment) catchUp(entry.match_id, true);
+    if (moment && moment.type !== 'red_card') catchUp(entry.match_id, true);
     else {
       briefRequest.current?.abort();
       generation.current++;
@@ -444,16 +449,31 @@ export function Matchday() {
                 </h1>
               </div>
               {featured && (
-                <button className="btn-primary" onClick={() => replay(moment ?? featured)}>
-                  {(moment ?? featured).type === 'goal'
-                    ? es
-                      ? 'Repetir gol'
-                      : 'Replay goal'
-                    : es
-                      ? 'Repetir ocasión'
-                      : 'Replay chance'}{' '}
-                  <span aria-hidden="true">↗</span>
-                </button>
+                <div className="recorded-replay-action">
+                  <button className="btn-primary" onClick={() => replay(moment ?? featured)}>
+                    {(moment ?? featured).type === 'goal'
+                      ? es
+                        ? 'Repetir la jugada del gol'
+                        : 'Replay the goal build-up'
+                      : (moment ?? featured).type === 'red_card'
+                        ? es
+                          ? 'Ver detalles de la expulsión'
+                          : 'View sending-off details'
+                        : es
+                          ? 'Repetir ocasión'
+                          : 'Replay chance'}{' '}
+                    <span aria-hidden="true">↗</span>
+                  </button>
+                  <small className="recorded-replay-note">
+                    {(moment ?? featured)?.type === 'red_card'
+                      ? es
+                        ? 'Explicación del incidente ficticio registrado'
+                        : 'Explanation of the recorded fictional incident'
+                      : es
+                        ? 'Repetición esquemática a partir de acciones registradas'
+                        : 'Schematic replay from recorded events'}
+                  </small>
+                </div>
               )}
             </section>
 
@@ -522,15 +542,14 @@ export function Matchday() {
               </button>
             )}
             <label>
-              Match speed{' '}
+              {es ? 'Ritmo de demostración' : 'Demo pace'}{' '}
               <select
-                aria-label="Matchday speed"
+                aria-label={es ? 'Ritmo de demostración' : 'Demo pace'}
                 value={speed}
                 onChange={(e) => setSpeed(Number(e.target.value))}
               >
-                <option value={1}>1×</option>
-                <option value={2}>2×</option>
-                <option value={4}>4×</option>
+                <option value={20}>Normal</option>
+                <option value={80}>{es ? 'Rápido' : 'Fast'}</option>
               </select>
             </label>
             <button className="replay-reset" onClick={reset} disabled={starting}>
@@ -538,8 +557,9 @@ export function Matchday() {
             </button>
             <a href="/">Main MatchOS page</a>
             <p>
-              Fictional matches and recorded ball paths, not live video or player tracking. 1×
-              advances 30 match seconds per second.
+              {es
+                ? 'Repetición sintética acelerada · el reloj avanza en pasos de 30 segundos.'
+                : 'Accelerated synthetic replay · match clock advances in 30-second steps.'}
             </p>
           </div>
         </details>
@@ -568,7 +588,8 @@ export function Matchday() {
             </button>
             <div role="status">
               <span className="radar-eyebrow">
-                {notice.entry.home} · {notice.entry.away}
+                {notice.match_id !== selected ? (es ? 'En otro partido: ' : 'Elsewhere: ') : ''}
+                {notice.entry.home} vs {notice.entry.away}
               </span>
               <strong>{notice.reason.headline}</strong>
               <p>
@@ -585,11 +606,26 @@ export function Matchday() {
               }}
             >
               {notice.reason.trigger === 'red_card'
-                ? (es ? 'Ver la tarjeta roja →' : 'See the red card →')
+                ? es
+                  ? 'Ver detalles de la expulsión →'
+                  : 'View sending-off details →'
                 : ['equalizer', 'lead_reversal'].includes(notice.reason.trigger)
-                ? (es ? 'Ver el gol →' : 'See the goal →')
-                : (es ? 'Ver la jugada →' : 'See the moment →')}
+                  ? es
+                    ? 'Repetir la jugada del gol →'
+                    : 'Replay the goal build-up →'
+                  : es
+                    ? 'Repetir la jugada →'
+                    : 'Replay the moment →'}
             </button>
+            <small className="recorded-replay-note">
+              {notice.reason.trigger === 'red_card'
+                ? es
+                  ? 'Explicación del incidente ficticio registrado'
+                  : 'Explanation of the recorded fictional incident'
+                : es
+                  ? 'Repetición esquemática a partir de acciones registradas'
+                  : 'Schematic replay from recorded events'}
+            </small>
           </aside>,
           document.body,
         )}

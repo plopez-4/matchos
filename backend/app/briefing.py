@@ -1,5 +1,6 @@
 """Readable full-feed facts. No style labels or unverified tactical claims."""
 from collections import Counter
+from app.discipline import card_facts, card_text
 
 
 def full_feed_briefing(all_events, new_events, audience):
@@ -30,8 +31,8 @@ def full_feed_briefing(all_events, new_events, audience):
         sentences.append(f"{e.recipient_player_name} replaced {e.player_name} for {names.get(e.team_id, e.team_id)}.")
     red_cards = [e for e in new_events if e.type == "red_card"]
     for e in red_cards:
-        sentences.append(f"{e.player_name or e.player_id} was sent off with a red card for {names.get(e.team_id, e.team_id)} at {clock(e.match_second)}.")
-    if new_events[-1].type == "match_end":
+        sentences.append(card_text(card_facts(e, all_events), names, finished=any(e.type == 'match_end' for e in all_events)))
+    if any(e.type == "match_end" for e in all_events):
         sentences.append("The synthetic match has finished.")
     elif new_events[-1].type == "half_end":
         sentences.append("The first half has finished.")

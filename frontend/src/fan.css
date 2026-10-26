@@ -16,9 +16,13 @@
 }
 .fan-match-flow {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   max-width: 960px;
   margin: 0 auto;
+}
+.fan-match-flow > * {
+  min-width: 0;
 }
 .match-header-compact .stadium-hero {
   height: 150px;
@@ -155,11 +159,108 @@
   overflow-wrap: anywhere;
 }
 @media (max-width: 650px) {
+  .fan-main.matchos-app {
+    padding: 0 12px;
+  }
+  .fan-main .competition-strip {
+    padding: 7px 0;
+  }
+  .fan-match-flow {
+    gap: 0.65rem;
+  }
+  .fan-match-flow > .focus-recap {
+    order: 1;
+  }
+  .fan-match-flow > .fan-important-moment,
+  .fan-match-flow > .pitch-replay {
+    order: 2;
+  }
   .match-header-compact .stadium-hero {
-    height: 130px;
+    height: 76px;
+  }
+  .match-header-compact .hero-editorial {
+    padding: 10px 14px;
   }
   .match-header-compact .hero-editorial h2 {
-    font-size: 34px;
+    font-size: 23px;
+    line-height: 1.05;
+  }
+  .match-header-compact .brand-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .match-header-compact .header-top-row {
+    padding: 7px 0;
+    gap: 6px;
+  }
+  .match-header-compact .product-summary {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .fan-main .photo-credit {
+    font-size: 9px;
+    line-height: 1.35;
+  }
+  .fan-main .scoreboard-card {
+    padding: 0.65rem 0.75rem;
+  }
+  .fan-main .scoreboard-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 8px;
+    padding: 0.4rem 0;
+  }
+  .fan-main .team-name {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  .fan-main .score-number {
+    font-size: 30px;
+  }
+  .fan-main .fixture-label {
+    font-size: 8px;
+    gap: 8px;
+  }
+  .fan-main .replay-card-compact {
+    padding: 0.7rem 0.75rem;
+  }
+  .fan-main .card-title {
+    font-size: 16px;
+  }
+  .fan-main .scenario-description,
+  .fan-main .card-subtitle {
+    font-size: 12px;
+  }
+  .fan-main .focus-recap {
+    padding: 0.85rem;
+  }
+  .fan-main .focus-recap-prose {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .fan-main .focus-caption,
+  .fan-main .recorded-replay-note {
+    font-size: 11px;
+  }
+  .fan-main .fan-important-moment h2 {
+    font-size: 15px;
+  }
+  .fan-main .pitch-replay-compact {
+    padding: 0.75rem;
+  }
+  .fan-main .pitch-action-caption {
+    font-size: 14px;
+  }
+  .fan-main button,
+  .fan-main select {
+    min-height: 44px;
+  }
+  .fan-main .focus-recap-options {
+    gap: 0.6rem;
   }
   .match-header-compact .header-meta {
     display: none;
@@ -172,7 +273,7 @@
     display: none;
   }
   .fan-main .match-pitch {
-    max-height: 260px;
+    max-height: 185px;
   }
   .fan-main .replay-actions {
     flex-wrap: wrap;
@@ -187,6 +288,10 @@
 }
 
 .fan-main .dashboard-footer a {
+  color: #c3ffd6;
+  text-underline-offset: 3px;
+}
+.fan-main .focus-caption a {
   color: #c3ffd6;
   text-underline-offset: 3px;
 }

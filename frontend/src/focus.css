@@ -64,6 +64,25 @@
   padding: 1rem 1.5rem;
   outline: none;
 }
+.focus-main > * {
+  min-width: 0;
+}
+.focus-app .development-inspector {
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  max-width: 100%;
+}
+.focus-app .development-inspector > *,
+.focus-app .development-inspector .header-text-group,
+.focus-app .development-inspector .timeline-body {
+  min-width: 0;
+}
+.focus-app .development-inspector code,
+.focus-app .development-inspector .event-id-tag,
+.focus-app .development-inspector .chain-node-pill {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
 .focus-app button,
 .focus-app select {
   font-family: inherit;
@@ -309,6 +328,22 @@
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
+}
+.focus-catch-up {
+  min-height: 44px;
+  flex-shrink: 0;
+}
+.recorded-replay-action {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: start;
+}
+.recorded-replay-note {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
 }
 .focus-recap h2 {
   font-size: 0.85rem;
@@ -414,6 +449,62 @@
   margin-top: 0.85rem;
 }
 @media (max-width: 600px) {
+  .focus-topbar {
+    flex-wrap: wrap;
+  }
+  .focus-main {
+    padding: 0.8rem 0.75rem;
+  }
+  .focus-app .development-inspector {
+    padding: 1rem 0;
+    gap: 0.75rem;
+  }
+  .focus-app .development-inspector > p {
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .focus-app .development-inspector .dashboard-card {
+    padding: 0.8rem;
+  }
+  .focus-app .development-inspector .card-header {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .focus-app .development-inspector .card-title {
+    font-size: 17px;
+  }
+  .focus-app .development-inspector .card-subtitle {
+    font-size: 12px;
+  }
+  .focus-app .development-inspector .tab-pills,
+  .focus-app .development-inspector .timeline-filters {
+    flex-wrap: wrap;
+  }
+  .focus-app .development-inspector .graph-metrics-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .focus-app .development-inspector .chain-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .focus-app .development-inspector .waiting-windows-box {
+    flex-wrap: wrap;
+  }
+  .focus-app .development-inspector .waiting-text {
+    min-width: 0;
+  }
+  .focus-app .development-inspector .highlight-banner {
+    flex-wrap: wrap;
+  }
+  .focus-app button,
+  .focus-app select,
+  .focus-app summary {
+    min-height: 44px;
+  }
+  .focus-app .focus-demo-controls > div {
+    flex-wrap: wrap;
+  }
   .focus-app .pitch-replay-compact .focus-moments-disclosure {
     float: none;
     margin-top: 0.5rem;
@@ -503,4 +594,21 @@
 }
 .focus-voice details .narrator-choice {
   margin: 0.5rem 0;
+}
+.sending-off-details {
+  padding: 1rem;
+  min-width: 0;
+}
+.sending-off-details p {
+  line-height: 1.55;
+}
+.sending-off-details code {
+  overflow-wrap: anywhere;
+}
+.sending-off-details details {
+  margin: 1rem 0;
+}
+.sending-off-details button,
+.sending-off-details summary {
+  min-height: 44px;
 }

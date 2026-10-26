@@ -7,6 +7,19 @@ import {
   nextRadarNotice,
 } from '../src/utils/matchday.js';
 
+test('a post-match disciplinary notice remains accessible at full time without reviving ordinary hot-match alerts', () => {
+  const reason = { trigger: 'red_card', post_match: true, expires_at_second: 5760 };
+  const view = {
+    finished: true,
+    clock_second: 5580,
+    notification: { id: 'post', match_id: 'quiet' },
+    matches: [{ match_id: 'quiet', pulse: { eligible: true, why_now: reason } }],
+  };
+  assert.equal(nextRadarNotice(null, view).id, 'post');
+  assert.equal(nextRadarNotice(null, { ...view, clock_second: 5760 }), null);
+  assert.equal(nextRadarNotice(null, view, new Set(['post'])), null);
+});
+
 test('a hot-match notice persists across ticks and ranking changes, then expires on source evidence', () => {
   const entry = {
     match_id: 'palace',
@@ -44,7 +57,11 @@ test('red-card notification for a non-leader match persists across ticks and exp
     match_id: 'featured-leader',
     pulse: {
       eligible: true,
-      why_now: { trigger: 'shot_activity', headline: 'Both sides recording shots', expires_at_second: 3900 },
+      why_now: {
+        trigger: 'shot_activity',
+        headline: 'Both sides recording shots',
+        expires_at_second: 3900,
+      },
     },
   };
   const view = {

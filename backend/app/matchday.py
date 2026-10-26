@@ -3,9 +3,11 @@
 No real fixtures, standings, video, learned probability, or future-event inputs.
 """
 from app.models import MatchEvent
+from app.discipline import card_facts, card_text
 from app.rosters import ROSTER_DATA, player_fields, player_name_for, club_for_name, player_for_slot
 import random
 import json
+import re
 from importlib.resources import files
 from hashlib import sha256
 
@@ -41,6 +43,9 @@ VARIANTS = json.loads(files('app').joinpath('data/match_variants.json').read_tex
 
 def selected_variant(match_id):
     """Independent uniform-style selection from a random matchday UUID; stable on reopen."""
+    test_version = re.match(r'^test-v([1-4])-', match_id)
+    if test_version:
+        return int(test_version.group(1)) - 1
     if 'red-card' in match_id or 'red_card' in match_id:
         return 3
     return int.from_bytes(sha256(match_id.encode()).digest()[:8], 'big') % len(VARIANTS['featured'])
@@ -100,7 +105,11 @@ def fixture(profile, match_id, seed=None):
                        player_id=f"{t}-{player}", **player_fields(profile[t], player),
                        roster_version=ROSTER_DATA["version"],
                        type=kind, x=x, y=y, possession_id=possession, source="synthetic", **fields)
-            result.append(MatchEvent(**raw).model_dump())
+            row = MatchEvent(**raw).model_dump()
+            if kind != 'red_card':
+                row.pop('card_reason')
+                row.pop('card_phase')
+            result.append(row)
             return raw["event_id"]
 
         red_card_cfg = profile.get("red_card")
@@ -108,7 +117,8 @@ def fixture(profile, match_id, seed=None):
             card_team = red_card_cfg["team"]
             card_player = red_card_cfg.get("player") or red_card_cfg.get("player_slot")
             if card_player in active[card_team]:
-                emit(slot, "red_card", card_player, event_team=card_team)
+                emit(slot, "red_card", card_player, event_team=card_team,
+                     card_reason=red_card_cfg.get('reason'), card_phase='during_match')
                 active[card_team].remove(card_player)
 
         if slot == 2700:
@@ -192,6 +202,17 @@ def fixture(profile, match_id, seed=None):
                 kickoff_team = "away" if team == "home" else "home"
     # A marker advances the observed clock even when no shot is recorded.
     emit(DURATION, "match_end", active[team][0])
+    post_card = profile.get('post_match_red_card')
+    if post_card:
+        side = post_card['team']
+        score = {t: sum(e['type'] == 'goal' and e['team_id'] == t for e in result) for t in active}
+        other = 'away' if side == 'home' else 'home'
+        if score[side] >= score[other]:
+            raise ValueError('The authored post-match dismissal must belong to the losing team')
+        if post_card['player'] not in active[side]:
+            raise ValueError('The authored post-match player must still be in the finishing lineup')
+        emit(DURATION, 'red_card', post_card['player'], event_team=side,
+             card_reason=post_card['reason'], card_phase='post_match')
     return result
 
 
@@ -234,6 +255,15 @@ def pulse(events, now):
 
 def watch_reason(events, now, score, current, previous, activity_eligible, recent_red_cards=None):
     """A short discovery reason; eligibility and wording use observed facts only."""
+    post_cards = [e for e in (recent_red_cards or []) if e.card_phase == 'post_match']
+    if post_cards:
+        card = post_cards[-1]
+        names = {team: next((e.team_name for e in events if e.team_id == team and e.team_name), team)
+                 for team in ('home', 'away')}
+        return {'trigger': 'red_card', 'headline': f'{card.player_name} sent off after full time.',
+                'text': card_text(card_facts(card, events), names), 'post_match': True,
+                'observed_second': now, 'expires_at_second': now+180,
+                'card_event_id': card.event_id, 'evidence_event_ids': [card.event_id]}
     if now >= DURATION or (events and events[-1].type in ("half_end", "match_end")):
         return None
     names = {team:next((e.team_name for e in events if e.team_id == team and e.team_name),
@@ -270,9 +300,10 @@ def watch_reason(events, now, score, current, previous, activity_eligible, recen
         kind = "red_card"
         player_name = card_event.player_name or f"Player {card_event.player_id}"
         team_name = names[card_event.team_id]
-        headline = f'{team_name} down to 10 men after {player_name} was sent off.'
+        count = card_facts(card_event, events)['players_remaining']
+        headline = f'{team_name} down to {count} men after {player_name} was sent off.'
         c_min, c_sec = divmod(card_event.match_second, 60)
-        reason = f'{scoreline}. {player_name} was shown a red card at {c_min}:{c_sec:02d}. '
+        reason = f'{scoreline}. ' + card_text(card_facts(card_event, events), names) + ' '
         expires = card_event.match_second+180
         ids = [e.event_id for e in goals] + [card_event.event_id]
     elif activity_eligible:
@@ -302,5 +333,5 @@ def watch_reason(events, now, score, current, previous, activity_eligible, recen
 
 
 def rank(entries):
-    eligible = [item for item in entries if item["pulse"]["eligible"]]
+    eligible = [item for item in entries if item["pulse"]["eligible"] and not (item["pulse"].get("why_now") or {}).get("post_match")]
     return sorted(eligible, key=lambda item:(-item["pulse"]["rating"], -item["pulse"]["last_shot_second"], item["match_id"]))

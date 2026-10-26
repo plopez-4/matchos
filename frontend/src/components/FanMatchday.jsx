@@ -6,8 +6,9 @@ import { DEMO_FIXTURES, resolveScenario } from '../utils/scenarios';
 import { playMatchday, createReleaseRecovery, nextRadarNotice } from '../utils/matchday';
 import { alertMoment } from '../utils/matchFocus';
 import { formatMatchSecond as clock } from '../utils/formatters';
+import { replayId } from '../utils/replayId';
 
-const freshDay = () => `day-${crypto.randomUUID()}`;
+const freshDay = () => replayId();
 
 export function FanMatchday({ initialScenarioId }) {
   const [dayId, setDayId] = useState(() => {
@@ -35,6 +36,7 @@ export function FanMatchday({ initialScenarioId }) {
   if (!cursors.current[matchId]) cursors.current[matchId] = { current: 0 };
   const es = language === 'es';
   const selected = view?.matches.find((entry) => entry.role === fixture.role);
+  const fixedTestVersion = /^test-v([1-4])-/.exec(dayId)?.[1];
 
   function accept(next) {
     latest.current = next;
@@ -220,29 +222,38 @@ export function FanMatchday({ initialScenarioId }) {
           {es ? 'Nueva jornada' : 'New matchday'}
         </button>
         <details className="fan-demo-settings">
-          <summary>Demo settings</summary>
+          <summary>{es ? 'Ajustes de demostración' : 'Demo settings'}</summary>
           <div>
             <label className="replay-speed">
-              Speed
+              {es ? 'Ritmo de demostración' : 'Demo pace'}
               <select
-                aria-label="Replay speed"
+                aria-label={es ? 'Ritmo de demostración' : 'Demo pace'}
                 value={speed}
                 onChange={(event) => setSpeed(Number(event.target.value))}
               >
-                {[0.5, 1, 2, 4, 20, 80].map((value) => (
-                  <option key={value} value={value}>
-                    {value}×
-                  </option>
-                ))}
+                <option value={20}>Normal</option>
+                <option value={80}>{es ? 'Rápido' : 'Fast'}</option>
               </select>
             </label>
             <p>
               {es
-                ? 'Cada nueva jornada elige una de tres versiones por partido. Los tres se pausan al pedir el resumen o escucharlo.'
-                : 'Each new matchday picks one of three versions per fixture. Catch Me Up and Listen pause all three.'}
+                ? 'Cada nueva jornada elige una de cuatro versiones por partido. Los tres se pausan al pedir el resumen o escucharlo.'
+                : 'Each new matchday picks one of four versions per fixture. Catch Me Up and Listen pause all three.'}
             </p>
           </div>
         </details>
+        <p className="focus-caption">
+          {es
+            ? 'Repetición sintética acelerada · el reloj avanza en pasos de 30 segundos.'
+            : 'Accelerated synthetic replay · match clock advances in 30-second steps.'}
+        </p>
+        {fixedTestVersion && (
+          <p className="focus-caption" role="status">
+            {es ? 'Prueba fija · versión' : 'Fixed test · version'}{' '}
+            {selected?.variant_id ?? fixedTestVersion} ·{' '}
+            <a href="/testing.html">{es ? 'Volver a las pruebas' : 'Back to test hub'}</a>
+          </p>
+        )}
       </div>
       {selected?.starting_lineups && (
         <details className="fan-demo-settings">
@@ -309,7 +320,8 @@ export function FanMatchday({ initialScenarioId }) {
             </button>
             <div role="status">
               <span className="radar-eyebrow">
-                {es ? 'Partido destacado' : 'Hot match'} · {clock(view.clock_second)}
+                {es ? 'En otro partido' : 'Elsewhere'}: {notice.entry.home} vs {notice.entry.away} ·{' '}
+                {clock(view.clock_second)}
               </span>
               <strong>{notice.reason.headline}</strong>
               <p>
@@ -320,11 +332,26 @@ export function FanMatchday({ initialScenarioId }) {
             </div>
             <button className="btn-primary" onClick={openNotice}>
               {notice.reason.trigger === 'red_card'
-                ? (es ? 'Ver la tarjeta roja →' : 'See the red card →')
+                ? es
+                  ? 'Ver detalles de la expulsión →'
+                  : 'View sending-off details →'
                 : ['equalizer', 'lead_reversal'].includes(notice.reason.trigger)
-                ? (es ? 'Ver el gol →' : 'See the goal →')
-                : (es ? 'Ver la jugada →' : 'See the moment →')}
+                  ? es
+                    ? 'Repetir la jugada del gol →'
+                    : 'Replay the goal build-up →'
+                  : es
+                    ? 'Repetir la jugada →'
+                    : 'Replay the moment →'}
             </button>
+            <small className="recorded-replay-note">
+              {notice.reason.trigger === 'red_card'
+                ? es
+                  ? 'Explicación del incidente ficticio registrado'
+                  : 'Explanation of the recorded fictional incident'
+                : es
+                  ? 'Repetición esquemática a partir de acciones registradas'
+                  : 'Schematic replay from recorded events'}
+            </small>
           </aside>,
           document.body,
         )}

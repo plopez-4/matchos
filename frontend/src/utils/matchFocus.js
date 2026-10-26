@@ -5,7 +5,7 @@ export function featuredMoment(events = [], preferGoal = true) {
   const playable = pitchMoves(events).flatMap((move) => move.events);
   const newest = (type) => [...playable].reverse().find((event) => event.type === type);
   const newestGoal = newest('goal');
-  const newestCard = newest('red_card');
+  const newestCard = [...events].reverse().find((event) => event.type === 'red_card');
   const newestShot = newest('shot');
   if (newestCard && (!newestGoal || newestCard.match_second >= newestGoal.match_second)) {
     return newestCard;
@@ -136,8 +136,8 @@ export function recapReplayLabel(event, briefing, language = 'en') {
       (step) => step.sequence === event.sequence && step.type === 'equalization',
     );
     return es
-      ? `Ver el gol${equalizer ? ' del empate' : ''} de ${name}`
-      : `Watch ${name}’s ${equalizer ? 'equalizer' : 'goal'}`;
+      ? `Repetir la jugada del gol${equalizer ? ' del empate' : ''} de ${name}`
+      : `Replay ${name}’s ${equalizer ? 'equalizer' : 'goal'} build-up`;
   }
   const action =
     event.type === 'pass'

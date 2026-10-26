@@ -1,5 +1,6 @@
 """A compact score story, recent action and clock, rendered from observed facts."""
 from collections import Counter
+from app.discipline import card_facts, card_text
 from app.intelligence import score_trajectory
 from app.historical_context import historical_precedent
 from app.narration_text import recap_text
@@ -20,7 +21,7 @@ def fan_briefing(events, new_events, *, now=None):
     score_ids = trajectory['evidence_event_ids']
     transitions = trajectory['transitions']
     scoreline = f"{name('home')} {score['home']}–{score['away']} {name('away')}"
-    finished = observed[-1].type == 'match_end'
+    finished = any(e.type == 'match_end' for e in observed)
     halftime = observed[-1].type == 'half_end'
     headline = 'The story so far'
     swing = 'No goals have been recorded.'
@@ -65,7 +66,7 @@ def fan_briefing(events, new_events, *, now=None):
     cards = [e for e in observed if e.type == 'red_card']
     card_ids = [e.event_id for e in cards]
     if cards:
-        cards_text = ' '.join(f"{name(e.team_id)} down to 10 men after {e.player_name or e.player_id} was sent off with a red card at {clock(e.match_second)}." for e in cards)
+        cards_text = ' '.join(card_text(card_facts(e, observed), names, finished=finished) for e in cards)
         swing += f" {cards_text}"
         score_ids = list(dict.fromkeys(score_ids + card_ids))
     sections = [
@@ -82,10 +83,7 @@ def fan_briefing(events, new_events, *, now=None):
                             'goals':[{'event_id':event.event_id, 'player_name':event.player_name or event.player_id,
                                       'team_id':event.team_id, 'clock':clock(event.match_second)}
                                      for event in observed if event.type == 'goal'],
-                            'red_cards':[{'event_id':event.event_id, 'player_name':event.player_name or event.player_id,
-                                          'team_id':event.team_id, 'clock':clock(event.match_second),
-                                          'match_second':event.match_second}
-                                         for event in cards],
+                            'red_cards':[card_facts(event, observed) for event in cards],
                             'phase':'finished' if finished else 'halftime' if halftime else 'playing',
                             'shots':{'home':counts['home'],'away':counts['away']},
                             'previous_shots':len(previous), 'has_new_goals':any(e.type == 'goal' and e.match_second <= now for e in new_events)},
@@ -98,10 +96,6 @@ def fan_briefing(events, new_events, *, now=None):
     briefing['spoken_recap'] = {language: recap_text(briefing, language) for language in ('en', 'es')}
     if cards:
         for language in ('en', 'es'):
-            c_text = ' '.join(
-                (f"{name(e.team_id)} {'jugó' if finished else 'juega'} con 10 hombres tras la expulsión con tarjeta roja de {e.player_name or e.player_id} a los {clock(e.match_second)}." if language == 'es' else
-                 f"{name(e.team_id)} {'played with' if finished else 'are down to'} 10 men after {e.player_name or e.player_id} was sent off with a red card at {clock(e.match_second)}.")
-                for e in cards
-            )
+            c_text = ' '.join(card_text(card_facts(e, observed), names, language, finished) for e in cards)
             briefing['spoken_recap'][language] += f" {c_text}"
     return briefing

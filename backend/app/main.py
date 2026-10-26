@@ -460,6 +460,8 @@ def append_event(event: MatchEvent):
         raise HTTPException(409, "Out-of-order event; replay in sequence order")
     if match and event.match_second < max(e.match_second for e in match.values()):
         raise HTTPException(409, "Match clock moved backwards")
+    if event.card_phase == 'post_match' and not any(e.type == 'match_end' for e in match.values()):
+        raise HTTPException(422, "Post-match discipline requires a recorded final whistle")
     if event.related_event_id:
         shot = match.get(event.related_event_id)
         if (

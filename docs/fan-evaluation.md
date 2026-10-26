@@ -1,6 +1,6 @@
 # Five-fan comprehension check
 
-Status: prepared; no participant sessions have been conducted.
+Status: proposed hands-on protocol; no completed sessions are claimed here. A separate screenshot questionnaire has [ten reviewed submissions](fan-study-oct24/findings.md). Screenshot responses do not count as observed app use.
 
 Purpose: determine whether a returning fan understands the contribution and its timing, rather than only liking the animation or commentator voice. This small study cannot establish engagement uplift or general accuracy.
 

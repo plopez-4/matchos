@@ -1,0 +1,66 @@
+{
+  "serious_foul_play": {
+    "en": "Serious foul play: a sliding challenge endangered an opponent's safety.",
+    "es": "Juego brusco grave: una entrada deslizante puso en peligro la integridad de un rival."
+  },
+  "violent_punch": {
+    "en": "Violent conduct: punching an opponent away from a challenge for the ball.",
+    "es": "Conducta violenta: propinar un puñetazo a un rival sin disputar el balón."
+  },
+  "violent_push": {
+    "en": "Violent conduct: pushing an opponent with excessive force away from a challenge for the ball.",
+    "es": "Conducta violenta: empujar a un rival con fuerza excesiva sin disputar el balón."
+  },
+  "violent_conduct": {
+    "en": "Violent conduct: using or attempting excessive force outside a challenge for the ball.",
+    "es": "Conducta violenta: usar o intentar usar fuerza excesiva sin disputar el balón."
+  },
+  "biting_spitting": {
+    "en": "Biting or spitting at another person.",
+    "es": "Morder o escupir a otra persona."
+  },
+  "dogso_handball": {
+    "en": "Denying a goal or an obvious goal-scoring opportunity through deliberate handball.",
+    "es": "Evitar un gol o una ocasión manifiesta de gol mediante una mano deliberada."
+  },
+  "dogso_foul": {
+    "en": "Denying an obvious goal-scoring opportunity by a foul outside the penalty area.",
+    "es": "Impedir una ocasión manifiesta de gol mediante una falta fuera del área penal."
+  },
+  "abusive_language": {
+    "en": "Offensive, insulting or abusive language directed at the referee while disputing a decision.",
+    "es": "Lenguaje ofensivo, insultante o abusivo dirigido al árbitro al protestar una decisión."
+  },
+  "second_caution": {
+    "en": "A second yellow card for dissent after an earlier caution.",
+    "es": "Segunda tarjeta amarilla por protestar, tras una amonestación anterior."
+  },
+  "video_operation_room": {
+    "en": "Entering the video operation room.",
+    "es": "Entrar en la sala de operaciones de vídeo."
+  },
+  "dogso_non_deliberate_handball": {
+    "en": "Denying a goal or an obvious goal-scoring opportunity through a non-deliberate handball offence outside the player's own penalty area.",
+    "es": "Evitar un gol o una ocasión manifiesta de gol mediante una infracción por mano no deliberada fuera del área penal propia."
+  },
+  "dogso_non_ball_foul": {
+    "en": "Denying an obvious goal-scoring opportunity by holding, pulling or pushing, without an attempt to play the ball.",
+    "es": "Impedir una ocasión manifiesta de gol sujetando, agarrando o empujando, sin intentar disputar el balón."
+  },
+  "unauthorized_entry_dogso": {
+    "en": "Entering the field without permission and interfering to deny a goal or an obvious goal-scoring opportunity.",
+    "es": "Entrar al terreno de juego sin permiso e interferir para evitar un gol o una ocasión manifiesta de gol."
+  },
+  "covered_mouth_provocation": {
+    "en": "Covering the mouth while communicating provocatively with an opponent (competition option).",
+    "es": "Taparse la boca al comunicarse de forma provocadora con un rival (opción de la competición)."
+  },
+  "protest_walk_off": {
+    "en": "Leaving the field in protest at the referee's decision (competition option).",
+    "es": "Abandonar el terreno de juego para protestar una decisión arbitral (opción de la competición)."
+  },
+  "encouraging_protest_walk_off": {
+    "en": "Instructing or encouraging players to leave the field in protest at the referee's decision (competition option).",
+    "es": "Ordenar o animar a otros jugadores a abandonar el terreno de juego para protestar una decisión arbitral (opción de la competición)."
+  }
+}

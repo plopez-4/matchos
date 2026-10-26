@@ -43,7 +43,7 @@ def test_each_library_match_has_legal_elevens_and_connected_varied_actions(profi
             assert event.recipient_player_id not in active[event.team_id]
             active[event.team_id].remove(event.player_id)
             active[event.team_id].add(event.recipient_player_id)
-        if event.type == 'red_card':
+        if event.type == 'red_card' and event.card_phase != 'post_match':
             assert event.player_id in active[event.team_id]
             active[event.team_id].remove(event.player_id)
         if event.type == 'pass':
@@ -63,7 +63,10 @@ def test_each_library_match_has_legal_elevens_and_connected_varied_actions(profi
     assert all(starters[side] <= passing[side] for side in starters)
     assert {2,3,4} <= set(chains.values())
     assert sum(e['type']=='half_end' for e in raw)==1
-    assert raw[-1]['type']=='match_end' and raw[-1]['match_second']==5580
+    end = next(e for e in raw if e['type'] == 'match_end')
+    assert end['match_second'] == 5580
+    assert all(e['type'] == 'red_card' and e['card_phase'] == 'post_match'
+               for e in raw if e['sequence'] > end['sequence'])
 
 
 def test_library_versions_change_stories_not_just_names():

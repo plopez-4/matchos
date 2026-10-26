@@ -43,8 +43,12 @@ export function createSpeechRecap({ synth, Utterance, onState = () => {} }) {
       const spokenText =
         language === 'en'
           ? text
-              .replace(/(?<!:\d{2}:)(?<!\d:)\b(\d{1,3}):00(?!:\d{2})\b(?=\s*minutes?\b)/g, (_, m) => String(Number(m)))
-              .replace(/(?<!:\d{2}:)(?<!\d:)\b(\d{1,3}):00(?!:\d{2})\b/g, (_, m) => (m === '1' ? '1 minute' : `${Number(m)} minutes`))
+              .replace(/(?<!:\d{2}:)(?<!\d:)\b(\d{1,3}):00(?!:\d{2})\b(?=\s*minutes?\b)/g, (_, m) =>
+                String(Number(m)),
+              )
+              .replace(/(?<!:\d{2}:)(?<!\d:)\b(\d{1,3}):00(?!:\d{2})\b/g, (_, m) =>
+                m === '1' ? '1 minute' : `${Number(m)} minutes`,
+              )
           : text;
       const utterance = new Utterance(spokenText);
       utterance.voice = voice;

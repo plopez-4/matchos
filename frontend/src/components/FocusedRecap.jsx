@@ -35,7 +35,12 @@ export function FocusedRecap({
     <section className="focus-recap" aria-label="Catch Me Up">
       <div className="focus-recap-heading">
         <h2>Catch Me Up</h2>
-        <button className="focus-text-button" disabled={busy} onClick={onCatchUp} aria-busy={busy}>
+        <button
+          className="btn-primary focus-catch-up"
+          disabled={busy}
+          onClick={onCatchUp}
+          aria-busy={busy}
+        >
           {busy ? (es ? 'Preparando…' : 'Catching you up…') : es ? 'Ponme al día' : 'Catch me up'}
         </button>
       </div>
@@ -88,7 +93,11 @@ export function FocusedRecap({
           className="recap-action-replays"
           aria-label={es ? 'Jugadas de este resumen' : 'Actions behind this recap'}
         >
-          <span>{es ? 'Mira las jugadas del resumen' : 'See the actions behind the recap'}</span>
+          <span>
+            {es
+              ? 'Repetición esquemática a partir de acciones registradas'
+              : 'Schematic replay from recorded events'}
+          </span>
           {replayActions.slice(0, 3).map((event) => (
             <button key={event.event_id} onClick={() => onReplayMoment(event)}>
               {recapReplayLabel(event, briefing, language)} ·{' '}

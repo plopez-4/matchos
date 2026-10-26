@@ -54,8 +54,11 @@ test('linked scoring action replays the exact equalizer and rejects missing or f
     story_plan: { change_story_id: 'transition', stories: [story] },
   };
   assert.deepEqual(contributionReplayMoments(briefing, [shot, goal]), [goal]);
-  assert.equal(recapReplayLabel(goal, briefing, 'en'), 'Watch Ismaila Sarr’s equalizer');
-  assert.equal(recapReplayLabel(goal, briefing, 'es'), 'Ver el gol del empate de Ismaila Sarr');
+  assert.equal(recapReplayLabel(goal, briefing, 'en'), 'Replay Ismaila Sarr’s equalizer build-up');
+  assert.equal(
+    recapReplayLabel(goal, briefing, 'es'),
+    'Repetir la jugada del gol del empate de Ismaila Sarr',
+  );
   assert.deepEqual(contributionReplayMoments(briefing, [goal]), []);
   assert.deepEqual(
     contributionReplayMoments({ ...briefing, snapshot: { through_sequence: 3 } }, [shot, goal]),
@@ -187,6 +190,49 @@ const { FocusedRecap } = await component('recap');
 const { PitchReplay } = await component('pitch');
 const { App } = await component('app');
 const { DevelopmentInspector } = await component('inspector');
+
+test('sending-off details replace the pitch, expose recorded reasons and label post-match incidents', () => {
+  const card = {
+    ...event(4, 'red_card'),
+    card_reason: 'violent_push',
+    card_phase: 'during_match',
+    player_name: 'Joachim Andersen',
+    team_name: 'Fulham',
+    player_id: 'away-4',
+    team_id: 'away',
+  };
+  for (const [language, expected] of [
+    ['en', 'pushing an opponent with excessive force'],
+    ['es', 'empujar a un rival con fuerza excesiva'],
+  ]) {
+    const html = renderToStaticMarkup(
+      React.createElement(PitchReplay, {
+        compact: true,
+        events: [card],
+        request: { id: card.event_id },
+        language,
+      }),
+    );
+    assert.match(html, new RegExp(expected));
+    assert.match(html, /Joachim Andersen/);
+    assert.doesNotMatch(html, /<svg|Build-up replay speed|Pause replay/);
+    assert.match(html, /<details>/);
+  }
+  const post = {
+    ...card,
+    event_id: 'post-card',
+    sequence: 5,
+    player_id: 'away-7',
+    card_phase: 'post_match',
+    card_reason: 'abusive_language',
+  };
+  const html = renderToStaticMarkup(
+    React.createElement(PitchReplay, { events: [card, post], request: { id: post.event_id } }),
+  );
+  assert.match(html, /After full time/);
+  assert.match(html, /did not change the result/);
+  assert.doesNotMatch(html, /reduced to 9|<svg/);
+});
 
 test('a capacity fallback stays labeled as recorded events in both languages', () => {
   const briefing = {
