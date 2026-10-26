@@ -1,4 +1,5 @@
 import { claimAudio, ownsAudio, releaseAudio } from './audioOwner.js';
+import { narrationRate } from './narratorVoice.js';
 
 export function recapText(story, language) {
   if (!story) return '';
@@ -33,7 +34,7 @@ export function createSpeechRecap({ synth, Utterance, onState = () => {} }) {
   }
   return {
     stop,
-    listen(text, language) {
+    listen(text, language, rate = 1) {
       const voice = localVoice(synth.getVoices(), language);
       if (!voice) {
         onState('unavailable');
@@ -53,6 +54,7 @@ export function createSpeechRecap({ synth, Utterance, onState = () => {} }) {
       const utterance = new Utterance(spokenText);
       utterance.voice = voice;
       utterance.lang = voice.lang;
+      utterance.rate = narrationRate(rate);
       current = utterance;
       const finish = (state) => {
         if (current !== utterance) return;

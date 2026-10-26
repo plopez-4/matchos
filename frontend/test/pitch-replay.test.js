@@ -162,6 +162,24 @@ async function component(name) {
 }
 const { PitchReplay } = await component('pitch');
 
+test('fan and development pitches explain the recorded participants in English and Spanish', () => {
+  for (const compact of [true, false]) {
+    for (const language of ['en', 'es']) {
+      const html = renderToStaticMarkup(
+        React.createElement(PitchReplay, { events: [pass(1)], compact, language }),
+      );
+      const explanation =
+        language === 'es'
+          ? 'Solo se muestran los jugadores que participan en esta jugada registrada.'
+          : 'Only players involved in this recorded move are shown.';
+      assert.ok(html.includes(explanation));
+      assert.ok(html.indexOf(explanation) < html.indexOf('<svg'));
+      assert.ok(html.includes(language === 'es' ? 'Balón blanco' : 'White ball'));
+      assert.ok(html.includes('Alex finds Sam.'));
+    }
+  }
+});
+
 test('pitch renders recorded endpoints, animated ball, controls and safe empty state', () => {
   const html = renderToStaticMarkup(
     React.createElement(PitchReplay, { events: [pass(1), pass(2)] }),

@@ -83,3 +83,35 @@ test('cloud errors do not silently switch to the basic device reader', async () 
   assert.equal(p.states.at(-1).message, 'Speech resource unavailable');
   assert.equal(p.instances.length, 0);
 });
+
+test('slower cloud narration keeps one clip and changes speed during playback without refetching', async () => {
+  const p = player();
+  let requests = 0;
+  p.playback.setRate(0.75);
+  await p.playback.play(async () => {
+    requests++;
+    return { blob: 'audio' };
+  });
+  assert.equal(p.instances[0].playbackRate, 0.75);
+  assert.equal(p.instances[0].preservesPitch, true);
+  p.playback.setRate(1);
+  assert.equal(p.instances[0].playbackRate, 1);
+  p.playback.setRate(0.75);
+  assert.equal(p.instances[0].playbackRate, 0.75);
+  assert.equal(requests, 1);
+  assert.equal(p.instances.length, 1);
+  assert.equal(p.revoked.length, 0);
+  p.playback.stop();
+  assert.equal(p.instances[0].paused, true);
+});
+
+test('a speed selected while audio loads is applied when the clip arrives', async () => {
+  const p = player();
+  let complete;
+  const pending = p.playback.play(() => new Promise((resolve) => (complete = resolve)));
+  p.playback.setRate(0.75);
+  complete({ blob: 'audio' });
+  await pending;
+  assert.equal(p.instances[0].playbackRate, 0.75);
+  p.playback.stop();
+});

@@ -225,6 +225,11 @@ export function PitchReplay({
           ? 'Posiciones registradas del balón · repetición resumida'
           : transitionLabel || 'Recorded action locations · compressed replay'}
       </p>
+      <p className="pitch-replay-note">
+        {es
+          ? 'Solo se muestran los jugadores que participan en esta jugada registrada.'
+          : 'Only players involved in this recorded move are shown.'}
+      </p>
       <svg
         className="match-pitch"
         viewBox="0 0 1200 780"
@@ -391,7 +396,9 @@ export function PitchReplay({
         </div>
       )}
       <p className="pitch-replay-note">
-        White ball · small dots show earlier ball locations · only recorded participants shown
+        {es
+          ? 'Balón blanco · los puntos pequeños indican posiciones anteriores del balón.'
+          : 'White ball · small dots show earlier ball locations.'}
       </p>
       <p
         className={`pitch-commentary ${event?.type === 'goal' || event?.outcome === 'goal' ? 'is-goal' : ''}`}

@@ -1,7 +1,9 @@
 import { claimAudio, releaseAudio } from './audioOwner.js';
+import { narrationRate } from './narratorVoice.js';
 
 export function createAudioPlayback({ AudioConstructor, urlApi, onState = () => {} }) {
   let current;
+  let rate = 1;
   function clear(state = 'idle', message = '') {
     const job = current;
     current = null;
@@ -20,6 +22,10 @@ export function createAudioPlayback({ AudioConstructor, urlApi, onState = () => 
   }
   return {
     stop,
+    setRate(value) {
+      rate = narrationRate(value);
+      if (current?.audio) current.audio.playbackRate = rate;
+    },
     async play(fetchClip) {
       claimAudio(stop);
       const job = { abort: new AbortController() };
@@ -30,6 +36,8 @@ export function createAudioPlayback({ AudioConstructor, urlApi, onState = () => 
         if (current !== job || job.abort.signal.aborted) return false;
         job.url = urlApi.createObjectURL(clip.blob);
         job.audio = new AudioConstructor(job.url);
+        job.audio.preservesPitch = true;
+        job.audio.playbackRate = rate;
         job.audio.onended = () => {
           if (current === job) clear();
         };

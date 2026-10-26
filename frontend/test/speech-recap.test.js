@@ -92,3 +92,16 @@ test('speech failure resets the controller instead of leaving a permanent Stop s
   f.controller.stop();
   assert.equal(f.cancels(), 0);
 });
+
+test('device narration applies the selected speed in both languages and defaults to normal', () => {
+  const f = fixture();
+  for (const language of ['en', 'es']) {
+    f.controller.listen('Recorded recap.', language, 0.75);
+    assert.equal(f.spoken.at(-1).rate, 0.75);
+    assert.equal(f.spoken.at(-1).voice, language === 'en' ? en : es);
+    f.controller.stop();
+  }
+  f.controller.listen('Normal recap.', 'en');
+  assert.equal(f.spoken.at(-1).rate, 1);
+  f.controller.stop();
+});
