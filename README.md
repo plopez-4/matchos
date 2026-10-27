@@ -6,6 +6,10 @@ MatchOS turns synthetic football events into an evidence-backed Catch Me Up reca
 
 Built for Inside the Game: Developer Hackathon. Independent prototype; no sponsorship or endorsement claimed. Club and reference player names identify actors in **fictional match action**, including fictional disciplinary incidents. Pitch replays are schematic, not video or continuous player tracking.
 
+**[Open the live MatchOS demo](https://matchos-judging.victoriousgrass-e3cb5a12.northcentralus.azurecontainerapps.io/)** · **[Fixed test matches](https://matchos-judging.victoriousgrass-e3cb5a12.northcentralus.azurecontainerapps.io/testing.html)** · [Judge walkthrough](docs/hackathon-submission.md#repeatable-judge-walkthrough)
+
+No installation, account or Azure keys are needed to try the hosted app. Share the root link above; a copied `?day=...` URL refers to a particular browser replay. The frontend recovers an inaccessible replay by starting a fresh owned session.
+
 [Current documentation](docs/README.md) · [Submission package](docs/hackathon-submission.md) · [CI](https://github.com/plopez-4/matchos/actions/workflows/ci.yml) · [Patch notes](CHANGELOG.md)
 
 ## What the demo does
@@ -17,6 +21,8 @@ Built for Inside the Game: Developer Hackathon. Independent prototype; no sponso
 - **Sending-off explanations:** recorded player, time and reason replace a pitch animation. A dismissal after full time is explicitly separate from the result and playing numbers.
 - **Bilingual narration:** Automatic uses Azure when connected, with a matching installed device voice when unconfigured; Warm storyteller is the other visible choice. Choose Normal or 0.75× narration speed. Azure clip speed changes locally without another synthesis request. A failed cloud request does not silently switch providers.
 - **Phone and development views:** compact fan layout, a separate evidence/analytics dashboard, and a fixed-case test hub.
+
+[![Catch Me Up with an AI-written recap and inspectable evidence](docs/fan-demo-preview.jpg)](https://matchos-judging.victoriousgrass-e3cb5a12.northcentralus.azurecontainerapps.io/)
 
 ## Core architecture
 
@@ -103,7 +109,7 @@ npm --prefix frontend test
 npm --prefix frontend run build
 ```
 
-The 25 October local release checks passed **597 backend tests and 72 frontend tests**, plus the production frontend build. CI separately checks formatting, credentials, dependencies and the container. Provider unit calls are mocked; automated checks do not establish live AI accuracy or pronunciation quality.
+The 27 October publication audit passed **597 backend tests and 89 frontend tests**, formatting, the production frontend build, the credential scan and the npm/Python dependency advisory checks. The [live judging-access check](docs/judging-access-oct27.json) passed HTTPS, built assets, protected cookies, independent-session isolation and a bilingual AI-authored recap. CI separately checks formatting, credentials, dependencies and the container. Provider unit calls are mocked; automated checks do not establish live AI accuracy or pronunciation quality.
 
 Ten screenshot-questionnaire submissions were reviewed on 25 October. They identified useful clarity issues, including finding Catch Me Up and expecting real video from a replay button. Those findings informed stronger action labels, clearer schematic-replay wording and factual sending-off details. This was screenshot comprehension feedback, not ten hands-on app sessions or evidence of engagement uplift. See [aggregated findings](docs/fan-study-oct24/findings.md).
 
@@ -111,7 +117,7 @@ Earlier [live recap audits](docs/recap-v23-nine-match-review-oct24.md) preserve 
 
 ## Submission status and limits
 
-`main` is the canonical source to clone and submit. There is no confirmed public judging website or final public submission video yet. Publishing this repository does not complete the hackathon portal entry. See [submission materials and remaining work](docs/hackathon-submission.md).
+`main` is the canonical source to clone and submit. The public Azure Container Apps demo is live. A 1:48 working-app video has been edited locally; its public video URL and the completed hackathon portal entry remain outstanding. Publishing this repository does not submit the entry. See [submission materials](docs/hackathon-submission.md) and the [dated publication audit](docs/release-verification-oct27.md).
 
 The prototype uses bounded in-memory replay sessions and one backend worker. It has no real match feed, full-player tracking, production persistence or learned entertainment score. Azure usage is optional and subject to configured budgets, capacity and account billing. See [security controls](docs/security.md) and [deployment preparation](docs/judging-deployment.md).
 

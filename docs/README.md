@@ -1,6 +1,6 @@
 # Current documentation
 
-Updated 25 October 2026. The root [README](../README.md) describes the current setup and source to submit. Feature development is frozen while release verification and submission delivery are completed.
+Updated 27 October 2026. The root [README](../README.md) describes the current setup and source to submit. Feature development is frozen while release verification and submission delivery are completed.
 
 | Topic                                             | Current reference                                                                                                      |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -23,4 +23,4 @@ The [24 October readiness review](publish-readiness.md) and versioned AI audit r
 
 The [five-fan hands-on protocol](fan-evaluation.md) remains distinct from the completed screenshot questionnaire. Do not present questionnaire answers as observed use of the app. The owner tested the computer and phone layouts; broader hands-on testing and a complete live AI acceptance matrix are not claimed.
 
-Private conversations, generated speech auditions, keys and runtime logs stay local. No public judging host or final submission video is claimed. Start from canonical `main`, rather than an older feature branch or screenshot.
+Private conversations, generated speech auditions, keys and runtime logs stay local. The [public judging app](https://matchos-judging.victoriousgrass-e3cb5a12.northcentralus.azurecontainerapps.io/) is live; see the [27 October verification](release-verification-oct27.md). The local 1:48 video still needs a public upload and submission URL. Start from canonical `main`, rather than an older feature branch or screenshot.

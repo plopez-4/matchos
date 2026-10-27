@@ -23,3 +23,6 @@ docs/gemini-matchos-review-package.zip
 # Reproducible speech auditions; scripts and pronunciation data remain tracked
 docs/*player-name-audit/
 docs/*.mp3
+
+# Local video, Word document and source backups are distributed separately.
+deliverables/

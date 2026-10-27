@@ -1,0 +1,17 @@
+{
+  "url": "https://matchos-judging.victoriousgrass-e3cb5a12.northcentralus.azurecontainerapps.io",
+  "scope": "HTTPS access from this machine; browser/phone checks still required",
+  "checks": {
+    "built_fan_app": true,
+    "api_health": true,
+    "production_headers_and_hidden_docs": true,
+    "fresh_cookie_session": true,
+    "replay_and_session_isolation": true,
+    "bilingual_recap": true,
+    "temporary_demo_released": true
+  },
+  "recap_mode": "azure",
+  "recap_fallback_reason": null,
+  "checked_on": "2026-10-27",
+  "application_source": "fcacbc6aa212c199171638ddbaa3b61d2a442914"
+}
