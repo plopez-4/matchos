@@ -8,7 +8,7 @@ Keep API credentials in the backend terminal environment or a private ignored en
 
 Ordinary browser replay and the default seed-7 CLI replay need no shared secret. They create an anonymous cookie session and advance server-generated events. Reads of synthetic matches are public, so a viewer may open a CLI match using `?match=<id>`. Anyone with a match link can view its synthetic events; they cannot advance it without its owner's session.
 
-Use a fresh match ID for a new CLI session, for example `--match-id demo-20261008-a`. A different browser/session cannot take over an existing replay. An expired/restarted session requires a fresh replay. The browser chooses a unique ID when opened without a match query.
+Use a fresh match ID for a new CLI session, for example `--match-id demo-20261008-a`. A different browser/session cannot take over an existing replay. An expired/restarted session requires a fresh replay. The current browser client renews an expired anonymous session once and creates a new owned matchday for a specifically identified shared-session link failure; it does not take over the original replay. The browser chooses a unique ID when opened without a match query.
 
 For trusted custom event feeds/seeds only, generate a random token of at least 32 characters and set `MATCHOS_INGEST_TOKEN` privately in both the backend and simulator terminal environments. Leave it empty otherwise. The browser never receives this token. Trusted feeds still have schema/order/storage checks and cannot modify browser-owned replay IDs.
 
@@ -54,11 +54,11 @@ Use **one API worker**. Storage, sessions, quotas, and caches are process-local 
 4. Production mode serves `frontend/dist` and the API from the same origin, requires HTTPS, uses Secure/HttpOnly/SameSite=Strict cookies, disables API documentation routes, and sets CSP, HSTS, frame/content-type/referrer/permissions headers. Inline styles remain allowed for dynamic kit colors; scripts are restricted to the same origin.
 5. Verify real HTTPS responses/cookies, proxy client-address handling, unauthorized writes, cross-session ownership, quota rejection, and Azure fallback before advertising the public URL. Vite dev/preview and Uvicorn reload are local development tools.
 
-No public deployment was performed by this change. Application controls cannot verify Azure RBAC, leaked keys outside this repository, DNS/TLS configuration, or repository settings. No user accounts or private fan data are stored in the current demo.
+The public Container Apps deployment is documented in [judging deployment](judging-deployment.md), with a [dated access check](judging-access-oct27.json). Application controls cannot verify Azure RBAC, leaked keys outside this repository, DNS/TLS configuration, or repository settings. No user accounts or private fan data are stored in the current demo.
 
 ### Container Apps HTTP ingress
 
-The prepared container can use the explicit `azure-container-apps` proxy mode described in [judging deployment](judging-deployment.md). This mode requires Azure environment metadata and managed HTTP ingress with no directly reachable/additional TCP listener. It accepts the platform-overwritten protocol and only the platform-provided rightmost client IP, validating both. Host/origin checks and production Secure cookies remain enforced. Other environments retain the default proxy behavior; arbitrary forwarded headers are not trusted. This mode has local tests, but real Azure ingress is not yet verified.
+The prepared container can use the explicit `azure-container-apps` proxy mode described in [judging deployment](judging-deployment.md). This mode requires Azure environment metadata and managed HTTP ingress with no directly reachable/additional TCP listener. It accepts the platform-overwritten protocol and only the platform-provided rightmost client IP, validating both. Host/origin checks and production Secure cookies remain enforced. Other environments retain the default proxy behavior; arbitrary forwarded headers are not trusted. This mode has local tests and passed the 27 October public HTTPS/session check. That check is a point-in-time observation, not a continuous availability guarantee.
 
 ### Model provider cooldown
 
@@ -74,7 +74,9 @@ Selection and writing share a bounded deployment cooldown on 429 responses, hono
 
 The initial findings remain in [the dated audit](security-and-code-review.md). Its pre-fix verdict is historical; this document describes the implemented baseline.
 
-## Verification
+## Historical baseline verification
+
+The counts and local checks below describe the original security baseline. For current release checks, see [27 October verification](release-verification-oct27.md).
 
 The baseline passed 63 backend tests and 20 frontend tests, formatting, a production build, dependency consistency, and the current-files/bundle/Git-history secret-pattern check. Both complete full-match scenarios were advanced through the owned replay API. A real localhost HTTP simulator smoke test passed without a shared ingestion token. An isolated production-mode smoke test verified the built frontend, HTTPS controls, headers, cookie setup, hidden docs and replay advancement. Azure calls were mocked or disabled throughout these security checks.
 

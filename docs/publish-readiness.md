@@ -1,6 +1,8 @@
 # MatchOS publication review — 24 October 2026
 
-Historical review. For the 25 October code release, see the [current README](../README.md) and [submission checklist](hackathon-submission.md). Current local checks are 597 backend and 72 frontend tests; the app now has twelve match versions, a fixed-case hub, mobile layouts and recorded red-card explanations. Ten screenshot-questionnaire submissions were reviewed separately from hands-on testing. The delivery gates for public judging access and final video remain open. The historical evidence below does not certify the latest writer.
+Historical review, retained unchanged below for its original evidence. For current hosting, test counts and delivery status, see the [27 October publication audit](release-verification-oct27.md). The deployment-hold statements below are historical.
+
+For the 25 October code release, see the [current README](../README.md) and [submission checklist](hackathon-submission.md). Current local checks are 597 backend and 72 frontend tests; the app now has twelve match versions, a fixed-case hub, mobile layouts and recorded red-card explanations. Ten screenshot-questionnaire submissions were reviewed separately from hands-on testing. The delivery gates for public judging access and final video remain open. The historical evidence below does not certify the latest writer.
 
 Decision: the core prototype is implemented, but the submission is not ready to publish as finished. Freeze features. Finish the evidence, language quality and delivery work below. Deployment remains on hold at the user's request; no public hosting resource or judging URL has been created.
 

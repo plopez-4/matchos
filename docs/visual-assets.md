@@ -17,7 +17,9 @@ The scoreboard compares successful analytics snapshots. A score rise queues a 6-
 
 Reduced-motion mode displays the same announcement without the wipe/zoom movement. Goal text is announced through a polite status region. Polling and Catch Me Up continue while the noninteractive overlay is displayed.
 
-## Validation
+## Historical theme validation
+
+The observations below predate logo removal and describe the original theme check. Current publication uses logo-free captures; see [27 October verification](release-verification-oct27.md).
 
 - 12 frontend tests pass, including scorer detection, first-load suppression, repeated polls, reset/correction behavior and multiple-goal queues. Production build passes.
 - Browser loaded the league mark, stadium photograph and local fonts. Home statistics computed as white and away statistics as red.

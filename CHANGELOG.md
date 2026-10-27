@@ -1,5 +1,11 @@
 # Patch notes
 
+## 27 October — public judging and submission documentation
+
+- Added verified hosted app/test-hub links and current judging instructions; corrected stale deployment, scenario and test-count claims.
+- Reconciled the deployment example with the tested image and explicit managed-ingress metadata. Local deliverables and backups stay outside Git and Docker context.
+- Validation: 597 backend tests, 89 frontend tests, formatting, production build, credential scan, dependency audits and a public HTTPS/session/bilingual-AI access check passed. The video public upload and actual portal entry remain outstanding.
+
 ## 26 October — animated recorded attack direction
 
 - Added staggered moving chevrons behind the recorded action, flowing toward the acting team's attacking goal while keeping the existing labels, area shading and pitch layout.

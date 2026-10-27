@@ -1,48 +1,47 @@
-# Architecture
+# MatchOS architecture
 
-## Flow
+Current application path, checked against the source on 27 October 2026.
 
-Synthetic simulator → FastAPI validation → event repository → deterministic analytics → story graph → evidence verifier/explanation service → React.
+## End-to-end flow
 
-Today: in-memory repository, count and completed-window shot analytics, high recovery analytics, progressive pass analytics, recovery-to-shot sequences, derived support graph with metric-window nodes, deterministic Catch Me Up (casual and advanced audiences), optional Azure OpenAI story selection, and two-second frontend polling. These are reproducible foundations, not a full commercial tactical engine.
+Synthetic events → FastAPI validation and owned replay storage → deterministic analytics → Match Story Graph → verified story selection and audience plan → bilingual narrative generation and review → fan recap, evidence, schematic replay and optional speech.
 
-## Target responsibilities
+The backend calculates facts before AI writes prose. Each story retains source event IDs and rule versions. Model review is fallible; failed validation/review or unavailable capacity returns labeled deterministic wording. The pitch is a visual explanation of recorded actions, not an independent source of tracking data.
 
-- Ingestion: version/source validation, event ID deduplication and sequence conflicts. Schema v1.1 supports optional possession_id, end coordinates (end_x, end_y), outcome, and related_event_id. Ordered append is currently required; reject new events below the match cursor.
-- Repository: PostgreSQL with unique (match_id,event_id) and (match_id,sequence), migrations and durable graph storage. Add a repository interface before persistence.
-- Analytics: pure functions over ordered events, explicit windows/units/sample thresholds and versioned rules.
-  - Live shot statistics return the latest completed comparison; stories and their graph reconstruct all covered completed comparisons. Each story keeps its original window-end availability sequence, so a viewer cursor excludes acknowledged spells. Incomplete comparisons and missing baselines are not backfilled.
-  - `shot-frequency-v1`: completed five-minute windows $[start, end)$, threshold $\ge 3$ shots, shift $\ge 2$ shots vs. prior window.
-  - `high-recovery-v1`: completed five-minute windows $[start, end)$, recoveries in opponent's defensive third (Home $x \ge 70$, Away $x \le 30$), threshold $\ge 3$ recoveries.
-  - `progressive-pass-v1`: completed five-minute windows $[start, end)$, forward gain $\ge 15.0$ normalized units towards opponent's goal line ($end\_x - x \ge 15$ for Home, $x - end\_x \ge 15$ for Away), threshold $\ge 3$ passes.
-  - `recovery-shot-v1`: recovery followed by shot by same team in same non-null possession and period within $\le 30$ recorded match seconds without opposition interruption.
-- Match Story Graph: typed `event`, `metric_window`, and `story` nodes; `supports` edges connecting events to metric windows and metric windows/events to stories. Store evidence IDs and rule versions. Temporal association is evidentiary support, not tactical causation.
-- AI: supplied facts → evidence verification → audience-aware phrasing → structured output validation. Reject unknown IDs/unsupported claims and fall back to deterministic text on failure. Store model/prompt version and latency.
-- Viewer: per-match cursor and preferences; starter cursor lives only in React memory and resets on reload.
+## Events and concurrent replay
 
-## Event semantics
+The shared [fixture manifest](../backend/app/data/demo_fixtures.json) defines `united-city-90`, `palace-newcastle-90`, and `brighton-fulham-90`. [Authored versions](../backend/app/data/match_variants.json) supply four alternatives per fixture, twelve total. New matchday independently selects one per fixture, giving 64 combinations. The `/testing.html` hub fixes a version for repeatable testing. Retired placeholder/short feeds are not public selectable scenarios.
 
-sequence is unique ordering within a match, not an arrival timestamp. match_second is elapsed match clock including stoppage; period distinguishes halves. New arrivals cannot move the clock backwards. x/y and optional end_x/end_y are 0..100 stadium coordinates; the scripted scenarios assume Home attacks x=100 and Away x=0. Goals are separate events linked to goal-producing shots; shot counts count only shot events. If future provider feeds allow late arrivals, replace sequence catch-up with an ingestion cursor before accepting them.
+`backend/app/matchday.py` generates all three streams and ranks observed activity. `full_match.py` adapts the same fixtures for single-match/CLI use; `simulation.py` exposes the current public catalog. Names are dated reference identities with authored demo roles; actions and performances are fictional. Active teams begin with eleven players. Substitutions and in-match dismissals affect subsequent actions; a post-match card does not retrospectively change the score or playing numbers.
 
-The simulator provides sparse, plausible highlights fixtures across multiple selectable scenarios rather than a full touch-by-touch match model. The seed varies fictional team-specific players; timing/action structure stays fixed for reproducible expected metrics. Graphs are derived snapshots. Story generation reconstructs completed shot comparisons across the observed history, so a qualifying spell remains available after the live window moves on. Durable storage, fuller spatial/possession simulation and provider normalization remain upcoming work.
+The main and development matchday views use one shared clock advancing in 30-second ticks through a 93-minute authored timeline. Playback is driven by the open browser, with sequential acknowledged requests and safe retries. Normal/Fast are accelerated demo pacing, not real-time feed claims. Catch Me Up and narration pause the three matches for a snapshot.
 
-## Deployment limits
+## Deterministic analytics and graph
 
-Data resets on restart. Use one process/worker. Replay writes have session ownership, arbitrary ingestion requires a backend token, and requests/storage/provider use are bounded. Production mode requires HTTPS, serves the built frontend and sets security headers. There is no shared durable storage or account system. See [security setup](security.md) for limits and deployment verification.
+- Team counts cover recorded passes, recoveries, shots and goals. Goals are separate events with explicit shot references.
+- Shot-frequency stories compare completed five-minute windows: at least three shots in the current window and an increase of at least two over the previous window, with the required baseline coverage.
+- High-recovery stories require at least three recoveries in the opponent's defensive third in a completed window: home `x >= 70`, away `x <= 30`.
+- Progressive-pass stories require at least three completed passes gaining at least 15 normalized units toward the opponent's goal in a completed window.
+- Recovery-to-shot sequences require the same team, non-null possession and period, within 30 recorded seconds, without opposition interruption.
+- Ten-minute player contribution windows add shot creation, shooting and forward-passing stories; see [player impact](player-impact.md) for thresholds and explicit pass-to-shot links.
+- The graph contains `event`, `metric_window` and `story` nodes, joined by typed `supports` edges. Mathematical support and temporal sequence do not establish tactical causation.
 
-## Implemented frontend and AI path
+Coordinates are normalized 0–100 stadium coordinates, not measured metres. This authored feed keeps home attacking toward `x=100` and away toward `x=0` in both halves. A real provider adapter would need explicit direction/coverage normalization. Event `sequence` is match ordering, not an arrival timestamp. Late-arriving provider data would need an ingestion-cursor design before acceptance.
 
-The Azure selector retrieves trusted story candidates and selects verified IDs. The shared `story-plan-v1` binds its goals and strongest selected qualifying change, with original windows, rule versions and event IDs, to the visible recap. An optional writer/reviewer pair receives that plan alongside bounded observed facts and recent actions on explicit Catch Me Up requests. Missing required selected-story references trigger fallback to bilingual plan-based templates. The evidence drawer and narration consume the same plan; model review of prose meaning remains fallible. The UI leads with that paragraph and keeps the analytical sections and trace collapsed. Unknown references and failed model reviews fall back to rule-based wording; semantic review remains fallible. This is application-level orchestration, not hosted Agent Service deployment. A generation-aware catch-up reducer and abortable requests preserve failure/reset behavior. See [fan narrative behavior and limits](fan-narrative.md).
+## Grounded AI and presentation
 
-All reads and Catch Me Up use demo-match or a validated ?match=<id> query. Fresh simulator IDs allow replay without restarting the Azure-enabled process. Viewer cursors remain in React memory. Goal takeovers compare analytics snapshots and use shared kit colors; first-load baselines, unchanged polls and rollback do not create new goals. Current graph edges are supports only; preceded-by remains a future idea. Coordinates are normalized 0..100, not measured metres.
+The optional Azure selector can select only supplied verified candidate IDs. A shared story plan binds selected goals and qualifying changes to their original evidence. The writer receives structured observed facts, chronology and that plan, rather than prewritten commentary lines. A separate model review and local checks can trigger a bounded revision or a complete deterministic fallback. Rejected prose is replaced as a whole.
 
-## Browser-controlled replay and scenario catalog
+Casual/Analyst and English/Spanish share the observed snapshot and evidence while adapting presentation. Viewer cursors advance only after a successful catch-up response and remain browser-memory state. The evidence drawer and narration refer to the displayed recap; `narrative_id` lets the backend resolve cached AI text without accepting arbitrary browser speech text. See [fan narrative](fan-narrative.md) and [API contract](api.md).
 
-The scenario catalog lives in `backend/app/simulation.py`; `simulator/run.py` reuses it via `--scenario` CLI parameter. Available scenarios:
+`PitchReplay.jsx` follows a selected recorded move, preserving possession/team/period boundaries and validated shot-to-goal links. It shows involved players, recorded locations, a ball trail and action captions. Completed pass destinations or action origins drive field-area/direction labels. Brief directional pulses pause with replay and respect reduced-motion settings. Intercepted passes do not infer the next possessing team or a destination highlight. Sending-off details replace an invented pitch sequence.
 
-- `pressure-builds`: Home attacking momentum with high recoveries and progressive passes culminating in a late 1–0 goal (33 events).
-- `comeback`: Early Home goal followed by Away defensive recoveries, rapid counter-attack transition shot, and equalizer (34 events, 1–1).
-- `quiet-match`: Midfield restraint demonstrating that Catch Me Up reports no false momentum when thresholds are unmet (30 events, 0–0).
-- `legacy-default`: Preserved baseline 10-minute fixture for backward compatibility (30 events, 1–0).
+Match Radar ranks the three already observed streams using deterministic activity/context rules. It is not a learning algorithm, outcome prediction or measured entertainment score. An observed post-match card is informational and does not revive a live hot-match recommendation.
 
-The read-only catalog/fixture endpoints remain available. Browser playback establishes an HttpOnly cookie session and uses `POST /api/replay/start` to allocate a bounded replay. The cancellable playback loop sends only a sequence to `POST /api/matches/{id}/advance`; the backend ingests its own canonical event after verifying ownership and order. The client retains the last acknowledged cursor for retries. React remounts match-specific state on reset, clearing summaries, timeline highlights and score celebrations while preserving the chosen scenario. Playback requires an open page and stores no background job. Read access to synthetic matches remains public by design.
+## Hosting and trust boundary
+
+The public deployment serves the Vite build and FastAPI API from the same HTTPS origin on Azure Container Apps. One worker and at most one replica preserve process-local storage, quotas and caches. Private runtime secrets configure Azure OpenAI and Speech; neither keys nor an ingestion credential belong in the browser, image or repository.
+
+Reads expose synthetic match data. Replay advancement, catch-up and narration retain owner-session checks. The browser renews an expired anonymous session once; a specifically identified foreign-matchday link starts a new owned group rather than transferring ownership. A fresh root or test-hub link is the appropriate shareable entry point.
+
+Cold starts/restarts clear in-memory replay state and counters. The prototype has no durable shared storage, real official feed, account system or full-player tracking. See [security](security.md), [hosted deployment](judging-deployment.md) and the [dated publication audit](release-verification-oct27.md).

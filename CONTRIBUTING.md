@@ -22,7 +22,7 @@ Run `format` before committing; `format:check` reports differences without editi
 
 `main` is the canonical release branch; `develop` is the integration branch. Branch from the latest integrated code using `feature/<issue>-<name>` or `fix/<issue>-<name>`. Link a task and request a teammate's review when available. Release through a pull request with passing Backend/Frontend CI, then tag the actual version. Keep develop synchronized after releases. Preserve history; older branches are not separate supported applications. Branch protection and required reviews must be honored.
 
-Before review, run backend tests, frontend tests and the frontend build. Include demo steps and limitations; update docs/contracts when behavior changes. Do not commit secrets. Contract changes require agreement between all three owners.
+Before review, run backend tests, frontend tests and the frontend build. Include demo steps and limitations; update docs/contracts when behavior changes. Do not commit secrets. Contract changes require maintainer agreement.
 
 Every factual story must cite stored event IDs and its deterministic rule version. Analytics must be reproducible with documented units/windows. AI may phrase supplied facts; it must not invent metrics or evidence.
 

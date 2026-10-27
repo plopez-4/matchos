@@ -24,9 +24,9 @@ All writes require JSON and `X-MatchOS-Client: replay` (or a trusted ingestion c
 
 Expired sessions require reloading and starting a fresh replay. Capacity failures use 429/503; oversized bodies use 413. See [security setup](security.md) for exact quotas and production configuration.
 
-Full-match scenarios `united-city-90` and `united-hull-90` use schema 1.2. Catalog entries include fictional rosters and scenario style settings. Events add `team_name`, `player_name`, `recipient_player_id` and `recipient_player_name`. Full-feed passes require both destination coordinates, a different same-team intended recipient, and `complete`/`intercepted` outcome. New types are `substitution`, `half_end`, `match_end`; existing 1.0/1.1 fixtures remain supported. Catch-up adds optional `match_briefing` with readable rule-based text, evidence IDs and `full-feed-briefing-v1` rule version. Clock and coordinate conventions are documented in [full-match data](full-match-data.md).
+The three current full-match scenarios listed above use schema 1.2. Catalog entries include dated reference roster identities, authored demo roles and synthetic-data/version metadata. Events add `team_name`, `player_name`, `recipient_player_id` and `recipient_player_name`. Full-feed passes require both destination coordinates, a different same-team intended recipient, and `complete`/`intercepted` outcome. New types are `substitution`, `half_end`, `match_end`; existing 1.0/1.1 fixtures remain supported. Catch-up adds optional `match_briefing` with readable rule-based text, evidence IDs and `full-feed-briefing-v1` rule version. Clock and coordinate conventions are documented in [full-match data](full-match-data.md).
 
-Base: `http://localhost:8000/api`. Interactive OpenAPI: `/docs`. Event schema: [match-event.schema.json](../schemas/match-event.schema.json). Pydantic model is authoritative; export script regenerates the shared contract.
+Hosted base: `https://matchos-judging.victoriousgrass-e3cb5a12.northcentralus.azurecontainerapps.io/api`. Local base: `http://localhost:8000/api`. Interactive OpenAPI `/docs` is available locally and intentionally disabled in production. Event schema: [match-event.schema.json](../schemas/match-event.schema.json). Pydantic model is authoritative; export script regenerates the shared contract.
 
 | Method | Path                    | Behavior                                                                       |
 | ------ | ----------------------- | ------------------------------------------------------------------------------ |
@@ -72,15 +72,10 @@ Catch-up body: `{"since_sequence":0,"audience":"casual"}`. Audience supports `ca
 
 ## Replay and scenario catalog
 
-- `GET /api/replay/scenarios`: Returns an array of scenario metadata:
-  - `id`: Stable identifier (`pressure-builds`, `comeback`, `quiet-match`, `legacy-default`).
-  - `name`: Human-readable title.
-  - `description`: Spoiler-free preview (final scores are never revealed).
-  - `event_count`: Total events in the fixture.
-  - `duration_seconds`: Match duration (typically 600 seconds / 10 minutes).
-  - `scenario_version`: `scenario-v1`.
-- `GET /api/replay/scenario?match_id=<id>&scenario_id=<scenario_id>`: Returns the read-only event array without writing to storage. Omitted `scenario_id` defaults to `legacy-default` for backward compatibility. Events pass through normal `POST /events` validation during browser or CLI playback.
-- Playback is browser-driven and sequential. Cancellation and speed changes are safe and idempotent. Reset creates a fresh match ID and URL while preserving the chosen scenario.
+- `GET /api/replay/scenarios` returns the current three fixtures: `united-city-90`, `palace-newcastle-90`, and `brighton-fulham-90`. Each entry includes `id`, `name`, spoiler-free `description`, `event_count`, `duration_seconds`, `scenario_version`, `data_origin: synthetic`, `version_count: 4`, and reference team/player metadata.
+- `GET /api/replay/scenario?match_id=<id>&scenario_id=<scenario_id>` returns a read-only event array without writing to storage. The default is `united-city-90`. Retired placeholder/short scenarios are not selectable public replays.
+- The main fan and development matchday experiences use the shared `/api/matchdays` routes. All three fixture streams advance together in 30-second clock steps, through a 93-minute authored timeline. New matchday selects one of four versions independently per fixture; the fixed test hub preserves the chosen version.
+- The owner-only single-replay `/api/replay/start` and `/api/matches/{id}/advance` routes remain available for CLI/integration use. Browser matchday cancellation and retries retain the last acknowledged tick; they do not authorize another session to advance an existing group.
 
 ## Review compatibility corrections
 
